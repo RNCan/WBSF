@@ -26,12 +26,12 @@
 #include <locale>
 #include <mutex>
 
-#include "Basic/WeatherStation.h"
-#include "Basic/Evapotranspiration.h"
-#include "Basic/WeatherCorrection.h"
+#include "WeatherBased/WeatherStation.h"
+#include "WeatherBased/Evapotranspiration.h"
+#include "WeatherBased/WeatherCorrection.h"
 
 //#include "WeatherBasedSimulationString.h"
-#include "OpenMP.h"
+#include "Basic/OpenMP.h"
 
 
 using namespace std;

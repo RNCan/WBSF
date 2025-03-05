@@ -87,7 +87,7 @@
 	"Basic/Statistic.h"
 	"Basic/Mtrx.h"
 
-1728553660 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilmath.h
+1741174658 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilmath.h
 	<random>
 	"basic/UtilStd.h"
 
@@ -117,16 +117,16 @@
 	<boost/serialization/access.hpp>
 	<boost\multi_array.hpp>
 
-1728516676 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdefine.h
+1741176392 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdefine.h
 	<vector>
 	<array>
-	<cassert>
+	<crtdbg.h>
 	<bitset>
 	<boost\serialization\array.hpp>
 	<boost\serialization\bitset.hpp>
+	"Basic/ERMsg.h"
 	"Basic/UtilTime.h"
 	"Basic/Statistic.h"
-	"External/ERMsg/ERMsg.h"
 
 1728382443 e:\project(githubdesktop)\wbsfmultiplatform\src\external\csv.hpp
 	<algorithm>
@@ -318,7 +318,7 @@
 	"Basic/UtilStd.h"
 	"Basic/ERMsg.h"
 
-1728514109 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\location.h
+1741189697 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\location.h
 	<array>
 	<boost\serialization\access.hpp>
 	<unordered_map>
@@ -763,4 +763,12 @@
 	"Basic/ERMsg.h"
 	"Basic/UtilTime.h"
 	"Basic/Statistic.h"
+
+1741189637 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weathercorrection.cpp
+	"WeatherBased/WeatherCorrection.h"
+
+1741189621 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weathercorrection.h
+	"Basic/Location.h"
+	"Basic/Statistic.h"
+	"WeatherBased/WeatherDefine.h"
 

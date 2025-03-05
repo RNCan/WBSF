@@ -12,8 +12,9 @@
 #include "boost\array.hpp"
 #include "boost\serialization\access.hpp"
 
-#include "Basic/WeatherDefine.h"
+
 #include "Basic/Callback.h"
+#include "WeatherBased/WeatherDefine.h"
 
 namespace WBSF
 {

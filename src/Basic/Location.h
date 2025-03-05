@@ -312,9 +312,10 @@ public:
 
 protected:
 
-    bool m_bCase;
     std::string m_SSI;
     std::string m_value;
+    bool m_bCase;
+
 };
 
 

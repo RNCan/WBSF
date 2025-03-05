@@ -1,7 +1,7 @@
 //******************************************************************************
 //  Project:		Weather-based simulation framework (WBSF)
 //	Programmer:     Rémi Saint-Amant
-// 
+//
 //  It under the terms of the GNU General Public License as published by
 //     the Free Software Foundation
 //  It is provided "as is" without express or implied warranty.
@@ -10,8 +10,9 @@
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 // 15-09-2008	Rémi Saint-Amant	Created from old file
 //******************************************************************************
-#include "stdafx.h"
-#include "Basic/WeatherCorrection.h"
+
+
+#include "WeatherBased/WeatherCorrection.h"
 
 
 namespace WBSF

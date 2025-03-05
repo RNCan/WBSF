@@ -14,11 +14,12 @@
 #include <array>
 #include <memory>
 
-#include "basic/ERMsg.h"
-#include "Basic/WeatherDefine.h"
+#include "Basic/ERMsg.h"
 #include "Basic/Location.h"
-//#include "Basic/WeatherDataSection.h"
 #include "Basic/Statistic.h"
+#include "WeatherBased/WeatherDataSection.h"
+#include "WeatherBased/WeatherDefine.h"
+
 
 struct IAgent;
 
@@ -1034,7 +1035,7 @@ namespace WBSF
 
 		void CreateYears(const CTPeriod& p)
 		{
-			CreateYears(p.Begin().GetYear(), p.GetNbYears());
+			CreateYears(p.begin().GetYear(), p.GetNbYears());
 		}
 
 		void CreateYears(int firstYear, size_t nbYears)
@@ -1117,7 +1118,7 @@ namespace WBSF
 		int GetFirstYear()const { return empty() ? YEAR_NOT_INIT : begin()->first; }
 		int GetLastYear()const { return empty() ? YEAR_NOT_INIT : rbegin()->first; }
 		CTPeriod GetEntireTPeriod()const { return GetEntireTPeriod(GetTM()); }
-		CTPeriod GetEntireTPeriod(CTM TM)const { return empty() ? CTPeriod() : CTPeriod(CTRef(GetFirstYear(), FIRST_MONTH, FIRST_DAY, FIRST_HOUR, TM), CTRef(GetLastYear(), LAST_MONTH, LAST_DAY, LAST_HOUR, TM)); }
+		CTPeriod GetEntireTPeriod(CTM TM)const { return empty() ? CTPeriod() : CTPeriod(CTRef(GetFirstYear(), JANUARY, DAY_01, 0, TM), CTRef(GetLastYear(), DECEMBER, DAY_31, 23, TM)); }
 		void SetHourly(bool bHourly) { m_bHourly = bHourly; ManageHourlyData(); }
 		virtual bool IsHourly()const { return m_bHourly; }
 		bool IsDaily()const { return !m_bHourly; }
@@ -1266,9 +1267,9 @@ namespace WBSF
 
 		CWeatherYears& me = *this;
 		return
-			(ref.GetType() == CTRef::HOURLY) ? (CDataInterface&)me[ref.GetYear()][ref.GetMonth()][ref.GetDay()][ref.GetHour()] :
-			(ref.GetType() == CTRef::DAILY) ? (CDataInterface&)me[ref.GetYear()][ref.GetMonth()][ref.GetDay()] :
-			(ref.GetType() == CTRef::MONTHLY) ? (CDataInterface&)me[ref.GetYear()][ref.GetMonth()] : (CDataInterface&)me[ref.GetYear()];
+			(ref.TM().Type() == CTM::HOURLY) ? (CDataInterface&)me[ref.GetYear()][ref.GetMonth()][ref.GetDay()][ref.GetHour()] :
+			(ref.TM().Type() == CTM::DAILY) ? (CDataInterface&)me[ref.GetYear()][ref.GetMonth()][ref.GetDay()] :
+			(ref.TM().Type() == CTM::MONTHLY) ? (CDataInterface&)me[ref.GetYear()][ref.GetMonth()] : (CDataInterface&)me[ref.GetYear()];
 	}
 
 	inline const CHourlyData& CWeatherYears::GetHour(CTRef ref)const { const CWeatherYears& me = *this; return me[ref.GetYear()][ref.GetMonth()][ref.GetDay()][ref.GetHour()]; }
@@ -1426,44 +1427,44 @@ namespace WBSF
 
 
 
-namespace zen
-{
+//namespace zen
+//{
 
-	template <> inline
-		void writeStruc(const WBSF::CWeatherStation& station, XmlElement& output)
-	{
-		//save parent
-		writeStruc((const WBSF::CLocation&)station, output);
-	}
-
-	template <> inline
-		bool readStruc(const XmlElement& input, WBSF::CWeatherStation& station)
-	{
-		readStruc(input, (WBSF::CLocation&)station);
-		return true;
-	}
-
-
-	template <> inline
-		void writeStruc(const WBSF::CWeatherStationVector& in, XmlElement& output)
-	{
-		for (WBSF::CWeatherStationVector::const_iterator it = in.begin(); it != in.end(); it++)
-			writeStruc(*it, output.addChild("Location"));
-	}
-
-	template <> inline
-		bool readStruc(const XmlElement& input, WBSF::CWeatherStationVector& out)
-	{
-		auto test = input.getChildren("Location");
-
-		out.resize(std::distance(test.first, test.second));
-		int i = 0;
-		for (XmlElement::ChildIterConst2 it = test.first; it != test.second; it++, i++)
-		{
-			readStruc(*it, out.at(i));
-		}
-
-		return true;
-	}
-}//namespace zen
+//	template <> inline
+//		void writeStruc(const WBSF::CWeatherStation& station, XmlElement& output)
+//	{
+//		//save parent
+//		writeStruc((const WBSF::CLocation&)station, output);
+//	}
+//
+//	template <> inline
+//		bool readStruc(const XmlElement& input, WBSF::CWeatherStation& station)
+//	{
+//		readStruc(input, (WBSF::CLocation&)station);
+//		return true;
+//	}
+//
+//
+//	template <> inline
+//		void writeStruc(const WBSF::CWeatherStationVector& in, XmlElement& output)
+//	{
+//		for (WBSF::CWeatherStationVector::const_iterator it = in.begin(); it != in.end(); it++)
+//			writeStruc(*it, output.addChild("Location"));
+//	}
+//
+//	template <> inline
+//		bool readStruc(const XmlElement& input, WBSF::CWeatherStationVector& out)
+//	{
+//		auto test = input.getChildren("Location");
+//
+//		out.resize(std::distance(test.first, test.second));
+//		int i = 0;
+//		for (XmlElement::ChildIterConst2 it = test.first; it != test.second; it++, i++)
+//		{
+//			readStruc(*it, out.at(i));
+//		}
+//
+//		return true;
+//	}
+//}//namespace zen
 
