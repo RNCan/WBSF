@@ -18,13 +18,15 @@
 // 20/11/2003	Rémi Saint-Amant  Initiale Version
 //****************************************************************************
 
+#include "Statistic.h"
+
+
 #include <cmath>
 #include <float.h>
 #include <algorithm>
+
 #include <boost/math/distributions/normal.hpp>
 
-
-#include "basic/Statistic.h"
 #include "basic/UtilMath.h"
 //#include "WeatherBasedSimulationString.h"
 

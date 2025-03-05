@@ -8,10 +8,11 @@
 //******************************************************************************
 #pragma once
 
-#include <assert.h>
+#include <cassert>
 //#include <Windows.h>
 #include <vector>
 #include <array>
+#include <string>
 //#include "Basic/UtilStd.h"
 
 namespace WBSF
@@ -162,7 +163,7 @@ protected:
     double m_sum2;
     double m_hightest;
 
-    
+
     //static const char* TITLE[NB_STATXY_TYPE_EX];
     static std::vector<std::string> TITLE;
 };

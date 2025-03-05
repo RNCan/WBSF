@@ -10,22 +10,30 @@
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 //******************************************************************************
 
-
+#include "UtilStd.h"
 
 #include <boost/tokenizer.hpp>
 #include <boost/algorithm/string.hpp>
-#include <boost/filesystem/path.hpp>
-#include <boost/filesystem/operations.hpp>
+//#include <boost/filesystem/path.hpp>
+//#include <boost/filesystem/operations.hpp>
 #include <boost/crc.hpp>
-#include <stdio.h>
-#include <stdexcept>
-#include <stdarg.h>
-#include "basic/UtilStd.h"
+//#include <boost/locale.hpp>
 
-#if _MSC_VER
+#include <filesystem>
+#include <cstdio>
+#include <stdexcept>
+#include <cmath>
+
+
+
+
+
+#if _WIN32
+#if !defined (NOMINMAX)
 #define NOMINMAX
+#endif
 #include <windows.h>
-#include <processthreadsapi.h>
+//#include <processthreadsapi.h>
 #endif
 
 using namespace std;
@@ -44,25 +52,25 @@ using boost::escaped_list_separator;
 //}
 
 // Return path when appended to a_From will resolve to same as a_To
-boost::filesystem::path make_relative(boost::filesystem::path a_From, boost::filesystem::path a_To)
+std::filesystem::path make_relative(std::filesystem::path a_From, std::filesystem::path a_To)
 {
-    boost::filesystem::path ret;
+    std::filesystem::path ret;
 
 
-    a_From = boost::filesystem::absolute(a_From);
-    a_To = boost::filesystem::absolute(a_To);
-    //boost::filesystem::path ret;
-    boost::filesystem::path::const_iterator itrFrom(a_From.begin()), itrTo(a_To.begin());
+    a_From = std::filesystem::absolute(a_From);
+    a_To = std::filesystem::absolute(a_To);
+    //std::filesystem::path ret;
+    std::filesystem::path::const_iterator itrFrom(a_From.begin()), itrTo(a_To.begin());
     // Find common base
-    for (boost::filesystem::path::const_iterator toEnd(a_To.end()), fromEnd(a_From.end()); itrFrom != fromEnd && itrTo != toEnd && *itrFrom == *itrTo; ++itrFrom, ++itrTo);
+    for (std::filesystem::path::const_iterator toEnd(a_To.end()), fromEnd(a_From.end()); itrFrom != fromEnd && itrTo != toEnd && *itrFrom == *itrTo; ++itrFrom, ++itrTo);
     // Navigate backwards in directory to reach previously found base
-    for (boost::filesystem::path::const_iterator fromEnd(a_From.end()); itrFrom != fromEnd; ++itrFrom)
+    for (std::filesystem::path::const_iterator fromEnd(a_From.end()); itrFrom != fromEnd; ++itrFrom)
     {
         if ((*itrFrom) != ".")
             ret /= "..";
     }
     // Now navigate down the directory branch
-    //ret.append(itrTo, a_To.end(), boost::filesystem::path::codecvt());
+    //ret.append(itrTo, a_To.end(), std::filesystem::path::codecvt());
 
     auto pp = std::mismatch(a_From.begin(), a_From.end(), a_To.begin());
     for(auto iter = pp.second; iter != a_To.end(); ++iter)
@@ -76,35 +84,35 @@ boost::filesystem::path make_relative(boost::filesystem::path a_From, boost::fil
 namespace WBSF
 {
 
-    bool GDALStyleProgressBar(double dfComplete)
-    {
-        const int nThisTick =
-            std::min(40, std::max(0, static_cast<int>(dfComplete * 40.0)));
+bool GDALStyleProgressBar(double dfComplete)
+{
+    const int nThisTick =
+        std::min(40, std::max(0, static_cast<int>(dfComplete * 40.0)));
 
-        // Have we started a new progress run?
-        static int nLastTick = -1;
-        if (nThisTick < nLastTick && nLastTick >= 39)
-            nLastTick = -1;
+    // Have we started a new progress run?
+    static int nLastTick = -1;
+    if (nThisTick < nLastTick && nLastTick >= 39)
+        nLastTick = -1;
 
-        if (nThisTick <= nLastTick)
-            return true;
-
-        while (nThisTick > nLastTick)
-        {
-            ++nLastTick;
-            if (nLastTick % 4 == 0)
-                fprintf(stdout, "%d", (nLastTick / 4) * 10);
-            else
-                fprintf(stdout, ".");
-        }
-
-        if (nThisTick == 40)
-            fprintf(stdout, " - done.\n");
-        else
-            fflush(stdout);
-
+    if (nThisTick <= nLastTick)
         return true;
+
+    while (nThisTick > nLastTick)
+    {
+        ++nLastTick;
+        if (nLastTick % 4 == 0)
+            fprintf(stdout, "%d", (nLastTick / 4) * 10);
+        else
+            fprintf(stdout, ".");
     }
+
+    if (nThisTick == 40)
+        fprintf(stdout, " - done.\n");
+    else
+        fflush(stdout);
+
+    return true;
+}
 //	const char STRVMISS[] = "VMiss";
 //	const char STRDEFAULT[] = "Default";
 //
@@ -244,8 +252,8 @@ ERMsg RenameDir(const std::string& pathIn1, const std::string& pathIn2)
 //	{
 //		ERMsg msg;
 //
-//		StringVector errors(str.c_str(), sep);
-//		for (StringVector::const_iterator it = errors.begin(); it != errors.end(); it++)
+//		std::vector<std::string> errors(str.c_str(), sep);
+//		for (std::vector<std::string>::const_iterator it = errors.begin(); it != errors.end(); it++)
 //			msg.ajoute(*it);
 //
 //		return msg;
@@ -411,85 +419,89 @@ ERMsg RenameDir(const std::string& pathIn1, const std::string& pathIn2)
 //	 }
 //	 */
 //
-std::string GetRelativePath(const std::string& sBasePath, const std::string& sFilePath)
+std::filesystem::path GetRelativePath(const std::filesystem::path& base_path, const std::filesystem::path& file_path)
 {
-    std::string path;
-    if (!sFilePath.empty())
+    std::filesystem::path rel_path;
+    if (!file_path.empty())
     {
         //std::wstring wBasePath(UTF16(sBasePath));
         //std::wstring wFilePath(UTF16(sFilePath));
-        boost::filesystem::path basePath(sBasePath);
-        boost::filesystem::path filePath(sFilePath);
-        if (basePath.root_name() == filePath.root_name())
+        //std::filesystem::path basePath(sBasePath);
+        //std::filesystem::path filePath(sFilePath);
+        if (base_path.root_name() == file_path.root_name())
         {
-            boost::filesystem::path relPath = make_relative(basePath, filePath);
+            rel_path = make_relative(base_path, file_path);
 
-            std::string wpath = relPath.string();
+            //std::string wpath = relPath.string();
             //path = UTF8(wpath);
-            if (!path.empty() && path.back() == '.')
-            {
-                //remove dot at the end
-                path.pop_back();
-            }
+            //if (!rel_path.empty() && rel_path.string().back() == '.')
+            //{
+            //    //remove dot at the end
+            //    rel_path.pop_back();
+            //}
 
-            std::replace(path.begin(), path.end(), '/', '\\');
+            //std::replace(path.begin(), path.end(), '\\', '/');
 
-            if (path.empty())
-                path = ".\\";
+            rel_path  = rel_path.parent_path();
+            if (rel_path .empty())
+                rel_path  = "./";
         }
         else
         {
-            path = sFilePath;
+            rel_path = file_path;
         }
     }
 
-    return path;
+    return rel_path;
 }
 
 #ifdef MSVC
 #define realpath( x, yfilename , audit_log );
 #endif
 
-std::string SimplifyFilePath(const std::string& filePath)
+std::filesystem::path SimplifyFilePath(const std::filesystem::path& file_path)
 {
 
-    std::string tmp;
-    tmp.resize(255);
+    //std::string tmp;
+    //tmp.resize(255);
     //_fullpath(&(tmp[0]), filePath.c_str(), 255);
     //realpath filePath.c_str(), tmp.data());
-    tmp.resize(strlen(tmp.c_str()));
+    //tmp.resize(strlen(tmp.c_str()));
 
 
-    return tmp;
+    //return tmp;
+
+    std::filesystem::path canonical_path = std::filesystem::weakly_canonical(file_path);
+    return canonical_path.make_preferred();
 }
 
-std::string GetAbsolutePath(const std::string& sBasePath, const std::string& sFilePath)
+std::filesystem::path GetAbsolutePath(const std::filesystem::path& base_path, const std::filesystem::path& file_path)
 {
-    std::string path;
-    if (!sFilePath.empty())
+    std::filesystem::path abs_path;
+    if (!file_path.empty())
     {
         //std::wstring wBasePath(UTF16(sBasePath));
         //std::wstring wFilePath(UTF16(sFilePath));
-        boost::filesystem::path basePath(sBasePath);
-        boost::filesystem::path filePath(sFilePath);
-        if (filePath.is_relative())
+        //std::filesystem::path basePath(sBasePath);
+        //std::filesystem::path filePath(sFilePath);
+        if (file_path.is_relative())
         {
-            boost::system::error_code ec;
-            boost::filesystem::path absPath = boost::filesystem::absolute(filePath, basePath);
-
-
-            path = SimplifyFilePath(absPath.string());
-            std::replace(path.begin(), path.end(), '/', '\\');
-            assert(!path.empty());
+            //std::system::error_code ec;
+            //std::filesystem::path abs_path = std::filesystem::absolute(file_path, base_path);
+            //std::filesystem::path abs_path = std::filesystem::absolute(file_path, );
+            abs_path = file_path/base_path;
+            abs_path = SimplifyFilePath(abs_path);
+            //std::replace(path.begin(), path.end(), '/', '\\');
+            assert(!abs_path.empty());
         }
         else
         {
-            path = sFilePath;
+            abs_path = file_path;
         }
 
     }
 
-    return path;
+    return abs_path;
 }
 
 //
@@ -570,8 +582,9 @@ std::string GetAbsolutePath(const std::string& sBasePath, const std::string& sFi
 //		return filePath;
 //	}
 //
-bool FileExists(const std::string& filePath)
+bool FileExists(const std::filesystem::path& file_path)
 {
+    return std::filesystem::exists( file_path);
 //		DWORD ftyp = GetFileAttributesA(filePath.c_str());
 //		if (ftyp == INVALID_FILE_ATTRIBUTES)
 //			return false;  //something is wrong with your path!
@@ -580,15 +593,18 @@ bool FileExists(const std::string& filePath)
 //			return false;   // this is a directory, not a file
 
     //bool bExists = !(INVALID_FILE_ATTRIBUTES == GetFileAttributesA(filePath.c_str()) && GetLastError() == ERROR_FILE_NOT_FOUND);
-    return true;
+    //return true;
 }
 
 
-bool DirectoryExists(std::string path)
+bool DirectoryExists(const std::filesystem::path& file_path)
 {
+    return std::filesystem::exists( file_path);
+
+
     //std::string tmp(path);
-    while (IsPathEndOk(path))
-        path = path.substr(0, path.length() - 1);
+//    while (IsPathEndOk(path))
+    //      path = path.substr(0, path.length() - 1);
 
 //		DWORD ftyp = GetFileAttributesA(path.c_str());
 //		if (ftyp == INVALID_FILE_ATTRIBUTES)
@@ -597,28 +613,44 @@ bool DirectoryExists(std::string path)
 //		if (ftyp & FILE_ATTRIBUTE_DIRECTORY)
 //			return true;   // this is a directory!
 
-    return false;    // this is not a directory!
+    //return false;    // this is not a directory!
 }
 
-//	std::string GetApplicationPath()
-//	{
-//		//Get full path with decoration
-//		std::wstring appPath;
-//		appPath.resize(MAX_PATH);
-//		GetModuleFileNameW(NULL, &(appPath[0]), MAX_PATH);
-//		appPath.resize(wcslen(appPath.c_str()));
-//		appPath.shrink_to_fit();
-//
-//		//remove inutile decoration (ie .\)
-//		//char	szAbsolutePath[_MAX_PATH]={0};
-//		//if( PathCanonicalize(szAbsolutePath, appPath) )
-//			//appPath = szAbsolutePath;
-//		std::string appPath2 = SimplifyFilePath(UTF8(appPath));
-//
-//		assert(!appPath2.empty());
-//		return appPath2.substr(0, appPath2.find_last_of("\\/") + 1);
-//	}
-//
+filesystem::path GetApplicationPath()
+{
+    filesystem::path app_path;
+
+#ifdef _WIN32
+    //Get full path with decoration
+    std::wstring appPath;
+    appPath.resize(MAX_PATH);
+    GetModuleFileNameW(NULL, &(appPath[0]), MAX_PATH);
+    appPath.resize(wcslen(appPath.c_str()));
+    appPath.shrink_to_fit();
+
+    //remove inutile decoration (ie .\)
+    //char	szAbsolutePath[_MAX_PATH]={0};
+    //if( PathCanonicalize(szAbsolutePath, appPath) )
+    //appPath = szAbsolutePath;
+    //std::string appPath2 = SimplifyFilePath(UTF8(appPath));
+
+    //assert(!appPath2.empty());
+    //path = appPath2.substr(0, appPath2.find_last_of("\\/") + 1);
+
+    app_path = filesystem::canonical(appPath);
+    app_path = app_path.parent_path();
+
+#else
+
+    app_path = filesystem::canonical("/proc/self/exe");
+    app_path = app_path.parent_path();
+    //path = p.string();
+#endif
+
+
+    return app_path;
+}
+
 //	ERMsg GetFileInfo(const std::string& filePath, CFileInfo& info)
 //	{
 //		ERMsg msg;
@@ -658,10 +690,10 @@ bool DirectoryExists(std::string path)
 //		return fileStamp;
 //	}
 //
-//	/*ERMsg GetFilesInfo(const StringVector& filesList, CFileInfoVector& filesInfo)
+//	/*ERMsg GetFilesInfo(const std::vector<std::string>& filesList, CFileInfoVector& filesInfo)
 //	{
 //		ERMsg msg;
-//		typedef std::pair<StringVector::const_iterator, CFileInfoVector::iterator > SVFIVIterator;
+//		typedef std::pair<std::vector<std::string>::const_iterator, CFileInfoVector::iterator > SVFIVIterator;
 //
 //		filesInfo.resize(filesList.size());
 //		for(SVFIVIterator it(filesList.begin(), filesInfo.begin()); it.first!=filesList.end(); it.first++, it.second++)
@@ -752,9 +784,9 @@ bool DirectoryExists(std::string path)
 //		}
 //	}
 //
-//	void GetFilesList(const CFileInfoVector& filesInfo, int type, StringVector& filesList)
+//	void GetFilesList(const CFileInfoVector& filesInfo, int type, std::vector<std::string>& filesList)
 //	{
-//		typedef std::pair<CFileInfoVector::const_iterator, StringVector::iterator > SVFIVIterator;
+//		typedef std::pair<CFileInfoVector::const_iterator, std::vector<std::string>::iterator > SVFIVIterator;
 //
 //		filesList.resize(filesInfo.size());
 //		for (SVFIVIterator it(filesInfo.begin(), filesList.begin()); it.first != filesInfo.end(); it.first++, it.second++)
@@ -769,12 +801,12 @@ bool DirectoryExists(std::string path)
 //		}
 //	}
 //
-//	StringVector GetFilesList(const std::string& filter, int type, bool bSubDirSearch)
+//	std::vector<std::string> GetFilesList(const std::string& filter, int type, bool bSubDirSearch)
 //	{
 //		CFileInfoVector filesInfo;
 //		GetFilesInfo(filter, bSubDirSearch, filesInfo);
 //
-//		StringVector filesList;
+//		std::vector<std::string> filesList;
 //		GetFilesList(filesInfo, type, filesList);
 //		return filesList;
 //
@@ -873,14 +905,14 @@ bool DirectoryExists(std::string path)
 //	}
 //
 //
-//	StringVector GetDirectoriesList(const std::string& filter)
+//	std::vector<std::string> GetDirectoriesList(const std::string& filter)
 //	{
 //
 //		//std::string filter = filterIn;
 //		//while (IsPathEndOk(filter))
 //			//filter = filter.substr(0, filter.length() - 1);
 //
-//		StringVector dirList;
+//		std::vector<std::string> dirList;
 //
 //		WIN32_FIND_DATA ffd;
 //		HANDLE hFind = FindFirstFileExW(UTF16(filter).c_str(), FindExInfoBasic, &ffd, FindExSearchLimitToDirectories, NULL, FIND_FIRST_EX_LARGE_FETCH);
@@ -1025,38 +1057,38 @@ ERMsg WinExecWait(const std::string& command, std::string inputDir, bool bShow, 
     ERMsg msg;
 
 #if _MSC_VER
-		while (IsPathEndOk(inputDir))
-			inputDir = inputDir.substr(0, inputDir.length() - 1);
+    while (IsPathEndOk(inputDir))
+        inputDir = inputDir.substr(0, inputDir.length() - 1);
 
-		STARTUPINFOA si = { 0 };
-		si.cb = sizeof(si);
-		si.dwFlags = STARTF_USESHOWWINDOW;
-		si.wShowWindow = bShow?SW_SHOW:SW_HIDE;
+    STARTUPINFOA si = { 0 };
+    si.cb = sizeof(si);
+    si.dwFlags = STARTF_USESHOWWINDOW;
+    si.wShowWindow = bShow?SW_SHOW:SW_HIDE;
 
-		PROCESS_INFORMATION pi = { 0 };
+    PROCESS_INFORMATION pi = { 0 };
 
-		//std::wstring wdir(UTF16(inputDir));
-		//std::wstring wcommand = UTF16(command);
-		LPCSTR pDir = inputDir.empty() ? NULL : inputDir.c_str();
+    //std::wstring wdir(UTF16(inputDir));
+    //std::wstring wcommand = UTF16(command);
+    LPCSTR pDir = inputDir.empty() ? NULL : inputDir.c_str();
 
-		if (::CreateProcessA(NULL, const_cast<LPSTR>(command.c_str()), NULL, NULL, FALSE, NULL, NULL, pDir, &si, &pi))
-		{
-			::CloseHandle(pi.hThread);
-			::WaitForSingleObject(pi.hProcess, INFINITE);
+    if (::CreateProcessA(NULL, const_cast<LPSTR>(command.c_str()), NULL, NULL, FALSE, NULL, NULL, pDir, &si, &pi))
+    {
+        ::CloseHandle(pi.hThread);
+        ::WaitForSingleObject(pi.hProcess, INFINITE);
 
-            if (pExitCode != NULL)
-            {
-               // DWORD E=0;
-                //::GetExitCodeProcess(pi.hProcess, &E);
-            }
-		}
-		else
-		{
-			//msg = GetLastErrorMessage();
-			msg.ajoute(std::string("Unable to execute command: ") + command);
-		}
+        if (pExitCode != NULL)
+        {
+            // DWORD E=0;
+            //::GetExitCodeProcess(pi.hProcess, &E);
+        }
+    }
+    else
+    {
+        //msg = GetLastErrorMessage();
+        msg.ajoute(std::string("Unable to execute command: ") + command);
+    }
 #else
-        system(command.c_str());
+    system(command.c_str());
 #endif
 
 
@@ -1136,23 +1168,23 @@ ERMsg WinExecWait(const std::string& command, std::string inputDir, bool bShow, 
 //		return str;
 //	}
 //
-//	int GetCrc32(const std::string& str, ULONGLONG begin, ULONGLONG end)
-//	{
-//		assert(begin <= end);
-//		boost::crc_32_type result;
-//
-//		if (begin >= 0 && begin < str.size() && end <= 0 && end < str.size() && begin < end)
-//		{
-//			result.process_bytes(&(str.at((size_t)begin)), size_t(end - begin));
-//		}
-//		else
-//		{
-//			result.process_bytes(str.data(), str.length());
-//		}
-//
-//		return result.checksum();
-//	}
-//
+	int GetCrc32(const std::string& str, uint64_t begin, uint64_t end)
+	{
+		assert(begin <= end);
+		boost::crc_32_type result;
+
+		if ( begin < str.size() && end < str.size() && begin < end)
+		{
+			result.process_bytes(&(str.at((uint64_t)begin)), uint64_t(end - begin));
+		}
+		else
+		{
+			result.process_bytes(str.data(), str.length());
+		}
+
+		return result.checksum();
+	}
+
 //	int GetEndNumber(std::string name)
 //	{
 //		int number = 0;
@@ -1417,7 +1449,7 @@ std::string SecondToDHMS(double time)
 //		const std::string & m_str;
 //	};
 //
-//	StringVector::const_iterator FindStringExact(const StringVector& list, const std::string& value, bool bCaseSensitive)
+//	std::vector<std::string>::const_iterator FindStringExact(const std::vector<std::string>& list, const std::string& value, bool bCaseSensitive)
 //	{
 //		if (!bCaseSensitive)
 //			return find_if(list.begin(), list.end(), StringComparator(value));
@@ -1480,33 +1512,31 @@ std::string& ReplaceString(std::string& str, const std::string& oldStr, const st
 //		return str;
 //	}
 //
-//	std::string PurgeFileName(std::string name)
-//	{
-//		std::replace(name.begin(), name.end(), '\\', '-');
-//		std::replace(name.begin(), name.end(), '/', '-');
-//		std::replace(name.begin(), name.end(), '\"', '-');
-//		std::replace(name.begin(), name.end(), ':', '-');
-//		std::replace(name.begin(), name.end(), '*', '-');
-//		std::replace(name.begin(), name.end(), '?', '-');
-//		std::replace(name.begin(), name.end(), '<', '-');
-//		std::replace(name.begin(), name.end(), '>', '-');
-//		std::replace(name.begin(), name.end(), '|', '-');
-//		std::replace(name.begin(), name.end(), '\t', ' ');
-//		std::replace(name.begin(), name.end(), '.', ' ');
-//		//, is not a problem for file name but is problem in CSV file
-//		std::replace(name.begin(), name.end(), ',', '-');
-//		std::replace(name.begin(), name.end(), ';', '-');
-//		std::replace(name.begin(), name.end(), '\"', ' ');
-//		std::replace(name.begin(), name.end(), '\'', ' ');
-//		ReplaceString(name, "œ", "oe");
-//
-//		//std::replace(name.begin(), name.end(), 'œ', 'oe');
-//
-//		Trim(name);
-//
-//		return name;
-//	}
-//
+std::string PurgeFileName(std::string name)
+{
+    std::replace(name.begin(), name.end(), '\\', '-');
+    std::replace(name.begin(), name.end(), '/', '-');
+    std::replace(name.begin(), name.end(), '\"', '-');
+    std::replace(name.begin(), name.end(), ':', '-');
+    std::replace(name.begin(), name.end(), '*', '-');
+    std::replace(name.begin(), name.end(), '?', '-');
+    std::replace(name.begin(), name.end(), '<', '-');
+    std::replace(name.begin(), name.end(), '>', '-');
+    std::replace(name.begin(), name.end(), '|', '-');
+    std::replace(name.begin(), name.end(), '\t', ' ');
+    std::replace(name.begin(), name.end(), '.', ' ');
+    //, is not a problem for file name but is problem in CSV file
+    std::replace(name.begin(), name.end(), ',', '-');
+    std::replace(name.begin(), name.end(), ';', '-');
+    std::replace(name.begin(), name.end(), '\"', ' ');
+    std::replace(name.begin(), name.end(), '\'', ' ');
+    ReplaceString(name, "œ", "oe");
+
+    Trim(name);
+
+    return name;
+}
+
 //	string ANSI_2_ASCII(std::string str)
 //	{
 //		int len = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, NULL, 0);
@@ -1702,12 +1732,12 @@ std::string& UppercaseFirstLetter(std::string& str)
 }
 
 
-//	//StringVector Tokenize(const std::string& str, const std::string& delimiters, bool bEliminateDuplicateSep, std::string::size_type begin, std::string::size_type end)
+//	//std::vector<std::string> Tokenize(const std::string& str, const std::string& delimiters, bool bEliminateDuplicateSep, std::string::size_type begin, std::string::size_type end)
 //	//{
 //	//	assert(begin<=end);
 //	//	//assert(begin<str.size());
 //
-//	//	StringVector tokens;
+//	//	std::vector<std::string> tokens;
 //	//	if( end==std::string::npos )
 //	//		end=str.size();
 //
@@ -1900,15 +1930,6 @@ bool IsEqualNoCase(const std::string& in1, const std::string& in2)
     return boost::iequals(in1, in2);
 }
 
-//	std::string::size_type GetNextLinePos(const std::string& str, std::string::size_type begin)
-//	{
-//		std::string::size_type end = std::min(str.size(), str.find_first_of("\r\n", begin));
-//		while (end < str.size() && (str[end] == '\r' || str[end] == '\n'))
-//			end++;
-//
-//		return end;
-//	}
-//
 std::string Tokenize(const std::string& str, const std::string& delimiters, std::string::size_type& pos, bool bRemoveDuplicate, std::string::size_type posEnd)
 {
     assert(pos != std::string::npos);
@@ -2008,6 +2029,61 @@ bool TokenizeWithQuote(const std::string& str, char* sep, std::vector<std::strin
     return !out.empty();
 }
 
+std::vector<std::string> TokenizeQuoted(std::string command, const std::string& delimiters)
+{
+    std::vector<std::string> v;
+
+    int len = int(command.length());
+    bool qot = false, sqot = false;
+    int arglen;
+    for (int i = 0; i < len; i++)
+    {
+        int start = i;
+        if (command[i] == '\"')
+            qot = true;
+        else if (command[i] == '\'')
+            sqot = true;
+
+        if (qot)
+        {
+            i++;
+            start++;
+            while (i < len && command[i] != '\"')
+                i++;
+            if (i < len)
+                qot = false;
+            arglen = i - start;
+            i++;
+        }
+        else if (sqot)
+        {
+            i++;
+            while (i < len && command[i] != '\'')
+                i++;
+            if (i < len)
+                sqot = false;
+            arglen = i - start;
+            i++;
+        }
+        else
+        {
+            while (i < len && delimiters.find(command[i]) == string::npos)//command[i] != ' ' && command[i] != '-')
+                i++;
+
+            arglen = i - start;
+        }
+
+        v.push_back(command.substr(start, arglen));
+    }
+
+    //if (qot || sqot) std::cout << "One of the quotes is open\n";
+    assert(!qot && !sqot);
+
+    return v;
+}
+
+
+
 std::string FormatA(const char * szFormat, ...)
 {
     va_list argList;
@@ -2067,6 +2143,46 @@ std::string FormatV(const char* szFormat, va_list argList)
 //		return str;
 //	}
 //
+//    std::string FormatMsg(std::string_view szFormat, std::string_view v1, std::string_view v2, std::string_view v3, std::string_view v4, std::string_view v5)
+//	{
+//
+//	    //printf("%2$s, %1$d", salary, name);
+//        //For C++, beside the C solution there is a boost::format library:
+//
+//        //std::cout << boost::format("%2%, %1%") % salary % name;
+//
+//        using boost::locale::format;
+//        using boost::locale::translate;
+//        std::ostringstream ss;
+//        //ss << format(translate("This is the message to {1} about {2}")) % v1 % v2;
+//        ss << format(translate(szFormat)) % v1 % v2;
+
+//sprintf(szFormat.c_str(), v1.c_str(), v2.c_str());
+//
+//		std::string str;
+//		if (szFormat && strlen(szFormat) > 0)
+//		{
+//			int nbParams = 1 + (v2.empty() ? 0 : 1) + (v3.empty() ? 0 : 1) + (v4.empty() ? 0 : 1) + (v5.empty() ? 0 : 1) + (v6.empty() ? 0 : 1) + (v7.empty() ? 0 : 1) + (v8.empty() ? 0 : 1) + (v9.empty() ? 0 : 1);
+//			switch (nbParams)
+//			{
+//			case 1: str = FormatMsgA(szFormat, v1.c_str()); break;
+//			case 2: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str()); break;
+//			case 3: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str()); break;
+//			case 4: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str()); break;
+//			case 5: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str(), v5.c_str()); break;
+//			case 6: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str(), v5.c_str(), v6.c_str()); break;
+//			case 7: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str(), v5.c_str(), v6.c_str(), v7.c_str()); break;
+//			case 8: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str(), v5.c_str(), v6.c_str(), v7.c_str(), v8.c_str()); break;
+//			case 9: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str(), v5.c_str(), v6.c_str(), v7.c_str(), v8.c_str(), v9.c_str()); break;
+//			default: assert(false);  break;
+//			}
+//		}
+//
+//		return ss.c_str();
+//	}
+
+
+
 //	//*************************************************************************
 //
 //	template<typename T, size_t N>
@@ -2074,7 +2190,7 @@ std::string FormatV(const char* szFormat, va_list argList)
 //		return ra + N;
 //	}
 //
-//	StringVector::StringVector(const char* str_array[])
+//	std::vector<std::string>::std::vector<std::string>(const char* str_array[])
 //	{
 //
 //		size_t size = sizeof(str_array) / sizeof(const char*);
@@ -2086,7 +2202,7 @@ std::string FormatV(const char* szFormat, va_list argList)
 //		//operator=();
 //	}
 //
-//	void StringVector::LoadString(UINT ID, const std::string& delimiters)
+//	void std::vector<std::string>::LoadString(UINT ID, const std::string& delimiters)
 //	{
 //		std::string str = GetString(ID);
 //		Tokenize(str, delimiters, false);
@@ -2123,10 +2239,10 @@ std::set<size_t> FindAll(const std::vector<std::string>& v, const std::string& s
     return posVector;
 }
 
-//	std::ostream& StringVector::operator >> (std::ostream& stream)const
+//	std::ostream& std::vector<std::string>::operator >> (std::ostream& stream)const
 //	{
 //		stream << "{";
-//		for (StringVector::const_iterator it = begin(); it != end(); it++)
+//		for (std::vector<std::string>::const_iterator it = begin(); it != end(); it++)
 //		{
 //			stream << *it;
 //			stream << "|";
@@ -2137,7 +2253,7 @@ std::set<size_t> FindAll(const std::vector<std::string>& v, const std::string& s
 //		return stream;
 //	}
 //
-//	std::istream& StringVector::operator << (std::istream& stream)
+//	std::istream& std::vector<std::string>::operator << (std::istream& stream)
 //	{
 //		std::string s;
 //		getline(stream, s, '}');
@@ -2149,7 +2265,7 @@ std::set<size_t> FindAll(const std::vector<std::string>& v, const std::string& s
 //
 //
 //
-//	StringVector& StringVector::Tokenize(const std::string& str, const std::string& delimiters, bool bRemoveDuplicate, std::string::size_type pos, std::string::size_type posEnd)
+//	std::vector<std::string>& std::vector<std::string>::Tokenize(const std::string& str, const std::string& delimiters, bool bRemoveDuplicate, std::string::size_type pos, std::string::size_type posEnd)
 //	{
 //
 //		clear();
@@ -2168,60 +2284,8 @@ std::set<size_t> FindAll(const std::vector<std::string>& v, const std::string& s
 //
 //	}
 //
-std::vector<std::string> TokenizeQuoted(std::string command, const std::string& delimiters)
-{
-    std::vector<std::string> v;
 
-    int len = int(command.length());
-    bool qot = false, sqot = false;
-    int arglen;
-    for (int i = 0; i < len; i++)
-    {
-        int start = i;
-        if (command[i] == '\"')
-            qot = true;
-        else if (command[i] == '\'')
-            sqot = true;
-
-        if (qot)
-        {
-            i++;
-            start++;
-            while (i < len && command[i] != '\"')
-                i++;
-            if (i < len)
-                qot = false;
-            arglen = i - start;
-            i++;
-        }
-        else if (sqot)
-        {
-            i++;
-            while (i < len && command[i] != '\'')
-                i++;
-            if (i < len)
-                sqot = false;
-            arglen = i - start;
-            i++;
-        }
-        else
-        {
-            while (i < len && delimiters.find(command[i]) == string::npos)//command[i] != ' ' && command[i] != '-')
-                i++;
-
-            arglen = i - start;
-        }
-
-        v.push_back(command.substr(start, arglen));
-    }
-
-    //if (qot || sqot) std::cout << "One of the quotes is open\n";
-    assert(!qot && !sqot);
-
-    return v;
-}
-
-//	std::string StringVector::to_string(const char* sep)const
+//	std::string std::vector<std::string>::to_string(const char* sep)const
 //	{
 //		std::string str;
 //		for (const_iterator it = begin(); it != end(); it++)
@@ -2235,6 +2299,7 @@ std::vector<std::string> TokenizeQuoted(std::string command, const std::string& 
 //		return str;
 //	}
 //
+
 
 }//namespace WBSF
 

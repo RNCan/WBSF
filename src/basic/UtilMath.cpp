@@ -9,17 +9,13 @@
 // 14-09-2023   Rémi Saint-Amant	Port un Linux
 // 01-01-2016	Rémi Saint-Amant	Creation
 //******************************************************************************
-//#include "stdafx.h"
+#include "UtilMath.h"
 
-
-
-
-
-#include <time.h>
-#include <float.h>
+#include <ctime>
+#include <cfloat>
 #include <limits>
 
-#include "basic/UtilMath.h"
+
 
 
 using namespace std;
@@ -1363,62 +1359,75 @@ void GetSlopeAndAspect(double window[3][3], double ewres, double nsres, double s
 
 
 //**************************************************************
-//	const double CMathEvaluation::EPSILON = 0.000001;
-//	const char* CMathEvaluation::OPERATOR_STR[NB_OPERATORS] = { "==", "!=", ">=", "<=", ">", "<" };
-//
-//	CMathEvaluation::CMathEvaluation(const char* strIn)
-//	{
-//		assert(strIn != NULL);
-//
-//		string str(strIn);
-//		size_t pos = str.find_first_not_of("!=<>");
-//		assert(pos >= 0);
-//
-//		m_op = GetOp(str.substr(0, pos));
-//		m_value = ToValue<double>(str.substr(pos));
-//	}
-//
-//	CMathEvaluation::TOperation CMathEvaluation::GetOp(const string& str)
-//	{
-//		TOperation op = UNKNOWN;
-//
-//		for (size_t i = 0; i < NB_OPERATORS; i++)
-//			if (str == OPERATOR_STR[i])
-//				op = (TOperation)i;
-//
-//		//if (str == "==")
-//		//	op = EQUAL;
-//		//else if (str == "!=")
-//		//	op = NOT_EQUAL;
-//		//else if (str == ">=")
-//		//	op = GREATER_EQUAL;
-//		//else if (str == "<=")
-//		//	op = LOWER_EQUAL;
-//		//else if (str == ">")
-//		//	op = GREATER;
-//		//else if (str == "<")
-//		//	op = LOWER;
-//
-//		return op;
-//	}
-//
-//	bool CMathEvaluation::Evaluate(double value1, TOperation op, double value2)
-//	{
-//		bool bRep = false;
-//		switch (op)
-//		{
-//		case EQUAL:			bRep = fabs(value1 - value2) < EPSILON; break;
-//		case NOT_EQUAL:		bRep = !Evaluate(value1, EQUAL, value2); break;
-//		case GREATER_EQUAL:	bRep = value1 >= value2; break;
-//		case LOWER_EQUAL:	bRep = value1 <= value2; break;
-//		case GREATER:		bRep = value1 > value2; break;
-//		case LOWER:			bRep = value1 < value2; break;
-//		default: assert(false);
-//		}
-//
-//		return bRep;
-//	}
-//
+const double CMathEvaluation::EPSILON = 0.000001;
+const char* CMathEvaluation::OPERATOR_STR[NB_OPERATORS] = { "==", "!=", ">=", "<=", ">", "<" };
+
+CMathEvaluation::CMathEvaluation(const char* strIn)
+{
+    assert(strIn != NULL);
+
+    string str(strIn);
+    size_t pos = str.find_first_not_of("!=<>");
+    assert(pos >= 0);
+
+    m_op = GetOp(str.substr(0, pos));
+    m_value = ToValue<double>(str.substr(pos));
+}
+
+CMathEvaluation::TOperation CMathEvaluation::GetOp(const string& str)
+{
+    TOperation op = UNKNOWN;
+
+    for (size_t i = 0; i < NB_OPERATORS; i++)
+        if (str == OPERATOR_STR[i])
+            op = (TOperation)i;
+
+    //if (str == "==")
+    //	op = EQUAL;
+    //else if (str == "!=")
+    //	op = NOT_EQUAL;
+    //else if (str == ">=")
+    //	op = GREATER_EQUAL;
+    //else if (str == "<=")
+    //	op = LOWER_EQUAL;
+    //else if (str == ">")
+    //	op = GREATER;
+    //else if (str == "<")
+    //	op = LOWER;
+
+    return op;
+}
+
+bool CMathEvaluation::Evaluate(double value1, TOperation op, double value2)
+{
+    bool bRep = false;
+    switch (op)
+    {
+    case EQUAL:
+        bRep = fabs(value1 - value2) < EPSILON;
+        break;
+    case NOT_EQUAL:
+        bRep = !Evaluate(value1, EQUAL, value2);
+        break;
+    case GREATER_EQUAL:
+        bRep = value1 >= value2;
+        break;
+    case LOWER_EQUAL:
+        bRep = value1 <= value2;
+        break;
+    case GREATER:
+        bRep = value1 > value2;
+        break;
+    case LOWER:
+        bRep = value1 < value2;
+        break;
+    default:
+        assert(false);
+    }
+
+    return bRep;
+}
+
 //	//********************************************************************************************
 //	void CBetaDistribution::SetTable(double alpha, double beta)
 //	{

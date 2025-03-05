@@ -23,22 +23,27 @@
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/export.hpp>
 
-#include "external/ERMsg/ERMsg.h"
+#include "ERMsg.h"
 #include "basic/UtilMath.h"
 
 
 namespace WBSF
 {
-static const double MISSING_NO_DATA = FLT_MAX;
-static const double MISSING_DATA = FLT_MAX;
+static constexpr double MISSING_NO_DATA = FLT_MAX;
+static constexpr double MISSING_DATA = FLT_MAX;
 
 
-static const double EPSILON_NODATA = 1.0e-5;
-static const double EPSILON_COORDINATES = 0.0000000001;
+static constexpr double EPSILON_NODATA = 1.0e-5;
+static constexpr double EPSILON_COORDINATES = 0.0000000001;
 
 ERMsg BuildVRT(std::string filePath, std::vector<std::string> fileList, bool bQuiet, std::string EXEPath="");
 
 enum TProjection { PRJ_NOT_INIT, PRJ_GEOGRAPHIC, PRJ_PROJECTED, PRJ_GEOCENTRIC, NB_PRJ_TYPES};
+
+
+static constexpr double ELEV_FACTOR = 100;
+static constexpr double SHORE_DISTANCE_FACTOR = 1;
+
 
 #ifdef _DEBUG
 #define assert_PRJ(x,y) assert((x).GetPrjID()==(y).GetPrjID())

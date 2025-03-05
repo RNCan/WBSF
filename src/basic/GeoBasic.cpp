@@ -10,11 +10,13 @@
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 //****************************************************************************
 
+#include "GeoBasic.h"
+
 
 #include <iostream>
-#include "basic/GeoBasic.h"
+
 #include "basic/Statistic.h"
-#include "external/ERMsg/ERMsg.h"
+#include "basic/ERMsg.h"
 
 
 using namespace std;

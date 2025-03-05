@@ -1,18 +1,15 @@
-#ifndef __UTILSTD_H
-#define __UTILSTD_H
 #pragma once
 
 
 //#include <wtypes.h>
-#undef min
-#undef max
+//#undef min
+//#undef max
 
 
-#include <assert.h>
+#include <cassert>
 #include <map>
 #include <set>
 #include <unordered_map>
-#include <sys/stat.h>
 #include <sstream>
 #include <functional>
 #include <algorithm>
@@ -20,29 +17,25 @@
 #include <fstream>
 #include <codecvt>
 #include <iomanip>
-#include <inttypes.h>
-#include <string.h>
 #include <cstring>
-//#include <windows.h>
-
-#include "external/ERMsg/ERMsg.h"
-//#include "Basic/zenXml.h"
+#include <filesystem>
+#include <cstdint>
 
 
-static const size_t UNKNOWN_POS = (size_t)-1;
-static const size_t NOT_INIT = (size_t)-1;
+#include "Basic/ERMsg.h"
 
-
-
-//typedef int64_t int64_t;
 
 
 namespace WBSF
 {
-//
-//
+
+static constexpr size_t NOT_INIT = size_t(-1);
+static const size_t UNKNOWN_POS = NOT_INIT;
+
+
+
 ////*********************************************************************************************************************
-////StringVector
+////std::vector<std::string>
 //
 //class string_quote_reader
 //{
@@ -96,25 +89,25 @@ namespace WBSF
 //
 //
 //
-//class StringVector : public std::vector < std::string >
+//class std::vector<std::string> : public std::vector < std::string >
 //{
 //public:
 //
-//	StringVector() :std::vector<std::string>(){}
-//	explicit StringVector(size_t size) :std::vector<std::string>(size){}
-//	explicit StringVector(const std::string& str, const char* delimiters){ Tokenize(str, delimiters); }
-//	explicit StringVector(const char* str, const char* delimiters){ Tokenize(str, delimiters); }
-//	//explicit StringVector(UINT ID, const std::string& delimiters){ LoadString(ID, delimiters); }
-//	explicit StringVector(const char* str_array[]);
+//	std::vector<std::string>() :std::vector<std::string>(){}
+//	explicit std::vector<std::string>(size_t size) :std::vector<std::string>(size){}
+//	explicit std::vector<std::string>(const std::string& str, const char* delimiters){ Tokenize(str, delimiters); }
+//	explicit std::vector<std::string>(const char* str, const char* delimiters){ Tokenize(str, delimiters); }
+//	//explicit std::vector<std::string>(UINT ID, const std::string& delimiters){ LoadString(ID, delimiters); }
+//	explicit std::vector<std::string>(const char* str_array[]);
 //	//void LoadString(UINT ID, const std::string& delimiters);
-//	StringVector& Tokenize(const std::string& str, const std::string& delimiters, bool bRemoveDuplicate = true, std::string::size_type pos = 0, std::string::size_type posEnd = std::string::npos);
+//	std::vector<std::string>& Tokenize(const std::string& str, const std::string& delimiters, bool bRemoveDuplicate = true, std::string::size_type pos = 0, std::string::size_type posEnd = std::string::npos);
 std::vector<std::string> TokenizeQuoted(std::string str, const std::string& delimiters);
 //
 //	//size_t Find(const std::string& lem)const;
 //	std::ostream& operator >> (std::ostream& s)const;
 //	std::istream& operator << (std::istream& s);
-//	friend std::ostream& operator << (std::ostream& s, const StringVector& in){ in >> s; return s; }
-//	friend std::istream& operator >> (std::istream& s, StringVector& out){ out << s; return s; }
+//	friend std::ostream& operator << (std::ostream& s, const std::vector<std::string>& in){ in >> s; return s; }
+//	friend std::istream& operator >> (std::istream& s, std::vector<std::string>& out){ out << s; return s; }
 //
 //	size_t Find(const std::string& str, bool bCaseSensitive = true, bool bExact = true)const;
 size_t Find(const std::vector<std::string>& v, const std::string& str, bool bCaseSensitive=true, bool bExact=true);
@@ -167,7 +160,7 @@ bool map_compare (Map const &lhs, Map const &rhs)
 //
 //	class CCallback;
 //	std::string RemoveAccented(std::string str);
-//	std::string PurgeFileName(std::string name);
+std::string PurgeFileName(std::string name);
 std::string& ReplaceString(std::string& str, const std::string& oldStr, const std::string& newStr);
 //	std::string GetText(ERMsg msg);
 //	//std::string GetOutputString(ERMsg& msg, CCallback& callBack = DEFAULT_CALLBACK, bool bAllMessage = false);
@@ -183,15 +176,15 @@ std::string& ReplaceString(std::string& str, const std::string& oldStr, const st
 //
 std::string Tokenize(const std::string& str, const std::string& delimiter, std::string::size_type& pos, bool bRemoveDuplicate = false, std::string::size_type posEnd = std::string::npos);
 std::vector<std::string> Tokenize(const std::string& str, const std::string& delimiter, bool bRemoveDuplicate = true, std::string::size_type pos=0, std::string::size_type posEnd = std::string::npos);
-//	bool TokenizeWithQuote(const std::string& str, char sep, StringVector& out);
-//	bool TokenizeWithQuote(const std::string& str, char* sep, StringVector& out);
+//	bool TokenizeWithQuote(const std::string& str, char sep, std::vector<std::string>& out);
+//	bool TokenizeWithQuote(const std::string& str, char* sep, std::vector<std::string>& out);
 //
 std::string FormatA(const char* szFormat, ...);
 std::string FormatV(const char* szFormat, va_list argList);
 
 //	inline std::string Format(PCSTR szFormat, const std::string& v1, const std::string& v2 = "", const std::string& v3 = "", const std::string& v4 = "", const std::string& v5 = "", const std::string& v6 = "", const std::string& v7 = "", const std::string& v8 = "", const std::string& v9 = "")
 //	{
-//		ASSERT(szFormat && strlen(szFormat)>0 );
+//		assert(szFormat && strlen(szFormat)>0 );
 //		std::string str;
 //
 //		int nbParams = 1 + (v2.empty() ? 0 : 1) + (v3.empty() ? 0 : 1) + (v4.empty() ? 0 : 1) + (v5.empty() ? 0 : 1) + (v6.empty() ? 0 : 1) + (v7.empty() ? 0 : 1) + (v8.empty() ? 0 : 1) + (v9.empty() ? 0 : 1);
@@ -206,7 +199,7 @@ std::string FormatV(const char* szFormat, va_list argList);
 //		case 7: str = FormatA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str(), v5.c_str(), v6.c_str(), v7.c_str()); break;
 //		case 8: str = FormatA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str(), v5.c_str(), v6.c_str(), v7.c_str(), v8.c_str()); break;
 //		case 9: str = FormatA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str(), v5.c_str(), v6.c_str(), v7.c_str(), v8.c_str(), v9.c_str()); break;
-//		default: ASSERT(false);  break;
+//		default: assert(false);  break;
 //		}
 //
 //		return str;
@@ -223,31 +216,8 @@ std::string FormatV(const char* szFormat, va_list argList);
 //	std::string FormatMsgA(PCSTR szFormat, ...);
 //	//std::string FormatMsg(UINT nFormatId, ...);
 //
-//	inline std::string FormatMsg(PCSTR szFormat, const std::string& v1, const std::string& v2 = "", const std::string& v3 = "", const std::string& v4 = "", const std::string& v5 = "", const std::string& v6 = "", const std::string& v7 = "", const std::string& v8 = "", const std::string& v9 = "")
-//	{
-//
-//		std::string str;
-//		if (szFormat && strlen(szFormat) > 0)
-//		{
-//			int nbParams = 1 + (v2.empty() ? 0 : 1) + (v3.empty() ? 0 : 1) + (v4.empty() ? 0 : 1) + (v5.empty() ? 0 : 1) + (v6.empty() ? 0 : 1) + (v7.empty() ? 0 : 1) + (v8.empty() ? 0 : 1) + (v9.empty() ? 0 : 1);
-//			switch (nbParams)
-//			{
-//			case 1: str = FormatMsgA(szFormat, v1.c_str()); break;
-//			case 2: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str()); break;
-//			case 3: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str()); break;
-//			case 4: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str()); break;
-//			case 5: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str(), v5.c_str()); break;
-//			case 6: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str(), v5.c_str(), v6.c_str()); break;
-//			case 7: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str(), v5.c_str(), v6.c_str(), v7.c_str()); break;
-//			case 8: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str(), v5.c_str(), v6.c_str(), v7.c_str(), v8.c_str()); break;
-//			case 9: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str(), v5.c_str(), v6.c_str(), v7.c_str(), v8.c_str(), v9.c_str()); break;
-//			default: ASSERT(false);  break;
-//			}
-//		}
-//
-//		return str;
-//	}
-//
+//std::string FormatMsg(std::string_view szFormat, std::string_view v1, std::string_view v2 = "", std::string_view v3 = "", std::string_view  v4 = "", std::string_view v5 = "");
+
 //	inline std::string FormatMsg(UINT nFormatId, const std::string& v1, const std::string& v2 = "", const std::string& v3 = "", const std::string& v4 = "", const std::string& v5 = "", const std::string& v6 = "", const std::string& v7 = "", const std::string& v8 = "", const std::string& v9 = "")
 //	{
 //		std::string sFormat = GetString(nFormatId);
@@ -368,10 +338,16 @@ inline std::string& MakeLower(std::string&str)
 //		return source.substr(source.length() - length);
 //	} // tail
 //
-//	std::string::size_type GetNextLinePos(const std::string& str, std::string::size_type begin);
-//
-//
-//
+
+inline std::string::size_type GetNextLinePos(const std::string& str, std::string::size_type begin)
+{
+	std::string::size_type end = std::min(str.size(), str.find_first_of("\r\n", begin));
+	while (end < str.size() && (str[end] == '\r' || str[end] == '\n'))
+		end++;
+
+	return end;
+}
+
 inline bool ToBool(const std::string& str)
 {
     return atoi(str.c_str())!=0;
@@ -405,6 +381,16 @@ inline double ToDouble(const std::string& str)
     return atof(str.c_str());
 }
 inline size_t ToSizeT(const std::string& str)
+{
+    return (size_t)atoi(str.c_str());
+}
+
+inline int to_int(const std::string& str)
+{
+    return (int)atoi(str.c_str());
+}
+
+inline size_t to_size_t(const std::string& str)
 {
     return (size_t)atoi(str.c_str());
 }
@@ -463,10 +449,10 @@ T ToValue(const std::string& str)
 //	template <typename U, class T=std::vector<U>> inline
 //		T to_object(const std::string& str, const std::string& sep, const std::string& be = "", const std::string& en = "")
 //	{
-//		StringVector tmp = Tokenize(str, be + sep + en);
+//		std::vector<std::string> tmp = Tokenize(str, be + sep + en);
 //
 //		T v;
-//		for (StringVector::const_iterator it = tmp.begin(); it != tmp.end(); it++)
+//		for (std::vector<std::string>::const_iterator it = tmp.begin(); it != tmp.end(); it++)
 //			if (!it->empty())
 //				v.insert(v.end(), from_string<U>(*it));
 //
@@ -476,10 +462,10 @@ T ToValue(const std::string& str)
 //	template <typename T> inline
 //		const std::vector<T> ToVector(const std::string& str, const std::string& be = "[", const std::string& sep = ",", const std::string& en = "]")
 //	{
-//		StringVector tmp = Tokenize(str, be + sep + en);
+//		std::vector<std::string> tmp = Tokenize(str, be + sep + en);
 //		std::vector<T> v;
 //		v.reserve(tmp.size());
-//		for (StringVector::const_iterator it = tmp.begin(); it != tmp.end(); it++)
+//		for (std::vector<std::string>::const_iterator it = tmp.begin(); it != tmp.end(); it++)
 //			if (!it->empty())
 //				v.push_back(ToValue<T>(*it));
 //
@@ -610,35 +596,48 @@ inline std::string ToString(double val, int pres=4)
 {
     return ToStringStd(val, pres);
 }
+
+//#include <sstream>
+
+using std::to_string;
+template <typename T>
+std::string to_string(const T a_value, const int n)
+{
+    std::ostringstream out;
+    out.precision(n);
+    out << std::fixed << a_value;
+    return std::move(out).str();
+}
 //	std::string ToStringDMS(double coord, bool bWithFraction);
 //
 //
 //
 //	//http://stackoverflow.com/a/13636164/195722
-//	template <typename T> inline
-//	std::string ToString ( T obj )
-//	{
-//		std::ostringstream ss;
-//		ss << obj;
-//		return ss.str();
-//	}
-//
-//	template <typename T> inline
-//	std::string ToString(const std::vector<T>& v, const std::string& be="[", const std::string& sep=",", const std::string& en="]")
-//	{
-//		std::string str = be;
-//		for(typename std::vector<T>::const_iterator it=v.begin(); it!=v.end(); it++)
-//		{
-//			if( it!=v.begin() )
-//				str  += sep;
-//			str  += ToString(*it);
-//		}
-//
-//		str  += en;
-//
-//		return str;
-//	}
-//
+	template <typename T> inline
+	std::string to_string ( T obj )
+	{
+		std::ostringstream ss;
+		ss << obj;
+		return ss.str();
+	}
+
+	template <typename T> inline
+	std::string to_string(const std::vector<T>& v, const std::string& be="[", const std::string& sep=",", const std::string& en="]")
+	{
+		std::string str = be;
+
+		for(typename std::vector<T>::const_iterator it=v.begin(); it!=v.end(); it++)
+		{
+			if( it!=v.begin() )
+				str  += sep;
+			str  += to_string(*it);
+		}
+
+		str  += en;
+
+		return str;
+	}
+
 //
 //	typedef std::unordered_map< std::string, std::string> StringStringMap;
 //	typedef std::pair< std::string, std::string> StringStringPair;
@@ -720,55 +719,55 @@ size_t Find( const std::string& str1, const std::string& str2, bool bCaseSensiti
 //
 //#endif
 //
-//	template <typename T>
-//	T read_value(std::istream& s)
-//	{
-//		T v = 0;
-//		s.read((char*)&v, sizeof(v));
-//
-//		return v;
-//	}
-//
+template <typename T>
+T read_value(std::istream& s)
+{
+    T v = 0;
+    s.read((char*)&v, sizeof(v));
+
+    return v;
+}
+
 //	template <typename T>
 //	std::istream& read_value(std::istream& s, T& v)
 //	{
 //		s.read((char*)&v, sizeof(v));
 //		return s;
 //	}
-//
-//	template <typename T>
-//	void write_value(std::ostream& s, const T& v)
-//	{
-//		s.write((char*)&v, sizeof(v));
-//	}
-//
+
+template <typename T>
+void write_value(std::ostream& s, const T& v)
+{
+    s.write((char*)&v, sizeof(v));
+}
+
 //	inline std::string ReadBuffer(std::istream& s)
 //	{
 //		std::string buffer;
-//		unsigned int64_t size = read_value<unsigned int64_t >(s);
+//		uint64_t size = read_value<uint64_t>(s);
 //		buffer.resize((size_t)size);
 //		s.read(const_cast<char*>(buffer.c_str()), size);
 //
 //		return buffer;
 //	}
-//
-//	inline std::string& ReadBuffer(std::istream& s, std::string& buffer)
-//	{
-//		unsigned int64_t size = read_value<unsigned int64_t >(s);
-//		buffer.resize((size_t)size);
-//		s.read(const_cast<char*>(buffer.c_str()), size);
-//
-//		return buffer;
-//	}
-//
-//
-//	inline void WriteBuffer(std::ostream& s, const std::string& buffer)
-//	{
-//		unsigned int64_t size = buffer.size();
-//		write_value(s, size);
-//		s.write(buffer.c_str(), size);
-//	}
-//
+
+inline std::string& ReadBuffer(std::istream& s, std::string& buffer)
+{
+    uint64_t size = read_value<uint64_t>(s);
+    buffer.resize((size_t)size);
+    s.read(const_cast<char*>(buffer.c_str()), size);
+
+    return buffer;
+}
+
+
+inline void WriteBuffer(std::ostream& s, const std::string& buffer)
+{
+    uint64_t size = buffer.size();
+    write_value(s, size);
+    s.write(buffer.c_str(), size);
+}
+
 //	class lexical_sort : public std::binary_function<std::string, std::string, bool>
 //	{
 //	protected:
@@ -895,7 +894,8 @@ size_t Find( const std::string& str1, const std::string& str2, bool bCaseSensiti
 //	std::string GenerateNewFileName(std::string name);
 //	std::string GetUserDataPath();
 //	std::string GetTempPath();
-//	std::string GetApplicationPath();
+
+std::filesystem::path GetApplicationPath();
 //	std::string GetRelativePath(const std::string& basePath, const std::string& filePath);
 //	std::string GetAbsolutePath(const std::string& basePath, const std::string& filePath);
 //	std::string SimplifyFilePath(const std::string& path);
@@ -1093,30 +1093,32 @@ ERMsg CopyDir(const std::string& pathIn1, const std::string& pathIn2);
 //		@return    true if the file exists, else false
 //
 //		*/
-bool FileExists(const std::string& filePath);
-bool DirectoryExists(std::string path);
+bool FileExists(const std::filesystem::path& filePath);
+bool DirectoryExists(const std::filesystem::path& path);
 
 //	enum TFileNameType { FILE_TITLE, FILE_NAME, FILE_PATH };
 //	ERMsg GetFileInfo(const std::string& filePath, CFileInfo& info);
 //	CFileInfo GetFileInfo(const std::string& filePath);
-//	//ERMsg GetFilesInfo(const StringVector& filesList, CFileInfoVector& filesInfo);
+//	//ERMsg GetFilesInfo(const std::vector<std::string>& filesList, CFileInfoVector& filesInfo);
 //
 //	void GetFilesInfo(const std::string& filter, bool bSubDirSearch, CFileInfoVector& filesInfo);
 //
 //
 //	__time64_t GetFileStamp(const std::string& filePath);
-//	StringVector GetFilesList(const std::string& filter, int type = FILE_PATH, bool bSubDirSearch = false);
-//	void GetFilesList(const CFileInfoVector& filesInfo, int type, StringVector& filesList);
+//	std::vector<std::string> GetFilesList(const std::string& filter, int type = FILE_PATH, bool bSubDirSearch = false);
+//	void GetFilesList(const CFileInfoVector& filesInfo, int type, std::vector<std::string>& filesList);
 //
-//	StringVector GetDirectoriesList(const std::string& filter);
-//	int GetCrc32(const std::string& str, ULONGLONG begin = -1, ULONGLONG end = -1);
-//
+//	std::vector<std::string> GetDirectoriesList(const std::string& filter);
+
+
+int GetCrc32(const std::string& str, uint64_t begin = NOT_INIT, uint64_t end = NOT_INIT);
+
 
 ERMsg WinExecWait(const std::string& command, std::string inputDir = "", bool bShow = false, int* pExitCode = NULL);
 //	ERMsg CallApplication(std::string appType, std::string argument, HWND pCaller = NULL, int showMode = SW_HIDE, bool bAddCote = true, bool bWait = false);
 //	size_t GetTotalSystemMemory();
 //
-//	StringVector::const_iterator FindStringExact(const StringVector& list, const std::string& value, bool bCaseSensitive);
+//	std::vector<std::string>::const_iterator FindStringExact(const std::vector<std::string>& list, const std::string& value, bool bCaseSensitive);
 //
 std::string SecondToDHMS(double time);
 //
@@ -1441,6 +1443,9 @@ public:
         return buffer;
     }
 
+
+
+
 };
 
 
@@ -1529,6 +1534,9 @@ public:
 //		}
 //	};
 
+
+
+
 }//WBSF
 
 
@@ -1538,13 +1546,13 @@ public:
 //namespace zen
 //{
 //	template <> inline
-//		void writeStruc(const WBSF::StringVector& in, XmlElement& output)
+//		void writeStruc(const WBSF::std::vector<std::string>& in, XmlElement& output)
 //	{
 //		output.setValue(WBSF::ToString(in));
 //	}
 //
 //	template <> inline
-//		bool readStruc(const XmlElement& input, WBSF::StringVector& out)
+//		bool readStruc(const XmlElement& input, WBSF::std::vector<std::string>& out)
 //	{
 //		std::string str;
 //		input.getValue(str);
@@ -1554,4 +1562,3 @@ public:
 //	}
 //}
 
-#endif

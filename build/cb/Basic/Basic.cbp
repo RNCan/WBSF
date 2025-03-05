@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Basic" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Basic" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-std=c17" />
+					<Add option="-m64" />
+					<Add option="-g" />
+					<Add option="-Wno-unknown-pragmas" />
+					<Add option="-Wno-deprecated-enum-enum-conversion" />
+					<Add directory="../../../src" />
+				</Compiler>
+				<Linker>
+					<Add option="-m64" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Basic" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Release/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-Wall" />
+					<Add option="-Wno-unknown-pragmas" />
+					<Add option="-Wno-deprecated-enum-enum-conversion" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-D_WIN32" />
+		</Compiler>
+		<Unit filename="../../../src/Basic/ANN/ANN.cpp" />
+		<Unit filename="../../../src/Basic/ANN/ANN.h" />
+		<Unit filename="../../../src/Basic/ANN/ANNperf.h" />
+		<Unit filename="../../../src/Basic/ANN/ANNx.h" />
+		<Unit filename="../../../src/Basic/ANN/bd_pr_search.cpp" />
+		<Unit filename="../../../src/Basic/ANN/bd_search.cpp" />
+		<Unit filename="../../../src/Basic/ANN/bd_tree.cpp" />
+		<Unit filename="../../../src/Basic/ANN/bd_tree.h" />
+		<Unit filename="../../../src/Basic/ANN/brute.cpp" />
+		<Unit filename="../../../src/Basic/ANN/kd_dump.cpp" />
+		<Unit filename="../../../src/Basic/ANN/kd_pr_search.cpp" />
+		<Unit filename="../../../src/Basic/ANN/kd_pr_search.h" />
+		<Unit filename="../../../src/Basic/ANN/kd_search.cpp" />
+		<Unit filename="../../../src/Basic/ANN/kd_search.h" />
+		<Unit filename="../../../src/Basic/ANN/kd_split.cpp" />
+		<Unit filename="../../../src/Basic/ANN/kd_split.h" />
+		<Unit filename="../../../src/Basic/ANN/kd_tree.cpp" />
+		<Unit filename="../../../src/Basic/ANN/kd_tree.h" />
+		<Unit filename="../../../src/Basic/ANN/kd_util.cpp" />
+		<Unit filename="../../../src/Basic/ANN/kd_util.h" />
+		<Unit filename="../../../src/Basic/ANN/perf.cpp" />
+		<Unit filename="../../../src/Basic/ANN/pr_queue.h" />
+		<Unit filename="../../../src/Basic/ANN/pr_queue_k.h" />
+		<Unit filename="../../../src/Basic/ARModel/ARModel.cpp" />
+		<Unit filename="../../../src/Basic/ARModel/ARModel.h" />
+		<Unit filename="../../../src/Basic/AmountPpt.h" />
+		<Unit filename="../../../src/Basic/ApproximateNearestNeighbor.cpp" />
+		<Unit filename="../../../src/Basic/ApproximateNearestNeighbor.h" />
+		<Unit filename="../../../src/Basic/Callback.cpp" />
+		<Unit filename="../../../src/Basic/Callback.h" />
+		<Unit filename="../../../src/Basic/CallcURL.cpp" />
+		<Unit filename="../../../src/Basic/CallcURL.h" />
+		<Unit filename="../../../src/Basic/CppUserPrefs.h" />
+		<Unit filename="../../../src/Basic/Dbf3.cpp" />
+		<Unit filename="../../../src/Basic/Dbf3.h" />
+		<Unit filename="../../../src/Basic/ERMsg.h" />
+		<Unit filename="../../../src/Basic/ERMsg/ERMsg.h" />
+		<Unit filename="../../../src/Basic/ERMsg/Ererreur.cpp" />
+		<Unit filename="../../../src/Basic/ERMsg/Ererreur.h" />
+		<Unit filename="../../../src/Basic/ERMsg/Erexcept.cpp" />
+		<Unit filename="../../../src/Basic/ERMsg/Erexcept.h" />
+		<Unit filename="../../../src/Basic/ERMsg/Sycptref.h" />
+		<Unit filename="../../../src/Basic/ERMsg/Sycptref.hpp" />
+		<Unit filename="../../../src/Basic/ERMsg/Syenvmsg.cpp" />
+		<Unit filename="../../../src/Basic/ERMsg/Syenvmsg.h" />
+		<Unit filename="../../../src/Basic/ERMsg/Symessag.cpp" />
+		<Unit filename="../../../src/Basic/ERMsg/Symessag.h" />
+		<Unit filename="../../../src/Basic/Event.h" />
+		<Unit filename="../../../src/Basic/GeoBasic.cpp" />
+		<Unit filename="../../../src/Basic/GeoBasic.h" />
+		<Unit filename="../../../src/Basic/Location.cpp" />
+		<Unit filename="../../../src/Basic/Location.h" />
+		<Unit filename="../../../src/Basic/ModelStat.cpp" />
+		<Unit filename="../../../src/Basic/ModelStat.h" />
+		<Unit filename="../../../src/Basic/Mtrx.cpp" />
+		<Unit filename="../../../src/Basic/Mtrx.h" />
+		<Unit filename="../../../src/Basic/OpenMP.h" />
+		<Unit filename="../../../src/Basic/SearchResult.cpp" />
+		<Unit filename="../../../src/Basic/SearchResult.h" />
+		<Unit filename="../../../src/Basic/Shore.cpp" />
+		<Unit filename="../../../src/Basic/Shore.h" />
+		<Unit filename="../../../src/Basic/SimulatedAnnealing.cpp" />
+		<Unit filename="../../../src/Basic/SimulatedAnnealing.h" />
+		<Unit filename="../../../src/Basic/Statistic.cpp" />
+		<Unit filename="../../../src/Basic/Statistic.h" />
+		<Unit filename="../../../src/Basic/Sun.cpp" />
+		<Unit filename="../../../src/Basic/Sun.h" />
+		<Unit filename="../../../src/Basic/TimeStep.cpp" />
+		<Unit filename="../../../src/Basic/TimeStep.h" />
+		<Unit filename="../../../src/Basic/UtilMath.cpp" />
+		<Unit filename="../../../src/Basic/UtilMath.h" />
+		<Unit filename="../../../src/Basic/UtilStd.cpp" />
+		<Unit filename="../../../src/Basic/UtilStd.h" />
+		<Unit filename="../../../src/Basic/UtilTime.cpp" />
+		<Unit filename="../../../src/Basic/UtilTime.h" />
+		<Unit filename="../../../src/Basic/catch.hpp" />
+		<Unit filename="../../../src/Basic/csv.hpp" />
+		<Unit filename="../../../src/Basic/gzip.cpp" />
+		<Unit filename="../../../src/Basic/gzip.h" />
+		<Unit filename="../../../src/Basic/json/json11.cpp" />
+		<Unit filename="../../../src/Basic/json/json11.hpp" />
+		<Unit filename="../../../src/Basic/mpfit/mpfit.cpp" />
+		<Unit filename="../../../src/Basic/mpfit/mpfit.h" />
+		<Unit filename="../../../src/Basic/pugixml/pugiconfig.hpp" />
+		<Unit filename="../../../src/Basic/pugixml/pugixml.cpp" />
+		<Unit filename="../../../src/Basic/pugixml/pugixml.hpp" />
+		<Unit filename="../../../src/Basic/tinyxml2/tinyxml2.cpp" />
+		<Unit filename="../../../src/Basic/tinyxml2/tinyxml2.h" />
+		<Unit filename="../../../src/Basic/tortellini.hh" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

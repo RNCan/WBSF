@@ -266,63 +266,30 @@ inline double LogFactorial(double x)
 
 
 
-//	class CMathEvaluation
-//	{
-//	public:
-//		enum TOperation{ UNKNOWN = -1, EQUAL, NOT_EQUAL, GREATER_EQUAL, LOWER_EQUAL, GREATER, LOWER, NB_OPERATORS };
-//		static const char* OPERATOR_STR[NB_OPERATORS];
-//
-//
-//		CMathEvaluation(const char* str);
-//		bool Evaluate(double value)const{ return Evaluate(value, m_op, m_value); }
-//
-//		static TOperation GetOp(const std::string& str);
-//		static bool Evaluate(double value1, TOperation op, double value2);
-//
-//	protected:
-//
-//		TOperation m_op;
-//		double m_value;
-//
-//		static const double EPSILON;
-//	};
-//
-//	class CBetaXP
-//	{
-//	public:
-//
-//		CBetaXP(double x = 0, double p = 0){ m_x = x; m_p = p; };
-//
-//		double m_x;
-//		double m_p;
-//	};
-//
-//
-//
-//	class CBetaDistribution
-//	{
-//	public:
-//
-//		CBetaDistribution()
-//		{}
-//
-//		CBetaDistribution(double v, double w)
-//		{
-//			SetTable(v, w);
-//		}
-//
-//		virtual ~CBetaDistribution()
-//		{}
-//
-//		void SetTable(double v, double w);
-//		double XfromP(double p)const;
-//
-//	private:
-//
-//		CBetaXP m_XP[51];
-//	};
-//
-//
+class CMathEvaluation
+{
+public:
+    enum TOperation { UNKNOWN = -1, EQUAL, NOT_EQUAL, GREATER_EQUAL, LOWER_EQUAL, GREATER, LOWER, NB_OPERATORS };
+    static const char* OPERATOR_STR[NB_OPERATORS];
+
+
+    CMathEvaluation(const char* str);
+    bool Evaluate(double value)const
+    {
+        return Evaluate(value, m_op, m_value);
+    }
+
+    static TOperation GetOp(const std::string& str);
+    static bool Evaluate(double value1, TOperation op, double value2);
+
+protected:
+
+    TOperation m_op;
+    double m_value;
+
+    static const double EPSILON;
+};
+
 //	//**************************************************
 //	class CSchoolfield
 //	{
@@ -391,10 +358,10 @@ inline double LogFactorial(double x)
 //
 //			double u = numerator / denominator;
 //
-//			_assertE(bExcLower || (u >= 0));
-//			_assertE(!bExcLower || (u > 0));
-//			_assertE(bExcUpper || (u <= 1));
-//			_assertE(!bExcUpper || (u < 1));
+//			assert(bExcLower || (u >= 0));
+//			assert(!bExcLower || (u > 0));
+//			assert(bExcUpper || (u <= 1));
+//			assert(!bExcUpper || (u < 1));
 //
 //			return u;
 //		}
@@ -422,7 +389,7 @@ inline double LogFactorial(double x)
 //			if (l > u)
 //				WBSF::Switch(l, u);
 //
-//			_assertE(l <= u);
+//			assert(l <= u);
 //
 //			//std::uniform_int<int> uniformInt(l, u);
 //			//return uniformInt(m_gen);
@@ -436,7 +403,7 @@ inline double LogFactorial(double x)
 //			if (l > u)
 //				WBSF::Switch(l, u);
 //
-//			_assertE(l <= u);
+//			assert(l <= u);
 //
 //			//get a number [0, u-l] and add l
 //			return l + (u - l)*Randu();

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<FileVersion major="1" minor="0" />
+	<ActiveTarget name="Debug" />
+	<File name="..\..\..\src\Basic\SearchResult.h" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="676" topLine="233" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\Callback.cpp" open="0" top="0" tabpos="21" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1019" topLine="29" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\SimulatedAnnealing.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="711" topLine="3" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\GeoBasic.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="737" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\ApproximateNearestNeighbor.h" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3354" topLine="95" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\UtilMath.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="8475" topLine="260" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\SimulatedAnnealing.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5960" topLine="205" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\Dbf3.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="11901" topLine="436" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\gzip.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="62" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\UtilTime.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="32687" topLine="1261" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\ModelStat.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="10192" topLine="269" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\ModelStat.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3965" topLine="106" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\tinyxml2\tinyxml2.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2693" topLine="54" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\Shore.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="534" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\GeoBasic.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="478" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\UtilStd.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="36156" topLine="1261" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\Shore.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="606" topLine="6" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\ApproximateNearestNeighbor.cpp" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="8210" topLine="260" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\CallcURL.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3003" topLine="68" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\Statistic.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2458" topLine="34" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\SearchResult.cpp" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1996" topLine="47" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\gzip.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="20" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\Dbf3.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4483" topLine="213" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\UtilTime.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3791" topLine="176" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\CallcURL.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="632" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\Location.h" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="16002" topLine="473" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\UtilMath.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5946" topLine="214" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\ERMsg\Symessag.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4224" topLine="68" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\ARModel\ARModel.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="657" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\AmountPpt.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1040" topLine="22" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\UtilStd.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="12416" topLine="323" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\Callback.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3788" topLine="123" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\Location.cpp" open="0" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="957" topLine="31" />
+		</Cursor>
+	</File>
+</CodeBlocks_layout_file>
