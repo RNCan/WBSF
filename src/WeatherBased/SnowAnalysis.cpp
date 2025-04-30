@@ -9,9 +9,9 @@
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 //******************************************************************************
 
-#include "stdafx.h"
+//#include "stdafx.h"
 
-#include "Basic/SnowAnalysis.h"
+#include "WeatherBased/SnowAnalysis.h"
 
 
 using namespace std;
@@ -42,16 +42,16 @@ CTRef CSnowAnalysis::GetLastSnowTRef(const CWeatherYear& weather)const
     CTRef lastTRef;
 
     int year = weather.GetTRef().GetYear();
-    CTM TM = weather.TM();
+    CTM TM = weather.GetTM();
 
     CTPeriod period = weather.GetEntireTPeriod();
     CTRef midSeason(year, JULY, DAY_15, 12, TM);
 
     size_t nbTRefPerDay = weather.IsHourly() ? 24 : 1;
     size_t nbTRef = 0;
-    for (CTRef TRef = midSeason; TRef >= period.Begin() && !lastTRef.IsInit(); TRef--)
+    for (CTRef TRef = midSeason; TRef >= period.begin() && !lastTRef.is_init(); TRef--)
     {
-        assert(weather[TRef][m_variable].IsInit());
+        assert(weather[TRef][m_variable].is_init());
         if (weather[TRef][m_variable][MEAN] > m_minimum_snow_depth)//more than threshold
 //			if (weather[TRef][H_SWE][MEAN] > m_minimum_snow_depth)//more than 2 mm of water
         {
@@ -77,16 +77,16 @@ CTRef CSnowAnalysis::GetFirstSnowTRef(const CWeatherYear& weather)const
 
 
     int year = weather.GetTRef().GetYear();
-    CTM TM = weather.TM();
+    CTM TM = weather.GetTM();
 
     CTPeriod period = weather.GetEntireTPeriod();
     CTRef midSeason(year, JULY, DAY_15, 12, TM);
 
     size_t nbTRefPerDay = weather.IsHourly() ? 24 : 1;
     size_t nbTRef = 0;
-    for (CTRef TRef = midSeason; TRef <= period.End() && !firstTRef.IsInit(); TRef++)
+    for (CTRef TRef = midSeason; TRef <= period.end() && !firstTRef.is_init(); TRef++)
     {
-        assert(weather[TRef][m_variable].IsInit());
+        assert(weather[TRef][m_variable].is_init());
         if (weather[TRef][m_variable][MEAN] > m_minimum_snow_depth)
         {
             nbTRef++;

@@ -40,11 +40,11 @@ namespace WBSF
 	{
 	}
 
-	int CAmountPpt::GetClass(double Sp)const
+	size_t CAmountPpt::GetClass(double Sp)const
 	{
-		_ASSERTE(Sp >= 0);
+		assert(Sp >= 0);
 
-		int p_class = 0;
+		size_t p_class = 0;
 		if (Sp > 0.25)
 			p_class = 1;
 		if (Sp > 0.3)
@@ -84,7 +84,7 @@ namespace WBSF
 		if (Sp > 3.5)
 			p_class = 19;
 
-		_ASSERTE(p_class >= 0 && p_class < NUMBER_SPCLASS);
+		assert( p_class < NUMBER_SPCLASS);
 		return (p_class);
 	}
 

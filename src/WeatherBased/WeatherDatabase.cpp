@@ -1,35 +1,36 @@
 //******************************************************************************
 //  Project:		Weather-based simulation framework (WBSF)
 //	Programmer:     Rémi Saint-Amant
-// 
+//
 //  It under the terms of the GNU General Public License as published by
 //     the Free Software Foundation
 //  It is provided "as is" without express or implied warranty.
-//	
+//
 //******************************************************************************
 // 12-11-2019	Rémi Saint-Amant	Bug correction in MostComplete
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 //****************************************************************************
-#include "stdafx.h"
+//#include "stdafx.h"
 #include <direct.h>
 
 #pragma warning( disable : 4244 )
-#include <boost\archive\binary_oarchive.hpp>
-#include <boost\archive\binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
 #include <boost/iostreams/stream.hpp>
 #include <boost/iostreams/filtering_streambuf.hpp>
 #include <boost/iostreams/filter/gzip.hpp>
-#include <boost\dynamic_bitset.hpp>
+#include <boost/dynamic_bitset.hpp>
 
-#include "Basic/WeatherDatabase.h"
-#include "Basic/WeatherDatabaseCreator.h"
-#include "Basic/SearchResult.h"
 #include "Basic/UtilStd.h"
 #include "Basic/GeoBasic.h"
 #include "Basic/OpenMP.h"
+#include "Basic/SearchResult.h"
+#include "WeatherBased/WeatherDatabase.h"
+#include "WeatherBased/WeatherDatabaseCreator.h"
 
 
-#include "WeatherBasedSimulationString.h"
+
+//#include "WeatherBasedSimulationString.h"
 
 
 using namespace std;
@@ -70,7 +71,7 @@ namespace WBSF
 
 	std::set<int> CWeatherDatabase::GetYears(size_t index)const
 	{
-		ASSERT(IsOpen());
+		assert(IsOpen());
 
 		if (m_openMode != modeBinary && m_zop.GetDataSection().GetFilePath().empty())
 		{
@@ -95,7 +96,6 @@ namespace WBSF
 	// Note:        On doit initialiser cette classe avec un path
 	//****************************************************************************
 	CWeatherDatabase::CWeatherDatabase(int cacheSize) :
-		m_hDll(nullptr),
 		load_azure_weather_years(nullptr),
 		m_cache(cacheSize)
 	{
@@ -127,22 +127,22 @@ namespace WBSF
 	//****************************************************************************
 	// Sommaire:    Ouvrir la Base de données
 	//
-	// Description: La methode Open(const std::string, UINT) 
-	//              permet d'obtenir la liste(nom) des stations qui sont dans la BD, bWithPrecipitation 
+	// Description: La methode Open(const std::string, UINT)
+	//              permet d'obtenir la liste(nom) des stations qui sont dans la BD, bWithPrecipitation
 	//              force les stations a avoir de la précipitation
 	//
-	// Entrée:      Filter: possibiliter de filter les station qui sont incomplète 
+	// Entrée:      Filter: possibiliter de filter les station qui sont incomplète
 	//
-	// Sortie:      StringVector& stationListName: la liste des station normals
+	// Sortie:      std::vector<std::string>& stationListName: la liste des station normals
 	//              int: le nombre de stations trouver
 	//
-	// Note:        Si la BD n'est pas chargée en mémoire, on la charge avec 
+	// Note:        Si la BD n'est pas chargée en mémoire, on la charge avec
 	//              CheckIfDBReady().
 	//****************************************************************************
-	ERMsg CWeatherDatabase::Open(const std::string& filePath, UINT flag, CCallback& callback, bool bSkipVerify)
+	ERMsg CWeatherDatabase::Open(const std::string& filePath, size_t flag, CCallback& callback, bool bSkipVerify)
 	{
-		ASSERT(!filePath.empty());
-		ASSERT(m_openMode == modeNotOpen);
+		assert(!filePath.empty());
+		assert(m_openMode == modeNotOpen);
 
 		ERMsg msg;
 
@@ -255,7 +255,7 @@ namespace WBSF
 				std::string optFilePath = GetOptimisationFilePath(referencedFilePath);
 				if (FileExists(optFilePath))
 				{
-					callback.AddMessage(FormatMsg(IDS_BSC_OPEN_FILE, GetFileName(optFilePath)));
+					callback.AddMessage(FormatMsg("Openning file \"%1\"", GetFileName(optFilePath)));
 					msg = m_zop.Load(optFilePath);
 					if (msg)
 					{
@@ -277,7 +277,7 @@ namespace WBSF
 
 					if (msg)
 					{
-						callback.AddMessage(FormatMsg(IDS_BSC_OPEN_FILE, GetFileName(referencedFilePath)));
+						callback.AddMessage(FormatMsg("Openning file \"%1\" ...", GetFileName(referencedFilePath)));
 						msg = m_zop.LoadFromXML(referencedFilePath, GetXMLFlag(), GetHeaderExtension());
 					}
 				}
@@ -295,7 +295,7 @@ namespace WBSF
 
 					if (bDataAsChange)
 					{
-						callback.AddMessage(FormatMsg(IDS_BSC_UPDATE_FILE, GetFileName(optFilePath)));
+						callback.AddMessage(FormatMsg("Updating file \"%1\" ...", GetFileName(optFilePath)));
 						string dataOptFilePath = GetOptimisationDataFilePath(referencedFilePath);
 						msg = m_zop.UpdateDataFilesYearsIndex(dataOptFilePath, fileInfo, callback);
 					}
@@ -303,19 +303,19 @@ namespace WBSF
 
 				if (msg && (bStationsAsChange || bDataAsChange))
 				{
-					callback.AddMessage(FormatMsg(IDS_BSC_SAVE_FILE, GetFileName(optFilePath)));
+					callback.AddMessage(FormatMsg("Save file \"%1\" ...", GetFileName(optFilePath)));
 
 					msg += m_zop.Save(optFilePath);
 				}
 			}
 			else
 			{
-				msg.ajoute(FormatMsg(IDS_WG_DB_NOTEXIST, headerFilePath));
+				msg.ajoute(FormatMsg("Database %1 does not exist.", headerFilePath));
 			}
 		}
 		else
 		{
-			msg.ajoute(FormatMsg(IDS_WG_DB_NOTEXIST, referencedFilePath));
+			msg.ajoute(FormatMsg("Database %1 does not exist.", referencedFilePath));
 		}
 
 		msg += ClearSearchOpt(referencedFilePath);
@@ -327,7 +327,7 @@ namespace WBSF
 
 	ERMsg CWeatherDatabase::OpenSearchOptimization(CCallback& callback)
 	{
-		ASSERT(m_openMode == modeRead || m_openMode == modeBinary);
+		assert(m_openMode == modeRead || m_openMode == modeBinary);
 
 		ERMsg msg;
 
@@ -335,7 +335,7 @@ namespace WBSF
 		if (m_openMode != modeBinary && m_zop.GetDataSection().GetFilePath().empty())
 		{
 			string filePath = GetOptimisationDataFilePath(m_filePath);
-			callback.PushTask(FormatMsg(IDS_MSG_LOAD_OP, GetFileName(filePath)), NOT_INIT);
+			callback.PushTask(FormatMsg("Load optimization file %1...", GetFileName(filePath)), NOT_INIT);
 			CWeatherDatabaseOptimization& zop = const_cast<CWeatherDatabaseOptimization&>(m_zop);
 			msg = zop.LoadData(filePath);
 			callback.PopTask();
@@ -343,7 +343,7 @@ namespace WBSF
 
 		if (m_openMode != modeBinary && !m_zop.SearchIsOpen())
 		{
-			callback.PushTask(FormatMsg(IDS_MSG_LOAD_OP, GetFileName(GetOptimisationSearchFilePath1())), NOT_INIT);
+			callback.PushTask(FormatMsg("Load optimization file %1...", GetFileName(GetOptimisationSearchFilePath1())), NOT_INIT);
 			//run even of they are not able to open search optimization
 			msg = m_zop.OpenSearch(GetOptimisationSearchFilePath1(), GetOptimisationSearchFilePath2());
 			callback.PopTask();
@@ -366,23 +366,23 @@ namespace WBSF
 	//              de température) d'une station quotidienne pour une année donnée.
 	//
 	// Entrée:  int index: le no de la station
-	//          int year: l'année 
+	//          int year: l'année
 	//
 	// Sortie:  CWeatherStation& station: la station
 	//          bool: true: la station a été trouvée, faux autrement
-	// 
+	//
 	// Note:    par default on retourne toutes les années d'une stations
-	//**************************************************************************** 
+	//****************************************************************************
 	ERMsg CWeatherDatabase::Get(CLocation& station, size_t index, const std::set<int>& years)const
 	{
 		ERMsg msg;
 
 		if (m_openMode != modeBinary && m_zop.GetDataSection().GetFilePath().empty())
 		{
-			m_CS.Enter();
+            std::lock_guard<const std::mutex> guard(m_mutex);
 			CWeatherDatabaseOptimization& zop = const_cast<CWeatherDatabaseOptimization&>(m_zop);
 			msg = zop.LoadData(GetOptimisationDataFilePath(m_filePath));
-			m_CS.Leave();
+
 		}
 
 		station = m_zop[index];
@@ -397,20 +397,20 @@ namespace WBSF
 	//              de température) d'une station quotidienne pour une année donnée.
 	//
 	// Entrée:  int index: le no de la station
-	//          int year: l'année 
+	//          int year: l'année
 	//
 	// Sortie:  CWeatherStation& station: la station
 	//          bool: true: la station a été trouvée, faux autrement
-	// 
+	//
 	// Note:    par default on retourne toutes les années d'une stations
-	//**************************************************************************** 
+	//****************************************************************************
 	ERMsg CWeatherDatabase::Get(CLocation& station, size_t index, int year)const
 	{
 		std::set<int> years;
 
 		if (year > YEAR_NOT_INIT)
 		{
-			ASSERT(year > 1700 && year <= 2100);
+			assert(year > 1700 && year <= 2100);
 			years.insert(year);
 		}
 
@@ -421,19 +421,19 @@ namespace WBSF
 	//****************************************************************************
 	// Sommaire:     Ajouter une station Real Time à la BD
 	//
-	// Description: La methode push_back permet d'ajouter une station a la DB si cette 
+	// Description: La methode push_back permet d'ajouter une station a la DB si cette
 	//              station n'y est pas.
 	//
 	// Entrée:      CWeatherStation& station: la station à ajouter.
 	//
 	// Sortie:      bool: true si succes, false autrement
 	//
-	// Note:        Si la BD est chargée en mémoire, on la decharge 
+	// Note:        Si la BD est chargée en mémoire, on la decharge
 	//****************************************************************************
 	ERMsg CWeatherDatabase::Add(const CLocation& location)
 	{
-		ASSERT(IsOpen());
-		ASSERT(m_openMode == modeWrite);
+		assert(IsOpen());
+		assert(m_openMode == modeWrite);
 
 		ERMsg msg;
 
@@ -454,20 +454,20 @@ namespace WBSF
 	// Sommaire:     modifie une station RT de la BD
 	//
 	// Description: La methode Modify permet de modifier tous les champs d'une station
-	//              RT, saul le nom(qui identifie la station). La station doit 
+	//              RT, saul le nom(qui identifie la station). La station doit
 	//              exister dans la BD
 	//
 	// Entrée:      CWeatherStation& station: la station à changer.
 	//
 	// Sortie:      bool: true si succes, false autrement
 	//
-	// Note:        Si la BD est chargée en mémoire, on la decharge 
+	// Note:        Si la BD est chargée en mémoire, on la decharge
 	//****************************************************************************
 	ERMsg CWeatherDatabase::Set(size_t index, const CLocation& location)
 	{
-		ASSERT(IsOpen());
-		ASSERT(m_openMode == modeWrite);
-		ASSERT(index >= 0 && index < m_zop.size());
+		assert(IsOpen());
+		assert(m_openMode == modeWrite);
+		assert(index >= 0 && index < m_zop.size());
 
 		ERMsg msg;
 		if (m_openMode != modeWrite)
@@ -493,19 +493,19 @@ namespace WBSF
 	// Sommaire:     Supprime une station de BD normal
 	//
 	// Description: La methode Delete permet de supprimer une station de la DB.
-	//              Si la station n'existe pas on ASSERT et on ne fait rien
+	//              Si la station n'existe pas on assert et on ne fait rien
 	//
 	// Entrée:      const std::string& sStationName: le nom de la station à supprimer
 	//
 	// Sortie:      bool: true si succes, false autrement
 	//
-	// Note:        Si la BD est chargée en mémoire, on la decharge 
+	// Note:        Si la BD est chargée en mémoire, on la decharge
 	//****************************************************************************
 	ERMsg CWeatherDatabase::Remove(size_t index)
 	{
-		ASSERT(IsOpen());
-		ASSERT(m_openMode == modeWrite);
-		ASSERT(index >= 0 && index < m_zop.size());
+		assert(IsOpen());
+		assert(m_openMode == modeWrite);
+		assert(index >= 0 && index < m_zop.size());
 
 
 		ERMsg msg;
@@ -544,7 +544,7 @@ namespace WBSF
 
 	int CWeatherDatabase::GetStationIndex(const std::string& strIn, bool bByName)const
 	{
-		ASSERT(IsOpen());
+		assert(IsOpen());
 
 		string str = strIn;
 		string::size_type pos = 0;
@@ -552,7 +552,7 @@ namespace WBSF
 			str = Tokenize(str, "+", pos);//take the first ID
 
 		Trim(str);
-		ASSERT(!str.empty());
+		assert(!str.empty());
 
 		CWeatherDatabaseOptimization::const_iterator it = m_zop.end();
 
@@ -582,12 +582,12 @@ namespace WBSF
 	// Sortie:      LOCArray& locArray: un vecteur de station LOC
 	//              bool: true si DB existe, false autrement
 	//
-	// Note:        Si la BD n'est pas chargée en mémoire, on la charge avec 
+	// Note:        Si la BD n'est pas chargée en mémoire, on la charge avec
 	//              CheckIfDBReady().
 	//****************************************************************************
 
 	//1- for all available stations, create a list of pair of stations which are closest to each other.
-	//2- from this list, take the pair that distance is less than median. 
+	//2- from this list, take the pair that distance is less than median.
 	//3- remove station with less data.
 	//4- do these step until the number of station is reach.
 	//
@@ -603,7 +603,7 @@ namespace WBSF
 		double b = log(nbStations) / log(4);
 		size_t c = ceil(a - b);
 
-		callback.PushTask(GetString(IDS_MSG_GENERATE_LOC), c);
+		callback.PushTask("Generate Well Distributed Stations", c);
 
 
 		//create a status vector
@@ -618,13 +618,13 @@ namespace WBSF
 		while (status.count() > nbStations && msg)
 		{
 			step++;
-			callback.PushTask(FormatMsg(IDS_MSG_ELIMINATE_POINT, ToString(step)), searchResult.size() * 3);
+			callback.PushTask(FormatMsg("Eliminate points: step%1", to_string(step)), searchResult.size() * 3);
 			//callback.SetNbStep(searchResult.size() * 3);
 
-			callback.AddMessage(FormatMsg(IDS_MSG_STATIONS_LEFT, ToString(status.count())));
+			callback.AddMessage(FormatMsg("Number of station left: %1", to_string(status.count())));
 
 			CLocationVector locations(status.count());
-			vector<__int64> positions(status.count());
+			vector<int64_t> positions(status.count());
 			for (size_t j = 0, jj = 0; j < searchResult.size() && msg; j++)
 			{
 				if (status[j])
@@ -650,8 +650,8 @@ namespace WBSF
 					CSearchResultVector tmp;
 					if (ann.search(locations[jj], 2ull, tmp))
 					{
-						ASSERT(tmp.size() == 2);
-						ASSERT(tmp[0ull].m_index == j);
+						assert(tmp.size() == 2);
+						assert(tmp[0ull].m_index == j);
 
 						resultNearest[j] = tmp[1ull];
 						stats += resultNearest[j].m_virtual_distance;
@@ -677,7 +677,7 @@ namespace WBSF
 					size_t jj = resultNearest[j].m_index;
 					if (resultNearest[jj].m_index == j && status[jj])
 					{
-						ASSERT(fabs(resultNearest[j].m_virtual_distance - resultNearest[jj].m_virtual_distance) < 0.1);
+						assert(fabs(resultNearest[j].m_virtual_distance - resultNearest[jj].m_virtual_distance) < 0.1);
 						if (resultNearest[j].m_virtual_distance < median)
 						{
 							size_t priority1 = priority[j];
@@ -699,7 +699,7 @@ namespace WBSF
 
 		if (msg)
 		{
-			ASSERT(status.count() == nbStations);
+			assert(status.count() == nbStations);
 
 			CSearchResultVector result;
 			result.reserve(nbStations);
@@ -719,9 +719,9 @@ namespace WBSF
 
 	ERMsg CWeatherDatabase::GenerateLOC(CSearchResultVector& searchResult, size_t method, size_t nbStations, CWVariables filter, int year, bool bExcludeUnused, bool bUseElevation, const CGeoRect& boundingBox, CCallback& callBack)const
 	{
-		ASSERT(IsOpen());
-		ASSERT(m_openMode == modeRead);
-		ASSERT(boundingBox.IsRectNormal());
+		assert(IsOpen());
+		assert(m_openMode == modeRead);
+		assert(boundingBox.IsRectNormal());
 
 		ERMsg msg;
 
@@ -848,7 +848,7 @@ namespace WBSF
 	//mode can be in read or write mode
 	ERMsg CWeatherDatabase::GetStationList(CSearchResultVector& searchResultArray, CWVariables filter, int year, bool bExcludeUnused, const CGeoRect& rectIn)const
 	{
-		ASSERT(IsOpen());
+		assert(IsOpen());
 
 		ERMsg msg;
 
@@ -913,7 +913,7 @@ namespace WBSF
 
 		if (m_openMode != modeBinary && m_zop.GetDataSection().GetFilePath().empty())
 		{
-			ASSERT(FileExists(GetOptimisationDataFilePath(m_filePath)));
+			assert(FileExists(GetOptimisationDataFilePath(m_filePath)));
 
 			CWeatherDatabaseOptimization& zop = const_cast<CWeatherDatabaseOptimization&>(m_zop);
 			msg = zop.LoadData(GetOptimisationDataFilePath(m_filePath));
@@ -938,7 +938,7 @@ namespace WBSF
 					if (year == YEAR_NOT_INIT || it3->first == year)
 					{
 						const CWVariablesCounter& nbRecords = it3->second.m_nbRecords;
-						ASSERT(nbRecords.size() == NB_VAR_H);
+						assert(nbRecords.size() == NB_VAR_H);
 						for (size_t v = 0; v < NB_VAR_H; v++)
 							if (filter[v])
 								p += nbRecords[v].first;
@@ -962,7 +962,7 @@ namespace WBSF
 
 		if (m_openMode != modeBinary && m_zop.GetDataSection().GetFilePath().empty())
 		{
-			ASSERT(FileExists(GetOptimisationDataFilePath(m_filePath)));
+			assert(FileExists(GetOptimisationDataFilePath(m_filePath)));
 
 			CWeatherDatabaseOptimization& zop = const_cast<CWeatherDatabaseOptimization&>(m_zop);
 			msg = zop.LoadData(GetOptimisationDataFilePath(m_filePath));
@@ -1034,38 +1034,24 @@ namespace WBSF
 	{
 		ERMsg msg;
 
-		if (m_hDll == nullptr)
+		if (!m_hDll.is_loaded())
 		{
-			string filePath = GetApplicationPath() + "External\\azure_weather.dll";
+			std::filesystem::path filePath = GetApplicationPath() / "External/azure_weather.dll";
 			if (!m_azure_dll_filepath.empty())
 				filePath = m_azure_dll_filepath;
 
 			//load the dll.
-			m_hDll = LoadLibrary(convert(filePath).c_str());
+			m_hDll.load(filePath.string());
 
-			//if (m_hDll == nullptr)
-			//{
-			//	filePath = "azure_weather.dll";
-			//	m_hDll = LoadLibrary(convert(filePath).c_str());
-			//}
-
-			////if not working try default path
-			//if (m_hDll == nullptr)
-			//{
-			//	filePath = GetApplicationPath() + "azure_weather.dll";
-			//	m_hDll = LoadLibrary(convert(filePath).c_str());
-			//}
-
-
-			if (m_hDll != nullptr)
+			if (m_hDll.is_loaded())
 			{
-				load_azure_weather_years = (load_azure_weather_yearsF)GetProcAddress(m_hDll, "load_azure_weather_years");
-				if (load_azure_weather_years == NULL)
-					msg.ajoute(FormatMsg(IDS_BSC_UNABLE_GETFUNC, "load_azure_weather_years", filePath));
+				//load_azure_weather_years = (load_azure_weather_yearsF)GetProcAddress(m_hDll, "load_azure_weather_years");
+				//if (load_azure_weather_years == NULL)
+//					msg.ajoute(FormatMsg("Cannot obtain method '%1' in library \"%2\".", "load_azure_weather_years", filePath));
 			}
 			else
 			{
-				msg.ajoute(FormatMsg(IDS_BSC_UNABLE_LOADDLL, filePath));
+				msg.ajoute(FormatMsg( "Cannot load library \"%1\".", filePath.string()));
 			}
 
 		}
@@ -1077,12 +1063,12 @@ namespace WBSF
 	{
 		if (m_hDll)
 		{
-			//ASSERT(GetModuleHandleW(convert(GetDLLFilePath()).c_str()) != NULL);
+			//assert(GetModuleHandleW(convert(GetDLLFilePath()).c_str()) != NULL);
 
 			//to prevent a bug in the VCOMP100.dll we must wait 1 sec before closing dll
 			//see http://support.microsoft.com/kb/94248
 			Sleep(1000);
-			bool bFree = FreeLibrary(m_hDll) != 0;
+			bool bFree = m_hDll. != 0;
 			if (bFree)
 			{
 				m_hDll = NULL;
@@ -1095,8 +1081,8 @@ namespace WBSF
 
 	ERMsg CDHDatabaseBase::VerifyDB(CCallback& callback)const
 	{
-		ASSERT(IsOpen());
-		ASSERT(m_openMode == modeRead);
+		assert(IsOpen());
+		assert(m_openMode == modeRead);
 
 		ERMsg msg;
 		//
@@ -1114,9 +1100,9 @@ namespace WBSF
 		//    int nSize = m_zop.GetNbStation();
 		//    for(int i=0; i<nSize; i++)
 		//    {
-		//		ASSERT( m_zop.GetStation(i).IsKindOf( RUNTIME_CLASS( CWeatherStation) ));
+		//		assert( m_zop.GetStation(i).IsKindOf( RUNTIME_CLASS( CWeatherStation) ));
 		//		CWeatherStation station = (const CWeatherStation&) m_zop.GetStation(i);
-		//		
+		//
 		//		msg = station.ReadData( GetDataPath() );
 		//		callback.AddMessage(msg);
 		//
@@ -1135,9 +1121,9 @@ namespace WBSF
 		//    callback.SetStartNewStep();
 		//
 		//    //Verifion que tous les wea on une entrée dans la table
-		//	StringVector fileList;
+		//	std::vector<std::string> fileList;
 		////	GetUnlinkedFile(fileList);
-		//    
+		//
 		//    nSize = GetFilesList(fileList, GetDataPath() + "*.wea");
 		//    for(int i=0; i<fileList.size(); i++)
 		//    {
@@ -1171,9 +1157,9 @@ namespace WBSF
 		//    nSize = m_zop.GetNbStation();
 		//    for(int i=0; i<nSize; i++)
 		//    {
-		//		ASSERT( m_zop.GetStation(i).IsKindOf( RUNTIME_CLASS( CWeatherStation) ));
+		//		assert( m_zop.GetStation(i).IsKindOf( RUNTIME_CLASS( CWeatherStation) ));
 		//		const CWeatherStation& stationHead = (const CWeatherStation&) m_zop.GetStation(i);
-		//    
+		//
 		//		for(int j=0; j<stationHead.GetNbPackage(); j++)
 		//		{
 		//			for(int l=j+1; l<stationHead.GetNbPackage(); l++)
@@ -1191,9 +1177,9 @@ namespace WBSF
 		//
 		//            for(int k=i+1; k<nSize; k++)
 		//            {
-		//		        ASSERT( m_zop.GetStation(k).IsKindOf( RUNTIME_CLASS( CWeatherStation) ));
+		//		        assert( m_zop.GetStation(k).IsKindOf( RUNTIME_CLASS( CWeatherStation) ));
 		//				const CWeatherStation& stationHeadTmp = (const CWeatherStation&) m_zop.GetStation(k);
-		//    
+		//
 		//				for(int l=0; l<stationHeadTmp.GetNbPackage(); l++)
 		//				{
 		//					if( (stationHead[j].GetFileTitle().CompareNoCase(stationHeadTmp[l].GetFileTitle()) == 0))
@@ -1227,9 +1213,9 @@ namespace WBSF
 
 	ERMsg CDHDatabaseBase::CreateFromMerge(const std::string& filePath1, const std::string& filePath2, double d, double deltaElev, size_t mergeType, size_t priorityRules, std::string& log, CCallback& callback)
 	{
-		ASSERT(m_openMode == modeWrite);
-		ASSERT(IsDailyDB(filePath1) == IsDailyDB(filePath2));
-		ASSERT(IsHourlyDB(filePath1) == IsHourlyDB(filePath2));
+		assert(m_openMode == modeWrite);
+		assert(IsDailyDB(filePath1) == IsDailyDB(filePath2));
+		assert(IsHourlyDB(filePath1) == IsHourlyDB(filePath2));
 
 		ERMsg msg;
 
@@ -1322,14 +1308,14 @@ namespace WBSF
 
 
 				//there are at least the station itself
-				ASSERT(result1.size() > 0);
+				assert(result1.size() > 0);
 
 
 				//merge station from DB1 and DB2
 				CWeatherStation station(GetDataTM().Type() == CTM::HOURLY);
 				msg = MergeStation(*pDB1, *pDB2, result1, result2, station, mergeType, priorityRules, log);
 
-				//add index of station merged from DB1		
+				//add index of station merged from DB1
 				for (CSearchResultVector::iterator it1 = result1.begin(); it1 != result1.end(); it1++)
 					addedIndex1.set(it1->m_index);
 
@@ -1338,7 +1324,7 @@ namespace WBSF
 					addedIndex2.set(it2->m_index);
 
 				Trim(station.m_name);
-				ASSERT(!station.m_name.empty());
+				assert(!station.m_name.empty());
 				//Eliminate duplication in name
 				string newName = GetUniqueName(station.m_ID, station.m_name);
 				if (newName != station.m_name)
@@ -1398,7 +1384,7 @@ namespace WBSF
 				}
 
 				//there are at least the station itself
-				ASSERT(result.size() > 0);
+				assert(result.size() > 0);
 
 				//Merge from DB2 only
 				CWeatherStation station(GetDataTM().Type() == CTM::HOURLY);
@@ -1408,7 +1394,7 @@ namespace WBSF
 					addedIndex2.set(it->m_index);
 
 				Trim(station.m_name);
-				ASSERT(!station.m_name.empty());
+				assert(!station.m_name.empty());
 				//Eliminate duplication in name
 				string newName = GetUniqueName(station.m_ID, station.m_name);
 				if (newName != station.m_name)
@@ -1437,8 +1423,8 @@ namespace WBSF
 
 	ERMsg CDHDatabaseBase::MergeStation(CWeatherDatabase& inputDB1, CWeatherDatabase& inputDB2, const CSearchResultVector& results1, const CSearchResultVector& results2, CWeatherStation& station, size_t mergeType, size_t priorityRules, string& log)
 	{
-		ASSERT(results1.size() > 0 || results2.size() > 0);
-		ASSERT(inputDB1.GetDataTM() == inputDB2.GetDataTM());
+		assert(results1.size() > 0 || results2.size() > 0);
+		assert(inputDB1.GetDataTM() == inputDB2.GetDataTM());
 
 		ERMsg msg;
 		CTM TM = inputDB1.GetDataTM();
@@ -1536,7 +1522,7 @@ namespace WBSF
 		}
 		else
 		{
-			std::string error = FormatMsg(IDS_WG_DB_NOTEXIST, filePath);
+			std::string error = FormatMsg("Database %1 does not exist.", filePath);
 			msg.ajoute(error);
 		}
 
@@ -1588,7 +1574,7 @@ namespace WBSF
 
 	ERMsg CDHDatabaseBase::AppendDatabase(const std::string& inputFilePath1, const std::string& inputFilePath2, bool bCopy, CCallback& callback)
 	{
-		ASSERT(IsOpen());
+		assert(IsOpen());
 
 		ERMsg msg;
 
@@ -1659,7 +1645,7 @@ namespace WBSF
 
 
 				m_bModified = true;
-				comment = FormatMsg(IDS_CMN_NB_STATIONS_ADDED, ToString(zop1.size() + zop2.size()));
+				comment = FormatMsg(IDS_CMN_NB_STATIONS_ADDED, to_string(zop1.size() + zop2.size()));
 				callback.AddMessage(comment, 1);
 
 
@@ -1743,7 +1729,7 @@ namespace WBSF
 		if (FileExists(filePath))
 		{
 			std::string filter = GetDataPath(filePath) + "*.csv";
-			StringVector files = GetFilesList(filter);
+			std::vector<std::string> files = GetFilesList(filter);
 
 			callback.AddMessage(GetString(IDS_BSC_DELETE_FILE));
 			callback.AddMessage(filePath, 1);
@@ -1822,7 +1808,7 @@ namespace WBSF
 	// Sortie:      CTime& fileModify: la date de la dernière modif si succes
 	//              bool: true si BD exite, false autrement
 	//
-	// Note:        
+	// Note:
 	//****************************************************************************
 	__time64_t CDHDatabaseBase::GetLastUpdate(const std::string& filePath, bool bVerifyAllFiles)const
 	{
@@ -1870,13 +1856,13 @@ namespace WBSF
 	//
 	// Sortie:  station: la station avec les données
 	//          ERMsg: message d'erreur
-	// 
-	// Note:    
+	//
+	// Note:
 	//****************************************************************************
 	ERMsg CDHDatabaseBase::Get(CLocation& station, size_t index, const std::set<int>& yearsIn)const
 	{
-		ASSERT(IsOpen());
-		ASSERT(index >= 0 && index < m_zop.size());
+		assert(IsOpen());
+		assert(index >= 0 && index < m_zop.size());
 
 		ERMsg msg;
 
@@ -2025,7 +2011,7 @@ namespace WBSF
 
 						read_value(incoming, period);
 						read_value(incoming, variable);
-						assert(period.IsInit());
+						assert(period.is_init());
 
 						for (CTRef TRef = period.Begin(); TRef <= period.End(); TRef++)
 							pWeather->Get(TRef).ReadStream(incoming, variable, false);
@@ -2037,7 +2023,7 @@ namespace WBSF
 						int error = exception.error();
 						if (error == boost::iostreams::gzip::zlib_error)
 						{
-							//check for all error code    
+							//check for all error code
 							msg.ajoute(exception.what());
 						}
 					}
@@ -2051,19 +2037,19 @@ namespace WBSF
 	//****************************************************************************
 	// Sommaire:     Ajouter une station Real Time à la BD
 	//
-	// Description: La methode push_back permet d'ajouter une station a la DB si cette 
+	// Description: La methode push_back permet d'ajouter une station a la DB si cette
 	//              station n'y est pas.
 	//
 	// Entrée:      CWeatherStation& station: la station à ajouter.
 	//
 	// Sortie:      bool: true si succes, false autrement
 	//
-	// Note:        Si la BD est chargée en mémoire, on la decharge 
+	// Note:        Si la BD est chargée en mémoire, on la decharge
 	//****************************************************************************
 	ERMsg CDHDatabaseBase::Add(const CLocation& location)
 	{
-		ASSERT(IsOpen());
-		ASSERT(m_openMode == modeWrite);
+		assert(IsOpen());
+		assert(m_openMode == modeWrite);
 
 		ERMsg msg;
 
@@ -2084,24 +2070,24 @@ namespace WBSF
 	// Sommaire:     modifie une station RT de la BD
 	//
 	// Description: La methode Modify permet de modifier tous les champs d'une station
-	//              RT, saul le nom(qui identifie la station). La station doit 
+	//              RT, saul le nom(qui identifie la station). La station doit
 	//              exister dans la BD
 	//
 	// Entrée:      CWeatherStation& station: la station à changer.
 	//
 	// Sortie:      bool: true si succes, false autrement
 	//
-	// Note:        Si la BD est chargée en mémoire, on la decharge 
+	// Note:        Si la BD est chargée en mémoire, on la decharge
 	//****************************************************************************
 	ERMsg CDHDatabaseBase::Set(size_t index, const CLocation& location)
 	{
-		ASSERT(IsOpen());
-		ASSERT(m_openMode == modeWrite);
+		assert(IsOpen());
+		assert(m_openMode == modeWrite);
 
 		if (index == m_zop.size())
 			return Add(location);
 
-		ASSERT(index < m_zop.size());
+		assert(index < m_zop.size());
 
 		ERMsg msg;
 
@@ -2135,19 +2121,19 @@ namespace WBSF
 	// Sommaire:     Supprime une station de BD normal
 	//
 	// Description: La methode Delete permet de supprimer une station de la DB.
-	//              Si la station n'existe pas on ASSERT et on ne fait rien
+	//              Si la station n'existe pas on assert et on ne fait rien
 	//
 	// Entrée:      const std::string& sStationName: le nom de la station à supprimer
 	//
 	// Sortie:      bool: true si succes, false autrement
 	//
-	// Note:        Si la BD est chargée en mémoire, on la decharge 
+	// Note:        Si la BD est chargée en mémoire, on la decharge
 	//****************************************************************************
 	ERMsg CDHDatabaseBase::Remove(size_t index)
 	{
-		ASSERT(IsOpen());
-		ASSERT(m_openMode == modeWrite);
-		ASSERT(index >= 0 && index < m_zop.size());
+		assert(IsOpen());
+		assert(m_openMode == modeWrite);
+		assert(index >= 0 && index < m_zop.size());
 
 		ERMsg msg;
 
@@ -2162,13 +2148,13 @@ namespace WBSF
 
 	ERMsg CDHDatabaseBase::GetStations(CWeatherStationVector& stationArray, const CSearchResultVector& results, int year)const
 	{
-		ASSERT(IsOpen());
+		assert(IsOpen());
 
 		ERMsg msg;
 
 		stationArray.resize(results.size());
 
-		//Get stations 
+		//Get stations
 		for (size_t i = 0; i < results.size() && msg; i++)
 			msg = Get(stationArray[i], results[i].m_index, year);
 
@@ -2176,10 +2162,10 @@ namespace WBSF
 	}
 
 
-	void CDHDatabaseBase::GetUnlinkedFile(StringVector& fileList)
+	void CDHDatabaseBase::GetUnlinkedFile(std::vector<std::string>& fileList)
 	{
-		ASSERT(IsOpen());
-		ASSERT(m_openMode == modeRead);
+		assert(IsOpen());
+		assert(m_openMode == modeRead);
 		if (m_openMode != modeRead)
 			return;
 	}
@@ -2201,21 +2187,21 @@ namespace WBSF
 	//              bool bUseZone:  true: on utilise les zone climatique
 	//                              false: on ne les utiliseas pas
 	//              int nbStation: le nombre de stations à trouver
-	//              
+	//
 	//
 	// Sortie:      CLocationVector& stationArray: un vecteur de stations
 	//              int: le nombre de stations trouvées
 	//
-	// Note:        Si la BD n'est pas chargée en mémoire, on la charge avec 
+	// Note:        Si la BD n'est pas chargée en mémoire, on la charge avec
 	//              CheckIfDBReady().
-	//              Si on ne trouve pas le nombre de stations désirées, on 
+	//              Si on ne trouve pas le nombre de stations désirées, on
 	//              relache graduellement les contraintes.
 	//****************************************************************************
 	ERMsg CDHDatabaseBase::Search(CSearchResultVector& searchResultArray, const CLocation& station, size_t nbStation, double searchRadius, CWVariables filter, int year, bool bExcludeUnused, bool bUseElevation, bool bUseShoreDistance)const
 	{
-		ASSERT(IsOpen());
-		ASSERT(m_openMode == modeRead || m_openMode == modeBinary);
-		ASSERT(!m_bModified);//close and open the database again
+		assert(IsOpen());
+		assert(m_openMode == modeRead || m_openMode == modeBinary);
+		assert(!m_bModified);//close and open the database again
 
 		ERMsg msg;
 
@@ -2240,15 +2226,15 @@ namespace WBSF
 
 
 			m_CS.Enter();
-			//__int64 canal = (filter.to_ullong()) * 100000 + max(year, 0) * 10 + (bUseShoreDistance ? 4 : 0) + (bUseElevation ? 2 : 0) + (bExcludeUnused ? 1 : 0);
-			__int64 canal = m_zop.GetCanal(filter, year, bExcludeUnused, bUseElevation, bUseShoreDistance);
+			//int64_t canal = (filter.to_ullong()) * 100000 + max(year, 0) * 10 + (bUseShoreDistance ? 4 : 0) + (bUseElevation ? 2 : 0) + (bExcludeUnused ? 1 : 0);
+			int64_t canal = m_zop.GetCanal(filter, year, bExcludeUnused, bUseElevation, bUseShoreDistance);
 			if (!m_zop.CanalExists(canal))
 			{
 				const_cast<CDHDatabaseBase&>(*this).CreateCanal(filter, year, bExcludeUnused, bUseElevation, bUseShoreDistance);
 
 				//CLocationVector locations;
 				//locations.reserve(m_zop.size());
-				//std::vector<__int64> positions;
+				//std::vector<int64_t> positions;
 				//positions.reserve(m_zop.size());
 
 				//const CWeatherFileSectionIndex& index = m_zop.GetDataSection();
@@ -2352,12 +2338,12 @@ namespace WBSF
 
 	void CDHDatabaseBase::CreateCanal(CWVariables filter, int year, bool bExcludeUnused, bool bUseElevation, bool bUseShoreDistance)
 	{
-		__int64 canal = m_zop.GetCanal(filter, year, bExcludeUnused, bUseElevation, bUseShoreDistance);
+		int64_t canal = m_zop.GetCanal(filter, year, bExcludeUnused, bUseElevation, bUseShoreDistance);
 
 
 		CLocationVector locations;
 		locations.reserve(m_zop.size());
-		std::vector<__int64> positions;
+		std::vector<int64_t> positions;
 		positions.reserve(m_zop.size());
 
 		const CWeatherFileSectionIndex& index = m_zop.GetDataSection();
@@ -2437,7 +2423,7 @@ namespace WBSF
 
 	ERMsg CDHDatabaseBase::SaveAsBinary(const string& file_path)const
 	{
-		ASSERT(IsOpen());
+		assert(IsOpen());
 
 		ERMsg msg;
 
@@ -2503,7 +2489,7 @@ namespace WBSF
 										{
 											CStatistic stat;
 											data.GetStat(TVarH(v), stat);
-											float value = stat.IsInit() ? stat[MEAN]:-999;
+											float value = stat.is_init() ? stat[MEAN]:-999;
 											write_value(data_outcoming, value);
 										}
 									}*/
@@ -2514,7 +2500,7 @@ namespace WBSF
 								//int error = exception.error();
 								//if (error == boost::iostreams::gzip::zlib_error)
 								//{
-									//check for all error code    
+									//check for all error code
 									//msg.ajoute(exception.what());
 								//}
 							}
@@ -2530,7 +2516,7 @@ namespace WBSF
 				int error = exception.error();
 				if (error == boost::iostreams::gzip::zlib_error)
 				{
-					//check for all error code    
+					//check for all error code
 					msg.ajoute(exception.what());
 				}
 			}
@@ -2576,7 +2562,7 @@ namespace WBSF
 				int error = exception.error();
 				if (error == boost::iostreams::gzip::zlib_error)
 				{
-					//check for all error code    
+					//check for all error code
 					msg.ajoute(exception.what());
 				}
 			}

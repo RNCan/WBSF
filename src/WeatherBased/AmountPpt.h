@@ -64,16 +64,16 @@ namespace WBSF
 		CAmountPpt();
 		virtual ~CAmountPpt();
 
-		int GetClass(double Sp)const;
+		size_t GetClass(double Sp)const;
 		double GetPprecip(double min, double max, double tot_prec, double Sp);
 		double XfromP(double Sp, double p)const
 		{
 			return m_beta[GetClass(Sp)].XfromP(p);
 		}
 
-		const CBetaDistribution& operator[](int index)const
+		const CBetaDistribution& operator[](size_t index)const
 		{
-			_ASSERTE(index >= 0 && index < NUMBER_SPCLASS);
+			assert(index >= 0 && index < NUMBER_SPCLASS);
 			return m_beta[index];
 		}
 

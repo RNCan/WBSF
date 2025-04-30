@@ -89,11 +89,11 @@ public:
     {
         return (size_t)m_nSize;
     }
-    void set(const CLocationVector& locations, bool bUseElevation, bool bShoreDistance, const std::vector<__int64>& position = std::vector<__int64>());
+    void set(const CLocationVector& locations, bool bUseElevation, bool bShoreDistance, const std::vector<int64_t>& position = std::vector<int64_t>());
 
     ERMsg search(
         const CLocation& pt,	//point to search
-        __int64 nbPoint,			// number of near neighbors
+        int64_t nbPoint,			// number of near neighbors
         CSearchResultVector& result,	// result
         double		eps = 0.0)const;	// error bound
 
@@ -113,16 +113,16 @@ protected:
 
     ANNkd_tree* m_pTreeRoot;
     ANNpointArray m_pDataPts;		// data points
-    __int64 m_nbDimension;
-    __int64 m_nSize;
-    std::vector<__int64> m_positions;
+    int64_t m_nbDimension;
+    int64_t m_nSize;
+    std::vector<int64_t> m_positions;
 
     //temporary storage
 //		CCriticalSection m_CS;
     static std::mutex Mutex;
 
     //static
-    static const __int64 VERSION;
+    static const int64_t VERSION;
 };
 
 

@@ -52,8 +52,8 @@ enum TStatEx { MAD = NB_STAT_TYPE, SKEWNESS, KURTOSIS, MEDIAN, Q2 = MEDIAN, MODE
 //CORRELATION:
 //BIAS		: Bias
 //MAE		: Mean Absolute Error between x and y
-//RMSE		: Residual Mean of Square Error between x and y
-//RSS		: Residual Sum of Square between x and y
+//RMSE		: Residual Mean of square Error between x and y
+//RSS		: Residual Sum of square between x and y
 //COEF_D	: Coeficient of determination
 //COEF_C	: Coeficient of correlation
 //STAT_R²	: R²
@@ -125,7 +125,7 @@ public:
     }
     operator bool()const
     {
-        return IsInit();
+        return is_init();
     }
     operator double()const
     {
@@ -136,7 +136,7 @@ public:
     {
         return m_nbValues==0;
     }
-    bool IsInit()const
+    bool is_init()const
     {
         return !empty();
     }
@@ -273,7 +273,7 @@ public:
     {
         return m_x.empty();
     }
-    bool IsInit()const
+    bool is_init()const
     {
         return !empty();
     }
@@ -388,7 +388,7 @@ protected:
     double m_lowest;//lowest error
     double m_xy;//x*y
     double m_e;//x-y		Error
-    double m_rs;//(x-y)²	Residual Square
+    double m_rs;//(x-y)²	Residual square
     double m_ae;//|x-y|		Absolute Error
     double m_hightest;	//highest error
 };
@@ -547,7 +547,7 @@ protected:
 
     double m_wxy;	//w(x*y)
     double m_we;	//w(x-y)		Error
-    double m_wrs;	//w(x-y)²	Residual Square
+    double m_wrs;	//w(x-y)²	Residual square
     double m_wae;	//w|x-y|	Absolute Error
 };
 

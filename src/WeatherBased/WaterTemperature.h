@@ -9,7 +9,7 @@
 //******************************************************************************
 #pragma once
 
-#include "Basic/WeatherStation.h"
+#include "WeatherBased/WeatherStation.h"
 #include "Basic/ModelStat.h"
 
 namespace WBSF
@@ -51,7 +51,7 @@ protected:
     //Tw: air temperature [°C]
     double GetAnnualCycleTrend(CTRef TRef) const
     {
-        double dr = (double)TRef.GetJDay() / TRef.GetNbDaysPerYear();
+        double dr = (double)TRef.GetDOY() / TRef.GetNbDaysPerYear();
         assert(dr >= 0 && dr < 1);
         assert((Aᵒ / 2) + (A¹*cos(2 * PI*dr)) + (B¹*sin(2 * PI*dr)) >= -60);
         assert((Aᵒ / 2) + (A¹*cos(2 * PI*dr)) + (B¹*sin(2 * PI*dr)) <= 60);

@@ -91,7 +91,7 @@ public:
         m_prjID = prjID;
     }
 
-    bool IsInit()const
+    bool is_init()const
     {
         return m_prjID!=PRJ_NOT_INIT;
     }
@@ -890,15 +890,15 @@ public:
     CGeoRect& ExtendBounds(const CGeoRect& box);
     CGeoRect& OffsetRect(const CGeoPoint& pt);
 
-    bool IsInit()const
+    bool is_init()const
     {
-        return CGeoRef::IsInit() || m_xMin != -DBL_MAX || m_xMax != -DBL_MAX || m_yMin != -DBL_MAX || m_yMax != -DBL_MAX;
+        return CGeoRef::is_init() || m_xMin != -DBL_MAX || m_xMax != -DBL_MAX || m_yMin != -DBL_MAX || m_yMax != -DBL_MAX;
     }
-    bool IsInside(const CGeoPoint& pt)const
+    bool is_inside(const CGeoPoint& pt)const
     {
         return PtInRect(pt);
     }
-    bool IsInside(const CGeoRect& rect)const
+    bool is_inside(const CGeoRect& rect)const
     {
         assert_PRJ((*this), rect);
         return rect.m_xMin >= m_xMin && rect.m_xMin <= m_xMax && rect.m_xMax >= m_xMin && rect.m_xMax <= m_xMax && rect.m_yMin >= m_yMin && rect.m_yMin <= m_yMax && rect.m_yMax >= m_yMin && rect.m_yMax <= m_yMax;
@@ -1135,17 +1135,17 @@ public:
     CGeoRect3D& ExtendBounds(const CGeoRect3D& box);
     CGeoRect3D& OffsetRect(const CGeoPoint3D& pt);
 
-    bool IsInit()const
+    bool is_init()const
     {
-        return CGeoRect::IsInit() || m_zMin != -DBL_MAX || m_zMax;
+        return CGeoRect::is_init() || m_zMin != -DBL_MAX || m_zMax;
     }
-    bool IsInside(const CGeoPoint3D& pt)const
+    bool is_inside(const CGeoPoint3D& pt)const
     {
         return PtInRect(pt);
     }
-    bool IsInside(const CGeoRect3D& rect)const
+    bool is_inside(const CGeoRect3D& rect)const
     {
-        return CGeoRect::IsInside(rect) && rect.m_zMin >= m_zMin && rect.m_zMin <= m_zMax;
+        return CGeoRect::is_inside(rect) && rect.m_zMin >= m_zMin && rect.m_zMin <= m_zMax;
     }
     //bool PtInRect(const CGeoPoint& pt)const{ assert_PRJ((*this), pt); return pt.m_x >= m_xMin && pt.m_x <= m_xMax && pt.m_y >= m_yMin && pt.m_y <= m_yMax; }
     bool IsEmpty()const
@@ -1692,11 +1692,11 @@ public:
         InflateRect(-w,-n,-e,-s);
     }
 
-    bool IsInside(const CGeoPointIndex& pt)
+    bool is_inside(const CGeoPointIndex& pt)
     {
         return PtInRect(pt.m_x, pt.m_y);
     }
-    bool IsInside(int x, int y)
+    bool is_inside(int x, int y)
     {
         return PtInRect(x, y);
     }
@@ -1758,7 +1758,7 @@ public:
         clear();
     }
 
-    bool IsInside(const CGeoRectIndex& rect)const
+    bool is_inside(const CGeoRectIndex& rect)const
     {
         return rect.UpperLeft() >= UpperLeft() && rect.LowerRight() <= LowerRight();
     }
@@ -1950,9 +1950,9 @@ public:
         return !operator==(in);
     }
 
-    bool IsInit() const
+    bool is_init() const
     {
-        return CGeoRect::IsInit() && m_xSize>0 && m_ySize>0;
+        return CGeoRect::is_init() && m_xSize>0 && m_ySize>0;
     }
     double XRes()const
     {
@@ -1988,12 +1988,12 @@ public:
     }
     void AlignTo(const CGeoExtents& rect);
 
-    using CGeoRect::IsInside;
-    bool IsInside(CGeoPointIndex pt)const
+    using CGeoRect::is_inside;
+    bool is_inside(CGeoPointIndex pt)const
     {
-        return IsInside( pt.m_x, pt.m_y);
+        return is_inside( pt.m_x, pt.m_y);
     }
-    bool IsInside(int x, int y)const
+    bool is_inside(int x, int y)const
     {
         return (x>=0 && x<m_xSize && y>=0 && y<m_ySize);
     }
@@ -2033,17 +2033,17 @@ public:
 
     CGeoBlockIndex GetBlockIndex(int x, int y)const
     {
-        assert(IsInside(x,y));
+        assert(is_inside(x,y));
         return CGeoPointIndex(int(x / m_xBlockSize), int(y / m_yBlockSize));
     }
     CGeoBlockIndex GetBlockIndex(CGeoPointIndex pt)const
     {
-        assert(IsInside(pt));
+        assert(is_inside(pt));
         return pt / CGeoSize(m_xBlockSize, m_yBlockSize);
     }
     CGeoBlock3DIndex GetBlockIndex(CGeoPoint3DIndex pt)const
     {
-        assert(IsInside(pt));
+        assert(is_inside(pt));
         return pt / CGeoSize3D(m_xBlockSize, m_yBlockSize, 1);
     }
 

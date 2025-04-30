@@ -4835,7 +4835,7 @@ PUGI_IMPL_FN xml_parse_status get_file_size(FILE* file, size_t& out_result)
     length_type length = st.st_size;
 #elif defined(PUGI_IMPL_MSVC_CRT_VERSION) && PUGI_IMPL_MSVC_CRT_VERSION >= 1400
     // there are 64-bit versions of fseek/ftell, let's use them
-    typedef __int64 length_type;
+    typedef int64_t length_type;
 
     _fseeki64(file, 0, SEEK_END);
     length_type length = _ftelli64(file);

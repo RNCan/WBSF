@@ -20,19 +20,19 @@
 // 10/02/2012	Rémi Saint-Amant	New random generator
 // 26/07/2012   Rémi Saint-Amant	New wnd calculation. Remove correction of the mean.
 //******************************************************************************
-#include "stdafx.h"
+//#include "stdafx.h"
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
-#include <crtdbg.h>
+#include <cassert>
 #include <float.h>
 
 #include "Basic/UtilMath.h"
 #include "Basic/UtilTime.h"
-#include "Basic/WeatherStation.h"
-#include "Basic/WeatherGeneratorDailyKernel.h"
+#include "WeatherBased/WeatherStation.h"
+#include "WeatherBased/WeatherGeneratorDailyKernel.h"
 
 
 using namespace WBSF::WEATHER;
@@ -133,7 +133,7 @@ namespace WBSF
 				//generate daily fluctuation for Tmin and Tmax
 				GetRandomTraces(e_min, e_max, m);
 
-				for (size_t d = 0; d < GetNbDayPerMonth(m); d++)
+				for (size_t d = 0; d < GetNbDaysPerMonth(m); d++)
 				{
 					//Get today's temperature
 					double tmin = m_normals.Interpole(m, d, TMIN_MN) + e_min[d];
@@ -144,7 +144,7 @@ namespace WBSF
 					if (tmin > tmax)
 						Switch(tmin, tmax);
 
-					_ASSERTE(tmin < tmax);
+					assert(tmin < tmax);
 					dailyData[m][d][H_TMIN] = tmin;
 					dailyData[m][d][H_TAIR] = (tmin + tmax) / 2;
 					dailyData[m][d][H_TMAX] = tmax;
@@ -182,12 +182,12 @@ namespace WBSF
 				for (size_t m = 0; m < 12; m++)
 				{
 					double mean = m_normals[m][RELH_MN] / 100;
-					double variance = Square(m_normals[m][RELH_SD] / 100);
+					double variance = square(m_normals[m][RELH_SD] / 100);
 
 					double alpha = mean * ((mean * (1 - mean) / variance) - 1);
 					double beta = (1 - mean) * ((mean * (1 - mean) / variance) - 1);
-					_ASSERTE(alpha > 0);
-					_ASSERTE(beta > 0);
+					assert(alpha > 0);
+					assert(beta > 0);
 
 					if (alpha <= 0 || beta <= 0)
 					{
@@ -196,10 +196,10 @@ namespace WBSF
 						throw msg;
 					}
 
-					for (size_t d = 0; d < GetNbDayPerMonth(m); d++)
+					for (size_t d = 0; d < GetNbDaysPerMonth(m); d++)
 					{
-						_ASSERTE(dailyData[m][d][H_TMIN].IsInit());
-						_ASSERTE(dailyData[m][d][H_TMAX].IsInit());
+						assert(dailyData[m][d][H_TMIN].is_init());
+						assert(dailyData[m][d][H_TMAX].is_init());
 
 						//NOTE: old beta distribution have a bias of 1%, the new don't, RSA 28/07/2012
 						double Hr = m_rand.RandBeta(alpha, beta) * 100;
@@ -229,10 +229,10 @@ namespace WBSF
 				//calibrate on 140 station with wind speed (missing less then 20 days) in Canada from 1981-2010
 				double windSpeedMean = m_normals[m][WNDS_MN];
 				double windSpeedSD = m_normals[m][WNDS_SD];
-				double dailyPpt = max(0.1f, m_normals[m][PRCP_TT]) / GetNbDayPerMonth(m);
+				double dailyPpt = max(0.1f, m_normals[m][PRCP_TT]) / GetNbDaysPerMonth(m);
 				double WSMax = exp(1.43319 + 0.74865 * windSpeedMean + 0.71983 * windSpeedSD);//*1.25;
 
-				for (size_t d = 0; d < GetNbDayPerMonth(m); d++)
+				for (size_t d = 0; d < GetNbDaysPerMonth(m); d++)
 				{
 					assert(dailyData[m][d][H_PRCP][SUM] > MISSING);
 
@@ -381,7 +381,7 @@ namespace WBSF
 
 		double LimitTmin = 3.9 * sigma_delta;
 		double LimitTmax = 3.9 * sigma_epsilon;
-		for (size_t j = 0; j < GetNbDayPerMonth(month); j++)
+		for (size_t j = 0; j < GetNbDaysPerMonth(month); j++)
 		{
 			double gamma = m_rand.RandNormal(0, sigma_gamma);
 			double zeta = m_rand.RandNormal(0, sigma_zeta);
@@ -404,7 +404,7 @@ namespace WBSF
 		//now we can limit more
 		LimitTmin = 2.33 * sigma_delta;
 		LimitTmax = 1.96 * sigma_epsilon;
-		for (size_t j = 0; j < GetNbDayPerMonth(month); j++)
+		for (size_t j = 0; j < GetNbDaysPerMonth(month); j++)
 		{
 			e_min[j] = min(LimitTmin, max(-LimitTmin, e_min[j]));
 			e_max[j] = min(LimitTmax, max(-LimitTmax, e_max[j]));
@@ -432,7 +432,7 @@ namespace WBSF
 
 
 		//		Zero-initialize daily precipitation for the month
-		for (size_t d = 0; d < GetNbDayPerMonth(m); d++)
+		for (size_t d = 0; d < GetNbDaysPerMonth(m); d++)
 			dailyData[m][d][H_PRCP] = 0;
 
 		//Only in months with non-trace rainfall
@@ -448,12 +448,12 @@ namespace WBSF
 			// vector of weights of probability
 			double Sum_x = 0;
 			std::vector<double> weightOfPpt;
-			weightOfPpt.resize(GetNbDayPerMonth(m));
+			weightOfPpt.resize(GetNbDaysPerMonth(m));
 
-			for (size_t d = 0; d < GetNbDayPerMonth(m); d++)
+			for (size_t d = 0; d < GetNbDaysPerMonth(m); d++)
 			{
-				assert(dailyData[m][d][H_TMIN].IsInit());
-				assert(dailyData[m][d][H_TMAX].IsInit());
+				assert(dailyData[m][d][H_TMIN].is_init());
+				assert(dailyData[m][d][H_TMAX].is_init());
 
 				//		Get daily prob of precipitation given min, max, tot_precip of the month and the Sp
 				double Pprecip = m_AP.GetPprecip(dailyData[m][d][H_TMIN][MEAN], dailyData[m][d][H_TMAX][MEAN], normalTmp[m][PRCP_TT], Sp);
@@ -486,7 +486,7 @@ namespace WBSF
 			if (Sum_x > 0)
 			{
 				//compute precipitation
-				for (size_t d = 0; d < GetNbDayPerMonth(m); d++)
+				for (size_t d = 0; d < GetNbDaysPerMonth(m); d++)
 				{
 					//int date = d0 + j;
 
@@ -508,7 +508,7 @@ namespace WBSF
 	// JR JAN 2001 Set new variables, especially: store month's random trace
 	void CWeatherGeneratorKernel::InitRandomNumber(int m, double p_test[31], double epsilon_prec[31])
 	{
-		for (size_t d = 0; d < GetNbDayPerMonth(m); d++)
+		for (size_t d = 0; d < GetNbDaysPerMonth(m); d++)
 		{
 			p_test[d] = m_rand.Randu();
 			epsilon_prec[d] = m_rand.Randu();

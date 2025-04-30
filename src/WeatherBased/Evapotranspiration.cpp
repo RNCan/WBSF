@@ -47,29 +47,30 @@ CETFactory::CETFactory()
 bool CETFactory::Register(const string &name, CreateETFn pfnCreate)
 {
 	bool bRep = true;
-	Get().m_CS.Enter();
+	std::unique_lock<std::mutex> lock(Get().m_mutex);
+
 
 	FactoryMap::iterator it = Get().m_factoryMap.find(name);
 	bRep = it == Get().m_factoryMap.end();
 	if (bRep)
 		Get().m_factoryMap[name] = pfnCreate;
 
-	Get().m_CS.Leave();
+
 
 	return bRep;
 }
 
 CETPtr CETFactory::CreateET(const string &name)
 {
-
-	Get().m_CS.Enter();
+    std::unique_lock<std::mutex> lock(Get().m_mutex);
+	//Get().m_mutex.Enter();
 
 	CETPtr pModel;
 	FactoryMap::iterator it = Get().m_factoryMap.find(name);
 	if (it != Get().m_factoryMap.end())
 		pModel.reset(it->second());
 
-	Get().m_CS.Leave();
+	//Get().m_mutex.Leave();
 
 	return pModel;
 }
@@ -105,7 +106,7 @@ double CThornthwaiteET::GetCorrectionFactor(double lat, size_t m)
 	//L is the average day length (hours) of the month being calculated
 
 	CStatistic stat;
-	for (size_t d = 0; d<GetNbDayPerMonth(m); d++)
+	for (size_t d = 0; d<GetNbDaysPerMonth(m); d++)
 		stat+=GetDayLength(lat,m,d)/3600;
 
 	double L = stat[MEAN];
@@ -188,7 +189,7 @@ void CThornthwaiteET::Execute(const CWeatherStation& weather, CModelStatVector& 
 			//ET distributed over time
 			CTPeriod p = weather[y][m].GetEntireTPeriod();
 			size_t nbTRef = p.size();
-			for (CTRef TRef = p.Begin(); TRef<=p.End(); TRef++)
+			for (CTRef TRef = p.begin(); TRef<=p.end(); TRef++)
 				output[TRef][S_ET] = monthlyET / nbTRef;
 		}//m
 	}//y
@@ -353,7 +354,7 @@ void CBlaneyCriddleET::Execute(const CWeatherStation& weather, CModelStatVector&
 			//ET distributed over time
 			CTPeriod p = weather[y][m].GetEntireTPeriod();
 			size_t nbTRef = p.size();
-			for (CTRef TRef = p.Begin(); TRef <= p.End(); TRef++)
+			for (CTRef TRef = p.begin(); TRef <= p.end(); TRef++)
 				output[TRef][S_ET] = monthlyET / nbTRef;
 		}//m
 	}//y
@@ -382,7 +383,7 @@ void CTurcET::Execute(const CWeatherStation& weather, CModelStatVector& output)
 	static const double a = 0.31;	//[m2 MJ-1 mm-1]
 	static const double b = 2.094;	//[MJ m-2 d-1]
 
-	CTPeriod p = weather.GetEntireTPeriod();
+	//CTPeriod p = weather.GetEntireTPeriod();
 
 	output.Init(weather.GetEntireTPeriod(), NB_ET_STATS, 0, ET_HEADER);
 	for (size_t y = 0; y<weather.size(); y++)
@@ -405,7 +406,7 @@ void CTurcET::Execute(const CWeatherStation& weather, CModelStatVector& output)
 
 				//ET distributed over time
 				CTPeriod p = weather[y][m][d].GetEntireTPeriod();
-				for (CTRef TRef = p.Begin(); TRef <= p.End(); TRef++)
+				for (CTRef TRef = p.begin(); TRef <= p.end(); TRef++)
 					output[TRef][S_ET] = dailyET / p.size();
 			}//d
 		}//m
@@ -457,7 +458,7 @@ ERMsg CPriestleyTaylorET::SetOptions(const CETOptions& options)
 
 	if (options.OptionExist("PriestleyTaylorAlpha"))
 	{
-		size_t pos = as<size_t>(options.GetOption("PriestleyTaylorAlpha"));
+		size_t pos = to_size_t(options.GetOption("PriestleyTaylorAlpha"));
 		if (pos<NB_ALPHA)
 			m_α = PRE_DEFINE_ALHA[pos].m_α;
 	}
@@ -473,7 +474,7 @@ void CPriestleyTaylorET::Execute(const CWeatherStation& weather, CModelStatVecto
 
 	CTPeriod p = weather.GetEntireTPeriod();
 	double Fcd = 0.6;//default value in Exel file
-	for (CTRef TRef = p.Begin(); TRef <= p.End(); TRef++)
+	for (CTRef TRef = p.begin(); TRef <= p.end(); TRef++)
 	{
 
 		const CDataInterface& data = weather[TRef];
@@ -488,11 +489,11 @@ void CPriestleyTaylorET::Execute(const CWeatherStation& weather, CModelStatVecto
 		double Eє = (Δ / (Δ + ɣ)) * ((Rn - G) / λ);	// equilibrium evapotranspiration rate [kg m-2 d-1] or [kg m-2 hr-1]
 		double ETo = m_α*Eє;						// evapotranspiration [kg m-2 day-1] or [kg m-2 h-1]
 
-		if (TRef - p.Begin()>180)
-		{
-			int gg;
-			gg = 0;
-		}
+		//if (TRef - p.begin()>180)
+		//{
+		//	int gg;
+		//	gg = 0;
+		//}
 		output[TRef][S_ET] = ETo;
 	}
 }
@@ -542,7 +543,7 @@ void CSimplifiedPriestleyTaylorET::Execute(const CWeatherStation& weather, CMode
 	output.Init(weather.GetEntireTPeriod(), NB_ET_STATS, 0, ET_HEADER);
 
 	CTPeriod p = weather.GetEntireTPeriod(CTM::DAILY);
-	for (CTRef TRef = p.Begin(); TRef <= p.End(); TRef++)
+	for (CTRef TRef = p.begin(); TRef <= p.end(); TRef++)
 	{
 
 		//const CDataInterface& data = weather[TRef];
@@ -561,7 +562,7 @@ void CSimplifiedPriestleyTaylorET::Execute(const CWeatherStation& weather, CMode
 
 		CTPeriod p = data.GetEntireTPeriod();
 		size_t nbTRef = p.size();
-		for (CTRef TRef = p.Begin(); TRef <= p.End(); TRef++)
+		for (CTRef TRef = p.begin(); TRef <= p.end(); TRef++)
 			output[TRef][S_ET] = ETo / nbTRef;
 	}
 }
@@ -641,7 +642,7 @@ void CModifiedPriestleyTaylorET::Execute(const CWeatherStation& weather, CModelS
 	output.Init(p, NB_ET_STATS, 0, ET_HEADER);
 
 	double Fcd = 0.6;//default value in Exel file
-	for (CTRef TRef = p.Begin(); TRef <= p.End(); TRef++)
+	for (CTRef TRef = p.begin(); TRef <= p.end(); TRef++)
 	{
 		const CDataInterface& data = weather[TRef];
 
@@ -715,7 +716,7 @@ void CHamonET::Execute(const CWeatherStation& weather, CModelStatVector& output)
 		{
 			for (size_t d = 0; d<weather[y][m].size(); d++)
 			{
-				const CDay& wDay = weather[y][m][d];
+				const CWeatherDay& wDay = weather[y][m][d];
 
 				double dailyET = 0;
 				double T = wDay[H_TNTX][MEAN];
@@ -731,7 +732,7 @@ void CHamonET::Execute(const CWeatherStation& weather, CModelStatVector& output)
 				//ET distributed over time
 				CTPeriod p = weather[y][m][d].GetEntireTPeriod();
 				size_t nbTRef = p.size();
-				for (CTRef TRef = p.Begin(); TRef <= p.End(); TRef++)
+				for (CTRef TRef = p.begin(); TRef <= p.end(); TRef++)
 					output[TRef][S_ET] = dailyET / nbTRef;
 			}
 		}
@@ -771,13 +772,13 @@ void CModifiedHamonET::Execute(const CWeatherStation& weather, CModelStatVector&
 			if (T[MEAN] > 0)
 			{
 				double Wt = 4.95*exp(0.062*T[MEAN]) / 100;
-				monthlyET = 13.97*weather[y][m].size()*Square(D[MEAN] / (12 * 60 * 60))*Wt;
+				monthlyET = 13.97*weather[y][m].size()*square(D[MEAN] / (12 * 60 * 60))*Wt;
 			}
 
 			//ET distributed over time
 			CTPeriod p = weather[y][m].GetEntireTPeriod();
 			size_t nbTRef = p.size();
-			for (CTRef TRef = p.Begin(); TRef <= p.End(); TRef++)
+			for (CTRef TRef = p.begin(); TRef <= p.end(); TRef++)
 				output[TRef][S_ET] = monthlyET / nbTRef;
 
 		}
@@ -820,9 +821,9 @@ void CHargreavesET::Execute(const CWeatherStation& weather, CModelStatVector& ou
 			{
 				static const double C = 0.4082; //Conversion to ET equivalent [(m2 mm)/MJ]
 
-				double Tmin = weather[y][m][d][H_TMIN][MEAN];
+				//double Tmin = weather[y][m][d][H_TMIN][MEAN];
 				double T = weather[y][m][d][H_TNTX][MEAN];
-				double Tmax = weather[y][m][d][H_TMAX][MEAN];
+				//double Tmax = weather[y][m][d][H_TMAX][MEAN];
 				double Rs = weather[y][m][d][H_SRMJ][SUM];
 				//double Rs = 0.16*Ra*(Tmax - Tmin) ^ 0.5;
 				double dailyET = 0.0135 * Rs*C*(T + 17.8);
@@ -830,7 +831,7 @@ void CHargreavesET::Execute(const CWeatherStation& weather, CModelStatVector& ou
 				//ET distributed over time
 				CTPeriod p = weather[y][m][d].GetEntireTPeriod();
 				size_t nbTRef = p.size();
-				for (CTRef TRef = p.Begin(); TRef <= p.End(); TRef++)
+				for (CTRef TRef = p.begin(); TRef <= p.end(); TRef++)
 					output[TRef][S_ET] = dailyET / nbTRef;
 
 			}
@@ -872,7 +873,7 @@ void CHargreavesSamaniET::Execute(const CWeatherStation& weather, CModelStatVect
 				//ET distributed over time
 				CTPeriod p = weather[y][m][d].GetEntireTPeriod();
 				size_t nbTRef = p.size();
-				for (CTRef TRef = p.Begin(); TRef <= p.End(); TRef++)
+				for (CTRef TRef = p.begin(); TRef <= p.end(); TRef++)
 					output[TRef][S_ET] = dailyET / nbTRef;
 
 			}
@@ -899,12 +900,12 @@ void CPenmanMonteithET::Execute(const CWeatherStation& weather, CModelStatVector
 	double Fcd = 0.6;//default value in Excel file
 	double Bᵪ = 101.3*pow((293 - 0.0065*z) / 293, 5.25);
 
-	for (CTRef TRef = p.Begin(); TRef <= p.End(); TRef++)
+	for (CTRef TRef = p.begin(); TRef <= p.end(); TRef++)
 	{
 		const CDataInterface& data = weather[TRef];
 
-		double Tmin = data[H_TMIN][MEAN];
-		double Tmax = data[H_TMAX][MEAN];
+		//double Tmin = data[H_TMIN][MEAN];
+		//double Tmax = data[H_TMAX][MEAN];
 		double T = data[H_TNTX][MEAN];
 		double U² = data[H_WND2][MEAN] * 1000 / 3600; assert(U² >= 0);	//Wind speed at 2 meters [m/s]
 		double Ea = data[H_EA][MEAN];	//vapor pressure [kPa]
@@ -916,7 +917,7 @@ void CPenmanMonteithET::Execute(const CWeatherStation& weather, CModelStatVector
 
 		double λ = 2.501 - (2.361*0.001)*T;
 		double ɣ = 0.00163*Bᵪ / λ;
-		//double Δ = (4099 * Es) / Square(T + 237.3);
+		//double Δ = (4099 * Es) / square(T + 237.3);
 		double Δ = data.GetVarEx(H_SSVP);
 		//double Δɣ = Δ + ɣ;
 
@@ -994,10 +995,10 @@ void CASCE_ETsz::Execute(const CWeatherStation& weather, CModelStatVector& stats
 //	stats.Init(p, m_bExtended ? NB_EXTENDED_STATS:NB_ET_STATS, 0, EXTENDED_ET_HEADER);
 
 	//altitude in meters
-	double z = weather.m_alt;
+	//double z = weather.m_alt;
 	double Fcd = 0.6;//default value in Richard Allen Excel file
 
-	for (CTRef TRef = p.Begin(); TRef <= p.End(); TRef++)
+	for (CTRef TRef = p.begin(); TRef <= p.end(); TRef++)
 	{
 		const CDataInterface& data = weather[TRef];
 
@@ -1032,7 +1033,7 @@ void CASCE_ETsz::Execute(const CWeatherStation& weather, CModelStatVector& stats
 		//double rᶳ = Rn < 0 ? 200 : 50;
 		//double rₐ = U² <= 0.5 ? 208 / 0.5 : 208 / U²;
 		//double ɣ° = ɣ2*(1 + rᶳ / rₐ);
-		//double Δ2 = (4099 * Es) / Square(T + 237.3);
+		//double Δ2 = (4099 * Es) / square(T + 237.3);
 		//double Δɣ° = Δ2 + ɣ°;
 		//double ΔΔɣ° = Δ2 / Δɣ°;
 		//double Rad = (1 / λ)*Δ2*(Rn - G) / Δɣ°;
@@ -1080,7 +1081,7 @@ void CASCE_ETsz::Execute(const CWeatherStation& weather, CModelStatVector& stats
 			//	double rₐ = Rn < 0 ? 200 : 50;
 			//	double rᶳ = U2 <= 0.5 ? 208 / 0.5 : 208 / U2;
 			//	double ɣ° = ɣ2*(1 + rₐ / rᶳ);
-			//	double Δ2 = (4099 * Ea) / Square(T + 237.3);
+			//	double Δ2 = (4099 * Ea) / square(T + 237.3);
 			//	double Δɣ° = Δ2 + ɣ°;
 			//	//double ΔΔɣ° = Δ2 / Δɣ°;
 			//	double Rad = (1 / λ)*Δ2*(Rn - G) / Δɣ°;
@@ -1140,7 +1141,7 @@ void CASCE_ETsz::Execute(const CWeatherStation& weather, CModelStatVector& stats
 		//	double rₐ = Rn < 0 ? 200 : 50;
 		//	double rᶳ = U2 <= 0.5 ? 208 / 0.5 : 208 / U2;
 		//	double ɣ° = ɣ2*(1 + rₐ / rᶳ);
-		//	double Δ2 = (4099 * Ea) / Square(T + 237.3);
+		//	double Δ2 = (4099 * Ea) / square(T + 237.3);
 		//	double Δɣ° = Δ2 + ɣ°;
 		//	//double ΔΔɣ° = Δ2 / Δɣ°;
 		//	double Rad = (1 / λ)*Δ2*(Rn - G) / Δɣ°;
@@ -1287,7 +1288,7 @@ double CASCE_ETsz::GetPsychrometricConstant(double P)
 double CASCE_ETsz::GetSlopeOfSaturationVaporPressure(double T)
 {
 	//[5]: The slope of the saturation vapor pressure-temperature curve[Tetens (1930), Murray (1967)]
-	double Δ = 2503* exp(17.27*T /(T+237.3))/Square(T+237.3);
+	double Δ = 2503* exp(17.27*T /(T+237.3))/square(T+237.3);
 	return Δ;
 }
 
@@ -1441,7 +1442,7 @@ double CASCE_ETsz::GetExtraterrestrialRadiationH(CTRef TRef, double lat, double 
 	int h = (int)TRef.GetHour();
 
 	//Julian day, in one base
-	int J = int(TRef.GetJDay()) + 1;
+	int J = int(TRef.GetDOY()) + 1;
 	//mid hour of the period
 	double t = h + 0.5;
 	//latitude [radians]
@@ -1593,7 +1594,7 @@ void CASCE_ETsz::AdjustSolarTimeAngle(double& ω1, double& ω2, double ωs)
 double CASCE_ETsz::GetCenterLocalTimeZone(double Lm)
 {
 	assert(Lm>=0 && Lm<360);
-	int zone = Round(Lm/15)%24;
+	int zone = round(Lm/15)%24;
 	assert(zone>=0 && zone<24);
 
 	return zone*15;
@@ -1801,7 +1802,7 @@ double CKropCoeficient::GetKc(size_t type, double x)
 
 struct	CTest
 {
-	char* name;
+	const char* name;
 	double F[5];
 	int		test;
 	double	D1;

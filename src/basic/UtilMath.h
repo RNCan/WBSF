@@ -309,159 +309,306 @@ protected:
 //		enum TParametersE1{ PT0, PA, PB, PX, NB_PARAMETERS };
 //		const double m_p[NB_PARAMETERS];
 //	};
-//
-//
-//
-//
-//	class CRandomGenerator
-//	{
-//	public:
-//
-//
-//		enum TSeed { RANDOM_SEED, FIXE_SEED };
-//		static const int RAND_MAX_INT = 2147483600;//2147483647;
-//
-//
-//		CRandomGenerator(size_t	seed = 0) :
-//			m_uniformInt(0, RAND_MAX_INT)
-//		{
-//			Randomize(seed);
-//		}
-//
-//		void Randomize(size_t seed = RANDOM_SEED);
-//
-//
-//		unsigned long Rand()const
-//		{
-//			CRandomGenerator& me = const_cast<CRandomGenerator&>(*this);
-//			return m_uniformInt(me.m_gen);
-//		}
-//
-//		//returns a double on the interval
-//		//[0,1] : rand()/RAND_MAX
-//		//]0,1] : (rand()+1)/(RAND_MAX+1)
-//		//[0,1[ : rand()/(RAND_MAX+1)
-//		//]0,1[ : (rand()+1)/(RAND_MAX+2)
-//		double Randu(bool bExcLower = false, bool bExcUpper = false)const
-//		{
-//			double numerator = (double)Rand();
-//			double denominator = (double)RAND_MAX_INT;
-//
-//			if (bExcLower)
-//			{
-//				numerator++;
-//				denominator++;
-//			}
-//
-//			if (bExcUpper)
-//				denominator++;
-//
-//			double u = numerator / denominator;
-//
-//			assert(bExcLower || (u >= 0));
-//			assert(!bExcLower || (u > 0));
-//			assert(bExcUpper || (u <= 1));
-//			assert(!bExcUpper || (u < 1));
-//
-//			return u;
-//		}
-//
-//		//special case of randu
-//		double RanduExclusive(void)const{ return Randu(true, true); }
-//		double Randv(void) const
-//		{
-//			//std::uniform_real_distribution <double> uniformReal(0, 1);
-//			//return uniformReal(m_gen);
-//
-//			return Randu(false, true);
-//		}
-//
-//		//returns an integer on the range [0,num]
-//		int Rand(int num) const
-//		{
-//			double x = (num + 1)*Randu(false, true);
-//			return (int)x;
-//		}
-//
-//		//returns an integer on the interval [l,u] or [l,u[ or ]l,u] or ]l,u[
-//		int Rand(int l, int u) const
-//		{
-//			if (l > u)
-//				WBSF::Switch(l, u);
-//
-//			assert(l <= u);
-//
-//			//std::uniform_int<int> uniformInt(l, u);
-//			//return uniformInt(m_gen);
-//
-//			//get a number [0, u-l] and add l
-//			return l + Rand(u - l);
-//		}
-//
-//		double Rand(double l, double u) const
-//		{
-//			if (l > u)
-//				WBSF::Switch(l, u);
-//
-//			assert(l <= u);
-//
-//			//get a number [0, u-l] and add l
-//			return l + (u - l)*Randu();
-//		}
-//
-//		//return value between [low,high[
-//		double RandUniform(double low = 0, double high=1)const
-//		{
-//			std::uniform_real_distribution<> uniformDist(low, high);
-//			CRandomGenerator& me = const_cast<CRandomGenerator&>(*this);
-//			return uniformDist(me.m_gen);
-//		}
-//
-//		double RandBeta(const double alpha, const double beta) const
-//		{
-//			std::_Beta_distribution<double> betaDist(alpha, beta);
-//			CRandomGenerator& me = const_cast<CRandomGenerator&>(*this);
-//			return betaDist(me.m_gen);
-//		}
-//
-//		//rand normal take mean and standard deviation
-//		double RandNormal(const double x, const double s) const
-//		{
-//			std::normal_distribution<double> uniformNormal(x, s);
-//			CRandomGenerator& me = const_cast<CRandomGenerator&>(*this);
-//			return uniformNormal(me.m_gen);
-//		}
-//
-//		//rand log normal take mean and standard deviation
-//		double RandUnbiasedLogNormal(double x, double s)const
-//		{
-//			std::lognormal_distribution<double> uniformLogNormal(x - WBSF::Square(s) / 2.0, s);
-//			CRandomGenerator& me = const_cast<CRandomGenerator&>(*this);
-//			return uniformLogNormal(me.m_gen);
-//		}
-//
-//		double RandGumbel(double a, double b)const
-//		{
-//			std::extreme_value_distribution<double> gumbel(a, b);
-//			CRandomGenerator& me = const_cast<CRandomGenerator&>(*this);
-//			return gumbel(me.m_gen);
-//		}
-//
-//		double RandWeibull(double a, double b)const
-//		{
-//			std::weibull_distribution<double> weibull(a, b);
-//			CRandomGenerator& me = const_cast<CRandomGenerator&>(*this);
-//			return weibull(me.m_gen);
-//		}
-//
-//
-//
-//	protected:
-//
-//
-//		std::mt19937 m_gen;
-//		std::uniform_int<int> m_uniformInt;
-//	};
+
+template <typename RealType = double>
+class beta_distribution
+{
+public:
+    typedef RealType result_type;
+
+    class param_type
+    {
+    public:
+        typedef beta_distribution distribution_type;
+
+        explicit param_type(RealType a = 2.0, RealType b = 2.0)
+            : a_param(a), b_param(b) { }
+
+        RealType a() const
+        {
+            return a_param;
+        }
+        RealType b() const
+        {
+            return b_param;
+        }
+
+        bool operator==(const param_type& other) const
+        {
+            return (a_param == other.a_param &&
+                    b_param == other.b_param);
+        }
+
+        bool operator!=(const param_type& other) const
+        {
+            return !(*this == other);
+        }
+
+    private:
+        RealType a_param, b_param;
+    };
+
+    explicit beta_distribution(RealType a = 2.0, RealType b = 2.0)
+        : a_gamma(a), b_gamma(b) { }
+    explicit beta_distribution(const param_type& param)
+        : a_gamma(param.a()), b_gamma(param.b()) { }
+
+    void reset() { }
+
+    param_type param() const
+    {
+        return param_type(a(), b());
+    }
+
+    void param(const param_type& param)
+    {
+        a_gamma = gamma_dist_type(param.a());
+        b_gamma = gamma_dist_type(param.b());
+    }
+
+    template <typename URNG>
+    result_type operator()(URNG& engine)
+    {
+        return generate(engine, a_gamma, b_gamma);
+    }
+
+    template <typename URNG>
+    result_type operator()(URNG& engine, const param_type& param)
+    {
+        gamma_dist_type a_param_gamma(param.a()),
+                        b_param_gamma(param.b());
+        return generate(engine, a_param_gamma, b_param_gamma);
+    }
+
+    result_type min() const
+    {
+        return 0.0;
+    }
+    result_type max() const
+    {
+        return 1.0;
+    }
+
+    result_type a() const
+    {
+        return a_gamma.alpha();
+    }
+    result_type b() const
+    {
+        return b_gamma.alpha();
+    }
+
+    bool operator==(const beta_distribution<result_type>& other) const
+    {
+        return (param() == other.param() &&
+                a_gamma == other.a_gamma &&
+                b_gamma == other.b_gamma);
+    }
+
+    bool operator!=(const beta_distribution<result_type>& other) const
+    {
+        return !(*this == other);
+    }
+
+private:
+    typedef std::gamma_distribution<result_type> gamma_dist_type;
+
+    gamma_dist_type a_gamma, b_gamma;
+
+    template <typename URNG>
+    result_type generate(URNG& engine,
+                         gamma_dist_type& x_gamma,
+                         gamma_dist_type& y_gamma)
+    {
+        result_type x = x_gamma(engine);
+        return x / (x + y_gamma(engine));
+    }
+};
+
+template <typename CharT, typename RealType>
+std::basic_ostream<CharT>& operator<<(std::basic_ostream<CharT>& os,
+                                      const beta_distribution<RealType>& beta)
+{
+    os << "~Beta(" << beta.a() << "," << beta.b() << ")";
+    return os;
+}
+
+template <typename CharT, typename RealType>
+std::basic_istream<CharT>& operator>>(std::basic_istream<CharT>& is,
+                                      beta_distribution<RealType>& beta)
+{
+    std::string str;
+    RealType a, b;
+    if (std::getline(is, str, '(') && str == "~Beta" &&
+            is >> a && is.get() == ',' && is >> b && is.get() == ')')
+    {
+        beta = beta_distribution<RealType>(a, b);
+    }
+    else
+    {
+        is.setstate(std::ios::failbit);
+    }
+    return is;
+}
+
+
+class CRandomGenerator
+{
+public:
+
+
+    enum TSeed { RANDOM_SEED, FIXE_SEED };
+    //static const int RAND_MAX_INT = 2147483600;//2147483647;
+
+
+    CRandomGenerator(size_t	seed = 0)
+    //	m_uniformInt(0, RAND_MAX_INT)
+    {
+        Randomize(seed);
+    }
+
+    void Randomize(size_t seed = RANDOM_SEED);
+
+
+    unsigned int Rand()const
+    {
+        std::uniform_int_distribution<> uniformInt;
+        CRandomGenerator& me = const_cast<CRandomGenerator&>(*this);
+        return uniformInt(me.m_gen);
+    }
+
+    //returns a double on the interval
+    //[0,1] : rand()/RAND_MAX
+    //]0,1] : (rand()+1)/(RAND_MAX+1)
+    //[0,1[ : rand()/(RAND_MAX+1)
+    //]0,1[ : (rand()+1)/(RAND_MAX+2)
+    double Randu(bool bExcLower = false, bool bExcUpper = false)const
+    {
+        std::uniform_int_distribution<> uniformInt;
+        CRandomGenerator& me = const_cast<CRandomGenerator&>(*this);
+
+        long double numerator = (long double)uniformInt(me.m_gen);
+        long double denominator = (long double)uniformInt.max();
+
+        if (bExcLower)
+        {
+            numerator++;
+            denominator++;
+        }
+
+        if (bExcUpper)
+            denominator++;
+
+        double u = double (numerator / denominator);
+
+        assert(bExcLower || (u >= 0));
+        assert(!bExcLower || (u > 0));
+        assert(bExcUpper || (u <= 1));
+        assert(!bExcUpper || (u < 1));
+
+        return u;
+    }
+
+    //special case of randu
+    double RanduExclusive(void)const
+    {
+        return Randu(true, true);
+    }
+    double Randv(void) const
+    {
+        //std::uniform_real_distribution <double> uniformReal(0, 1);
+        //return uniformReal(m_gen);
+
+        return Randu(false, true);
+    }
+
+    //returns an integer on the range [0,num]
+    int Rand(int num) const
+    {
+        double x = (num + 1)*Randu(false, true);
+        return (int)x;
+    }
+
+    //returns an integer on the interval [l,u] or [l,u[ or ]l,u] or ]l,u[
+    int Rand(int l, int u) const
+    {
+        if (l > u)
+            WBSF::Switch(l, u);
+
+        assert(l <= u);
+
+        //std::uniform_int<int> uniformInt(l, u);
+        //return uniformInt(m_gen);
+
+        //get a number [0, u-l] and add l
+        return l + Rand(u - l);
+    }
+
+    double Rand(double l, double u) const
+    {
+        if (l > u)
+            WBSF::Switch(l, u);
+
+        assert(l <= u);
+
+        //get a number [0, u-l] and add l
+        return l + (u - l)*Randu();
+    }
+
+    //return value between [low,high[
+    double RandUniform(double low = 0, double high=1)const
+    {
+        std::uniform_real_distribution<> uniformDist(low, high);
+        CRandomGenerator& me = const_cast<CRandomGenerator&>(*this);
+        return uniformDist(me.m_gen);
+    }
+
+    double RandBeta(const double alpha, const double beta) const
+    {
+        beta_distribution<double> betaDist(alpha, beta);
+        CRandomGenerator& me = const_cast<CRandomGenerator&>(*this);
+        return betaDist(me.m_gen);
+    }
+
+    //rand normal take mean and standard deviation
+    double RandNormal(const double x, const double s) const
+    {
+        std::normal_distribution<double> uniformNormal(x, s);
+        CRandomGenerator& me = const_cast<CRandomGenerator&>(*this);
+        return uniformNormal(me.m_gen);
+    }
+
+    //rand log normal take mean and standard deviation
+    double RandUnbiasedLogNormal(double x, double s)const
+    {
+        std::lognormal_distribution<double> uniformLogNormal(x - WBSF::square(s) / 2.0, s);
+        CRandomGenerator& me = const_cast<CRandomGenerator&>(*this);
+        return uniformLogNormal(me.m_gen);
+    }
+
+    double RandGumbel(double a, double b)const
+    {
+        std::extreme_value_distribution<double> gumbel(a, b);
+        CRandomGenerator& me = const_cast<CRandomGenerator&>(*this);
+        return gumbel(me.m_gen);
+    }
+
+    double RandWeibull(double a, double b)const
+    {
+        std::weibull_distribution<double> weibull(a, b);
+        CRandomGenerator& me = const_cast<CRandomGenerator&>(*this);
+        return weibull(me.m_gen);
+    }
+
+
+
+protected:
+
+
+    std::mt19937 m_gen;
+
+};
+
 
 
 }//namespace WBSF

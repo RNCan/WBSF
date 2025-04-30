@@ -10,7 +10,7 @@
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 // 15-09-2014	Rémi Saint-Amant	Initial version
 //****************************************************************************
-#include "stdafx.h"
+//#include "stdafx.h"
 #include "WaterTemperature.h"
 
 
@@ -48,12 +48,12 @@ double CWaterTemperature::GetTwI(const CTRef& TRef) const
 
     if (GetAnnualCycleTrend(TRef) >= 0)
     {
-        double dr = (double)TRef.GetJDay() / TRef.GetNbDaysPerYear();
+        double dr = (double)TRef.GetDOY() / TRef.GetNbDaysPerYear();
         assert(dr >= 0 && dr < 1);
 
-        double Ra1 = Ra.IsInside(TRef - 0) ? Ra[TRef - 0][0] : 0;
-        double Ra2 = Ra.IsInside(TRef - 1) ? Ra[TRef - 1][0] : 0;
-        double Ra3 = Ra.IsInside(TRef - 2) ? Ra[TRef - 2][0] : 0;
+        double Ra1 = Ra.is_inside(TRef - 0) ? Ra[TRef - 0][0] : 0;
+        double Ra2 = Ra.is_inside(TRef - 1) ? Ra[TRef - 1][0] : 0;
+        double Ra3 = Ra.is_inside(TRef - 2) ? Ra[TRef - 2][0] : 0;
 
         double angle = 2 * PI*dr - (θ + θ1);
         double cosA = cos(angle);
@@ -88,14 +88,14 @@ void CWaterTemperature::ComputeRa(const CWeatherYears& data)
         {
             for (size_t d = 0; d != data[y][m].size(); d++)
             {
-                const CDay& day = data[y][m][d];
-                CTRef TRef = day.GetTRef();
-                TRef.Transform(CTM(CTM::DAILY));
-                double dr = (double)TRef.GetJDay() / TRef.GetNbDaysPerYear();//d between [0, 1[
+                const CWeatherDay& day = data[y][m][d];
+                CTRef TRef = day.GetTRef().as(CTM::DAILY);
+                //TRef.Transform(CTM(CTM::DAILY));
+                //double dr = (double)TRef.GetJDay() / TRef.GetNbDaysPerYear();//d between [0, 1[
                 const CStatistic& Tair = day[HOURLY_DATA::H_TAIR];
-                assert(!Tair.IsInit() || (Tair[MEAN] >= -60 && Tair[MEAN] <= 60));
+                assert(!Tair.is_init() || (Tair[MEAN] >= -60 && Tair[MEAN] <= 60));
 
-                Ra[TRef][0] = Tair.IsInit() ? (Tair[MEAN] - GetAnnualCycleTrend(TRef)) : 0;
+                Ra[TRef][0] = Tair.is_init() ? (Tair[MEAN] - GetAnnualCycleTrend(TRef)) : 0;
             }
         }
     }
@@ -112,13 +112,13 @@ void CWaterTemperature::ComputeRw(const CWeatherYears& data)
         {
             for (size_t d = 0; d != data[y][m].size(); d++)
             {
-                const CDay& day = data[y][m][d];
-                CTRef TRef = day.GetTRef();
-                TRef.Transform(CTM(CTM::DAILY));
-                double dr = (double)TRef.GetJDay() / TRef.GetNbDaysPerYear();//d between [0, 1[
+                const CWeatherDay& day = data[y][m][d];
+                CTRef TRef = day.GetTRef().as(CTM::DAILY);
+                //TRef.Transform(CTM(CTM::DAILY));
+                //double dr = (double)TRef.GetJDay() / TRef.GetNbDaysPerYear();//d between [0, 1[
 
-                double Rw1 = Rw.IsInside(TRef - 1) ? Rw[TRef - 0][0] : 0;
-                double Rw2 = Rw.IsInside(TRef - 2) ? Rw[TRef - 1][0] : 0;
+                double Rw1 = Rw.is_inside(TRef - 1) ? Rw[TRef - 0][0] : 0;
+                double Rw2 = Rw.is_inside(TRef - 2) ? Rw[TRef - 1][0] : 0;
                 double Ra0 = Ra[TRef][0];
 
                 Rw[TRef][0] = b1*Rw1 + b2*Rw2 + b3*Ra0;
@@ -148,9 +148,10 @@ void CWaterTemperature::ComputeParams(const CWeatherYears& data)
             {
                 for (CWeatherDay::const_iterator itH = itD->begin(); itH != itD->end(); itH++)
                 {
-                    CTRef TRef = itH->GetTRef();
-                    TRef.Transform(CTM(CTM::DAILY));
-                    double d = (double)TRef.GetJDay() / TRef.GetNbDaysPerYear();//d between [0, 1[
+                    CTRef TRef = itH->GetTRef().as(CTM::DAILY);
+                    //CTRef TRef = day.GetTRef().as(CTM::DAILY);
+                    //TRef.Transform(CTM(CTM::DAILY));
+                    double d = (double)TRef.GetDAY() / TRef.GetNbDaysPerYear();//d between [0, 1[
 
                     double Tair = (*itH)[H_TAIR];
                     if (!IsMissing(Tair))

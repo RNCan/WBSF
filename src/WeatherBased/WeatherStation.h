@@ -9,7 +9,7 @@
 #pragma once
 
 
-#include <crtdbg.h>
+#include <cassert>
 #include <vector>
 #include <array>
 #include <memory>
@@ -78,7 +78,7 @@ namespace WBSF
 		{
 			CWVariables variables;
 			for (size_t v = 0; v < std::array<CStatistic, T>::size(); v++)
-				variables[v] = std::array<CStatistic, T>::at(v).IsInit();
+				variables[v] = std::array<CStatistic, T>::at(v).is_init();
 
 			return variables;
 		}
@@ -88,7 +88,7 @@ namespace WBSF
 			CWVariablesCounter variables;
 			for (size_t v = 0; v < std::array<CStatistic, T>::size(); v++)
 			{
-				if (std::array<CStatistic, T>::at(v).IsInit())
+				if (std::array<CStatistic, T>::at(v).is_init())
 				{
 					variables[v].first += size_t(bOneCountPerDay ? 1 : std::array<CStatistic, T>::at(v)[NB_VALUE]);
 					variables[v].second += m_period;// CTPeriod(m_TRef, m_TRef);//m_period can not be init yet
@@ -101,7 +101,7 @@ namespace WBSF
 		{
 			bool bHaveData = false;
 			for (size_t v = 0; v < std::array<CStatistic, T>::size() && !bHaveData; v++)
-				bHaveData = std::array<CStatistic, T>::at(v).IsInit();
+				bHaveData = std::array<CStatistic, T>::at(v).is_init();
 
 			return bHaveData;
 		}
@@ -372,8 +372,8 @@ namespace WBSF
 		using CWeatherVariables::operator[];
 		const float& operator[](HOURLY_DATA::TVarH v)const { return CWeatherVariables::at(v); }
 		float& operator[](HOURLY_DATA::TVarH v) { return CWeatherVariables::at(v); }
-		float operator[](HOURLY_DATA::TVarEx v)const { CStatistic stat = GetVarEx(v); return stat.IsInit() ? float(stat[MEAN]) : WEATHER::MISSING; }
-		float operator[](HOURLY_DATA::TVarEx v) { CStatistic stat = GetVarEx(v); return stat.IsInit() ? float(stat[MEAN]) : WEATHER::MISSING; }
+		float operator[](HOURLY_DATA::TVarEx v)const { CStatistic stat = GetVarEx(v); return stat.is_init() ? float(stat[MEAN]) : WEATHER::MISSING; }
+		float operator[](HOURLY_DATA::TVarEx v) { CStatistic stat = GetVarEx(v); return stat.is_init() ? float(stat[MEAN]) : WEATHER::MISSING; }
 
 		float at(size_t v)const { return (v < size()) ? CWeatherVariables::at(v) : operator[](HOURLY_DATA::TVarEx(v)); }
 		float at(size_t v) { return (v < size()) ? CWeatherVariables::at(v) : operator[](HOURLY_DATA::TVarEx(v)); }
@@ -590,7 +590,7 @@ namespace WBSF
 
 		//get daylight mean temperature approximation (deg C)
 		double GetTdaylight()const;
-		//double K()const{ if (HourlyDataExist())CompileDailyStat(); return (m_dailyStat[HOURLY_DATA::H_TNTX].IsInit()) ? m_dailyStat[HOURLY_DATA::H_TNTX][MEAN] + 273.15 : WEATHER::MISSING; }
+		//double K()const{ if (HourlyDataExist())CompileDailyStat(); return (m_dailyStat[HOURLY_DATA::H_TNTX].is_init()) ? m_dailyStat[HOURLY_DATA::H_TNTX][MEAN] + 273.15 : WEATHER::MISSING; }
 		double GetDayLength()const;
 
 		CTM GetTM()const { return CTM(IsHourly() ? CTM::HOURLY : CTM::DAILY); }
@@ -684,7 +684,7 @@ namespace WBSF
 
 	};
 
-	typedef CWeatherDay CDay;
+	//typedef CWeatherDay CDay;
 
 	//**************************************************************************************************************
 	//CWeatherMonth
@@ -780,7 +780,7 @@ namespace WBSF
 		virtual CDataInterface& operator[](const CTRef& ref) { return Get(ref); }
 		virtual const CDataInterface& operator[](const CTRef& ref)const { return Get(ref); }
 		virtual void SetStat(HOURLY_DATA::TVarH v, const CStatistic& stat) { m_stat[v] = stat; }
-		virtual bool GetStat(HOURLY_DATA::TVarH v, CStatistic& stat)const { stat = m_stat[v]; return stat.IsInit(); }
+		virtual bool GetStat(HOURLY_DATA::TVarH v, CStatistic& stat)const { stat = m_stat[v]; return stat.is_init(); }
 		virtual CStatistic GetVarEx(HOURLY_DATA::TVarEx v)const;
 		virtual CStatistic GetTimeLength()const { return CStatistic((double)GetNbDays() * 24 * 60 * 60); }
 		virtual double GetNetRadiation(double& Fcd)const;
@@ -906,7 +906,7 @@ namespace WBSF
 		virtual const CStatistic& GetData(HOURLY_DATA::TVarH v)const { return GetStat(v); }
 		virtual CStatistic& GetData(HOURLY_DATA::TVarH v) { return GetStat(v); }
 		virtual void SetStat(HOURLY_DATA::TVarH v, const CStatistic& stat) { m_stat[v] = stat; }
-		virtual bool GetStat(HOURLY_DATA::TVarH v, CStatistic& stat)const { stat = m_stat[v]; return stat.IsInit(); }
+		virtual bool GetStat(HOURLY_DATA::TVarH v, CStatistic& stat)const { stat = m_stat[v]; return stat.is_init(); }
 		virtual inline bool IsYearInit(int year)const;
 		virtual CDailyWaveVector& GetHourlyGeneration(CDailyWaveVector& t, size_t method = HG_DOUBLE_SINE, size_t step = 4, double PolarDayLength = 3, const COverheat& overheat = COverheat()) const;
 		virtual void WriteStream(std::ostream& stream, const CWVariables& variable, bool asStat = true)const override;
@@ -1173,7 +1173,7 @@ namespace WBSF
 		virtual const CStatistic& GetData(HOURLY_DATA::TVarH v)const { return m_stat[v]; }
 		virtual CStatistic& GetData(HOURLY_DATA::TVarH v) { return m_stat[v]; }
 		virtual void SetStat(HOURLY_DATA::TVarH v, const CStatistic& stat) { m_stat[v] = stat; }
-		virtual bool GetStat(HOURLY_DATA::TVarH v, CStatistic& stat)const { stat = m_stat[v]; return stat.IsInit(); }
+		virtual bool GetStat(HOURLY_DATA::TVarH v, CStatistic& stat)const { stat = m_stat[v]; return stat.is_init(); }
 		virtual CTRef GetTRef()const { return CTRef(0, 0, 0, 0, CTM(CTM::ANNUAL, CTM::OVERALL_YEARS)); }
 		virtual void WriteStream(std::ostream& stream, const CWVariables& variable, bool asStat = true)const override;
 		virtual void ReadStream(std::istream& stream, const CWVariables& variable, bool asStat = true)override;
@@ -1212,8 +1212,8 @@ namespace WBSF
 	{
 	public:
 
-		IAgent* m_pAgent;
-		DWORD m_hxGridSessionID;
+		//IAgent* m_pAgent;
+		//uint32_t m_hxGridSessionID;
 
 		CWeatherStation(bool bIsHourly = false);
 		CWeatherStation(const CWeatherStation& in);
@@ -1247,23 +1247,23 @@ namespace WBSF
 	typedef CWeatherStation CSimulationPoint;
 
 	//****************************************************************************************************************
-	inline bool CHourlyData::IsYearInit(int year)const { _ASSERTE(m_pParent); return m_pParent->IsYearInit(year); }
-	inline bool CWeatherDay::IsYearInit(int year)const { _ASSERTE(m_pParent); return m_pParent->IsYearInit(year); }
-	inline bool CWeatherMonth::IsYearInit(int year)const { _ASSERTE(m_pParent); return m_pParent->IsYearInit(year); }
-	inline bool CWeatherYear::IsYearInit(int year)const { _ASSERTE(m_pParent); return m_pParent->IsYearInit(year); }
+	inline bool CHourlyData::IsYearInit(int year)const { assert(m_pParent); return m_pParent->IsYearInit(year); }
+	inline bool CWeatherDay::IsYearInit(int year)const { assert(m_pParent); return m_pParent->IsYearInit(year); }
+	inline bool CWeatherMonth::IsYearInit(int year)const { assert(m_pParent); return m_pParent->IsYearInit(year); }
+	inline bool CWeatherYear::IsYearInit(int year)const { assert(m_pParent); return m_pParent->IsYearInit(year); }
 
-	inline const CDataInterface& CHourlyData::Get(CTRef ref)const { _ASSERTE(m_pParent); return m_pParent->Get(ref); }
-	inline CDataInterface& CHourlyData::Get(CTRef ref) { _ASSERTE(m_pParent); return m_pParent->Get(ref); }
-	inline const CDataInterface& CWeatherDay::Get(CTRef ref)const { _ASSERTE(m_pParent); return m_pParent->Get(ref); }
-	inline CDataInterface& CWeatherDay::Get(CTRef ref) { _ASSERTE(m_pParent); return m_pParent->Get(ref); }
-	inline const CDataInterface& CWeatherMonth::Get(CTRef ref)const { _ASSERTE(m_pParent); return m_pParent->Get(ref); }
-	inline CDataInterface& CWeatherMonth::Get(CTRef ref) { _ASSERTE(m_pParent); return m_pParent->Get(ref); }
-	inline const CDataInterface& CWeatherYear::Get(CTRef ref)const { _ASSERTE(m_pParent); return m_pParent->Get(ref); }
-	inline CDataInterface& CWeatherYear::Get(CTRef ref) { _ASSERTE(m_pParent); return m_pParent->Get(ref); }
+	inline const CDataInterface& CHourlyData::Get(CTRef ref)const { assert(m_pParent); return m_pParent->Get(ref); }
+	inline CDataInterface& CHourlyData::Get(CTRef ref) { assert(m_pParent); return m_pParent->Get(ref); }
+	inline const CDataInterface& CWeatherDay::Get(CTRef ref)const { assert(m_pParent); return m_pParent->Get(ref); }
+	inline CDataInterface& CWeatherDay::Get(CTRef ref) { assert(m_pParent); return m_pParent->Get(ref); }
+	inline const CDataInterface& CWeatherMonth::Get(CTRef ref)const { assert(m_pParent); return m_pParent->Get(ref); }
+	inline CDataInterface& CWeatherMonth::Get(CTRef ref) { assert(m_pParent); return m_pParent->Get(ref); }
+	inline const CDataInterface& CWeatherYear::Get(CTRef ref)const { assert(m_pParent); return m_pParent->Get(ref); }
+	inline CDataInterface& CWeatherYear::Get(CTRef ref) { assert(m_pParent); return m_pParent->Get(ref); }
 	inline const CDataInterface& CWeatherYears::Get(CTRef ref)const { return const_cast<CWeatherYears*>(this)->Get(ref); }
 	inline CDataInterface& CWeatherYears::Get(CTRef ref)
 	{
-		assert(ref.GetYear() <= 0 || ref.GetYear() >= 1500 && ref.GetYear() <= 2200);
+		assert(ref.GetYear() <= 0 || (ref.GetYear() >= 1500 && ref.GetYear() <= 2200));
 
 		CWeatherYears& me = *this;
 		return

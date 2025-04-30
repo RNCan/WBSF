@@ -14,7 +14,12 @@
 
 #include <boost/tokenizer.hpp>
 #include <boost/algorithm/string.hpp>
-//#include <boost/filesystem/path.hpp>
+#include <boost/filesystem/path.hpp>
+#include <boost/filesystem.hpp>
+#include <boost/date_time/posix_time/posix_time_io.hpp>
+#include <boost/date_time/posix_time/conversion.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/date_time/c_local_time_adjustor.hpp>
 //#include <boost/filesystem/operations.hpp>
 #include <boost/crc.hpp>
 //#include <boost/locale.hpp>
@@ -23,7 +28,7 @@
 #include <cstdio>
 #include <stdexcept>
 #include <cmath>
-
+//#include <sys/stat.h>
 
 
 
@@ -40,7 +45,7 @@ using namespace std;
 
 using boost::tokenizer;
 using boost::escaped_list_separator;
-
+namespace fs = boost::filesystem;
 
 
 //template < >
@@ -672,24 +677,68 @@ filesystem::path GetApplicationPath()
 //		return msg;
 //	}
 //
-//	CFileInfo GetFileInfo(const std::string& filePath)
-//	{
-//		CFileInfo info;
-//		GetFileInfo(filePath, info);
-//		return info;
-//	}
+
+
+	CFileInfo GetFileInfo(const std::string& filePath)
+	{
+		CFileInfo info;
+
+
+        fs::path file_path = filePath;
+        //time_t curTime = time(NULL);
+        if(fs::exists(file_path) && fs::is_regular_file(file_path) )
+        {
+            info.m_filePath = filePath;
+            fs::last_write_time(file_path, info.m_time);
+            info.m_size = fs::file_size(file_path);
+        }
+
+
+//    for (fs::recursive_directory_iterator it(path), endit; it != endit; ++it)
+//        if (fs::is_regular_file(*it) && it->path().extension() == ext)
+//        {
+//            try {
+//                auto stamp = pt::from_time_t(fs::last_write_time(*it));
+//                if (stamp >= max) {
+//                    last = *it;
+//                    max = stamp;
+//                }
+//            } catch(std::exception const& e) {
+//                std::cerr << "Skipping: " << *it << " (" << e.what() << ")\n";
+//            }
+//        }
 //
-//	__time64_t GetFileStamp(const std::string& filePath)
-//	{
-//		__time64_t fileStamp = 0;
+//    return last; // empty if no file matched
+
+////		int fd = fopen(filePath.c_str(), OFN_READONLY);
+//        struct stat st;
+//        fstat(fd, &st);
 //
-//		CFileInfo info;
-//		if (GetFileInfo(filePath, info))
-//			fileStamp = info.m_time;
-//
-//		return fileStamp;
-//	}
-//
+//		//stat_struct file_stat={0};
+//		_stat64i32 file_stat={0};
+//		int rc = _stat64i32(filePath.c_str(), &file_stat);
+//		if (rc == 0)
+//		{
+//			info.m_filePath = filePath;
+//			info.m_time = stat.st_mtime;
+//			info.m_size = stat.st_size;
+//		}
+
+
+		return info;
+	}
+
+	__time64_t GetFileStamp(const std::string& filePath)
+	{
+		__time64_t fileStamp = 0;
+
+		CFileInfo info = GetFileInfo(filePath);
+		//if (GetFileInfo(filePath, info))
+		fileStamp = info.m_time;
+
+		return fileStamp;
+	}
+
 //	/*ERMsg GetFilesInfo(const std::vector<std::string>& filesList, CFileInfoVector& filesInfo)
 //	{
 //		ERMsg msg;
@@ -741,7 +790,7 @@ filesystem::path GetApplicationPath()
 //					CFileInfo info;
 //					info.m_filePath = path + UTF8(ffd.cFileName);
 //					info.m_time = FILETIME_to_time64(ffd.ftCreationTime);
-//					info.m_size = (ffd.nFileSizeHigh * ((__int64)MAXDWORD + 1)) + ffd.nFileSizeLow;
+//					info.m_size = (ffd.nFileSizeHigh * ((int64_t)MAXDWORD + 1)) + ffd.nFileSizeLow;
 //
 //					filesInfo.push_back(info);
 //				}
@@ -1438,25 +1487,25 @@ std::string SecondToDHMS(double time)
 //
 //		return str;
 //	}
-//
-//	struct StringComparator
-//	{
-//		StringComparator(const std::string &nameToFind) : m_str(nameToFind) {}
-//		~StringComparator() {}
-//
-//		bool operator () (const std::string & str) const { return boost::iequals(str, m_str); }
-//
-//		const std::string & m_str;
-//	};
-//
-//	std::vector<std::string>::const_iterator FindStringExact(const std::vector<std::string>& list, const std::string& value, bool bCaseSensitive)
-//	{
-//		if (!bCaseSensitive)
-//			return find_if(list.begin(), list.end(), StringComparator(value));
-//
-//		return find(list.begin(), list.end(), value);
-//	}
-//
+
+	struct StringComparator
+	{
+		StringComparator(const std::string &nameToFind) : m_str(nameToFind) {}
+		~StringComparator() {}
+
+		bool operator () (const std::string & str) const { return boost::iequals(str, m_str); }
+
+		const std::string & m_str;
+	};
+
+	std::vector<std::string>::const_iterator FindStringExact(const std::vector<std::string>& list, const std::string& value, bool bCaseSensitive)
+	{
+		if (!bCaseSensitive)
+			return find_if(list.begin(), list.end(), StringComparator(value));
+
+		return find(list.begin(), list.end(), value);
+	}
+
 //
 //
 //	std::string GetText(ERMsg msg)
@@ -2143,8 +2192,8 @@ std::string FormatV(const char* szFormat, va_list argList)
 //		return str;
 //	}
 //
-//    std::string FormatMsg(std::string_view szFormat, std::string_view v1, std::string_view v2, std::string_view v3, std::string_view v4, std::string_view v5)
-//	{
+    std::string FormatMsg(std::string_view szFormat, std::string_view v1, std::string_view v2, std::string_view v3, std::string_view v4, std::string_view v5)
+	{
 //
 //	    //printf("%2$s, %1$d", salary, name);
 //        //For C++, beside the C solution there is a boost::format library:
@@ -2153,7 +2202,9 @@ std::string FormatV(const char* szFormat, va_list argList)
 //
 //        using boost::locale::format;
 //        using boost::locale::translate;
-//        std::ostringstream ss;
+
+        assert(false);
+        std::ostringstream ss;
 //        //ss << format(translate("This is the message to {1} about {2}")) % v1 % v2;
 //        ss << format(translate(szFormat)) % v1 % v2;
 
@@ -2178,8 +2229,9 @@ std::string FormatV(const char* szFormat, va_list argList)
 //			}
 //		}
 //
-//		return ss.c_str();
-//	}
+		//return ss.c_str();
+		return string();
+	}
 
 
 

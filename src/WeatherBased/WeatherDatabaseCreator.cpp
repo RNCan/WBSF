@@ -9,7 +9,7 @@
 //******************************************************************************
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 //****************************************************************************
-#pragma once
+//#pragma once
 
 
 #include "WeatherBased/WeatherDatabaseCreator.h"

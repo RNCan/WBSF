@@ -1,21 +1,26 @@
 //******************************************************************************
 //  Project:		Weather-based simulation framework (WBSF)
 //	Programmer:     Rémi Saint-Amant
-// 
+//
 //  It under the terms of the GNU General Public License as published by
 //     the Free Software Foundation
 //  It is provided "as is" without express or implied warranty.
-//	
+//
 //******************************************************************************
 #pragma once
 
+
 #include <deque>
 #include <memory>
+#include <boost/dll/shared_library.hpp>
+#include <boost/dll.hpp>
+
+
 
 #include "Basic/LRUCache.h"
-#include "Basic/WeatherStation.h"
 #include "Basic/Callback.h"
-#include "Basic/WeatherDatabaseOptimisation.h"
+#include "WeatherBased/WeatherStation.h"
+#include "WeatherBased/WeatherDatabaseOptimisation.h"
 
 namespace WBSF
 {
@@ -67,7 +72,7 @@ namespace WBSF
 		virtual const CTM	GetDataTM()const = 0;
 		virtual const char	GetDBType()const = 0;
 
-		virtual ERMsg Open(const std::string& filePath, UINT flag = modeRead, CCallback& callback = DEFAULT_CALLBACK, bool bSkipVerify=false);
+		virtual ERMsg Open(const std::string& filePath, size_t flag = modeRead, CCallback& callback = DEFAULT_CALLBACK, bool bSkipVerify=false);
 		virtual ERMsg OpenOptimizationFile(const std::string& referencedFilePath, CCallback& callback = DEFAULT_CALLBACK, bool bSkipVerify=false);
 		virtual ERMsg Save();
 		virtual ERMsg Close(bool bSave = true, CCallback& callback = DEFAULT_CALLBACK);
@@ -85,8 +90,8 @@ namespace WBSF
 		std::string GetDataFilePath(const std::string& filePath, const std::string& fileName)const{ return GetDataPath(filePath) + fileName; }
 		std::string GetOptimisationFilePath(const std::string& referencedFilePath)const{ return WBSF::GetPath(referencedFilePath) + WBSF::GetFileTitle(referencedFilePath) + GetOptimizationExtension(); }
 		std::string GetHeaderFilePath(const std::string& referencedFilePath)const{ return WBSF::GetPath(referencedFilePath) + WBSF::GetFileTitle(referencedFilePath) + GetHeaderExtension(); }
-		
-		
+
+
 		std::string GetOptimisationDataFilePath(const std::string& referencedFilePath)const{ return  GetOptimisationFilePath(referencedFilePath) + "Data"; }
 		std::string GetOptimisationSearchFilePath1(const std::string& referencedFilePath)const{ return  GetOptimisationFilePath(referencedFilePath) + "SearchIndex"; }
 		std::string GetOptimisationSearchFilePath2(const std::string& referencedFilePath)const{ return  GetOptimisationFilePath(referencedFilePath) + "SearchData"; }
@@ -98,10 +103,10 @@ namespace WBSF
 		std::string GetOptimisationSearchFilePath2()const{ return  GetOptimisationSearchFilePath2(m_filePath); }
 
 		std::string GetPath()const{ return WBSF::GetPath(m_filePath); }
-		std::string GetDataPath()const{ ASSERT(!m_filePath.empty());	return GetDataPath(m_filePath); }
+		std::string GetDataPath()const{ assert(!m_filePath.empty());	return GetDataPath(m_filePath); }
 		std::string GetDataFilePath(const std::string& fileName)const{ return GetDataPath() + fileName; }
 
-		
+
 		CWVariables GetWVariables(size_t i, int year = YEAR_NOT_INIT)const;
 		CWVariablesCounter GetWVariablesCounter(size_t i, int years = YEAR_NOT_INIT)const;
 		ERMsg Get(CLocation& stationIn, size_t index, int year)const;
@@ -110,15 +115,15 @@ namespace WBSF
 		bool empty()const { return m_zop.size() == 0; }
 		size_t size()const{ return m_zop.size(); }
 		ERMsg push_back(const CLocation& station){ return Add(station); }
-		const CLocation& at(size_t index)const{ ASSERT(IsOpen()); return m_zop[index]; }
-		const CLocation& operator[](size_t index)const{ ASSERT(IsOpen()); return m_zop[index]; }
-		const CLocation& GetLocation(size_t index)const{ ASSERT(IsOpen()); return m_zop[index]; }
-		CLocationVector GetLocations(const CSearchResultVector& results)const{ ASSERT(IsOpen()); return m_zop.GetStations(results); }
+		const CLocation& at(size_t index)const{ assert(IsOpen()); return m_zop[index]; }
+		const CLocation& operator[](size_t index)const{ assert(IsOpen()); return m_zop[index]; }
+		const CLocation& GetLocation(size_t index)const{ assert(IsOpen()); return m_zop[index]; }
+		CLocationVector GetLocations(const CSearchResultVector& results)const{ assert(IsOpen()); return m_zop.GetStations(results); }
 
 		bool StationExist(const std::string& name, bool bByName = true)const;
 		int GetStationIndex(const std::string& nameIn, bool bByName = true)const;
 
-		//StringVector GetStationNameList(const CSearchResultVector& searchResultArray)const;
+		//std::vector<std::string> GetStationNameList(const CSearchResultVector& searchResultArray)const;
 		std::string GetUniqueName(const std::string & ID, const std::string & name)const;
 		void SearchD(CSearchResultVector& searchResultArray, const CLocation& station, double radius, CWVariables filter = CWVariables(), int year = YEAR_NOT_INIT, bool bExcludeUnused = true, bool bUseElevation = true)const;
 
@@ -135,9 +140,9 @@ namespace WBSF
 		const std::string& GetFilePath()const{ return m_filePath; }
 		//std::string GetDataPath()const{ return m_filePath + (m_bSubDir?GetFileTitle(m_filePath)+"\\":""); }
 
-		const std::set<int>& GetYears()const{ ASSERT(IsOpen()); return m_zop.GetYears(); }
+		const std::set<int>& GetYears()const{ assert(IsOpen()); return m_zop.GetYears(); }
 		std::set<int> GetYears(size_t index)const;
-		CGeoRect GetBoundingBox()const{ ASSERT(IsOpen());	return m_zop.GetBoundingBox(); }
+		CGeoRect GetBoundingBox()const{ assert(IsOpen());	return m_zop.GetBoundingBox(); }
 		CWeatherDatabaseOptimization const& GetOptimization()const{ return m_zop; }
 
 		ERMsg OpenSearchOptimization(CCallback& callback);
@@ -151,9 +156,9 @@ namespace WBSF
 
 		ERMsg LoadAzureDLL();
 		void UnloadAzureDLL();
-		
-		
-		
+
+
+
 	protected:
 
 		ERMsg GenerateWellDistributedStation(size_t nbStations, CSearchResultVector& searchResult, std::vector<size_t> priority, bool bUseElevation, CCallback& callback)const;
@@ -161,17 +166,16 @@ namespace WBSF
 		std::string m_filePath;
 		short m_openMode;
 		bool m_bModified;
-		
+
 
 		// for optimization
 		CWeatherDatabaseOptimization m_zop;
 		CWeatherStationCache m_cache;
 
-		CCriticalSection m_CS;
+		std::mutex m_mutex;
 
 
-		
-		HINSTANCE m_hDll;
+		boost::dll::shared_library m_hDll;
 
 		static std::string m_azure_dll_filepath;
 		typedef bool(*load_azure_weather_yearsF)(const char* account_name, const char* account_key, const char* container_name, const char* blob_name, void* pData);
@@ -215,17 +219,17 @@ namespace WBSF
 		ERMsg Set(size_t index, const CLocation& location);
 		ERMsg Remove(size_t index);
 		ERMsg GetStations(CWeatherStationVector& stationArray, const CSearchResultVector& results, int year)const;
-		void GetUnlinkedFile(StringVector& fileList);
+		void GetUnlinkedFile(std::vector<std::string>& fileList);
 		void CreateAllCanals(bool bExcludeUnused=true, bool bUseElevation = true, bool bUseShoreDistance = true);
 		void CreateCanal(CWVariables filter, int year, bool bExcludeUnused, bool bUseElevation, bool bUseShoreDistance);
 		ERMsg SaveAsBinary(const std::string& file_path)const;
 		ERMsg LoadFromBinary(const std::string& file_path);
 		ERMsg LoadBinary(CWeatherStation* pStation, const std::set<int>& years)const;
 
-		ERMsg DeleteDatabase(const std::string& outputFilePath, CCallback& callback = DEFAULT_CALLBACK);
-		ERMsg RenameDatabase(const std::string& inputFilePath, const std::string& outputFilePath, CCallback& callback = DEFAULT_CALLBACK);
-		ERMsg AppendDatabase(const std::string& inputFilePath1, const std::string& inputFilePath2, bool bCopy=true, CCallback& callback = DEFAULT_CALLBACK);
-		
+		static ERMsg DeleteDatabase(const std::string& outputFilePath, CCallback& callback = DEFAULT_CALLBACK);
+		static ERMsg RenameDatabase(const std::string& inputFilePath, const std::string& outputFilePath, CCallback& callback = DEFAULT_CALLBACK);
+		static ERMsg AppendDatabase(const std::string& inputFilePath1, const std::string& inputFilePath2, bool bCopy=true, CCallback& callback = DEFAULT_CALLBACK);
+
 
 
 		using CWeatherDatabase::GetVersion;

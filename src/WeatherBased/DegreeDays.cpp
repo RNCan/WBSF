@@ -120,7 +120,7 @@ double CDegreeDays::GetDD(const CWeatherDay& in)const
 {
     assert(m_method < CDegreeDays::NB_DAILY_METHOD);
     assert(m_lowerThreshold <= m_upperThreshold);
-    assert(in[H_TMIN].IsInit() && in[H_TMAX].IsInit());
+    assert(in[H_TMIN].is_init() && in[H_TMAX].is_init());
 
     double DD = 0;
     switch (m_method)
@@ -181,7 +181,7 @@ double CDegreeDays::GetDD(const CWeatherYear& in, const CTPeriod& p)const
 double CDegreeDays::GetAverageDD(const CWeatherDay& in)const
 {
     assert(m_lowerThreshold <= m_upperThreshold);
-    assert(in[H_TMIN].IsInit() && in[H_TMAX].IsInit());
+    assert(in[H_TMIN].is_init() && in[H_TMAX].is_init());
 
     double DD = 0;
     double x1 = max(0.0, min(GetTnTx(in), m_upperThreshold) - m_lowerThreshold);
@@ -208,7 +208,7 @@ double CDegreeDays::GetAverageDD(const CWeatherDay& in)const
 double CDegreeDays::GetAverageAdjustedDD(const CWeatherDay& in)const
 {
     assert(m_lowerThreshold <= m_upperThreshold);
-    assert(in[H_TMIN].IsInit() && in[H_TMAX].IsInit());
+    assert(in[H_TMIN].is_init() && in[H_TMAX].is_init());
 
     double DD = 0;
     double Tmin = max(GetTmin(in), m_lowerThreshold);
@@ -239,7 +239,7 @@ double CDegreeDays::GetAverageAdjustedDD(const CWeatherDay& in)const
 double CDegreeDays::GetTriangleDD(const CWeatherDay& in)const
 {
     assert(m_lowerThreshold <= m_upperThreshold);
-    assert(in[H_TMIN].IsInit() && in[H_TMAX].IsInit());
+    assert(in[H_TMIN].is_init() && in[H_TMAX].is_init());
 
     double Tmin = GetTmin(in);
     double Tmax = GetTmax(in);
@@ -250,7 +250,7 @@ double CDegreeDays::GetTriangleDD(const CWeatherDay& in)const
 double CDegreeDays::GetDoubleTriangleDD(const CWeatherDay& in)const
 {
     assert(m_lowerThreshold <= m_upperThreshold);
-    assert(in[H_TMIN].IsInit() && in[H_TMAX].IsInit());
+    assert(in[H_TMIN].is_init() && in[H_TMAX].is_init());
 
     double Tmin = GetTmin(in);
     double Tmax = GetTmax(in);
@@ -268,7 +268,7 @@ double CDegreeDays::GetDoubleTriangleDD(const CWeatherDay& in)const
 double CDegreeDays::GetSineDD(const CWeatherDay& in)const
 {
     assert(m_lowerThreshold <= m_upperThreshold);
-    assert(in[H_TMIN].IsInit() && in[H_TMAX].IsInit());
+    assert(in[H_TMIN].is_init() && in[H_TMAX].is_init());
 
 
     //A REVÉRIFIER??????
@@ -298,7 +298,7 @@ double CDegreeDays::GetSineDD(const CWeatherDay& in)const
 double CDegreeDays::GetDoubleSineDD(const CWeatherDay& in)const
 {
     assert(m_lowerThreshold <= m_upperThreshold);
-    assert(in[H_TMIN].IsInit() && in[H_TMAX].IsInit());
+    assert(in[H_TMIN].is_init() && in[H_TMAX].is_init());
 
     double Tmin = GetTmin(in);
     double Tmax = GetTmax(in);
@@ -363,7 +363,7 @@ double CDegreeDays::GetBaskervilleEminDD(const CWeatherDay& in)const
 
     assert(m_lowerThreshold <= m_upperThreshold);
     assert(m_upperThreshold>=999);//upper threshold not supported
-    assert(in[H_TMIN].IsInit() && in[H_TMAX].IsInit());
+    assert(in[H_TMIN].is_init() && in[H_TMAX].is_init());
 
     double DD = 0;
     if (GetTmax(in) < m_lowerThreshold)

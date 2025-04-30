@@ -10,8 +10,9 @@
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 //******************************************************************************
 
-#include "Basic/WeatherDefine.h"
 #include "Basic/UtilStd.h"
+#include "WeatherBased/WeatherDefine.h"
+
 
 //#include "WeatherBasedSimulationString.h"
 
@@ -133,9 +134,9 @@ namespace WBSF
 		static const float LIMIT_N[NB_FIELDS][2] = { { -99, 99 }, { -99, 99 }, { -99, 99 }, { 0, 99 }, { 0, 99 }, { -99, 99 }, { -99, 99 }, { -99, 99 }, { -99, 99 }, { 0, 3500 }, { 0, 99 }, { -99, 99 }, { 0, 100 }, { 0, 999 }, { -30, 6 }, { 0, 99 } };
 		float GetLimitN(size_t v, short kind)
 		{
-			_ASSERTE(NB_FIELDS == 16);
-			_ASSERTE(v >= 0 && v < NB_FIELDS);
-			_ASSERTE(kind >= 0 && kind <= 1);//0=min, 1=max
+			assert(NB_FIELDS == 16);
+			assert(v >= 0 && v < NB_FIELDS);
+			assert(kind >= 0 && kind <= 1);//0=min, 1=max
 
 			return LIMIT_N[v][kind];
 		}
@@ -171,13 +172,13 @@ namespace WBSF
 
 		const char* GetFieldTitle(size_t f)
 		{
-			_ASSERTE(f < NB_FIELDS);
+			assert(f < NB_FIELDS);
 			return FIELDS_TITLES[f];
 		}
 
 		const char* GetFieldHeader(size_t f)
 		{
-			_ASSERTE(f < NB_FIELDS);
+			assert(f < NB_FIELDS);
 			return FIELDS_HEADERS[f];
 		}
 
@@ -355,16 +356,16 @@ namespace WBSF
 		static const double LIMIT_H[NB_VAR_H][2] = { { -60, 60 }, { -60, 60 }, { -60, 60 }, { 0, 3500 }, { -60, 60 }, { 0, 100 }, { 0, 200 }, { 0, 360 }, { 0, 3500 }, { 200, 1090 }, { 0, 3500 }, { 0, 3500 }, { 0, 3500 }, { 0, 200 }, { -99999, 99999 }, { -99999, 99999 } };
 		double GetLimitH(size_t v, short kind)
 		{
-			_ASSERTE(NB_VAR_H == 16);
-			_ASSERTE(v >= 0 && v < NB_VAR_H);
-			_ASSERTE(kind >= 0 && kind <= 1);//0=min, 1=max
+			assert(NB_VAR_H == 16);
+			assert(v >= 0 && v < NB_VAR_H);
+			assert(kind >= 0 && kind <= 1);//0=min, 1=max
 
 			return LIMIT_H[v][kind];
 		}
 
 		const char* GetVariableName(size_t v, bool bUpperCase)
 		{
-			_ASSERTE(v < NB_VAR_H);
+			assert(v < NB_VAR_H);
 			return bUpperCase ? VARIABLES_NAMES_U[v] : VARIABLES_NAMES[v];
 		}
 		const char* GetVariableAbvr(size_t v)
@@ -479,7 +480,7 @@ namespace WBSF
 	{
 		size_t G2F(size_t g)
 		{
-			_ASSERTE(g < NB_GRADIENT);
+			assert(g < NB_GRADIENT);
 
 			size_t f = 0;
 			switch (g)
@@ -489,7 +490,7 @@ namespace WBSF
 			case TMAX_GR: f = NORMALS_DATA::TMAX_MN; break;
 			case PRCP_GR: f = NORMALS_DATA::PRCP_TT; break;
 			case TDEW_GR: f = NORMALS_DATA::TDEW_MN; break;
-			default: _ASSERTE(false);
+			default: assert(false);
 			}
 
 			return f;
@@ -523,7 +524,7 @@ namespace WBSF
 			case TMAX_GR: v = HOURLY_DATA::H_TMAX; break;
 			case PRCP_GR: v = HOURLY_DATA::H_PRCP; break;
 			case TDEW_GR: v = HOURLY_DATA::H_TDEW; break;
-			default: _ASSERTE(false);
+			default: assert(false);
 			}
 
 			return v;

@@ -10,12 +10,13 @@
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 // 15-09-2015	Rémi Saint-Amant	Created from old file
 //******************************************************************************
-#include <math.h>
+#include <cmath>
 
-#include "Basic/NormalsData.h"
-#include "Basic/WeatherCorrection.h"
 #include "Basic/UtilTime.h"
-#include "Basic/WeatherCorrection.h"
+#include "WeatherBased/NormalsData.h"
+#include "WeatherBased/WeatherCorrection.h"
+
+
 
 //#include "WeatherBasedSimulationString.h"
 
@@ -44,7 +45,7 @@ namespace WBSF
 	{
 		double Rnx = at(TMNMX_R);
 		double sigma_delta = at(DEL_STD);
-		double sigma_epsilon = at(EPS_STD);
+//		double sigma_epsilon = at(EPS_STD);
 		double A1 = at(TACF_A1);
 		double A2 = at(TACF_A2);
 		double B1 = at(TACF_B1);
@@ -109,7 +110,7 @@ namespace WBSF
 		assert(str.length() == LINE_LENGTH1);
 		if (str.length() != LINE_LENGTH1)
 		{
-			msg.ajoute(FormatMsg(IDS_SIM_BAD_NORMAL_RECORD, WBSF::ToString(LINE_LENGTH1), WBSF::ToString(str.length())));
+			msg.ajoute(FormatMsg("Bad line length. Expected:%1; read:%2.", to_string(LINE_LENGTH1), to_string(str.length())));
 		}
 
 		for (size_t i = 0; i < NB_FIELDS; i++)
@@ -179,32 +180,29 @@ namespace WBSF
 
 	void CNormalsData::GetVector(size_t j, float values[12])const
 	{
-		_ASSERTE(j >= 0 && j < NB_FIELDS);
+		assert(j >= 0 && j < NB_FIELDS);
 		for (size_t m = 0; m < 12; m++)
 			values[m] = at(m)[j];
 	}
+
+
 
 
 	void FindMonthIndex(size_t d, size_t& im, size_t& im1)
 	{
 		assert(d < 366);
 
-		if (d < MidDayInMonth(0))
+		if (d < MidDOYForMonth(JANUARY) || d >= MidDOYForMonth(DECEMBER))
 		{
-			im = 0;
-			im1 = 11;
-		}
-		else if (d >= MidDayInMonth(11))
-		{
-			im = 0;
-			im1 = 11;
+			im = JANUARY;
+			im1 = DECEMBER;
 		}
 		else
 		{
 			im = -1;
 			for (int i = 1; i < 12; ++i)
 			{
-				if (d < MidDayInMonth(i))
+				if (d < MidDOYForMonth(i))
 				{
 					im = i;
 					im1 = i - 1;
@@ -233,12 +231,12 @@ namespace WBSF
 	//v is the index of the climatic variable
 	double CNormalsData::Interpole(CTRef TRef, size_t v)const
 	{
-		return Interpole(TRef.GetJDay(), v);
+		return Interpole(TRef.GetDOY(), v);
 	}
 
 	double CNormalsData::Interpole(size_t m, size_t d, size_t v)const
 	{
-		return Interpole(GetJDay(1995, m, d), v);
+		return Interpole(GetDOY(1995, m, d), v);
 	}
 
 	double CNormalsData::Interpole(size_t d, size_t v)const
@@ -253,15 +251,15 @@ namespace WBSF
 		FindMonthIndex(d, im, im1);
 
 
-		double dx = (MidDayInMonth(im) - MidDayInMonth(im1));
+		double dx = (MidDOYForMonth(im) - MidDOYForMonth(im1));
 		dx = dx >= 0 ? dx : dx + 365;
-		_ASSERTE(dx >= 29.5 && dx <= 31);
+		assert(dx >= 29.5 && dx <= 31);
 
 		double slope = (at(im)[v] - at(im1)[v]) / dx;
 
-		double ptx = (d - MidDayInMonth(im1));
+		double ptx = (d - MidDOYForMonth(im1));
 		ptx = ptx >= 0 ? ptx : ptx + 365;
-		_ASSERTE(ptx >= 0 && ptx < 31);
+		assert(ptx >= 0 && ptx < 31);
 
 		return at(im1)[v] + slope*ptx;
 	}
@@ -291,15 +289,15 @@ namespace WBSF
 				double meanMin = 0;
 				double meanMax = 0;
 
-				for (size_t j = 0; j < GetNbDayPerMonth(m); j++)
+				for (size_t j = 0; j < GetNbDaysPerMonth(m); j++)
 				{
 					meanMin += Interpole(jd, TMIN_MN);
 					meanMax += Interpole(jd, TMAX_MN);
 					jd++;
 				}
 
-				meanMin /= GetNbDayPerMonth(m);
-				meanMax /= GetNbDayPerMonth(m);
+				meanMin /= GetNbDaysPerMonth(m);
+				meanMax /= GetNbDaysPerMonth(m);
 
 				double deltaMin = meanTMin[m] - meanMin;
 				double deltaMax = meanTMax[m] - meanMax;
@@ -494,7 +492,7 @@ namespace WBSF
 							if (f == PRCP_TT && me[m][f] < 0)
 								me[m][f] = 0;
 
-							me[m][f] = Round(me[m][f], GetNormalDataPrecision(f));
+							me[m][f] = round(me[m][f], GetNormalDataPrecision(f));
 						}
 					}
 				}
@@ -511,7 +509,7 @@ namespace WBSF
 
 		if (!vars.any())
 		{
-			msg.ajoute(GetString(IDS_SIM_NORMAL_WITHOUT_DATA));
+			msg.ajoute("Bad normals data: temperature and precipitation are missing (-999).");
 		}
 
 		for (size_t f = 0; f < NORMALS_DATA::NB_FIELDS; f++)
@@ -519,12 +517,12 @@ namespace WBSF
 			size_t v = F2V(f);
 			if (vars[v] && HaveNoDataField(f))
 			{
-				msg.ajoute(FormatMsg(IDS_SIM_NORMAL_WITH_NODATA, GetFieldTitle(f)));
+				msg.ajoute(FormatMsg("Bad normals data: At least one value is missing (%1).", GetFieldTitle(f)));
 			}
 
 			if (!IsValidField(f))
 			{
-				msg.ajoute(FormatMsg(IDS_SIM_NORMAL_NOTVALID, GetFieldTitle(f)));
+				msg.ajoute(FormatMsg("Bad normals data: Invalid data (%1).", GetFieldTitle(f)));
 			}
 		}
 

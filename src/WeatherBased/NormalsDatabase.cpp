@@ -151,7 +151,7 @@ ERMsg CNormalsDataDeque::LoadFromCSV(const std::string& filePath, const CWeather
 
     if (msg)
     {
-        callback.PushTask(FormatMsg(IDS_BSC_OPEN_FILE, filePath), size_t(file.length()));
+        callback.PushTask(FormatMsg("Openning file \"%1\"", filePath), size_t(file.length()));
 
         size_t i = 0;
         for (CSVIterator loop(file); loop != CSVIterator() && msg; ++loop, i++)
@@ -238,7 +238,7 @@ ERMsg CNormalsDataDeque::SaveAsCSV(const std::string& filePath, const CWeatherDa
 
     if (msg)
     {
-        callback.PushTask(FormatMsg(IDS_BSC_SAVE_FILE, filePath), size());
+        callback.PushTask(FormatMsg("Save file \"%1\" ...", filePath), size());
         //callback.SetNbStep(size());
 
         //write header
@@ -371,7 +371,7 @@ ERMsg CNormalsDatabase::OpenOptimizationFile(const std::string& referencedFilePa
     std::string optFilePath = GetOptimisationFilePath(referencedFilePath);
     if (FileExists(referencedFilePath) && FileExists(optFilePath))
     {
-        callback.AddMessage(FormatMsg(IDS_MSG_LOAD_OP, GetFileName(optFilePath)));
+        callback.AddMessage(FormatMsg("Load optimization file %1...", GetFileName(optFilePath)));
         if (m_zop.Load(optFilePath))
         {
             string headerFilePath = GetHeaderFilePath(referencedFilePath);
@@ -618,8 +618,8 @@ ERMsg CNormalsDatabase::Search(CSearchResultVector& searchResultArray, const CLo
 
     year = 0;//always take zero for normals
 
-    __int64 canal = m_zop.GetCanal(filter, year, bExcludeUnused, bUseElevation, bUseShoreDistance);
-    //__int64 canal = (filter.to_ullong()) * 100000 + year * 10 + (bUseShoreDistance ? 4 : 0) + (bUseElevation ? 2 : 0) + (bExcludeUnused ? 1 : 0);
+    int64_t canal = m_zop.GetCanal(filter, year, bExcludeUnused, bUseElevation, bUseShoreDistance);
+    //int64_t canal = (filter.to_ullong()) * 100000 + year * 10 + (bUseShoreDistance ? 4 : 0) + (bUseElevation ? 2 : 0) + (bExcludeUnused ? 1 : 0);
 
     const_cast<CNormalsDatabase*>(this)->m_CS.Enter();
     if (!m_zop.CanalExists(canal))
@@ -630,7 +630,7 @@ ERMsg CNormalsDatabase::Search(CSearchResultVector& searchResultArray, const CLo
         //CreateCanal(CWVariables filter, int year, bool bExcludeUnused, bool bUseElevation, bool bUseShoreDistance);
         //CLocationVector locations;
         //locations.reserve(m_zop.size());
-        //std::vector<__int64> positions;
+        //std::vector<int64_t> positions;
         //positions.reserve(m_zop.size());
 
 
@@ -702,12 +702,12 @@ ERMsg CNormalsDatabase::Search(CSearchResultVector& searchResultArray, const CLo
 
 void CNormalsDatabase::CreateCanal(CWVariables filter, int year, bool bExcludeUnused, bool bUseElevation, bool bUseShoreDistance)
 {
-    __int64 canal = m_zop.GetCanal(filter, year, bExcludeUnused, bUseElevation, bUseShoreDistance);
+    int64_t canal = m_zop.GetCanal(filter, year, bExcludeUnused, bUseElevation, bUseShoreDistance);
 
 
     CLocationVector locations;
     locations.reserve(size());
-    std::vector<__int64> positions;
+    std::vector<int64_t> positions;
     positions.reserve(size());
 
     //build canal
@@ -747,7 +747,7 @@ void CNormalsDatabase::CreateCanal(CWVariables filter, int year, bool bExcludeUn
 //{
 //	CLocationVector locations;
 //	locations.reserve(m_zop.size());
-//	std::vector<__int64> positions;
+//	std::vector<int64_t> positions;
 //	positions.reserve(m_zop.size());
 
 
@@ -836,7 +836,7 @@ ERMsg CNormalsDatabase::VerifyVersion(const string& filePath)const
     }
     else
     {
-        msg.ajoute(FormatMsg(IDS_WG_DB_NOTEXIST, filePath));
+        msg.ajoute(FormatMsg("Database %1 does not exist.", filePath));
     }
 
     return msg;

@@ -11,14 +11,15 @@
 // 05-02-2010	Rémi Saint-Amant	Add MergeStation
 // 15-09-2008	Rémi Saint-Amant	Created from old file
 //****************************************************************************
-#include "stdafx.h"
+//#include "stdafx.h"
 
-#include "Basic/NormalsStation.h"
-#include "Basic/WeatherCorrection.h"
 #include "Basic/Location.h"
 #include "Basic/Statistic.h"
+#include "WeatherBAsed/NormalsStation.h"
+#include "WeatherBAsed/WeatherCorrection.h"
 
-#include "WeatherBasedSimulationString.h"
+
+//#include "WeatherBasedSimulationString.h"
 
 using namespace std;
 using namespace WBSF::NORMALS_DATA;
@@ -96,7 +97,7 @@ namespace WBSF
 			}
 			else
 			{
-				msg.ajoute(FormatMsg(IDS_SIM_BAD_NORMAL_RECORD, ToString(LINE_LENGTH1), ToString(line[0].length())));
+				msg.ajoute(FormatMsg("Bad line length. Expected:%1; read:%2.", to_string(LINE_LENGTH1), to_string(line[0].length())));
 			}
 		}
 
@@ -254,8 +255,8 @@ namespace WBSF
 				assert(me[m][TMAX_MN]>-99 && me[m][TMAX_MN]<99);
 			}
 
-			if (vars[H_PRCP] && correction.m_variables[H_PRCP] ||
-				vars[H_SNOW] && correction.m_variables[H_SNOW]  )
+			if ((vars[H_PRCP] && correction.m_variables[H_PRCP]) ||
+				(vars[H_SNOW] && correction.m_variables[H_SNOW])  )
 			{
 				me[m][PRCP_TT] *= (float)correction.GetCorrection(me, TRef, H_PRCP, -999);
 				//responsability of the caller to verify that precipitation is positive

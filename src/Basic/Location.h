@@ -229,7 +229,7 @@ public:
     std::vector<std::string> GetSSIHeader()const;
 
     ERMsg IsValid(bool bExludeUnknownElev = true)const;
-    bool IsInit()const;
+    bool is_init()const;
 
     void AppendMergeID(const std::string& ID);
     void AppendMergeID(const CLocation& ID);

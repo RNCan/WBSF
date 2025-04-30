@@ -30,16 +30,16 @@ namespace WBSF
 
 //	double d = 0;
 //	if (bTakeElevation&&bShoreDistance)
-//		d = sqrt(Square(distance) + Square(deltaElev) + Square(deltaShore));
+//		d = sqrt(square(distance) + square(deltaElev) + square(deltaShore));
 //	else if (bTakeElevation&&!bShoreDistance)
-//		d = sqrt(Square(distance) + Square(deltaElev));
+//		d = sqrt(square(distance) + square(deltaElev));
 //	else if (!bTakeElevation&&bShoreDistance)
-//		d = sqrt(Square(distance) + Square(deltaShore));
+//		d = sqrt(square(distance) + square(deltaShore));
 //	else
 //		d = distance;
 
 //	return d/1000;
-//	//return bTakeElevation ? sqrt(Square(distance) + Square(deltaElev)) : distance;
+//	//return bTakeElevation ? sqrt(square(distance) + square(deltaElev)) : distance;
 //}
 
 void CSearchResultVector::Append(const CSearchResultVector& in, bool bRemoveDuplicate)

@@ -15,6 +15,7 @@
 				<Option createDefFile="1" />
 				<Compiler>
 					<Add option="-Wall" />
+					<Add option="-std=c17" />
 					<Add option="-g" />
 					<Add option="-Wno-unknown-pragmas" />
 					<Add option="-Wno-deprecated-enum-enum-conversion" />

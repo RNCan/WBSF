@@ -200,7 +200,7 @@ namespace WBSF
 		{
 		public:
 
-			char* m_name;
+			const char* m_name;
 			double m_cf[12];		//correction factor
 		};
 
@@ -325,8 +325,8 @@ namespace WBSF
 		{
 		public:
 			double	m_α;
-			char*	m_name;
-			char*	m_ref;
+			const char*	m_name;
+			const char*	m_ref;
 		};
 
 

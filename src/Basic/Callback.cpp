@@ -35,8 +35,8 @@ std::mutex CCallback::CS;
 //////////////////////////////////////////////////////////////////////
 
 CCallback::CCallback() :
-    m_cancelEvent(FALSE),
-    m_pauseEvent(TRUE)
+    m_cancelEvent(false),
+    m_pauseEvent(true)
 {
     Reset();
 }
@@ -61,7 +61,7 @@ void CCallback::Reset()
 
 
 
-    m_phWnd = NULL;
+//    m_phWnd = NULL;
     m_bPumpMessage = false;
 
 }
@@ -78,7 +78,7 @@ CCallback& CCallback::operator=(const CCallback& in)
         m_messageAccumulator = in.m_messageAccumulator;
         m_messageDlgAccumulator = in.m_messageDlgAccumulator;
         m_tasks = in.m_tasks;
-        m_phWnd = in.m_phWnd;
+//        m_phWnd = in.m_phWnd;
     }
 
     return *this;
@@ -284,8 +284,8 @@ void CCallback::AddMessage(const char* message, int level)
 
     if (omp_get_thread_num() == 0)
     {
-        if (m_phWnd && *m_phWnd && ::IsWindow(*m_phWnd))
-            SendMessage(*m_phWnd, WM_MY_THREAD_MESSAGE, 0, 0);
+//        if (m_phWnd && *m_phWnd && ::IsWindow(*m_phWnd))
+         //   SendMessage(*m_phWnd, WM_MY_THREAD_MESSAGE, 0, 0);
     }
 }
 
@@ -324,8 +324,8 @@ void CCallback::PushTask(const std::string& description, double nbStep, double s
 
     if (omp_get_thread_num() == 0)
     {
-        if (m_phWnd && *m_phWnd && ::IsWindow(*m_phWnd))
-            SendMessage(*m_phWnd, WM_MY_THREAD_MESSAGE, 1, 0);
+//        if (m_phWnd && *m_phWnd && ::IsWindow(*m_phWnd))
+            //SendMessage(*m_phWnd, WM_MY_THREAD_MESSAGE, 1, 0);
     }
 }
 
@@ -357,8 +357,8 @@ void CCallback::PopTask()
     if (omp_get_thread_num() == 0)
     {
         //unlock callback before notify parent
-        if (m_phWnd && *m_phWnd && ::IsWindow(*m_phWnd))
-            SendMessage(*m_phWnd, WM_MY_THREAD_MESSAGE, 2, 0);
+//        if (m_phWnd && *m_phWnd && ::IsWindow(*m_phWnd))
+            //SendMessage(*m_phWnd, WM_MY_THREAD_MESSAGE, 2, 0);
     }
 }
 

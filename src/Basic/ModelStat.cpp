@@ -52,9 +52,9 @@ namespace WBSF
 //
 //			for (CTRef TRef = peakDay - int(3 * sigma); TRef <= peakDay + int(3 * sigma) && nbCreated < nbObjects; TRef++)
 //			{
-//				cumulCreated += sigma > 0 ? nbObjects / (sigma*pow((2 * PI), 0.5)) * exp(-0.5*Square((TRef - peakDay) / sigma)) : nbObjects;
+//				cumulCreated += sigma > 0 ? nbObjects / (sigma*pow((2 * PI), 0.5)) * exp(-0.5*square((TRef - peakDay) / sigma)) : nbObjects;
 //
-//				size_t nbObjectToCreate = size_t(max(0, Round<int>(cumulCreated - nbCreated)));
+//				size_t nbObjectToCreate = size_t(max(0, round<int>(cumulCreated - nbCreated)));
 //				for (size_t i = 0; i < nbObjectToCreate; i++)
 //					push_back(CIndividualInfo(TRef, age, sex, bFertil, generation, scaleFactor));
 //
@@ -124,7 +124,7 @@ void CModelStatVector::Init(const CTStatMatrix& in, size_t s)
     {
         for (size_t j = 0; j < in[i].size(); j++)
         {
-            if (in[i][j].IsInit())
+            if (in[i][j].is_init())
                 at(i).at(j) = in[i][j][s];
         }
     }
@@ -267,10 +267,10 @@ void CModelStatVector::WriteStream(std::ostream& stream)const
     const CModelStatVector& me = *this;
 
     int64_t version = 1;
-    int64_t nbRows = (__int64)size();//GetNbUsed();
+    int64_t nbRows = (int64_t)size();//GetNbUsed();
     int64_t nbCols = (nbRows > 0) ? m_nbStat + 1 : 0;
     int64_t rawSize = nbRows * nbCols * sizeof(float);
-    int64_t realSize = (__int64)size();
+    int64_t realSize = (int64_t)size();
     int64_t nbStat = m_nbStat;
     int64_t type = GetFirstTRef().TM().Type();
     int64_t mode = GetFirstTRef().TM().Mode();
@@ -594,7 +594,7 @@ void CModelStatVector::ConvertValue(float value1, float value2)
 //			{
 //				cumulCreated += nbObjects * at(TRef).at(var) / stat[SUM];
 //
-//				size_t nbObjectToCreate = size_t(max(0, Round<int>(cumulCreated - nbCreated)));
+//				size_t nbObjectToCreate = size_t(max(0, round<int>(cumulCreated - nbCreated)));
 //				for (size_t i = 0; i < nbObjectToCreate; i++)
 //					population.push_back(CIndividualInfo(TRef, age, sex, bFertil, generation, scaleFactor));
 //
@@ -681,7 +681,7 @@ void CModelStatVector::Transform(const CTTransformation& TT, size_t s)
     {
         for (size_t j = 0; j < stat[i].size(); j++)
         {
-            if (stat[i][j].IsInit())
+            if (stat[i][j].is_init())
                 at(i).at(j) = stat[i][j][s];
         }
     }

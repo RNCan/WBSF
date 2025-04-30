@@ -47,13 +47,16 @@ constexpr int REF_NOT_INIT = -32767;
 //static const size_t FIRST_DOY_LEAP_INDEX[12] = { 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335 };
 //static const double MID_DOY_IN_MONTH[12] = { 15.5, 45.0, 74.5, 105.0, 135.5, 166.0, 196.5, 227.5, 258.0, 288.5, 319.0, 349.5 };
 
+
+
+
 const char* GetMonthName(size_t m, bool bFull = true);
 inline const char* GetMonthTitle(size_t m, bool bFull = true)
 {
     return GetMonthName(m, bFull);
 }
 
-//double MidDOYForMonth(size_t m);
+double MidDOYForMonth(size_t m);
 bool IsLeap(int year);
 size_t GetNbDaysPerYear(int year);
 size_t GetNbDaysPerMonth(int year, size_t m);
@@ -63,6 +66,7 @@ size_t GetLastDOY(int year, size_t m);
 size_t GetDayOfTheMonth(int year, size_t DOY);
 size_t GetMonth(int year, size_t DOY);
 size_t GetMonth(const char* month);
+
 
 
 inline size_t GetNbDaysPerMonth(size_t m)

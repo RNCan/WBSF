@@ -1,27 +1,27 @@
 //******************************************************************************
 //  Project:		Weather-based simulation framework (WBSF)
 //	Programmer:     Jacques Régnière, Rémi Saint-Amant
-// 
+//
 //  It under the terms of the GNU General Public License as published by
 //     the Free Software Foundation
 //  It is provided "as is" without express or implied warranty.
-//	
+//
 //******************************************************************************
 //
 // Abstract:    This class simulate daily air temperature, precipitation, humidity and wind speed from monthly normal
 //
-// See article : Régnière, J., St-Amant, R. 2007. Stochastic simulation of daily air 
-//				 temperature and precipitation from monthly normals in Noth America north 
-//				 of Mexico. Int J Biometeorol. 
+// See article : Régnière, J., St-Amant, R. 2007. Stochastic simulation of daily air
+//				 temperature and precipitation from monthly normals in Noth America north
+//				 of Mexico. Int J Biometeorol.
 //
 //***************************************************************************
 #pragma once
 
 #include <array>
-#include "Basic/WeatherDefine.h"
-#include "Basic/AmountPpt.h"
 #include "Basic/UtilStd.h"
-#include "Basic/NormalsStation.h"
+#include "WeatherBased/WeatherDefine.h"
+#include "WeatherBased/AmountPpt.h"
+#include "WeatherBased/NormalsStation.h"
 
 namespace WBSF
 {

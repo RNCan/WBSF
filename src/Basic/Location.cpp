@@ -484,7 +484,7 @@ double CLocation::GetXTemp(const CLocation& station, bool bTakeElevation, bool b
     return pow(d, -2);
 }
 
-bool CLocation::IsInit()const
+bool CLocation::is_init()const
 {
     return (!m_name.empty() || !m_ID.empty()) && m_lat != -999 && m_lon != -999 && m_elev != -999;
 }

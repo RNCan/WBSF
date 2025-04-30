@@ -1,15 +1,16 @@
 //******************************************************************************
 //  Project:		Weather-based simulation framework (WBSF)
 //	Programmer:     Rémi Saint-Amant
-// 
+//
 //  It under the terms of the GNU General Public License as published by
 //     the Free Software Foundation
 //  It is provided "as is" without express or implied warranty.
 //******************************************************************************
 #pragma once
 
-#include "Basic/NormalsData.h"
+
 #include "Basic/Location.h"
+#include "WeatherBased/NormalsData.h"
 
 namespace WBSF
 {
@@ -57,7 +58,7 @@ namespace WBSF
 	class CNormalsStationVector : public std::vector < CNormalsStation >
 	{
 	public:
-		
+
 		void ApplyCorrections(const CWeatherCorrections& correction);
 		void GetNormalVector(const CLocation& target, CWVariables variables, CNormalDataVector& normalVector)const;
 		void GetWeight(const CLocation& target, CWVariables variables, CNormalWeight& weight, bool bTakeElevation, bool bTakeShoreDistance)const;

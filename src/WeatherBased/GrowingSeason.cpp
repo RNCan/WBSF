@@ -21,7 +21,7 @@ using namespace WBSF::WEATHER;
 namespace WBSF
 {
 
-//NOTE: Begin and END are ZERO-BASED Julian dates
+//NOTE: begin and END are ZERO-BASED Julian dates
 //Source:
 //Boughner, C.C. 1964. Distribution of growing degree days in Canada.
 //Can. Met. Memoirs 17. Met. Br., Dept. of Transport. 40 p.
@@ -32,7 +32,7 @@ bool frost=false;
 CTPeriod p( GetFirstTRef(), GetLastTRef());
 
 
-//Beginning of the growing season
+//beginning of the growing season
 //look backward for the first occurrence of 3 successive days with frost
 do
 {
@@ -48,7 +48,7 @@ day--;
 
 if(day>1 )
 {
-p.Begin().SetJDay(m_year, day+2);
+p.begin().SetJDay(m_year, day+2);
 }
 
 
@@ -65,13 +65,13 @@ day++;
 
 if(day<GetLastDay()-2)
 {
-p.End().SetJDay( m_year, day-2);
+p.end().SetJDay( m_year, day-2);
 }
 
-if( p.End() < p.Begin() )
+if( p.end() < p.begin() )
 {
 if( bAlwaysFillPeriod )
-p.End() = p.Begin() = CTRef(m_year, JULY, 14);
+p.end() = p.begin() = CTRef(m_year, JULY, 14);
 else
 p.Reset();
 }
@@ -166,16 +166,16 @@ CTRef CGSInfo::GetFirst(const CWeatherYear& weather, size_t first_month, size_t 
 
     CTPeriod p = weather.GetEntireTPeriod(CTM::DAILY);
 
-    p.Begin().m_month = first_month;
-    p.Begin().m_day = DAY_01;
-    p.End().m_month = last_month;
-    p.End().m_day = CTRef::GetNbDaysPerMonth(p.End().GetYear(), last_month) - 1;
+    p.begin().m_month = first_month;
+    p.begin().m_day = DAY_01;
+    p.end().m_month = last_month;
+    p.end().m_day = CTRef::GetNbDaysPerMonth(p.end().GetYear(), last_month) - 1;
 
 
     CTRef firstTRef;
 
     size_t nb_valid = 0;
-    for (CTRef TRef = p.Begin(); TRef <= p.End() && !firstTRef.IsInit(); TRef++)
+    for (CTRef TRef = p.begin(); TRef <= p.end() && !firstTRef.is_init(); TRef++)
     {
         /*if (weather.IsHourly())
         {
@@ -221,14 +221,14 @@ CTRef CGSInfo::GetLast(const CWeatherYear& weather, size_t first_month, size_t l
 
     CTPeriod p = weather.GetEntireTPeriod(CTM::DAILY);
 
-    p.Begin().m_month = first_month;
-    p.Begin().m_day = DAY_01;
+    p.begin().m_month = first_month;
+    p.begin().m_day = DAY_01;
 
-    p.End().m_month = last_month;
-    p.End().m_day = CTRef::GetNbDaysPerMonth(p.End().GetYear(), last_month) - 1;
+    p.end().m_month = last_month;
+    p.end().m_day = CTRef::GetNbDaysPerMonth(p.end().GetYear(), last_month) - 1;
 
     size_t nb_valid = 0;
-    for (CTRef TRef = p.End(); TRef >= p.Begin() && !lastTRef.IsInit(); TRef--)
+    for (CTRef TRef = p.end(); TRef >= p.begin() && !lastTRef.is_init(); TRef--)
     {
         /*if (weather.IsHourly())
         {
@@ -241,7 +241,7 @@ CTRef CGSInfo::GetLast(const CWeatherYear& weather, size_t first_month, size_t l
         		nb_valid = 0;
 
         	if (nb_valid / 24.0 >= m_nbDays)
-        		lastTRef = TRef + (int)Round(m_nbDays * 24-1) + shift;
+        		lastTRef = TRef + (int)round(m_nbDays * 24-1) + shift;
         }
         else
         {*/
@@ -253,7 +253,7 @@ CTRef CGSInfo::GetLast(const CWeatherYear& weather, size_t first_month, size_t l
             nb_valid = 0;
 
         if (nb_valid >= m_nbDays)
-            lastTRef = TRef + (int)Round(m_nbDays-1) + shift;
+            lastTRef = TRef + (int)round(m_nbDays-1) + shift;
         //}
     }
 
@@ -277,9 +277,9 @@ void CEventPeriod::Execute(const CWeatherStation& weather, CModelStatVector& out
     for (size_t y = 0; y < weather.size(); y++)
     {
         CTPeriod p = GetPeriod(weather[y]);
-        output[y][O_GS_BEGIN] = p.Begin().GetRef();
-        output[y][O_GS_END] = p.End().GetRef();
-        output[y][O_GS_LENGTH] = p.GetLength();
+        output[y][O_GS_BEGIN] = p.begin().GetRef();
+        output[y][O_GS_END] = p.end().GetRef();
+        output[y][O_GS_LENGTH] = p.size();
     }
 }
 
@@ -298,13 +298,13 @@ CTPeriod CEventPeriod::GetPeriod(const CWeatherYear& weather)const
     {
         int shift_b = (m_begin.m_d == CGSInfo::GET_FIRST) ? -(int(m_begin.m_nbDays) - 1) : 1;
         begin = m_begin.GetEvent(weather, JANUARY, JUNE, shift_b);
-        //if (!begin.IsInit())
-        //begin = p.Begin();
+        //if (!begin.is_init())
+        //begin = p.begin();
 
         int shift_e = (m_end.m_d == CGSInfo::GET_FIRST) ? -int(m_begin.m_nbDays) : 0;
         end = m_end.GetEvent(weather, JULY, DECEMBER, shift_e);
-        //if (!end.IsInit())
-        //end = p.End();
+        //if (!end.is_init())
+        //end = p.end();
     }
     else
     {
@@ -318,7 +318,7 @@ CTPeriod CEventPeriod::GetPeriod(const CWeatherYear& weather)const
         end = m_end.GetEvent(weather, JANUARY, JUNE, shift_e);
     }
 
-    if (begin.IsInit() && end.IsInit())
+    if (begin.is_init() && end.is_init())
         GS = CTPeriod(begin, end);
 
     return GS;
@@ -338,7 +338,7 @@ const CGSInfo CGrowingSeason::DEFAULT_END = { CGSInfo::GET_FIRST, CGSInfo::TT_TM
 
 //	CTPeriod p = weather.GetEntireTPeriod(CTM::DAILY);
 //	CTM TM = p.TM();
-//	int year = p.Begin().GetYear();
+//	int year = p.begin().GetYear();
 
 //	CTRef TRef1 = CTRef(year, JULY, DAY_01);
 //	CTRef TRef2 = CTRef(year, JULY, DAY_01);
@@ -350,8 +350,8 @@ const CGSInfo CGrowingSeason::DEFAULT_END = { CGSInfo::GET_FIRST, CGSInfo::TT_TM
 //		if (!weather.HavePrevious())
 //			return CTPeriod();//no growing season the first year of southern hemisphere
 
-//		p.Begin() = CTRef(year - 1, JULY, FIRST_DAY, FIRST_HOUR, weather.TM());
-//		p.End() = CTRef(year, JUNE, LAST_DAY, LAST_HOUR, weather.TM());
+//		p.begin() = CTRef(year - 1, JULY, FIRST_DAY, FIRST_HOUR, weather.TM());
+//		p.end() = CTRef(year, JUNE, LAST_DAY, LAST_HOUR, weather.TM());
 
 //		TRef1 = CTRef(year, JANUARY, DAY_01);
 //		TRef2 = CTRef(year, JANUARY, DAY_01);
@@ -360,7 +360,7 @@ const CGSInfo CGrowingSeason::DEFAULT_END = { CGSInfo::GET_FIRST, CGSInfo::TT_TM
 
 //	bool bGetIt1 = false;
 
-//	//Beginning of the growing season
+//	//beginning of the growing season
 //	//look backward for the first occurrence of 3 successive days with frost
 //	do
 //	{
@@ -368,18 +368,18 @@ const CGSInfo CGrowingSeason::DEFAULT_END = { CGSInfo::GET_FIRST, CGSInfo::TT_TM
 //		bGetIt1 = true;
 //		for (size_t dd = 0; dd < m_begin.m_nbDays && bGetIt1; dd++)
 //		{
-//			assert((TRef1 - dd).Transform(p.TM()) >= p.Begin());
+//			assert((TRef1 - dd).Transform(p.TM()) >= p.begin());
 
 //			const CWeatherDay& wDay = dynamic_cast<const CWeatherDay&>(weather[TRef1 - dd]);
-//			if (wDay[H_TMIN].IsInit() && wDay[H_TMAX].IsInit())
+//			if (wDay[H_TMIN].is_init() && wDay[H_TMAX].is_init())
 //				bGetIt1 = m_begin.GetGST(wDay) < m_begin.m_threshold;
 //		}
-//	} while (!bGetIt1 && (TRef1 - p.Begin()) > m_begin.m_nbDays);
+//	} while (!bGetIt1 && (TRef1 - p.begin()) > m_begin.m_nbDays);
 
 
 //	if (bGetIt1)
 //	{
-//		p.Begin() = TRef1 + 1;
+//		p.begin() = TRef1 + 1;
 //		p.Transform(TM);
 //	}
 
@@ -394,17 +394,17 @@ const CGSInfo CGrowingSeason::DEFAULT_END = { CGSInfo::GET_FIRST, CGSInfo::TT_TM
 //		//look for the first occurrence of 3 successive days with frost
 //		for (size_t dd = 0; dd < m_end.m_nbDays && bGetIt2; dd++)
 //		{
-//			assert((TRef2 + dd).Transform(p.TM()) <= p.End());
+//			assert((TRef2 + dd).Transform(p.TM()) <= p.end());
 
 //			const CWeatherDay& wDay = dynamic_cast<const CWeatherDay&>(weather[TRef2 + dd]);
-//			if (wDay[H_TMIN].IsInit() && wDay[H_TMAX].IsInit())
+//			if (wDay[H_TMIN].is_init() && wDay[H_TMAX].is_init())
 //				bGetIt2 = m_end.GetGST(wDay) < m_end.m_threshold;
 //		}
-//	} while (!bGetIt2 && (p.End() - TRef2) > m_end.m_nbDays);
+//	} while (!bGetIt2 && (p.end() - TRef2) > m_end.m_nbDays);
 
 //	if (bGetIt2)
 //	{
-//		p.End() = TRef2 - 1;
+//		p.end() = TRef2 - 1;
 //		p.Transform(TM);
 //	}
 
@@ -438,13 +438,13 @@ const CGSInfo CGrowingSeason::DEFAULT_END = { CGSInfo::GET_FIRST, CGSInfo::TT_TM
 //	{
 //		int shift_b = (m_begin.m_d == CGSInfo::GET_FIRST)? -(int(m_begin.m_nbDays) -1): 1;
 //		begin = m_begin.GetEvent(weather, JANUARY, JUNE, shift_b);
-//		//if (!begin.IsInit())
-//			//begin = p.Begin();
+//		//if (!begin.is_init())
+//			//begin = p.begin();
 
 //		int shift_e = (m_end.m_d == CGSInfo::GET_FIRST) ? -int(m_begin.m_nbDays) : 0;
 //		end = m_end.GetEvent(weather, JULY, DECEMBER, shift_e);
-//		//if (!end.IsInit())
-//			//end = p.End();
+//		//if (!end.is_init())
+//			//end = p.end();
 //	}
 //	else
 //	{
@@ -458,7 +458,7 @@ const CGSInfo CGrowingSeason::DEFAULT_END = { CGSInfo::GET_FIRST, CGSInfo::TT_TM
 //		end = m_end.GetEvent(weather, JANUARY, JUNE, shift_e);
 //	}
 
-//	if (begin.IsInit() && end.IsInit())
+//	if (begin.is_init() && end.is_init())
 //		GS = CTPeriod(begin, end);
 
 //	return GS;
@@ -481,7 +481,7 @@ const CGSInfo CFrostFreePeriod::DEFAULT_END = { CGSInfo::GET_FIRST, CGSInfo::TT_
 //	bool notInit = true;
 
 
-//	for (CTRef TRef = period.Begin(); TRef <= period.End(); TRef++)
+//	for (CTRef TRef = period.begin(); TRef <= period.end(); TRef++)
 //	{
 //		double T = weather.IsHourly() ? weather[TRef][H_TAIR][MEAN] : weather[TRef][H_TMIN][MEAN];
 
@@ -489,7 +489,7 @@ const CGSInfo CFrostFreePeriod::DEFAULT_END = { CGSInfo::GET_FIRST, CGSInfo::TT_
 //		{
 //			if (notInit)
 //			{
-//				pTmp.Begin() = TRef;
+//				pTmp.begin() = TRef;
 //				notInit = false;
 //			}
 //		}
@@ -497,7 +497,7 @@ const CGSInfo CFrostFreePeriod::DEFAULT_END = { CGSInfo::GET_FIRST, CGSInfo::TT_
 //		{
 //			if (!notInit)
 //			{
-//				pTmp.End() = TRef - 1;
+//				pTmp.end() = TRef - 1;
 //				notInit = true;
 
 //				//Frost-free period ends
@@ -506,9 +506,9 @@ const CGSInfo CFrostFreePeriod::DEFAULT_END = { CGSInfo::GET_FIRST, CGSInfo::TT_
 //			}
 //		}
 
-//		if (TRef == pTmp.End() && !notInit)
+//		if (TRef == pTmp.end() && !notInit)
 //		{
-//			pTmp.End() = TRef;
+//			pTmp.end() = TRef;
 //			if (pTmp.GetLength() > p.GetLength())
 //				p = pTmp;
 //		}
@@ -523,7 +523,7 @@ const CGSInfo CFrostFreePeriod::DEFAULT_END = { CGSInfo::GET_FIRST, CGSInfo::TT_
 //	CTPeriod GS;
 //	CTPeriod p = weather.GetEntireTPeriod();
 //	//CTM TM = p.TM();
-//	//int year = p.Begin().GetYear();
+//	//int year = p.begin().GetYear();
 
 //	CTRef begin;
 //	CTRef end;
@@ -532,12 +532,12 @@ const CGSInfo CFrostFreePeriod::DEFAULT_END = { CGSInfo::GET_FIRST, CGSInfo::TT_
 //	if (weather.GetLocation().m_lat >= 0)
 //	{
 //		begin = m_begin.GetLast(weather, JANUARY, JUNE, 1);
-//		if (!begin.IsInit())
-//			begin = p.Begin();
+//		if (!begin.is_init())
+//			begin = p.begin();
 
 //		end = m_end.GetFirst(weather, JULY, DECEMBER, -1);
-//		if (!end.IsInit())
-//			end = p.End();
+//		if (!end.is_init())
+//			end = p.end();
 //	}
 //	else
 //	{
@@ -548,7 +548,7 @@ const CGSInfo CFrostFreePeriod::DEFAULT_END = { CGSInfo::GET_FIRST, CGSInfo::TT_
 //		end = m_end.GetFirst(weather, JANUARY, JUNE, -1);
 //	}
 
-//	if (begin.IsInit() && end.IsInit())
+//	if (begin.is_init() && end.is_init())
 //		GS = CTPeriod(begin, end);
 
 //	return GS;
@@ -560,27 +560,27 @@ const CGSInfo CFrostFreePeriod::DEFAULT_END = { CGSInfo::GET_FIRST, CGSInfo::TT_
 //		CTPeriod p = weather.GetEntireTPeriod();
 //		if (bJulyDecember)
 //		{
-//			p.Begin().m_month = JULY;
-//			p.Begin().m_day = DAY_01;
+//			p.begin().m_month = JULY;
+//			p.begin().m_day = DAY_01;
 //		}
 //		else
 //		{
-//			p.End().m_month = JUNE;
-//			p.End().m_day = DAY_30;
+//			p.end().m_month = JUNE;
+//			p.end().m_day = DAY_30;
 //		}
 //
 //
 //
 //		//CTPeriod p = m_period;
-////		p.Begin().m_year = pp.Begin().GetYear();
-//	//	p.End().m_year = pp.End().GetYear();
+////		p.begin().m_year = pp.begin().GetYear();
+//	//	p.end().m_year = pp.end().GetYear();
 //
 //
-//		//Beginning of fire weather
+//		//beginning of fire weather
 //		//look for the first occurrence of 3 successive days Tnoon > T_THRESHOLD
-//		CTRef firstTRef = p.Begin() + (int)m_nbDays;
+//		CTRef firstTRef = p.begin() + (int)m_nbDays;
 //		bool bGetIt = false;
-//		for (CTRef TRef = p.End(); TRef >= firstTRef && !bGetIt; TRef--)
+//		for (CTRef TRef = p.end(); TRef >= firstTRef && !bGetIt; TRef--)
 //		{
 //			bGetIt = true;
 //			for (size_t dd = 0; dd<m_nbDays&&bGetIt; dd--)
@@ -614,12 +614,12 @@ const CGSInfo CFrostFreePeriod::DEFAULT_END = { CGSInfo::GET_FIRST, CGSInfo::TT_
 //	CTRef end(GetYear(), JANUARY, FIRST_DAY);
 
 
-//	for (CTRef d = begin; d >= end&&!firstDay.IsInit(); d--)
+//	for (CTRef d = begin; d >= end&&!firstDay.is_init(); d--)
 //	{
 //		if (me[d][SNDH] > MINIMUM_SNOW_DEPTH)//more than 2 cm
 //		{
 //			nbDay++;
-//			if (nbDay>NB_DAY_MIN && !firstDay.IsInit())
+//			if (nbDay>NB_DAY_MIN && !firstDay.is_init())
 //			{
 //				firstDay = d + NB_DAY_MIN;
 //			}
@@ -642,12 +642,12 @@ const CGSInfo CFrostFreePeriod::DEFAULT_END = { CGSInfo::GET_FIRST, CGSInfo::TT_
 //	CTRef end(GetYear(), DECEMBER, LAST_DAY);
 
 
-//	for (CTRef d = begin; d <= end&&!firstDay.IsInit(); d++)
+//	for (CTRef d = begin; d <= end&&!firstDay.is_init(); d++)
 //	{
 //		if (me[d][SNDH] > MINIMUM_SNOW_DEPTH)
 //		{
 //			nbDay++;
-//			if (nbDay>NB_DAY_MIN && !firstDay.IsInit())
+//			if (nbDay>NB_DAY_MIN && !firstDay.is_init())
 //			{
 //				firstDay = d - NB_DAY_MIN;
 //			}

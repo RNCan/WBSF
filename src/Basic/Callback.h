@@ -10,7 +10,7 @@
 
 #include <mutex>
 #include <string>
-#include <wtypes.h>
+//#include <wtypes.h>
 #include <algorithm>
 #include <stack>
 
@@ -23,7 +23,7 @@
 namespace WBSF
 {
 
-#define WM_MY_THREAD_MESSAGE	WM_APP+100
+//#define WM_MY_THREAD_MESSAGE	WM_APP+100
 
 class CCallbackTask
 {
@@ -141,10 +141,10 @@ public:
     std::string GetMessages();
 
 
-    void SetWnd(HWND* phWnd)
-    {
-        m_phWnd=phWnd;
-    }
+    //void SetWnd(HWND* phWnd)
+    //{
+    //    m_phWnd=phWnd;
+    //}
 
 
 
@@ -183,7 +183,7 @@ protected:
 
 
     std::string m_userCancelMsg;
-    HWND* m_phWnd;
+    //HWND* m_phWnd;
 
     //static CCriticalSection CS;
     static std::mutex CS;

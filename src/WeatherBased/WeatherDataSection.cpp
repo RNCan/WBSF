@@ -22,7 +22,7 @@
 #include <boost\container\flat_set.hpp>
 
 
-#include "WeatherDataSection.h"
+#include "WeatherBased/WeatherDataSection.h"
 
 using namespace std;
 using namespace WBSF::HOURLY_DATA;
@@ -308,7 +308,7 @@ namespace WBSF
 
 
 
-	ERMsg CWeatherFileSectionIndex::Compile(const std::string& str, ULONGLONG begin, int lineNo, const CWeatherFormat& format, CWeatherYearSectionMap& map)
+	ERMsg CWeatherFileSectionIndex::Compile(const std::string& str, uint64_t begin, int lineNo, const CWeatherFormat& format, CWeatherYearSectionMap& map)
 	{
 		ERMsg  msg;
 		if (!str.empty())
@@ -327,14 +327,14 @@ namespace WBSF
 				std::vector<std::string> data;
 				data.reserve(format.size());
 				//data.Tokenize(str, ",\r\n", false, begin, end);
-				data.Tokenize(str.substr(begin, end - begin - 2), ",", false);
+				data = Tokenize(str.substr(begin, end - begin - 2), ",", false);
 				if (data.size() == 1)//try load old version
-					data.Tokenize(str.substr(begin, end - begin - 2), " \t", true);
+					data = Tokenize(str.substr(begin, end - begin - 2), " \t", true);
 
 				if (!data.empty())
 				{
 					CTRef TRef = format.GetTRef(data);
-					if (TRef.IsInit())
+					if (TRef.is_init())
 					{
 						if (lastYear != YEAR_NOT_INIT && TRef.GetYear() != lastYear)
 						{
@@ -350,7 +350,7 @@ namespace WBSF
 							}
 							else
 							{
-								msg.ajoute("Error reading data file at position " + ToString(begin));
+								msg.ajoute("Error reading data file at position " + to_string(begin));
 								msg.ajoute("Line = " + str.substr(begin, end - begin));
 								msg.ajoute("Annual data must not be separated");
 							}
@@ -367,7 +367,7 @@ namespace WBSF
 					}
 					else
 					{
-						msg.ajoute("Error reading data file at position " + ToString(begin));
+						msg.ajoute("Error reading data file at position " + to_string(begin));
 						msg.ajoute("Line = " + str.substr(begin, end - begin));
 						msg.ajoute("Invalid temporal reference");
 					}
@@ -386,7 +386,7 @@ namespace WBSF
 				}
 				else
 				{
-					msg.ajoute("Error reading data file at position " + ToString(begin));
+					msg.ajoute("Error reading data file at position " + to_string(begin));
 					msg.ajoute("Annual data must not be separated");
 				}
 			}
@@ -466,7 +466,7 @@ namespace WBSF
 				//When compile; compile all the file
 				it1->second.Reset();
 
-				ULONGLONG begin = GetNextLinePos(str, 0);
+				uint64_t begin = GetNextLinePos(str, 0);
 				string header = str.substr(0, begin);
 				CWeatherFormat format(header.c_str());
 

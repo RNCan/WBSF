@@ -1428,89 +1428,96 @@ bool CMathEvaluation::Evaluate(double value1, TOperation op, double value2)
     return bRep;
 }
 
-//	//********************************************************************************************
-//	void CBetaDistribution::SetTable(double alpha, double beta)
-//	{
+	//********************************************************************************************
+	//void CBetaDistribution::SetTable(double alpha, double beta)
+	//{
 //
-//		int i;
-//		double tmp;
-//		double sum_P = 0;
+	//	int i;
+	//	double tmp;
+	//	double sum_P = 0;
 //
-//		//Compute Beta cumulative probability distribution
+	//	//Compute Beta cumulative probability distribution
 //
-//		m_XP[0].m_x = 0;
-//		m_XP[0].m_p = 0;
-//		for (i = 1; i <= 50; ++i)
-//		{
-//			tmp = (double)i / 50.;
-//			m_XP[i].m_x = tmp;
-//			if (i == 50) tmp = 0.995;
-//			sum_P += pow(tmp, alpha - 1) * pow((1 - tmp), beta - 1);
-//			m_XP[i].m_p = sum_P;
-//		}
-//		//Scale so P is [0,1]
-//		for (i = 0; i <= 50; ++i)
-//		{
-//			m_XP[i].m_p /= sum_P;
-//		}
-//	}
+	//	m_XP[0].m_x = 0;
+	//	m_XP[0].m_p = 0;
+	//	for (i = 1; i <= 50; ++i)
+	//	{
+	//		tmp = (double)i / 50.;
+	//		m_XP[i].m_x = tmp;
+	//		if (i == 50) tmp = 0.995;
+	//		sum_P += pow(tmp, alpha - 1) * pow((1 - tmp), beta - 1);
+	//		m_XP[i].m_p = sum_P;
+	//	}
+	//	//Scale so P is [0,1]
+	//	for (i = 0; i <= 50; ++i)
+	//	{
+	//		m_XP[i].m_p /= sum_P;
+	//	}
+	//}
 //
-//	double CBetaDistribution::XfromP(double p)const
-//	{
-//		assert(p >= 0.0 && p <= 1.0);
-//		double x = 0;
-//		for (int i = 49; i >= 0; --i)
-//		{
-//			if (p > m_XP[i].m_p)
-//			{
-//				double slope = (m_XP[i + 1].m_x - m_XP[i].m_x) / (m_XP[i + 1].m_p - m_XP[i].m_p);
-//				x = m_XP[i].m_x + (p - m_XP[i].m_p)* slope;
-//				break;
-//			}
-//		}
+	//double CBetaDistribution::XfromP(double p)const
+	//{
+	//	assert(p >= 0.0 && p <= 1.0);
+	//	double x = 0;
+	//	for (int i = 49; i >= 0; --i)
+	//	{
+	//		if (p > m_XP[i].m_p)
+	//		{
+	//			double slope = (m_XP[i + 1].m_x - m_XP[i].m_x) / (m_XP[i + 1].m_p - m_XP[i].m_p);
+	//			x = m_XP[i].m_x + (p - m_XP[i].m_p)* slope;
+	//			break;
+	//		}
+	//	}
 //
-//		assert(!_isnan(x));
-//		assert(x >= 0);
-//		return x;
-//	}
+	//	assert(!_isnan(x));
+	//	assert(x >= 0);
+	//	return x;
+	//}
 //
-//	double CSchoolfield::operator[](double T)const
-//	{
-//		const double R = 1.987;
-//		double Tk = T + 273.15;
-//		double a1 = m_p[PRHO25] * Tk / 298.15;
-//		double a2 = exp(m_p[PHA] / R * (1 / 298.15 - 1 / Tk));
-//		double b1 = exp(m_p[PHL] / R * (1 / m_p[PTL] - 1 / Tk));
-//		double b2 = exp(m_p[PHH] / R * (1 / m_p[PTH] - 1 / Tk));
-//		double r = (a1*a2) / (1 + b1 + b2);
+	//double CSchoolfield::operator[](double T)const
+	//{
+	//	const double R = 1.987;
+	//	double Tk = T + 273.15;
+	//	double a1 = m_p[PRHO25] * Tk / 298.15;
+	//	double a2 = exp(m_p[PHA] / R * (1 / 298.15 - 1 / Tk));
+	//	double b1 = exp(m_p[PHL] / R * (1 / m_p[PTL] - 1 / Tk));
+	//	double b2 = exp(m_p[PHH] / R * (1 / m_p[PTH] - 1 / Tk));
+	//	double r = (a1*a2) / (1 + b1 + b2);
 //
-//		assert(r >= 0);
-//		return r;
-//	}
+	//	assert(r >= 0);
+	//	return r;
+	//}
 //
-//	double CUnknown::operator[](double T)const
-//	{
-//		assert(T >= -40 && T < 40);
-//		double Fo = m_p[PA] + m_p[PB] * pow(fabs(T - m_p[PT0]), m_p[PX]);
-//		return max(0.0, Fo);
-//	}
-//
-//
-//	void CRandomGenerator::Randomize(size_t seed)
-//	{
-//		if (seed == RANDOM_SEED)
-//		{
-//			static unsigned long ID = 1;
-//			//seed = static_cast<unsigned long>(std::time(NULL)+ID*1000);
-//			seed = static_cast<unsigned long>(__rdtsc() + ID * 1000);
-//
-//			ID++;
-//			m_gen.seed((ULONG)seed);
-//		}
-//		else
-//		{
-//			m_gen.seed((ULONG)seed);
-//		}
-//	}
+	//double CUnknown::operator[](double T)const
+	//{
+	//	assert(T >= -40 && T < 40);
+	//	double Fo = m_p[PA] + m_p[PB] * pow(fabs(T - m_p[PT0]), m_p[PX]);
+	//	return max(0.0, Fo);
+	//}
+
+    static inline uint64_t rdtscp( uint32_t & aux )
+    {
+        uint64_t rax,rdx;
+        asm volatile ( "rdtscp\n" : "=a" (rax), "=d" (rdx), "=c" (aux) : : );
+        return (rdx << 32) + rax;
+    }
+
+	void CRandomGenerator::Randomize(size_t seed)
+	{
+		if (seed == RANDOM_SEED)
+		{
+			static unsigned long ID = 1;
+			//clock_gettime(CLOCK_PROCESS_CPUTIME_ID);
+			seed = static_cast<unsigned long>(std::time(NULL)+ID*1000);
+			//seed = static_cast<unsigned long>(rdtsc() + ID * 1000);
+
+			ID++;
+			m_gen.seed(seed);
+		}
+		else
+		{
+			m_gen.seed(seed);
+		}
+	}
 
 }//namespace WBSF

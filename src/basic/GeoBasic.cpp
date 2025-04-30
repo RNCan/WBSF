@@ -70,9 +70,9 @@ void CGeoRectIndex::InflateRect( int w, int n, int e, int s )
 //************************************************************
 CGeoRect& CGeoRect::IntersectRect(const CGeoRect& rect)
 {
-    if (&rect != this && rect.IsInit())
+    if (&rect != this && rect.is_init())
     {
-        if (IsInit() )
+        if (is_init() )
         {
             assert(m_xMin <= m_xMax);
             assert(m_yMin <= m_yMax);
@@ -109,9 +109,9 @@ CGeoRect& CGeoRect::IntersectRect(const CGeoRect& rect)
 
 CGeoRect& CGeoRect::UnionRect(const CGeoRect& rect)
 {
-    if (&rect != this && rect.IsInit())
+    if (&rect != this && rect.is_init())
     {
-        if (IsInit())
+        if (is_init())
         {
             assert(m_xMin <= m_xMax);
             assert(m_yMin <= m_yMax);
@@ -153,7 +153,7 @@ CGeoRect& CGeoRect::InflateRect( double w, double n, double e, double s )
 
 CGeoRect& CGeoRect::ExtendBounds(const CGeoPoint& pt)
 {
-    if( !IsInit() )
+    if( !is_init() )
     {
         m_xMin = 1.0E30;
         m_yMin = 1.0E30;
@@ -180,7 +180,7 @@ CGeoRect& CGeoRect::ExtendBounds(const CGeoPoint& pt)
 
 CGeoRect& CGeoRect::ExtendBounds(const CGeoRect& box)
 {
-    if( !IsInit() )
+    if( !is_init() )
     {
         m_xMin = 1.0E30;
         m_yMin = 1.0E30;
@@ -307,7 +307,7 @@ CGeoExtents& CGeoExtents::IntersectExtents(const CGeoExtents& in, int typeRes)
     assert(typeRes>=0 && typeRes<NB_TYPE_RES);
     if( &in != this)
     {
-        if (IsInit() || in.IsInit())
+        if (is_init() || in.is_init())
         {
             const static short STAT_TYPE[NB_TYPE_RES] = { LOWEST, MEAN, HIGHEST };
             CStatistic xRes;
@@ -315,23 +315,23 @@ CGeoExtents& CGeoExtents::IntersectExtents(const CGeoExtents& in, int typeRes)
             CStatistic xBlock;
             CStatistic yBlock;
 
-            if (IsInit())
+            if (is_init())
             {
                 xRes += XRes();
                 xBlock += m_xBlockSize;
             }
-            if (in.IsInit())
+            if (in.is_init())
             {
                 xRes += in.XRes();
                 xBlock += in.m_xBlockSize;
             }
 
-            if (IsInit())
+            if (is_init())
             {
                 yRes += YRes();
                 yBlock += m_yBlockSize;
             }
-            if (in.IsInit())
+            if (in.is_init())
             {
                 yRes += in.YRes();
                 yBlock += in.m_yBlockSize;
@@ -355,7 +355,7 @@ CGeoExtents& CGeoExtents::UnionExtents(const CGeoExtents& in, int typeRes)
     assert(typeRes>=0 && typeRes<NB_TYPE_RES);
     if( &in != this)
     {
-        if (IsInit() || in.IsInit() )
+        if (is_init() || in.is_init() )
         {
             const static short STAT_TYPE[NB_TYPE_RES] = { LOWEST, MEAN, HIGHEST };
             CStatistic xRes;
@@ -363,14 +363,14 @@ CGeoExtents& CGeoExtents::UnionExtents(const CGeoExtents& in, int typeRes)
             CStatistic xBlock;
             CStatistic yBlock;
 
-            if (IsInit() )
+            if (is_init() )
             {
                 xRes += XRes();
                 xBlock += m_xBlockSize;
                 yRes += YRes();
                 yBlock += m_yBlockSize;
             }
-            if (in.IsInit())
+            if (in.is_init())
             {
                 xRes += in.XRes();
                 xBlock += in.m_xBlockSize;
@@ -470,12 +470,12 @@ void CGeoExtents::GetNearestCellPosition(const CGeoPointIndex& xy, int nbPoint, 
 void CGeoExtents::GetNearestCellPosition(const CGeoPoint& pt, int nbPoint, CGeoPointIndexVector& ptArray)const
 {
     assert( nbPoint > 0);
-    assert(IsInside(pt));
+    assert(is_inside(pt));
 
     ptArray.clear();
 
     CGeoPointIndex xy = CoordToXYPos(pt);//, true
-    assert(IsInside(xy));
+    assert(is_inside(xy));
 
     int deltaIndex = (int)(sqrt(double(nbPoint-1)));
 
@@ -486,7 +486,7 @@ void CGeoExtents::GetNearestCellPosition(const CGeoPoint& pt, int nbPoint, CGeoP
         for(int y=-deltaIndex; y<=deltaIndex; y++)
         {
             CGeoPointIndex xy_i = xy + CGeoPointIndex(x,y);
-            if( IsInside(xy_i ) )
+            if( is_inside(xy_i ) )
             {
                 CGeoPoint tmpPt = XYPosToCoord( xy_i);
 

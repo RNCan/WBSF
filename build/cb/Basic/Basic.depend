@@ -1,23 +1,22 @@
 # depslib dependency file v1.0
-1728554448 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\callback.cpp
+1741699778 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\callback.cpp
 	"Callback.h"
 	"Basic/UtilStd.h"
 	"Basic/OpenMP.h"
 
-1728554036 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\callback.h
+1741699765 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\callback.h
 	<mutex>
 	<string>
-	<wtypes.h>
 	<algorithm>
 	<stack>
 	"Basic/Event.h"
 	"Basic/UtilStd.h"
 	"Basic/ERMsg.h"
 
-1728553660 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\event.h
+1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\event.h
 	<boost\thread.hpp>
 
-1741178940 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilstd.h
+1741883037 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilstd.h
 	<cassert>
 	<map>
 	<set>
@@ -32,6 +31,7 @@
 	<cstring>
 	<filesystem>
 	<cstdint>
+	<share.h>
 	"Basic/ERMsg.h"
 
 1704992082 e:\project(githubdesktop)\wbsfmultiplatform\src\external\ermsg\ermsg.h
@@ -56,10 +56,10 @@
 	<vector>
 	<string>
 
-1704988482 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\openmp.h
+1704992082 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\openmp.h
 	<omp.h>
 
-1728554447 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\gzip.cpp
+1728558047 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\gzip.cpp
 	"gzip.h"
 	<sstream>
 	<boost/iostreams/stream.hpp>
@@ -67,11 +67,11 @@
 	<boost/iostreams/filter/gzip.hpp>
 	<boost/iostreams/copy.hpp>
 
-1728554097 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\gzip.h
+1728557697 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\gzip.h
 	<string>
 	"Basic/ERMsg.h"
 
-1729251213 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\modelstat.cpp
+1741699007 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\modelstat.cpp
 	"ModelStat.h"
 	<algorithm>
 	<cfloat>
@@ -79,7 +79,7 @@
 	"Basic/UtilMath.h"
 	"Basic/CSV.hpp"
 
-1728667785 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\modelstat.h
+1728671385 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\modelstat.h
 	<vector>
 	<cassert>
 	"Basic/UtilMath.h"
@@ -87,11 +87,11 @@
 	"Basic/Statistic.h"
 	"Basic/Mtrx.h"
 
-1741174658 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilmath.h
+1741693776 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilmath.h
 	<random>
 	"basic/UtilStd.h"
 
-1729724189 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utiltime.h
+1741693035 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utiltime.h
 	<cassert>
 	<vector>
 	<string>
@@ -104,23 +104,23 @@
 	"Basic/ERMsg.h"
 	"Basic/UtilStd.h"
 
-1728555439 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\statistic.h
+1741691692 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\statistic.h
 	<cassert>
 	<vector>
 	<array>
 	<string>
 
-1728553660 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\mtrx.h
+1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\mtrx.h
 	<cmath>
 	<climits>
 	<boost/serialization/split_member.hpp>
 	<boost/serialization/access.hpp>
 	<boost\multi_array.hpp>
 
-1741176392 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdefine.h
+1741698111 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdefine.h
 	<vector>
 	<array>
-	<crtdbg.h>
+	<cassert>
 	<bitset>
 	<boost\serialization\array.hpp>
 	<boost\serialization\bitset.hpp>
@@ -230,7 +230,7 @@
 	<sstream>
 	<vector>
 
-1728554447 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\statistic.cpp
+1728558047 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\statistic.cpp
 	"Statistic.h"
 	<cmath>
 	<float.h>
@@ -249,10 +249,16 @@
 	"Basic/Statistic.h"
 	"Basic/UtilMath.h"
 
-1728669147 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilstd.cpp
+1741883490 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilstd.cpp
 	"UtilStd.h"
 	<boost/tokenizer.hpp>
 	<boost/algorithm/string.hpp>
+	<boost/filesystem/path.hpp>
+	<boost/filesystem.hpp>
+	<boost/date_time/posix_time/posix_time_io.hpp>
+	<boost/date_time/posix_time/conversion.hpp>
+	<boost/date_time/posix_time/posix_time.hpp>
+	<boost/date_time/c_local_time_adjustor.hpp>
 	<boost/crc.hpp>
 	<filesystem>
 	<cstdio>
@@ -260,23 +266,23 @@
 	<cmath>
 	<windows.h>
 
-1728554448 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\callcurl.cpp
+1728558048 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\callcurl.cpp
 	"CallcURL.h"
 	<boost/process.hpp>
 	"Basic/UtilStd.h"
 
-1728554097 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\callcurl.h
+1728557697 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\callcurl.h
 	<string>
 	<filesystem>
 	"Basic/ERMsg.h"
 
-1728554447 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\geobasic.cpp
+1741683824 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\geobasic.cpp
 	"GeoBasic.h"
 	<iostream>
 	"basic/Statistic.h"
 	"basic/ERMsg.h"
 
-1728554012 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\geobasic.h
+1741683824 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\geobasic.h
 	<map>
 	<vector>
 	<deque>
@@ -289,36 +295,36 @@
 	"ERMsg.h"
 	"basic/UtilMath.h"
 
-1728554447 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilmath.cpp
+1741694446 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilmath.cpp
 	"UtilMath.h"
 	<ctime>
 	<cfloat>
 	<limits>
 
-1728558453 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\dbf3.cpp
+1728562053 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\dbf3.cpp
 	"DBF3.h"
 	<cfloat>
 	<boost\archive\binary_oarchive.hpp>
 	<boost\archive\binary_iarchive.hpp>
 
-1728558453 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\dbf3.h
+1728562053 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\dbf3.h
 	<vector>
 	<cassert>
 	"Basic/ERMsg.h"
 	"Basic/UtilStd.h"
 
-1728554447 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\searchresult.cpp
+1741691692 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\searchresult.cpp
 	"SearchResult.h"
 	<set>
 
-1729014757 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\searchresult.h
+1729018357 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\searchresult.h
 	<vector>
 	"Basic/UtilMath.h"
 	"Basic/Location.h"
 	"Basic/UtilStd.h"
 	"Basic/ERMsg.h"
 
-1741189697 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\location.h
+1741683562 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\location.h
 	<array>
 	<boost\serialization\access.hpp>
 	<unordered_map>
@@ -328,14 +334,14 @@
 	"Basic/GeoBasic.h"
 	"Basic/Callback.h"
 
-1728553742 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\approximatenearestneighbor.cpp
+1741699007 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\approximatenearestneighbor.cpp
 	"ApproximateNearestNeighbor.h"
 	<boost/locale.hpp>
 	<boost/format.hpp>
 	"Basic/UtilStd.h"
 	"Basic/Shore.h"
 
-1728554171 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\approximatenearestneighbor.h
+1741699007 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\approximatenearestneighbor.h
 	<mutex>
 	<boost/serialization/split_member.hpp>
 	<boost/serialization/access.hpp>
@@ -352,32 +358,32 @@
 	<climits>
 	<cfloat>
 
-1728554097 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\shore.h
+1728557697 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\shore.h
 	"Basic/ApproximateNearestNeighbor.h"
 	"Basic/ERMsg.h"
 
-1728501476 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\mtrx.cpp
+1728505076 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\mtrx.cpp
 	"Mtrx.h"
 
-1728554448 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\timestep.cpp
+1728558048 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\timestep.cpp
 	"TimeStep.h"
 
-1728553660 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\timestep.h
+1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\timestep.h
 	<cassert>
 
-1728554448 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\simulatedannealing.cpp
+1728558048 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\simulatedannealing.cpp
 	"SimulatedAnnealing.h"
 	<cmath>
 	<sstream>
 
-1728554816 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\simulatedannealing.h
+1728558416 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\simulatedannealing.h
 	<cfloat>
 	<cmath>
 	"Basic/ERMsg.h"
 	"Basic/Statistic.h"
 	"Basic/UtilStd.h"
 
-1728567276 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\location.cpp
+1741683562 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\location.cpp
 	"Location.h"
 	<algorithm>
 	<boost/algorithm/string.hpp>
@@ -395,138 +401,138 @@
 	<memory>
 	<initializer_list>
 
-1728554447 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\shore.cpp
+1728558047 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\shore.cpp
 	"Shore.h"
 
-1728553802 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg.h
+1728557402 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg.h
 	"ERMsg/Syenvmsg.h"
 
-1728553860 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\syenvmsg.h
+1728557460 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\syenvmsg.h
 	"Erexcept.h"
 	"Sycptref.h"
 	"Symessag.h"
 
-1704988482 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\erexcept.h
+1704992082 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\erexcept.h
 	<string>
 
-1728553882 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\sycptref.h
+1728557482 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\sycptref.h
 	"Erexcept.h"
 	"Sycptref.hpp"
 
-1704988482 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\sycptref.hpp
+1704992082 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\sycptref.hpp
 
-1728553903 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\symessag.h
+1728557503 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\symessag.h
 	"Erexcept.h"
 	<vector>
 	<string>
 
-1728553660 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\ann.h
+1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\ann.h
 	<cmath>
 	<iostream>
 	<cvalues>
 	<climits>
 	<cfloat>
 
-1728553660 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\ann.cpp
+1728557260 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\ann.cpp
 	"ANNx.h"
 	"ANNperf.h"
 	<string>
 	<cstdlib>
 
-1728553660 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\annx.h
+1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\annx.h
 	<iomanip>
 	<string>
 	"ANN.h"
 
-1728553660 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\annperf.h
+1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\annperf.h
 	"ANN.h"
 
-1728553660 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\bd_pr_search.cpp
+1728557260 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\bd_pr_search.cpp
 	"bd_tree.h"
 	"kd_pr_search.h"
 
-1728553660 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\bd_tree.h
+1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\bd_tree.h
 	"ANNx.h"
 	"kd_tree.h"
 
-1728553660 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_tree.h
+1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_tree.h
 	"ANNx.h"
 	"pr_queue_k.h"
 
-1728553660 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\pr_queue_k.h
+1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\pr_queue_k.h
 	"ANNx.h"
 	"ANNperf.h"
 
-1704988483 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_pr_search.h
+1704992083 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_pr_search.h
 	"kd_tree.h"
 	"kd_util.h"
 	"pr_queue.h"
 	"pr_queue_k.h"
 	"ANNperf.h"
 
-1728553660 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_util.h
+1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_util.h
 	"kd_tree.h"
 
-1728553660 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\pr_queue.h
+1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\pr_queue.h
 	"ANNx.h"
 	"ANNperf.h"
 
-1704988483 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\bd_search.cpp
+1704992083 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\bd_search.cpp
 	"bd_tree.h"
 	"kd_search.h"
 
-1704988483 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_search.h
+1704992083 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_search.h
 	"kd_tree.h"
 	"kd_util.h"
 	"pr_queue_k.h"
 	"ANNperf.h"
 
-1728553660 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\bd_tree.cpp
+1728557260 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\bd_tree.cpp
 	"bd_tree.h"
 	"kd_util.h"
 	"kd_split.h"
 	"ANNperf.h"
 
-1728553660 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_split.h
+1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_split.h
 	"kd_tree.h"
 
-1728553660 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\brute.cpp
+1728557260 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\brute.cpp
 	"ANNx.h"
 	"pr_queue_k.h"
 
-1728553660 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_dump.cpp
+1728557260 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_dump.cpp
 	"kd_tree.h"
 	"bd_tree.h"
 	<cstring>
 	<cstdlib>
 
-1728553660 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_pr_search.cpp
+1728557260 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_pr_search.cpp
 	"kd_pr_search.h"
 
-1728553660 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_search.cpp
+1728557260 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_search.cpp
 	"kd_search.h"
 
-1728553660 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_split.cpp
+1728557260 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_split.cpp
 	"kd_tree.h"
 	"kd_util.h"
 	"kd_split.h"
 
-1728553660 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_tree.cpp
+1728557260 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_tree.cpp
 	"kd_tree.h"
 	"kd_split.h"
 	"kd_util.h"
 	"ANNperf.h"
 
-1728553660 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_util.cpp
+1728557260 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_util.cpp
 	"kd_util.h"
 	"ANNperf.h"
 
-1728553660 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\perf.cpp
+1728557260 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\perf.cpp
 	"ANN.h"
 	"ANNperf.h"
 	<string>
 
-1728553660 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\armodel\armodel.cpp
+1728557260 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\armodel\armodel.cpp
 	"ARModel.h"
 	<random>
 	<chrono>
@@ -535,32 +541,32 @@
 	<list>
 	<functional>
 
-1728553660 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\armodel\armodel.h
+1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\armodel\armodel.h
 	<vector>
 	<cmath>
 	<string>
 
-1704988482 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\ererreur.cpp
+1704992082 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\ererreur.cpp
 	"Ererreur.h"
 	<iostream>
 	<fstream>
 	<signal.h>
 	<stdlib.h>
 
-1728554670 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\ererreur.h
+1728558270 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\ererreur.h
 	"Syenvmsg.h"
 	<string>
 
-1728554670 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\erexcept.cpp
+1728558270 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\erexcept.cpp
 	"Syenvmsg.h"
 	<strstream>
 	<iostream>
 	<assert.h>
 
-1728554670 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\syenvmsg.cpp
+1728558270 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\syenvmsg.cpp
 	"Syenvmsg.h"
 
-1728553660 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\json\json11.cpp
+1728557260 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\json\json11.cpp
 	"json11.hpp"
 	<cassert>
 	<cmath>
@@ -568,14 +574,14 @@
 	<cstdio>
 	<limits>
 
-1728553660 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\json\json11.hpp
+1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\json\json11.hpp
 	<string>
 	<vector>
 	<map>
 	<memory>
 	<initializer_list>
 
-1728553660 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\csv.hpp
+1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\csv.hpp
 	<algorithm>
 	<deque>
 	<fstream>
@@ -677,11 +683,11 @@
 	<sstream>
 	<vector>
 
-1728554686 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\symessag.cpp
+1728558286 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\symessag.cpp
 	"Symessag.h"
 	<strstream>
 
-1728558453 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\pugixml\pugixml.cpp
+1741699007 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\pugixml\pugixml.cpp
 	"pugixml.hpp"
 	<stdlib.h>
 	<stdio.h>
@@ -698,7 +704,7 @@
 	<sys/stat.h>
 	<stdint.h>
 
-1704988482 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\pugixml\pugixml.hpp
+1704992082 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\pugixml\pugixml.hpp
 	"pugiconfig.hpp"
 	<stddef.h>
 	<exception>
@@ -706,9 +712,9 @@
 	<iosfwd>
 	<string>
 
-1704988482 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\pugixml\pugiconfig.hpp
+1704992082 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\pugixml\pugiconfig.hpp
 
-1704988482 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\tinyxml2\tinyxml2.cpp
+1704992082 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\tinyxml2\tinyxml2.cpp
 	"tinyxml2.h"
 	<new>
 	<stddef.h>
@@ -716,7 +722,7 @@
 	<cstddef>
 	<cstdarg>
 
-1704988482 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\tinyxml2\tinyxml2.h
+1741181867 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\tinyxml2\tinyxml2.h
 	<ctype.h>
 	<limits.h>
 	<stdio.h>
@@ -732,20 +738,20 @@
 	<android/log.h>
 	<assert.h>
 
-1728555314 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\mpfit\mpfit.cpp
+1728558914 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\mpfit\mpfit.cpp
 	"mpfit.h"
 	<stdio.h>
 	<stdlib.h>
 	<math.h>
 	<string.h>
 
-1704988482 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\mpfit\mpfit.h
+1704992082 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\mpfit\mpfit.h
 	<float.h>
 
-1728649936 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\sun.cpp
+1741699007 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\sun.cpp
 	"Sun.h"
 
-1728649863 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\sun.h
+1728653463 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\sun.h
 	<cmath>
 	"UtilTime.h"
 
@@ -764,11 +770,132 @@
 	"Basic/UtilTime.h"
 	"Basic/Statistic.h"
 
-1741189637 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weathercorrection.cpp
+1741193237 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weathercorrection.cpp
 	"WeatherBased/WeatherCorrection.h"
 
-1741189621 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weathercorrection.h
+1741193221 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weathercorrection.h
 	"Basic/Location.h"
 	"Basic/Statistic.h"
+	"WeatherBased/WeatherDefine.h"
+
+1741700010 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatasection.cpp
+	<boost\archive\binary_oarchive.hpp>
+	<boost\archive\binary_iarchive.hpp>
+	<boost\dynamic_bitset.hpp>
+	<boost/serialization/unordered_map.hpp>
+	<boost\serialization\map.hpp>
+	<boost\serialization\array.hpp>
+	<boost\serialization\vector.hpp>
+	<boost\crc.hpp>
+	<boost\container\flat_set.hpp>
+	"WeatherBased/WeatherDataSection.h"
+
+1741700010 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatasection.h
+	"boost\array.hpp"
+	"boost\serialization\access.hpp"
+	"Basic/Callback.h"
+	"WeatherBased/WeatherDefine.h"
+
+1741699169 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdefine.cpp
+	"Basic/UtilStd.h"
+	"WeatherBased/WeatherDefine.h"
+
+1728670580 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\asce_etc.cpp
+	<cassert>
+	"Basic/UtilStd.h"
+	"WeatherBased/Evapotranspiration.h"
+	"WeatherBased/ASCE_ETc.h"
+
+1741691792 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\evapotranspiration.h
+	<map>
+	<vector>
+	<cmath>
+	<assert.h>
+	<mutex>
+	"Basic/UtilTime.h"
+	"Basic/ModelStat.h"
+
+1728670626 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\asce_etc.h
+	<sstream>
+	"Basic/ModelStat.h"
+	"WeatherBased/WeatherStation.h"
+	"ModelBase/InputParam.h"
+	"Basic/ERMsg.h"
+
+1741700142 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherstation.h
+	<cassert>
+	<vector>
+	<array>
+	<memory>
+	"Basic/ERMsg.h"
+	"Basic/Location.h"
+	"Basic/Statistic.h"
+	"WeatherBased/WeatherDataSection.h"
+	"WeatherBased/WeatherDefine.h"
+
+1728669542 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbase\inputparam.h
+	<map>
+	"Basic/ERMsg.h"
+	"Basic/UtilMath.h"
+	"Basic/UtilTime.h"
+	"Basic/UtilStd.h"
+	"WeatherBased/WeatherDefine.h"
+
+1741683562 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\degreedays.cpp
+	<math.h>
+	<fstream>
+	<ostream>
+	"WeatherBased/DegreeDays.h"
+
+1728669581 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\degreedays.h
+	"Basic/ModelStat.h"
+	"Basic/Statistic.h"
+	"WeatherBased/WeatherStation.h"
+
+1741181867 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\dimension.cpp
+	"Dimension.h"
+
+1741181867 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\dimension.h
+	<array>
+	"Basic/UtilStd.h"
+
+1741699410 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherstation.cpp
+	<locale>
+	<mutex>
+	"WeatherBased/WeatherStation.h"
+	"WeatherBased/Evapotranspiration.h"
+	"WeatherBased/WeatherCorrection.h"
+	"Basic/OpenMP.h"
+	"Basic/Sun.h"
+	"Basic/UtilMath.h"
+
+1741881087 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\amountppt.cpp
+	"WeatherBased/AmountPpt.h"
+
+1741699231 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\amountppt.h
+	<crtdbg.h>
+	"Basic/UtilMath.h"
+
+1741691877 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\evapotranspiration.cpp
+	"Evapotranspiration.h"
+	"WeatherStation.h"
+	"Basic/UtilMath.h"
+
+1741692178 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\growingseason.cpp
+	"WeatherBased/GrowingSeason.h"
+
+1741193548 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\growingseason.h
+	"Basic/ModelStat.h"
+	"Basic/Statistic.h"
+	"WeatherBased/WeatherStation.h"
+
+1741698481 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\normalsdata.cpp
+	<cmath>
+	"Basic/UtilTime.h"
+	"WeatherBased/NormalsData.h"
+	"WeatherBased/WeatherCorrection.h"
+
+1741692377 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\normalsdata.h
+	"Basic/ERMsg.h"
 	"WeatherBased/WeatherDefine.h"
 

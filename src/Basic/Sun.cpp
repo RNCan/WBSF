@@ -40,10 +40,10 @@ const double CSunBase::rads = pi / 180.0;
 // FNday only works between 1901 to 2099 - see Meeus chapter 7
 double CSunBase::FNday(int year, int month, int day, float h)
 {
-    __int64 luku = -7 * (year + (month + 9) / 12) / 4 + 275 * month / 9 + day;
+    int64_t luku = -7 * (year + (month + 9) / 12) / 4 + 275 * month / 9 + day;
 
     // Typecasting needed for TClite on PC DOS at least, to avoid product overflow
-    luku += (__int64)year * 367;
+    luku += (int64_t)year * 367;
 
     return (double)luku - 730531.5 + h / 24.0;
 }

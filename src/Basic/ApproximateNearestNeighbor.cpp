@@ -53,7 +53,7 @@ double GetFactor(size_t d)
     return f;
 }
 //*****************************************************************
-constexpr  __int64 CApproximateNearestNeighbor::VERSION = 1;
+constexpr  int64_t CApproximateNearestNeighbor::VERSION = 1;
 CApproximateNearestNeighbor::CApproximateNearestNeighbor()
 {
     m_pTreeRoot = NULL;
@@ -133,9 +133,9 @@ ostream& CApproximateNearestNeighbor::operator >> (ostream& stream)const
     if (m_pDataPts)
         stream.write((char*)(&(m_pDataPts[0][0])), m_nSize*m_nbDimension*sizeof(ANNcoord));//used adress of point vector
 
-    stream << (__int64)m_positions.size();
+    stream << (int64_t)m_positions.size();
     if (!m_positions.empty())
-        stream.write((char*)&(m_positions[0]), m_positions.size()*sizeof(__int64));
+        stream.write((char*)&(m_positions[0]), m_positions.size()*sizeof(int64_t));
 
     return stream;
 }
@@ -145,7 +145,7 @@ istream& CApproximateNearestNeighbor::operator << (istream& stream)
 {
     clear();
 
-    __int64 version = 0;
+    int64_t version = 0;
     stream.read((char*)&version, sizeof(version));
     assert(version == VERSION);
 
@@ -158,16 +158,16 @@ istream& CApproximateNearestNeighbor::operator << (istream& stream)
         stream.read((char*)(&(m_pDataPts[0][0])), m_nSize*m_nbDimension*sizeof(ANNcoord));//used adress of point vector
     }
 
-    __int64 posSize = 0;
+    int64_t posSize = 0;
     stream >> posSize;
     m_positions.resize(posSize);
     if (!m_positions.empty())
-        stream.read((char*)&(m_positions[0]), posSize*sizeof(__int64));
+        stream.read((char*)&(m_positions[0]), posSize*sizeof(int64_t));
 
     return stream;
 }
 
-void CApproximateNearestNeighbor::set(const CLocationVector& locations, bool bUseElevation, bool bUseShoreDistance, const vector<__int64>& positions)
+void CApproximateNearestNeighbor::set(const CLocationVector& locations, bool bUseElevation, bool bUseShoreDistance, const vector<int64_t>& positions)
 {
     assert(positions.empty() || positions.size() == locations.size());
 
@@ -184,7 +184,7 @@ void CApproximateNearestNeighbor::set(const CLocationVector& locations, bool bUs
     size_t i = 0;
     for (CLocationVector::const_iterator it = locations.begin(); it != locations.end(); it++, i++)
     {
-        for (__int64 d = 0; d < m_nbDimension; d++)
+        for (int64_t d = 0; d < m_nbDimension; d++)
             m_pDataPts[i][d] = it->GetGeocentricCoord(d)*GetFactor(d);
     }
 }
@@ -227,7 +227,7 @@ void CApproximateNearestNeighbor::init()
 
 }
 
-ERMsg CApproximateNearestNeighbor::search(const CLocation& pt, __int64 nbPoint, CSearchResultVector& result, double eps)const
+ERMsg CApproximateNearestNeighbor::search(const CLocation& pt, int64_t nbPoint, CSearchResultVector& result, double eps)const
 {
     ERMsg msg;
 
@@ -237,7 +237,7 @@ ERMsg CApproximateNearestNeighbor::search(const CLocation& pt, __int64 nbPoint, 
     result.clear();
 
     //We make the search event if they are not enough points
-    __int64 nbPointSearch = min(nbPoint, m_nSize);
+    int64_t nbPointSearch = min(nbPoint, m_nSize);
     assert(nbPointSearch <= m_nSize);
 
     if (m_nSize > 0)
@@ -250,11 +250,11 @@ ERMsg CApproximateNearestNeighbor::search(const CLocation& pt, __int64 nbPoint, 
         ANNdistArray	dd = new ANNdist[nbPointSearch];	// allocate near neighbor dists
         ANNpoint	q = annAllocPt(m_nbDimension);			// query point
 
-        for (__int64 d = 0; d < m_nbDimension; d++)
+        for (int64_t d = 0; d < m_nbDimension; d++)
             q[d] = pt.GetGeocentricCoord(d)*GetFactor(d);//elevation have scaled by 100
 
         m_pTreeRoot->annPkSearch(q, nbPointSearch, nn_idx, dd, eps);
-        for (__int64 i = 0; i < nbPointSearch; i++)
+        for (int64_t i = 0; i < nbPointSearch; i++)
         {
 
 

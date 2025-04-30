@@ -64,7 +64,7 @@ const char* GetMonthName(size_t m, bool bFull)
 
 
 
-//static const double MID_DOY_FOR_MONTH[12] = { 15.5, 45.0, 74.5, 105.0, 135.5, 166.0, 196.5, 227.5, 258.0, 288.5, 319.0, 349.5 };
+
 
 
 //double MidDOYForMonth(size_t m)
@@ -72,6 +72,15 @@ const char* GetMonthName(size_t m, bool bFull)
 //    assert(m >= 0 && m < 12);
 //    return MID_DOY_FOR_MONTH[m];
 //}
+
+double MidDOYForMonth(size_t m)
+{
+    static const double MID_DOY_FOR_MONTH[12] = { 15.5, 45.0, 74.5, 105.0, 135.5, 166.0, 196.5, 227.5, 258.0, 288.5, 319.0, 349.5 };
+
+    assert(m<12);
+    return MID_DOY_FOR_MONTH[m];
+}
+
 
 bool IsLeap(int year)
 {
@@ -84,13 +93,13 @@ size_t GetNbDaysPerYear(int year)
     return 365 + IsLeap(year);
 }
 
-size_t GetNbDaysPerMonth(int year, size_t month)
+size_t GetNbDaysPerMonth(int year, size_t m)
 {
     assert(year == YEAR_NOT_INIT || (year >= -10'000 && year <= 2500));
-    assert(month < NB_MONTHS);
+    assert(m < NB_MONTHS);
 
-    size_t nbDay = DAYS_IN_MONTH[month];
-    if (month == FEBRUARY && IsLeap(year))
+    size_t nbDay = DAYS_IN_MONTH[m];
+    if (m == FEBRUARY && IsLeap(year))
         nbDay++;
 
     return nbDay;
@@ -567,7 +576,7 @@ CTRef::CTRef()
 //    operator =(in);
 //}
 //
-//CTRef::CTRef(unsigned __int64)
+//CTRef::CTRef(unsigned int64_t)
 //{
 //	assert(false); //que faire de cela???
 //}

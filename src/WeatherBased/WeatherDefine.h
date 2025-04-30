@@ -11,7 +11,7 @@
 
 #include <vector>
 #include <array>
-#include <crtdbg.h>
+#include <cassert>
 #include <bitset>
 
 #include <boost\serialization\array.hpp>
@@ -377,7 +377,7 @@ namespace WBSF
 
 		CWVariables GetVariables()const;
 
-		CTM GetTM()const{ return m_TM; }
+		CTM TM()const{ return m_TM; }
 		CTRef GetTRef(const std::vector<std::string>& str)const;
 
 		std::vector<std::string> GetHeaderVector()const{ return Tokenize(m_header, ","); }

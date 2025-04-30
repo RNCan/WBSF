@@ -38,8 +38,8 @@ namespace WBSF
 		}
 
 
-		ULONGLONG m_begin;
-		ULONGLONG m_end;
+		uint64_t m_begin;
+		uint64_t m_end;
 
 		int m_lineNo;
 		int m_nbLines;
@@ -146,7 +146,7 @@ namespace WBSF
 
 		void CompileLine(const std::vector<std::string>& data, const CWeatherFormat& format, CCWeatherYearSection& section);
 
-		ERMsg Compile(const std::string& str, ULONGLONG begin, int lineNo, const CWeatherFormat& format, CWeatherYearSectionMap& map);
+		ERMsg Compile(const std::string& str, uint64_t begin, int lineNo, const CWeatherFormat& format, CWeatherYearSectionMap& map);
 		ERMsg Update(const std::string& dataFilePath, CCallback& callback);
 
 

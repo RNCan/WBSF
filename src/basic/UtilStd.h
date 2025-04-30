@@ -20,6 +20,7 @@
 #include <cstring>
 #include <filesystem>
 #include <cstdint>
+#include <share.h>
 
 
 #include "Basic/ERMsg.h"
@@ -216,7 +217,7 @@ std::string FormatV(const char* szFormat, va_list argList);
 //	std::string FormatMsgA(PCSTR szFormat, ...);
 //	//std::string FormatMsg(UINT nFormatId, ...);
 //
-//std::string FormatMsg(std::string_view szFormat, std::string_view v1, std::string_view v2 = "", std::string_view v3 = "", std::string_view  v4 = "", std::string_view v5 = "");
+    std::string FormatMsg(std::string_view szFormat, std::string_view v1, std::string_view v2 = "", std::string_view v3 = "", std::string_view  v4 = "", std::string_view v5 = "");
 
 //	inline std::string FormatMsg(UINT nFormatId, const std::string& v1, const std::string& v2 = "", const std::string& v3 = "", const std::string& v4 = "", const std::string& v5 = "", const std::string& v6 = "", const std::string& v7 = "", const std::string& v8 = "", const std::string& v9 = "")
 //	{
@@ -728,12 +729,12 @@ T read_value(std::istream& s)
     return v;
 }
 
-//	template <typename T>
-//	std::istream& read_value(std::istream& s, T& v)
-//	{
-//		s.read((char*)&v, sizeof(v));
-//		return s;
-//	}
+template <typename T>
+std::istream& read_value(std::istream& s, T& v)
+{
+	s.read((char*)&v, sizeof(v));
+	return s;
+}
 
 template <typename T>
 void write_value(std::ostream& s, const T& v)
@@ -811,77 +812,77 @@ inline void WriteBuffer(std::ostream& s, const std::string& buffer)
 //
 ////*********************************************************************************************************************
 ////CFileInfo
-//
-//
-//	class CFileInfo
-//	{
-//	public:
-//
-//		std::string m_filePath;
-//		__time64_t m_time;
-//		int64_t    m_size;
-//		int64_t    m_attribute;
-//
-//
-//
-//		CFileInfo()
-//		{
-//			m_size = 0;
-//			m_time = -1;
-//			m_attribute = 0;
-//		}
-//		CFileInfo(const CFileInfo& in)
-//		{
-//			operator =(in);
-//		}
-//
-//		void clear()
-//		{
-//			m_filePath.clear();
-//			m_time = -1;
-//			m_size = 0;
-//			m_attribute = 0;
-//		}
-//
-//
-//		CFileInfo& operator =(const CFileInfo& in)
-//		{
-//			if (&in != this)
-//			{
-//				m_filePath = in.m_filePath;
-//				m_time = in.m_time;
-//				m_size = in.m_size;
-//				m_attribute = in.m_attribute;
-//			}
-//
-//			return *this;
-//		}
-//
-//		bool operator ==(const CFileInfo& in)const
-//		{
-//			bool bEqual = true;
-//
-//			if (!IsEqualNoCase(m_filePath, in.m_filePath))bEqual = false;
-//			if (m_time != in.m_time)bEqual = false;
-//			if (m_size != in.m_size)bEqual = false;
-//			if (m_attribute != in.m_attribute)bEqual = false;
-//
-//			return bEqual;
-//
-//		}
-//
-//		bool operator !=(const CFileInfo& in)const{ return !(operator==(in)); }
-//
-//
-//		std::ostream& operator>>(std::ostream &s)const{ s << m_filePath << " " << m_time << " " << m_size;	return s; }
-//		std::istream& operator<<(std::istream &s){ s >> m_filePath >> m_time >> m_size; return s; }
-//		friend std::ostream& operator<<(std::ostream &s, const CFileInfo& pt){ pt >> s; return s; }
-//		friend std::istream& operator>>(std::istream &s, CFileInfo& pt){ pt << s;	return s; }
-//
-//		template<class Archive>	void serialize(Archive& ar, const unsigned int version)	{ ar & m_filePath & m_time & m_size; }
-//	};
-//
-//	typedef std::vector<CFileInfo> CFileInfoVector;
+
+
+	class CFileInfo
+	{
+	public:
+
+		std::string m_filePath;
+		__time64_t m_time;
+		int64_t    m_size;
+		int64_t    m_attribute;
+
+
+
+		CFileInfo()
+		{
+			m_size = 0;
+			m_time = -1;
+			m_attribute = 0;
+		}
+		CFileInfo(const CFileInfo& in)
+		{
+			operator =(in);
+		}
+
+		void clear()
+		{
+			m_filePath.clear();
+			m_time = -1;
+			m_size = 0;
+			m_attribute = 0;
+		}
+
+
+		CFileInfo& operator =(const CFileInfo& in)
+		{
+			if (&in != this)
+			{
+				m_filePath = in.m_filePath;
+				m_time = in.m_time;
+				m_size = in.m_size;
+				m_attribute = in.m_attribute;
+			}
+
+			return *this;
+		}
+
+		bool operator ==(const CFileInfo& in)const
+		{
+			bool bEqual = true;
+
+			if (!IsEqualNoCase(m_filePath, in.m_filePath))bEqual = false;
+			if (m_time != in.m_time)bEqual = false;
+			if (m_size != in.m_size)bEqual = false;
+			if (m_attribute != in.m_attribute)bEqual = false;
+
+			return bEqual;
+
+		}
+
+		bool operator !=(const CFileInfo& in)const{ return !(operator==(in)); }
+
+
+		std::ostream& operator>>(std::ostream &s)const{ s << m_filePath << " " << m_time << " " << m_size;	return s; }
+		std::istream& operator<<(std::istream &s){ s >> m_filePath >> m_time >> m_size; return s; }
+		friend std::ostream& operator<<(std::ostream &s, const CFileInfo& pt){ pt >> s; return s; }
+		friend std::istream& operator>>(std::istream &s, CFileInfo& pt){ pt << s;	return s; }
+
+		template<class Archive>	void serialize(Archive& ar, const unsigned int version)	{ ar & m_filePath & m_time & m_size; }
+	};
+
+	typedef std::vector<CFileInfo> CFileInfoVector;
 //
 //
 //	extern const char STRVMISS[];
@@ -1096,19 +1097,19 @@ ERMsg CopyDir(const std::string& pathIn1, const std::string& pathIn2);
 bool FileExists(const std::filesystem::path& filePath);
 bool DirectoryExists(const std::filesystem::path& path);
 
-//	enum TFileNameType { FILE_TITLE, FILE_NAME, FILE_PATH };
+	enum TFileNameType { FILE_TITLE, FILE_NAME, FILE_PATH };
 //	ERMsg GetFileInfo(const std::string& filePath, CFileInfo& info);
-//	CFileInfo GetFileInfo(const std::string& filePath);
+	CFileInfo GetFileInfo(const std::string& filePath);
 //	//ERMsg GetFilesInfo(const std::vector<std::string>& filesList, CFileInfoVector& filesInfo);
 //
 //	void GetFilesInfo(const std::string& filter, bool bSubDirSearch, CFileInfoVector& filesInfo);
-//
-//
-//	__time64_t GetFileStamp(const std::string& filePath);
-//	std::vector<std::string> GetFilesList(const std::string& filter, int type = FILE_PATH, bool bSubDirSearch = false);
+
+
+	__time64_t GetFileStamp(const std::string& filePath);
+	std::vector<std::string> GetFilesList(const std::string& filter, int type = FILE_PATH, bool bSubDirSearch = false);
 //	void GetFilesList(const CFileInfoVector& filesInfo, int type, std::vector<std::string>& filesList);
-//
-//	std::vector<std::string> GetDirectoriesList(const std::string& filter);
+
+	std::vector<std::string> GetDirectoriesList(const std::string& filter);
 
 
 int GetCrc32(const std::string& str, uint64_t begin = NOT_INIT, uint64_t end = NOT_INIT);
@@ -1118,9 +1119,9 @@ ERMsg WinExecWait(const std::string& command, std::string inputDir = "", bool bS
 //	ERMsg CallApplication(std::string appType, std::string argument, HWND pCaller = NULL, int showMode = SW_HIDE, bool bAddCote = true, bool bWait = false);
 //	size_t GetTotalSystemMemory();
 //
-//	std::vector<std::string>::const_iterator FindStringExact(const std::vector<std::string>& list, const std::string& value, bool bCaseSensitive);
-//
-std::string SecondToDHMS(double time);
+	std::vector<std::string>::const_iterator FindStringExact(const std::vector<std::string>& list, const std::string& value, bool bCaseSensitive);
+
+    std::string SecondToDHMS(double time);
 //
 //	std::string FilePath2SpecialPath(const std::string& filePath, const std::string& appPath, const std::string& projectPath);
 //	std::string SpecialPath2FilePath(const std::string& filePath, const std::string& appPath, const std::string& projectPath);
@@ -1323,17 +1324,17 @@ std::string SecondToDHMS(double time);
 //
 //
 //	//*********************************************************************************************************************
-//	//xfStream
-//	inline std::string getLastLine(std::ifstream& in)
-//	{
-//		std::string line;
-//		while (in >> std::ws && std::getline(in, line)) // skip empty lines
-//			;
-//
-//		return line;
-//	}
-//
-//
+//	//ifStream
+	inline std::string getLastLine(std::ifstream& in)
+	{
+		std::string line;
+		while (in >> std::ws && std::getline(in, line)) // skip empty lines
+			;
+
+		return line;
+	}
+
+
 //by default deny read and write
 class ofStream : public std::ofstream
 {
@@ -1451,88 +1452,89 @@ public:
 
 
 
-//	//by default share deny write
-//	class fStream : public std::fstream
-//	{
-//	public:
-//
-//
-//		ERMsg open(const std::string& filePath,
-//			std::ios_base::openmode _Mode = std::fstream::in | std::fstream::out | std::fstream::app,
-//			int _Prot = SH_DENYRW)
-//		{
-//			ERMsg msg;
-//
-//			std::fstream::open(filePath, _Mode, _Prot);
-//
-//			if (fail())
-//			{
-//				msg = GetLastErrorMessage();
-//				msg.ajoute("Unable to open: " + filePath);
-//			}
-//
-//			return msg;
-//		}
-//
-//		ULONGLONG lengthg()const
-//		{
-//			fStream& me = const_cast<fStream&>(*this);
-//			std::ios::pos_type pos = me.tellg();
-//			me.seekg(0, std::ios::end);
-//			std::ios::pos_type length = me.tellg();
-//			me.seekg(pos);
-//
-//			return ULONGLONG(length);
-//		}
-//		ULONGLONG lengthp()const
-//		{
-//			fStream& me = const_cast<fStream&>(*this);
-//			std::ios::pos_type pos = me.tellp();
-//			me.seekp(0, std::ios::end);
-//			std::ios::pos_type length = me.tellp();
-//			me.seekp(pos);
-//
-//			return ULONGLONG(length);
-//		}
-//
-//		//********************************
-//		template <typename T>
-//		void write_value(const T& v)
-//		{
-//			write((char*)&v, sizeof(v));
-//		}
-//
-//		void write_buffer(const std::string& buffer)
-//		{
-//			unsigned int64_t size = buffer.size();
-//			write_value(size);
-//			write(buffer.c_str(), size);
-//		}
-//		//********************************
-//		template <typename T>
-//		T read_value()
-//		{
-//			T v = 0;
-//			read((char*)&v, sizeof(v));
-//
-//			return v;
-//		}
-//
-//		template <typename T>
-//		void read_value(const T& v)
-//		{
-//			read((char*)&v, sizeof(v));
-//		}
-//		std::string read_buffer()
-//		{
-//			std::string buffer;
-//			unsigned int64_t size = read_value<unsigned int64_t >();
-//			buffer.resize((size_t)size);
-//			read((char*)(buffer[0]), size);
-//
-//			return buffer;
-//		}
-//	};
+//by default share deny write
+class fStream : public std::fstream
+{
+public:
+
+
+	ERMsg open(const std::string& filePath,
+		std::ios_base::openmode _Mode = std::fstream::in | std::fstream::out | std::fstream::app,
+		int _Prot = _SH_DENYWR)
+	{
+		ERMsg msg;
+
+		std::fstream::open(filePath.c_str(), _Mode);//, _Prot
+		//this->set
+
+		if (fail())
+		{
+			//msg = GetLastErrorMessage();
+			msg.ajoute("Unable to open: " + filePath);
+		}
+
+		return msg;
+	}
+
+	uint64_t lengthg()const
+	{
+		fStream& me = const_cast<fStream&>(*this);
+		std::ios::pos_type pos = me.tellg();
+		me.seekg(0, std::ios::end);
+		std::ios::pos_type length = me.tellg();
+		me.seekg(pos);
+
+		return uint64_t(length);
+	}
+	uint64_t lengthp()const
+	{
+		fStream& me = const_cast<fStream&>(*this);
+		std::ios::pos_type pos = me.tellp();
+		me.seekp(0, std::ios::end);
+		std::ios::pos_type length = me.tellp();
+		me.seekp(pos);
+
+		return uint64_t(length);
+	}
+
+	//********************************
+	template <typename T>
+	void write_value(const T& v)
+	{
+		write((char*)&v, sizeof(v));
+	}
+
+	void write_buffer(const std::string& buffer)
+	{
+		uint64_t size = buffer.size();
+		write_value(size);
+		write(buffer.c_str(), size);
+	}
+	//********************************
+	template <typename T>
+	T read_value()
+	{
+		T v = 0;
+		read((char*)&v, sizeof(v));
+
+		return v;
+	}
+
+	template <typename T>
+	void read_value(const T& v)
+	{
+		read((char*)&v, sizeof(v));
+	}
+	std::string read_buffer()
+	{
+		std::string buffer;
+		uint64_t size = read_value<uint64_t >();
+		buffer.resize((size_t)size);
+		read((char*)(buffer[0]), size);
+
+		return buffer;
+	}
+};
 
 
 

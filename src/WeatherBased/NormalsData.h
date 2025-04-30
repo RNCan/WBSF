@@ -5,16 +5,16 @@
 //				CNormalWeight: weight of all stations for all variables
 //				CNormalsData: date for all variables for 12 months
 //
-// Abstract:    
+// Abstract:
 //
-// Description: 
+// Description:
 //
-// Note:        
+// Note:
 //***************************************************************************
 #pragma once
 
-#include "basic/ERMsg.h"
-#include "Basic/WeatherDefine.h"
+#include "Basic/ERMsg.h"
+#include "WeatherBased/WeatherDefine.h"
 
 namespace WBSF
 {
@@ -27,7 +27,7 @@ namespace WBSF
 	//***********************************************************************************
 	//CNormalsMonth
 
-	typedef public std::array<float, NORMALS_DATA::NB_FIELDS> CNormalMonthBase;
+	typedef std::array<float, NORMALS_DATA::NB_FIELDS> CNormalMonthBase;
 	class CNormalsMonth : public CNormalMonthBase
 	{
 	public:
