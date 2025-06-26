@@ -379,7 +379,7 @@ namespace WBSF
 
 		if (m_openMode != modeBinary && m_zop.GetDataSection().GetFilePath().empty())
 		{
-            std::lock_guard<const std::mutex> guard(m_mutex);
+            std::lock_guard<std::mutex> guard(m_mutex);
 			CWeatherDatabaseOptimization& zop = const_cast<CWeatherDatabaseOptimization&>(m_zop);
 			msg = zop.LoadData(GetOptimisationDataFilePath(m_filePath));
 
@@ -1007,7 +1007,7 @@ namespace WBSF
 		int xx = 2;
 		while (StationExist(ID, false) && StationExist(newName))
 		{
-			newName = name + ToString(xx);
+			newName = name + to_string(xx);
 			xx++;
 		}
 
@@ -1068,12 +1068,12 @@ namespace WBSF
 			//to prevent a bug in the VCOMP100.dll we must wait 1 sec before closing dll
 			//see http://support.microsoft.com/kb/94248
 			Sleep(1000);
-			bool bFree = m_hDll. != 0;
-			if (bFree)
-			{
-				m_hDll = NULL;
-				load_azure_weather_years = NULL;
-			}
+			//bool bFree = m_hDll. != 0;
+			//if (bFree)
+			//{
+			//	m_hDll = NULL;
+			//	load_azure_weather_years = NULL;
+			//}
 
 		}
 	}
@@ -1220,9 +1220,9 @@ namespace WBSF
 		ERMsg msg;
 
 
-		log = GetString(IDS_STR_MERGE_DB_LOG_HEADER) + "\n";
+		log = "Output Station ID,Output Station Name,Input station IDs,Input Station Names,Database,Nb Variables,Nb Days,Oldest day,Newest day,Distance(m),Delta Elevation(m)\n";
 
-		string comment = FormatMsg(IDS_CMN_MERGE_DATABASE, m_filePath, filePath1, filePath2);
+		string comment = FormatMsg("Create ""%1"" database from merge of:\n\t%2\n\t%3", m_filePath, filePath1, filePath2);
 		callback.AddMessage(comment);
 		callback.AddMessage("");
 
@@ -1248,7 +1248,7 @@ namespace WBSF
 		boost::dynamic_bitset<size_t> addedIndex2(DB2Order.size());
 
 		//\n\t%2\n\t%3
-		callback.PushTask(FormatMsg(IDS_CMN_MERGE_DATABASE, GetFileName(m_filePath), " \"" + GetFileName(filePath1) + "\", \"", GetFileName(filePath2) + "\""), pDB1->size() + pDB2->size());
+		callback.PushTask(FormatMsg("Create ""%1"" database from merge of:\n\t%2\n\t%3", GetFileName(m_filePath), " \"" + GetFileName(filePath1) + "\", \"", GetFileName(filePath2) + "\""), pDB1->size() + pDB2->size());
 
 		for (size_t _i = 0; _i < DB1Order.size() && msg; _i++)
 		{
@@ -1413,7 +1413,7 @@ namespace WBSF
 		}//for DB2
 
 
-		comment = FormatMsg(IDS_CMN_NB_STATIONS_ADDED, ToString(nbStationAdded));
+		comment = FormatMsg("The number of stations added is: %1" , to_string(nbStationAdded));
 		callback.AddMessage(comment, 1);
 
 		callback.PopTask();
@@ -1515,7 +1515,7 @@ namespace WBSF
 		{
 			if (GetVersion(filePath) != GetVersion())
 			{
-				std::string error = FormatMsg(IDS_WG_BAD_DAILY_VER, std::to_string(GetVersion(filePath)), std::to_string(GetVersion()));
+				std::string error = FormatMsg("Database version is '%1'. Version '%2' expected.", std::to_string(GetVersion(filePath)), std::to_string(GetVersion()));
 				msg.ajoute(error);
 				return msg;
 			}
@@ -1585,7 +1585,7 @@ namespace WBSF
 		if (FileExists(inputFilePath1) && FileExists(inputFilePath2) &&
 			DirectoryExists(inputPath1) && DirectoryExists(inputPath2))
 		{
-			std::string comment = FormatMsg(IDS_BSC_COPY_FILE, inputFilePath1 + "\n\t" + inputFilePath2, m_filePath);
+			std::string comment = FormatMsg("Copy file from :\n\t%1\nto:\n\t%2", inputFilePath1 + "\n\t" + inputFilePath2, m_filePath);
 
 			CWeatherDatabaseOptimization zop1;
 			CWeatherDatabaseOptimization zop2;
@@ -1645,7 +1645,7 @@ namespace WBSF
 
 
 				m_bModified = true;
-				comment = FormatMsg(IDS_CMN_NB_STATIONS_ADDED, to_string(zop1.size() + zop2.size()));
+				comment = FormatMsg("The number of stations added is: %1" , to_string(zop1.size() + zop2.size()));
 				callback.AddMessage(comment, 1);
 
 
@@ -1705,13 +1705,13 @@ namespace WBSF
 			}
 			else
 			{
-				callback.AddMessage(FormatMsg(IDS_BSC_UNABLE_RENAME, GetFileName(inputPath), GetFileName(outputPath)));
+				callback.AddMessage(FormatMsg("Unable to rename file ""%1"" to ""%2""", GetFileName(inputPath), GetFileName(outputPath)));
 
 			}
 		}
 		else
 		{
-			callback.AddMessage(FormatMsg(IDS_BSC_UNABLE_RENAME, GetFileName(inputPath), GetFileName(outputPath)));
+			callback.AddMessage(FormatMsg("Unable to rename file ""%1"" to ""%2""", GetFileName(inputPath), GetFileName(outputPath)));
 		}
 
 
@@ -1731,10 +1731,10 @@ namespace WBSF
 			std::string filter = GetDataPath(filePath) + "*.csv";
 			std::vector<std::string> files = GetFilesList(filter);
 
-			callback.AddMessage(GetString(IDS_BSC_DELETE_FILE));
+			callback.AddMessage("Delete file: ");
 			callback.AddMessage(filePath, 1);
 
-			callback.PushTask(GetString(IDS_BSC_DELETE_FILE) + filePath, files.size() + 9);
+			callback.PushTask("Delete file: " + filePath, files.size() + 9);
 
 			for (size_t i = 0; i < files.size() && msg; i++)
 			{
@@ -1818,9 +1818,9 @@ namespace WBSF
 		{
 			CFileInfoVector info;
 			if (IsNormalsDB(filePath))
-				GetFilesInfo(WBSF::GetPath(filePath) + GetFileTitle(filePath) + ".csv", false, info);
+				WBSF::GetFilesInfo(WBSF::GetPath(filePath) + GetFileTitle(filePath) + ".csv", false, info);
 			else
-				GetFilesInfo(WBSF::GetPath(filePath) + GetFileTitle(filePath) + "\\*.csv", false, info);
+				WBSF::GetFilesInfo(WBSF::GetPath(filePath) + GetFileTitle(filePath) + "\\*.csv", false, info);
 
 			for (int i = 0; i < info.size(); i++)
 			{
@@ -1890,7 +1890,7 @@ namespace WBSF
 
 			if (m_bUseCache)
 			{
-				m_CS.Enter();
+				std::lock_guard<std::mutex> guard(m_mutex);
 				if (m_cache.exists(index))
 				{
 					if (!me.m_cache.get(index).IsYearInit(years))
@@ -1936,7 +1936,7 @@ namespace WBSF
 						me.m_cache.put(index, *pStation);
 				}
 
-				m_CS.Leave();
+
 			}
 			else
 			{
@@ -2013,7 +2013,7 @@ namespace WBSF
 						read_value(incoming, variable);
 						assert(period.is_init());
 
-						for (CTRef TRef = period.Begin(); TRef <= period.End(); TRef++)
+						for (CTRef TRef = period.begin(); TRef <= period.end(); TRef++)
 							pWeather->Get(TRef).ReadStream(incoming, variable, false);
 
 
@@ -2225,83 +2225,13 @@ namespace WBSF
 			}
 
 
-			m_CS.Enter();
+			//m_CS.Enter();
 			//int64_t canal = (filter.to_ullong()) * 100000 + max(year, 0) * 10 + (bUseShoreDistance ? 4 : 0) + (bUseElevation ? 2 : 0) + (bExcludeUnused ? 1 : 0);
 			int64_t canal = m_zop.GetCanal(filter, year, bExcludeUnused, bUseElevation, bUseShoreDistance);
-			if (!m_zop.CanalExists(canal))
-			{
+			//if (!m_zop.CanalExists(canal))
+			//{
 				const_cast<CDHDatabaseBase&>(*this).CreateCanal(filter, year, bExcludeUnused, bUseElevation, bUseShoreDistance);
-
-				//CLocationVector locations;
-				//locations.reserve(m_zop.size());
-				//std::vector<int64_t> positions;
-				//positions.reserve(m_zop.size());
-
-				//const CWeatherFileSectionIndex& index = m_zop.GetDataSection();
-				////build canal
-				//for (CLocationVector::const_iterator it = m_zop.begin(); it != m_zop.end(); it++)
-				//{
-				//	bool useIt = it->UseIt();
-				//	if (useIt || !bExcludeUnused)
-				//	{
-				//		CWeatherFileSectionIndex::const_iterator it2 = index.find(it->GetDataFileName());
-				//		if (it2 != index.end())
-				//		{
-				//			bool bIncluded = false;
-
-				//			if (year > 0)
-				//			{
-				//				const CWeatherYearSectionMap& section = it2->second;
-				//				CWeatherYearSectionMap::const_iterator it3 = section.find(year);
-				//				if (it3 != section.end())
-				//				{
-				//					bool bIncluded2 = true;
-				//					for (size_t i = 0; i < it3->second.m_nbRecords.size() && bIncluded2; i++)
-				//					{
-				//						if (filter.test(i))
-				//							bIncluded2 = it3->second.m_nbRecords[i].first > 0;
-				//					}
-
-				//					bIncluded = bIncluded2;
-				//				}//year exist
-				//			}
-				//			else
-				//			{
-				//				const CWeatherYearSectionMap& section = it2->second;
-				//				for (CWeatherYearSectionMap::const_iterator it3 = section.begin(); it3 != section.end() && !bIncluded; it3++)
-				//				{
-				//					bool bIncluded2 = true;
-				//					for (size_t i = 0; i < it3->second.m_nbRecords.size() && bIncluded2; i++)
-				//					{
-				//						if (filter.test(i))
-				//							bIncluded2 = it3->second.m_nbRecords[i].first > 0;
-				//					}
-
-				//					if (bIncluded2)
-				//						bIncluded = true;
-				//				}//for all years
-				//			}
-
-				//			if (bIncluded)
-				//			{
-				//				CLocation pt = *it;//removel
-				//				pt.m_siteSpeceficInformation.clear();//remove ssi for ANN
-				//				locations.push_back(pt);
-				//				positions.push_back(it - m_zop.begin());
-				//			}
-				//		}//File exist
-				//	}//use it
-				//}
-
-
-				////by optimization, add the canal event if they are empty
-				//CApproximateNearestNeighborPtr pANN(new CApproximateNearestNeighbor);
-				//pANN->set(locations, bUseElevation, bUseShoreDistance, positions);
-				//CWeatherDatabaseOptimization& zop = const_cast<CWeatherDatabaseOptimization&>(m_zop);
-				//zop.AddCanal(canal, pANN);
-			}
-			m_CS.Leave();
-
+//}
 
 			msg = m_zop.Search(station, nbStation, searchResultArray, canal);
 		}
@@ -2319,7 +2249,7 @@ namespace WBSF
 			if (searchResultArray.empty())
 			{
 				string filterName = filter.GetVariablesName('+');
-				string error = FormatMsg(IDS_WG_NOTENOUGH_OBSERVATION2, ToString(searchRadius / 1000, 1), string(m_filePath.empty() ? " " : GetFileName(m_filePath)), ToString(year), filterName);
+				string error = FormatMsg("No stations found after removing stations outside maximum radius (%1 km) in the database (%2) for year %3.[Filter = %4].", to_string(searchRadius / 1000, 1), string(m_filePath.empty() ? " " : GetFileName(m_filePath)), to_string(year), filterName);
 				msg.ajoute(error);
 			}
 		}
@@ -2329,7 +2259,7 @@ namespace WBSF
 			string filterName = filter.GetVariablesName('+');
 
 			msg = ERMsg();//reset it and add the new message
-			string error = FormatMsg(IDS_WG_NOTENOUGH_OBSERVATION, ToString(searchResultArray.size()), string(m_filePath.empty() ? " " : GetFileName(m_filePath)), ToString(year), ToString(nbStation), filterName);
+			string error = FormatMsg("The number of stations found (%1) in the database (%2) for year %3 is smaller than the number requested (%4).[Filter = %5].", to_string(searchResultArray.size()), string(m_filePath.empty() ? " " : GetFileName(m_filePath)), to_string(year), to_string(nbStation), filterName);
 			msg.ajoute(error);
 		}
 
@@ -2455,7 +2385,7 @@ namespace WBSF
 						string data_filepath = WBSF::GetPath(file_path) + GetFileTitle(file_path) + "/" + get_azure_data_file_name(station, *it);
 						WBSF::CreateMultipleDir(WBSF::GetPath(data_filepath));
 
-						data_filepath = WBSF::ANSI_2_ASCII(RemoveAccented(data_filepath));//remove all accent caracters;
+						//data_filepath = WBSF::ANSI_2_ASCII(RemoveAccented(data_filepath));//remove all accent caracters;
 
 
 						ofStream data_file;
@@ -2479,7 +2409,7 @@ namespace WBSF
 								write_value(data_outcoming, period);
 								write_value(data_outcoming, variable);
 
-								for (CTRef TRef = period.Begin(); TRef <= period.End(); TRef++)
+								for (CTRef TRef = period.begin(); TRef <= period.end(); TRef++)
 								{
 									const CDataInterface& data = weather.Get(TRef);
 									data.WriteStream(data_outcoming, variable, false);

@@ -20,7 +20,7 @@
 namespace WBSF
 {
 
-class CSVRow : public StringVector
+class CSVRow : public std::vector<std::string>
 {
 public:
 
@@ -38,7 +38,7 @@ public:
 
     void clear()
     {
-        StringVector::clear();
+        std::vector<std::string>::clear();
         m_line.clear();
     }
 
@@ -69,7 +69,7 @@ public:
                 else if (bOpen)
                 {
                     char const* q = m_pD;
-                    while (*q != NULL)
+                    while (*q != 0)
                     {
                         if (*it == *q)
                         {
@@ -126,7 +126,7 @@ public:
                         else if (bOpen)
                         {
                             char const* q = m_pD;
-                            while (*q != NULL)
+                            while (*q != 0)
                             {
                                 if (*it == REPLACEMENT[q - m_pD])
                                 {

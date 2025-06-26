@@ -24,10 +24,11 @@
 #include <boost/crc.hpp>
 //#include <boost/locale.hpp>
 
-#include <filesystem>
-#include <cstdio>
-#include <stdexcept>
+//#include <filesystem>
+//#include <cstdio>
+//#include <stdexcept>
 #include <cmath>
+//#include <glob.h>
 //#include <sys/stat.h>
 
 
@@ -37,7 +38,7 @@
 #if !defined (NOMINMAX)
 #define NOMINMAX
 #endif
-#include <windows.h>
+//#include <windows.h>
 //#include <processthreadsapi.h>
 #endif
 
@@ -89,8 +90,14 @@ std::filesystem::path make_relative(std::filesystem::path a_From, std::filesyste
 namespace WBSF
 {
 
+
+
 bool GDALStyleProgressBar(double dfComplete)
 {
+    std::string title = GetFileTitle("test");
+
+
+
     const int nThisTick =
         std::min(40, std::max(0, static_cast<int>(dfComplete * 40.0)));
 
@@ -626,10 +633,13 @@ filesystem::path GetApplicationPath()
     filesystem::path app_path;
 
 #ifdef _WIN32
+
+//    dladdr(&GetApplicationPath, &dlInfo);
+    assert(false);
     //Get full path with decoration
     std::wstring appPath;
-    appPath.resize(MAX_PATH);
-    GetModuleFileNameW(NULL, &(appPath[0]), MAX_PATH);
+    //appPath.resize(MAX_PATH);
+    // GetModuleFileNameW(NULL, &(appPath[0]), MAX_PATH);
     appPath.resize(wcslen(appPath.c_str()));
     appPath.shrink_to_fit();
 
@@ -647,6 +657,7 @@ filesystem::path GetApplicationPath()
 
 #else
 
+    dladdr(&X, &dlInfo);
     app_path = filesystem::canonical("/proc/self/exe");
     app_path = app_path.parent_path();
     //path = p.string();
@@ -656,42 +667,33 @@ filesystem::path GetApplicationPath()
     return app_path;
 }
 
-//	ERMsg GetFileInfo(const std::string& filePath, CFileInfo& info)
-//	{
-//		ERMsg msg;
-//		//memset(&info, 0, sizeof(info) );
-//		struct _stat64 stat;
-//		int rc = _wstat64(UTF16(filePath).c_str(), &stat);
-//		if (rc == 0)
-//		{
-//			info.m_filePath = filePath;
-//			info.m_time = stat.st_mtime;
-//			info.m_size = stat.st_size;
-//		}
-//		else
-//		{
-//			msg.ajoute("Unable to get file information for: " + filePath);
-//		}
-//
-//		//return rc==0;
-//		return msg;
-//	}
-//
+ERMsg GetFileInfo(const std::string& file_path, CFileInfo& info)
+{
+    ERMsg msg;
+    info = GetFileInfo(file_path);
+
+    if (!info.is_init())
+        msg.ajoute("Unable to get file information for: " + file_path);
 
 
-	CFileInfo GetFileInfo(const std::string& filePath)
-	{
-		CFileInfo info;
+    return msg;
+}
 
 
-        fs::path file_path = filePath;
-        //time_t curTime = time(NULL);
-        if(fs::exists(file_path) && fs::is_regular_file(file_path) )
-        {
-            info.m_filePath = filePath;
-            fs::last_write_time(file_path, info.m_time);
-            info.m_size = fs::file_size(file_path);
-        }
+
+CFileInfo GetFileInfo(const std::string& file_path_in)
+{
+    CFileInfo info;
+
+
+    fs::path file_path = file_path_in;
+    //time_t curTime = time(NULL);
+    if(fs::exists(file_path) && fs::is_regular_file(file_path) )
+    {
+        info.m_filePath = file_path_in;
+        fs::last_write_time(file_path, info.m_time);
+        info.m_size = fs::file_size(file_path);
+    }
 
 
 //    for (fs::recursive_directory_iterator it(path), endit; it != endit; ++it)
@@ -725,19 +727,19 @@ filesystem::path GetApplicationPath()
 //		}
 
 
-		return info;
-	}
+    return info;
+}
 
-	__time64_t GetFileStamp(const std::string& filePath)
-	{
-		__time64_t fileStamp = 0;
+__time64_t GetFileStamp(const std::string& filePath)
+{
+    __time64_t fileStamp = 0;
 
-		CFileInfo info = GetFileInfo(filePath);
-		//if (GetFileInfo(filePath, info))
-		fileStamp = info.m_time;
+    CFileInfo info = GetFileInfo(filePath);
+    //if (GetFileInfo(filePath, info))
+    fileStamp = info.m_time;
 
-		return fileStamp;
-	}
+    return fileStamp;
+}
 
 //	/*ERMsg GetFilesInfo(const std::vector<std::string>& filesList, CFileInfoVector& filesInfo)
 //	{
@@ -760,14 +762,18 @@ filesystem::path GetApplicationPath()
 //		return ull.QuadPart / 10000000ULL - 11644473600ULL;
 //	}
 //
-//	void GetFilesInfo(const std::string& filter, bool bSubDirSearch, CFileInfoVector& filesInfo)
-//	{
-//
-//		bool bAddEmptyExtension = filter.substr(filter.length() - 1) == ".";
-//		std::string path = GetPath(filter);
-//
-//
-//
+void GetFilesInfo(const std::string& filter, bool bSubDirSearch, CFileInfoVector& filesInfo)
+{
+
+    bool bAddEmptyExtension = filter.substr(filter.length() - 1) == ".";
+    std::string path = GetPath(filter);
+
+    assert(false);
+
+    //std::string path = "/path/to/directory";
+    for (const auto & entry : fs::directory_iterator(path))
+        std::cout << entry.path() << std::endl;
+
 //		std::string ext = GetFileExtension(filter);
 //		if (!ext.empty() && ext.find('*') != string::npos)
 //			ext.clear();
@@ -831,7 +837,7 @@ filesystem::path GetApplicationPath()
 //				FindClose(hFind);
 //			}
 //		}
-//	}
+}
 //
 //	void GetFilesList(const CFileInfoVector& filesInfo, int type, std::vector<std::string>& filesList)
 //	{
@@ -1217,76 +1223,76 @@ ERMsg WinExecWait(const std::string& command, std::string inputDir, bool bShow, 
 //		return str;
 //	}
 //
-	int GetCrc32(const std::string& str, uint64_t begin, uint64_t end)
-	{
-		assert(begin <= end);
-		boost::crc_32_type result;
+int GetCrc32(const std::string& str, uint64_t begin, uint64_t end)
+{
+    assert(begin <= end);
+    boost::crc_32_type result;
 
-		if ( begin < str.size() && end < str.size() && begin < end)
-		{
-			result.process_bytes(&(str.at((uint64_t)begin)), uint64_t(end - begin));
-		}
-		else
-		{
-			result.process_bytes(str.data(), str.length());
-		}
+    if ( begin < str.size() && end < str.size() && begin < end)
+    {
+        result.process_bytes(&(str.at((uint64_t)begin)), uint64_t(end - begin));
+    }
+    else
+    {
+        result.process_bytes(str.data(), str.length());
+    }
 
-		return result.checksum();
-	}
+    return result.checksum();
+}
 
-//	int GetEndNumber(std::string name)
-//	{
-//		int number = 0;
-//		if (!name.empty())
-//		{
-//			std::string::size_type posBeg = name.find_last_not_of("0123456789");
-//			std::string::size_type posEnd = name.find_last_of("0123456789");
-//			if (posBeg != std::string::npos && posEnd != std::string::npos && name[posBeg] == ' ' && posEnd == name.length() - 1)
-//			{
-//				number = ToValue<int>(name.substr(posBeg + 1, posEnd - posBeg));
-//			}
-//		}
-//
-//		return number;
-//	}
-//
-//	std::string GenerateNewName(std::string name)
-//	{
-//		if (!name.empty())
-//		{
-//			int no = GetEndNumber(name);
-//			if (no == 0)
-//			{
-//				name += " 2";
-//			}
-//			else
-//			{
-//				std::string noStr = ToString(no);
-//				std::string::size_type pos = name.rfind(noStr);
-//				assert(pos != std::string::npos);
-//				name = name.substr(0, pos) + ToString(no + 1);
-//			}
-//		}
-//
-//		return name;
-//	}
-//
-//	std::string GenerateNewFileName(std::string name)
-//	{
-//		if (!name.empty())
-//		{
-//			while (FileExists(name))
-//			{
-//				std::string title = GetFileTitle(name);
-//				title = GenerateNewName(title);
-//				SetFileTitle(name, title);
-//			}
-//
-//		}
-//
-//		return name;
-//	}
-//
+int GetEndNumber(std::string name)
+{
+    int number = 0;
+    if (!name.empty())
+    {
+        std::string::size_type posBeg = name.find_last_not_of("0123456789");
+        std::string::size_type posEnd = name.find_last_of("0123456789");
+        if (posBeg != std::string::npos && posEnd != std::string::npos && name[posBeg] == ' ' && posEnd == name.length() - 1)
+        {
+            number = ToValue<int>(name.substr(posBeg + 1, posEnd - posBeg));
+        }
+    }
+
+    return number;
+}
+
+std::string GenerateNewName(std::string name)
+{
+    if (!name.empty())
+    {
+        int no = GetEndNumber(name);
+        if (no == 0)
+        {
+            name += " 2";
+        }
+        else
+        {
+            std::string noStr = ToString(no);
+            std::string::size_type pos = name.rfind(noStr);
+            assert(pos != std::string::npos);
+            name = name.substr(0, pos) + ToString(no + 1);
+        }
+    }
+
+    return name;
+}
+
+std::string GenerateNewFileName(std::string name)
+{
+    if (!name.empty())
+    {
+        while (FileExists(name))
+        {
+            std::string title = GetFileTitle(name);
+            title = GenerateNewName(title);
+            SetFileTitle(name, title);
+        }
+
+    }
+
+    return name;
+}
+
 ERMsg CreateMultipleDir(const std::string& path)
 {
     ERMsg msg;
@@ -1488,23 +1494,26 @@ std::string SecondToDHMS(double time)
 //		return str;
 //	}
 
-	struct StringComparator
-	{
-		StringComparator(const std::string &nameToFind) : m_str(nameToFind) {}
-		~StringComparator() {}
+struct StringComparator
+{
+    StringComparator(const std::string &nameToFind) : m_str(nameToFind) {}
+    ~StringComparator() {}
 
-		bool operator () (const std::string & str) const { return boost::iequals(str, m_str); }
+    bool operator () (const std::string & str) const
+    {
+        return boost::iequals(str, m_str);
+    }
 
-		const std::string & m_str;
-	};
+    const std::string & m_str;
+};
 
-	std::vector<std::string>::const_iterator FindStringExact(const std::vector<std::string>& list, const std::string& value, bool bCaseSensitive)
-	{
-		if (!bCaseSensitive)
-			return find_if(list.begin(), list.end(), StringComparator(value));
+std::vector<std::string>::const_iterator FindStringExact(const std::vector<std::string>& list, const std::string& value, bool bCaseSensitive)
+{
+    if (!bCaseSensitive)
+        return find_if(list.begin(), list.end(), StringComparator(value));
 
-		return find(list.begin(), list.end(), value);
-	}
+    return find(list.begin(), list.end(), value);
+}
 
 //
 //
@@ -2192,8 +2201,8 @@ std::string FormatV(const char* szFormat, va_list argList)
 //		return str;
 //	}
 //
-    std::string FormatMsg(std::string_view szFormat, std::string_view v1, std::string_view v2, std::string_view v3, std::string_view v4, std::string_view v5)
-	{
+std::string FormatMsg(std::string_view szFormat, std::string_view v1, std::string_view v2, std::string_view v3, std::string_view v4, std::string_view v5)
+{
 //
 //	    //printf("%2$s, %1$d", salary, name);
 //        //For C++, beside the C solution there is a boost::format library:
@@ -2203,8 +2212,8 @@ std::string FormatV(const char* szFormat, va_list argList)
 //        using boost::locale::format;
 //        using boost::locale::translate;
 
-        assert(false);
-        std::ostringstream ss;
+    assert(false);
+    std::ostringstream ss;
 //        //ss << format(translate("This is the message to {1} about {2}")) % v1 % v2;
 //        ss << format(translate(szFormat)) % v1 % v2;
 
@@ -2229,9 +2238,9 @@ std::string FormatV(const char* szFormat, va_list argList)
 //			}
 //		}
 //
-		//return ss.c_str();
-		return string();
-	}
+    //return ss.c_str();
+    return string();
+}
 
 
 

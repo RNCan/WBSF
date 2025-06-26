@@ -4,6 +4,7 @@
 #include <boost/archive/xml_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/csv_oarchive.hpp>
 #include <boost/interprocess/managed_shared_memory.hpp>
 #include <boost/interprocess/streams/bufferstream.hpp>
 

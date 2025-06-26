@@ -172,7 +172,7 @@ namespace WBSF
 		CWeatherDatabaseOptimization m_zop;
 		CWeatherStationCache m_cache;
 
-		std::mutex m_mutex;
+		mutable std::mutex m_mutex;
 
 
 		boost::dll::shared_library m_hDll;
@@ -226,9 +226,9 @@ namespace WBSF
 		ERMsg LoadFromBinary(const std::string& file_path);
 		ERMsg LoadBinary(CWeatherStation* pStation, const std::set<int>& years)const;
 
-		static ERMsg DeleteDatabase(const std::string& outputFilePath, CCallback& callback = DEFAULT_CALLBACK);
-		static ERMsg RenameDatabase(const std::string& inputFilePath, const std::string& outputFilePath, CCallback& callback = DEFAULT_CALLBACK);
-		static ERMsg AppendDatabase(const std::string& inputFilePath1, const std::string& inputFilePath2, bool bCopy=true, CCallback& callback = DEFAULT_CALLBACK);
+		ERMsg DeleteDatabase(const std::string& outputFilePath, CCallback& callback = DEFAULT_CALLBACK);
+		ERMsg RenameDatabase(const std::string& inputFilePath, const std::string& outputFilePath, CCallback& callback = DEFAULT_CALLBACK);
+		ERMsg AppendDatabase(const std::string& inputFilePath1, const std::string& inputFilePath2, bool bCopy=true, CCallback& callback = DEFAULT_CALLBACK);
 
 
 

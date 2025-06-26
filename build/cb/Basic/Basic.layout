@@ -2,9 +2,9 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="..\..\..\src\Basic\Sun.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\..\..\src\WeatherBased\WeatherGeneratorDailyKernel.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1524" topLine="0" />
+			<Cursor1 position="2240" topLine="52" />
 		</Cursor>
 	</File>
 	<File name="..\..\..\src\Basic\UtilMath.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -12,319 +12,9 @@
 			<Cursor1 position="12475" topLine="441" />
 		</Cursor>
 	</File>
-	<File name="..\..\..\src\WeatherBased\DegreeDays.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="672" topLine="78" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\Statistic.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2458" topLine="34" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\GrowingSeason.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="559" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\AmountPpt.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2233" topLine="78" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\Dbf3.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="11901" topLine="436" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\SimulatedAnnealing.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="711" topLine="3" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\ModelStat.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="7931" topLine="333" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\WeatherDefine.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="14533" topLine="502" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\Sun.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2545" topLine="90" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\Location.h" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5940" topLine="191" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\gzip.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="20" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\WeatherDatabase.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2794" topLine="57" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\ApproximateNearestNeighbor.cpp" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="7121" topLine="260" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\UtilTime.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="848" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\WeatherStation.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1568" topLine="9" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\Callback.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="664" topLine="23" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\SimulatedAnnealing.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5960" topLine="205" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\gzip.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="62" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\WeatherDataSection.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6567" topLine="254" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\WeatherDatabaseOptimisation.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1912" topLine="45" />
-		</Cursor>
-	</File>
 	<File name="..\..\..\src\Basic\GeoBasic.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="13300" topLine="478" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\tinyxml2\tinyxml2.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2693" topLine="54" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\UtilStd.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="19843" topLine="675" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\ERMsg\Symessag.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4224" topLine="68" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\WaterTemperature.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5134" topLine="129" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\WeatherGeneratorDailyKernel.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1576" topLine="20" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\WeatherCorrection.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="695" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\Shore.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="534" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\NormalsData.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5932" topLine="237" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\CallcURL.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3003" topLine="68" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\WeatherDatabase.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="69972" topLine="2336" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\Statistic.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="12719" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\WeatherCorrection.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="561" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\ApproximateNearestNeighbor.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3396" topLine="95" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\DailyDatabase.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="8693" topLine="268" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\catch.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="167470" topLine="3917" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\Dbf3.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4483" topLine="177" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\UtilStd.h" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="27383" topLine="874" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\AmountPpt.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1187" topLine="54" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\ERMsg.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1531" topLine="8" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\WeatherGeneratorDailyKernel.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2240" topLine="52" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\WeatherDatabaseOptimisation.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2352" topLine="80" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\ASCE_ETc.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="789" topLine="12" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\ModelStat.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="10192" topLine="269" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\WeatherDatabaseCreator.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="669" topLine="9" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\SearchResult.h" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="676" topLine="233" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\GeoBasic.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2644" topLine="109" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\csv.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4178" topLine="115" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\WeatherDataSection.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3995" topLine="136" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\Location.cpp" open="0" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1556" topLine="31" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\json\json11.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1367" topLine="3" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\Shore.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="606" topLine="6" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\NormalsStation.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5688" topLine="242" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\ARModel\ARModel.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="657" topLine="18" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\pugixml\pugixml.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="152484" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\UtilTime.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3189" topLine="153" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\SnowAnalysis.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2409" topLine="64" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\NormalsStation.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="508" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\SearchResult.cpp" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1944" topLine="47" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\CallcURL.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="632" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\WeatherStation.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="44611" topLine="1206" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\Basic\UtilMath.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="43146" topLine="1497" />
-		</Cursor>
-	</File>
-	<File name="..\..\..\src\WeatherBased\WaterTemperature.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1562" topLine="35" />
 		</Cursor>
 	</File>
 	<File name="..\..\..\src\WeatherBased\GrowingSeason.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -332,9 +22,319 @@
 			<Cursor1 position="17034" topLine="631" />
 		</Cursor>
 	</File>
+	<File name="..\..\..\src\Basic\SearchResult.h" open="0" top="0" tabpos="16" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="676" topLine="233" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\CallcURL.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="632" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\tinyxml2\tinyxml2.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2693" topLine="54" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\SimulatedAnnealing.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="711" topLine="3" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\GrowingSeason.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="559" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\ERMsg\Symessag.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4224" topLine="68" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\AmountPpt.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1187" topLine="54" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\Dbf3.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4483" topLine="177" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\WeatherDatabase.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="69972" topLine="2336" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\UtilMath.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="43146" topLine="1497" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\WeatherStation.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="44611" topLine="1206" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\ERMsg.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1531" topLine="8" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\WeatherDefine.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="14533" topLine="502" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\WeatherDataSection.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3995" topLine="136" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\ARModel\ARModel.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="657" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\gzip.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="62" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\ModelStat.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7931" topLine="333" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\WeatherDatabaseCreator.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="669" topLine="9" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\ApproximateNearestNeighbor.cpp" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7121" topLine="260" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\catch.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="167470" topLine="3917" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\WeatherCorrection.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="695" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\NormalsData.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5932" topLine="237" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\DegreeDays.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="672" topLine="78" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\Location.cpp" open="0" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1556" topLine="31" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\Statistic.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="12719" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\WeatherDatabaseOptimisation.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2352" topLine="80" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\pugixml\pugixml.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="152484" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\Shore.cpp" open="0" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="606" topLine="6" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\ASCE_ETc.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="789" topLine="12" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\UtilTime.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3189" topLine="153" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\WaterTemperature.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1562" topLine="35" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\Statistic.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2458" topLine="34" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\NormalsStation.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="508" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\UtilStd.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="27383" topLine="874" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\Shore.h" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="534" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\WeatherDatabaseOptimisation.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1912" topLine="45" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\gzip.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="20" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\csv.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4178" topLine="115" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\Dbf3.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="11901" topLine="436" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\UtilStd.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="19843" topLine="675" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\CallcURL.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3003" topLine="68" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\SnowAnalysis.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2409" topLine="64" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\WeatherDataSection.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6567" topLine="254" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\ApproximateNearestNeighbor.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3396" topLine="95" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\GeoBasic.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2644" topLine="109" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\WeatherDatabase.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2794" topLine="57" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\Callback.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="664" topLine="23" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\DailyDatabase.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="8693" topLine="268" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\ModelStat.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="10192" topLine="269" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\WeatherStation.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1568" topLine="9" />
+		</Cursor>
+	</File>
 	<File name="..\..\..\src\Basic\Callback.cpp" open="0" top="0" tabpos="21" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="7930" topLine="336" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\Sun.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2545" topLine="90" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\WeatherCorrection.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="561" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\WaterTemperature.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5134" topLine="129" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\UtilTime.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="848" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\Location.h" open="0" top="0" tabpos="15" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5940" topLine="191" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\Sun.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1524" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\WeatherGeneratorDailyKernel.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1576" topLine="20" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\AmountPpt.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2233" topLine="78" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\SimulatedAnnealing.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5960" topLine="205" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\WeatherBased\NormalsStation.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5688" topLine="242" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\json\json11.hpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1367" topLine="3" />
+		</Cursor>
+	</File>
+	<File name="..\..\..\src\Basic\SearchResult.cpp" open="0" top="0" tabpos="18" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1944" topLine="47" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

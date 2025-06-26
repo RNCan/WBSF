@@ -844,6 +844,10 @@ inline void WriteBuffer(std::ostream& s, const std::string& buffer)
 			m_attribute = 0;
 		}
 
+		bool is_init()const
+		{
+		    return !m_filePath.empty();
+		}
 
 		CFileInfo& operator =(const CFileInfo& in)
 		{
@@ -890,9 +894,9 @@ inline void WriteBuffer(std::ostream& s, const std::string& buffer)
 //
 //
 //	inline bool CompareNumber(const std::pair<std::string, size_t>& a, const std::pair<std::string, size_t>& b){ return stof(a.first) < stof(b.first); }
-//
-//	std::string GenerateNewName(std::string name);
-//	std::string GenerateNewFileName(std::string name);
+
+	std::string GenerateNewName(std::string name);
+	std::string GenerateNewFileName(std::string name);
 //	std::string GetUserDataPath();
 //	std::string GetTempPath();
 
@@ -1098,11 +1102,11 @@ bool FileExists(const std::filesystem::path& filePath);
 bool DirectoryExists(const std::filesystem::path& path);
 
 	enum TFileNameType { FILE_TITLE, FILE_NAME, FILE_PATH };
-//	ERMsg GetFileInfo(const std::string& filePath, CFileInfo& info);
+	ERMsg GetFileInfo(const std::string& filePath, CFileInfo& info);
 	CFileInfo GetFileInfo(const std::string& filePath);
-//	//ERMsg GetFilesInfo(const std::vector<std::string>& filesList, CFileInfoVector& filesInfo);
-//
-//	void GetFilesInfo(const std::string& filter, bool bSubDirSearch, CFileInfoVector& filesInfo);
+	//ERMsg GetFilesInfo(const std::vector<std::string>& filesList, CFileInfoVector& filesInfo);
+
+	void GetFilesInfo(const std::string& filter, bool bSubDirSearch, CFileInfoVector& filesInfo);
 
 
 	__time64_t GetFileStamp(const std::string& filePath);
@@ -1530,7 +1534,7 @@ public:
 		std::string buffer;
 		uint64_t size = read_value<uint64_t >();
 		buffer.resize((size_t)size);
-		read((char*)(buffer[0]), size);
+		read((char*)(buffer.data()), size);
 
 		return buffer;
 	}

@@ -819,9 +819,11 @@ assert(false);
 
 		if (m_ANNs.CanalExists(canal))
 		{
-			m_CS.Enter();
-			CApproximateNearestNeighborPtr pANN = m_ANNs.GetCanal(canal);
-			m_CS.Leave();
+
+			std::lock_guard<std::mutex> guard(m_mutex);
+            CApproximateNearestNeighborPtr pANN = m_ANNs.GetCanal(canal);
+
+
 
 			if (pANN.get() != NULL)
 			{
@@ -849,19 +851,18 @@ assert(false);
 	ERMsg CWeatherDatabaseOptimization::OpenSearch(const std::string& filePath1, const std::string& filePath2)const
 	{
 		ERMsg msg;
-		m_CS.Enter();
+		std::lock_guard<std::mutex> guard(m_mutex);
 		//by RSA temporary desactiva optimisation of normals
-		//msg = const_cast<CWeatherDatabaseOptimization*>(this)->m_ANNs.Open(filePath1, filePath2);
-		m_CS.Leave();
+		msg = const_cast<CWeatherDatabaseOptimization*>(this)->m_ANNs.Open(filePath1, filePath2);
+		//m_mutex.Leave();
 		return msg;
 	}
 
 	void CWeatherDatabaseOptimization::CloseSearch()const
 	{
-		m_CS.Enter();
+		std::lock_guard<std::mutex> guard(m_mutex);
 		CWeatherDatabaseOptimization& me = const_cast<CWeatherDatabaseOptimization&>(*this);
 		me.m_ANNs.Close();
-		m_CS.Leave();
 	}
 
 	const std::set<int> CWeatherDatabaseOptimization::GetYears(size_t index)const

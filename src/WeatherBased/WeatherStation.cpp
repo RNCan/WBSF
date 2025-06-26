@@ -3708,7 +3708,7 @@ namespace WBSF
 	CWeatherStation::CWeatherStation(bool bIsHourly) :
 		CWeatherYears(bIsHourly)
 	{
-		m_pAgent = NULL;
+//		m_pAgent = NULL;
 		CWeatherYears::Initialize(this);
 
 		//m_bHourlyComputed = false;
@@ -3716,7 +3716,7 @@ namespace WBSF
 
 	CWeatherStation::CWeatherStation(const CWeatherStation& in)
 	{
-		m_pAgent = NULL;
+//		m_pAgent = NULL;
 		operator=(in);
 	}
 
@@ -3739,8 +3739,8 @@ namespace WBSF
 
 			CLocation::operator=(in);
 			CWeatherYears::operator=(in);
-			m_pAgent = in.m_pAgent;
-			m_hxGridSessionID = in.m_hxGridSessionID;
+//			m_pAgent = in.m_pAgent;
+//			m_hxGridSessionID = in.m_hxGridSessionID;
 			//m_bHourlyComputed = in.m_bHourlyComputed;
 		}
 
@@ -3755,8 +3755,8 @@ namespace WBSF
 		bool equal = true;
 		if (CLocation::operator!=(in))equal = false;
 		if (CWeatherYears::operator!=(in))equal = false;
-		if (m_pAgent != in.m_pAgent)equal = false;
-		if (m_hxGridSessionID != in.m_hxGridSessionID)equal = false;
+//		if (m_pAgent != in.m_pAgent)equal = false;
+//		if (m_hxGridSessionID != in.m_hxGridSessionID)equal = false;
 		//if (m_bHourlyComputed != in.m_bHourlyComputed)equal = false;
 		if (m_bHourly != in.m_bHourly)equal = false;
 
@@ -3980,7 +3980,7 @@ namespace WBSF
 	{
 		CStatistic::SetVMiss(MISSING);
 
-		UINT64 version = 1;
+		int64_t version = 1;
 		//string locStr = to_string(((CLocation&)(*this)), "Location", "1");
 		CTPeriod p = GetEntireTPeriod();
 		CWVariables variable(GetVariables());
@@ -4002,7 +4002,7 @@ namespace WBSF
 
 		clear();
 
-		UINT64 version = read_value<UINT64>(stream);
+		int64_t version = read_value<int64_t>(stream);
 		if (version == 1)
 		{
 			string locStr;

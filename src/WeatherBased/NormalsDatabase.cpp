@@ -64,25 +64,25 @@ ERMsg CNormalsDataDeque::Load(const std::string& filePath)
     ERMsg msg;
 
     clear();
-
-    ifStream file;
-    msg += file.open(filePath, ios::in | ios::binary);
-    if (msg)
-    {
-        try
-        {
-            boost::archive::binary_iarchive ar(file, boost::archive::no_header);
-
-            ar >> *this;
-            m_filePath = filePath;
-
-            file.close();
-        }
-        catch (...)
-        {
-            msg.ajoute("Bad version of optimization file");
-        }
-    }
+    assert(false);//todo
+    //ifStream file;
+    //msg += file.open(filePath, ios::in | ios::binary);
+    //if (msg)
+    //{
+    //    try
+    //    {
+    //        boost::archive::binary_iarchive ar(file, boost::archive::no_header);
+//
+    //        ar >> *this;
+    //        m_filePath = filePath;
+//
+    //        file.close();
+    //    }
+    //    catch (...)
+    //    {
+    //        msg.ajoute("Bad version of optimization file");
+    //    }
+    //}
 
 
     return msg;
@@ -96,19 +96,20 @@ ERMsg CNormalsDataDeque::Save(const std::string& filePath)
     msg += file.open(filePath, ios::out | ios::binary);
     if (msg)
     {
-        try
-        {
-            boost::archive::binary_oarchive ar(file, boost::archive::no_header);
-
-            ar << (*this);
-            m_filePath = filePath;
-
-            file.close();
-        }
-        catch (...)
-        {
-            msg.ajoute(GetString(IDS_WG_INVALID_OPT));
-        }
+        assert(false);
+        //try
+        //{
+        //    boost::archive::binary_oarchive ar(file, boost::archive::no_header);
+//
+        //    ar << (*this);
+        //    m_filePath = filePath;
+//
+        //    file.close();
+        //}
+        //catch (...)
+        //{
+        //    msg.ajoute("Invalid optimization files. Delete optimization files and re-open database ...");
+        //}
     }
 
     return msg;
@@ -398,7 +399,7 @@ ERMsg CNormalsDatabase::OpenOptimizationFile(const std::string& referencedFilePa
         if (msg)
         {
 
-            callback.AddMessage(FormatMsg(IDS_MSG_OPEN, GetFileName(referencedFilePath)));
+            callback.AddMessage(FormatMsg("Open %1 ...", GetFileName(referencedFilePath)));
             msg = m_zop.LoadFromXML(referencedFilePath, GetXMLFlag(), GetHeaderExtension());
         }
     }
@@ -414,7 +415,7 @@ ERMsg CNormalsDatabase::OpenOptimizationFile(const std::string& referencedFilePa
 
         if (bDataAsChange)
         {
-            callback.AddMessage(FormatMsg(IDS_MSG_UPDATE, GetFileName(optFilePath)));
+            callback.AddMessage(FormatMsg("Update of %1 ...", GetFileName(optFilePath)));
             string dataOptFilePath = GetOptimisationDataFilePath(referencedFilePath);
 
             msg = m_data.LoadFromCSV(GetNormalsDataFilePath(referencedFilePath), m_zop, callback);
@@ -591,7 +592,7 @@ CWVariablesCounter CNormalsDatabase::GetWVariablesCounter(size_t i, const set<in
 
     for (size_t v = 0; v < NB_VAR_H; v++)
         if (variables[v])
-            count[v] = CCountPeriod(12, CTPeriod(CTRef(0, FIRST_MONTH, 0, 0, CTM(CTM::MONTHLY, CTM::OVERALL_YEARS)), CTRef(0, LAST_MONTH, 0, 0, CTM(CTM::MONTHLY, CTM::OVERALL_YEARS))));
+            count[v] = CCountPeriod(12, CTPeriod(CTRef(0, JANUARY, 0, 0, CTM(CTM::MONTHLY, CTM::OVERALL_YEARS)), CTRef(0, DECEMBER, 0, 0, CTM(CTM::MONTHLY, CTM::OVERALL_YEARS))));
 
     return count;
 }
@@ -621,47 +622,11 @@ ERMsg CNormalsDatabase::Search(CSearchResultVector& searchResultArray, const CLo
     int64_t canal = m_zop.GetCanal(filter, year, bExcludeUnused, bUseElevation, bUseShoreDistance);
     //int64_t canal = (filter.to_ullong()) * 100000 + year * 10 + (bUseShoreDistance ? 4 : 0) + (bUseElevation ? 2 : 0) + (bExcludeUnused ? 1 : 0);
 
-    const_cast<CNormalsDatabase*>(this)->m_CS.Enter();
-    if (!m_zop.CanalExists(canal))
-    {
-        //const_cast<CWeatherDatabaseOptimization&>(m_zop).
-        const_cast<CNormalsDatabase&>(*this).CreateCanal(filter, year, bExcludeUnused, bUseElevation, bUseShoreDistance);
-
-        //CreateCanal(CWVariables filter, int year, bool bExcludeUnused, bool bUseElevation, bool bUseShoreDistance);
-        //CLocationVector locations;
-        //locations.reserve(m_zop.size());
-        //std::vector<int64_t> positions;
-        //positions.reserve(m_zop.size());
 
 
-        ////build canal
-        //for (CLocationVector::const_iterator it = m_zop.begin(); it != m_zop.end(); it++)
-        //{
-        //	bool useIt = it->UseIt();
-        //	if (useIt || !bExcludeUnused)
-        //	{
-        //		size_t index = std::distance(m_zop.begin(), it);
-        //		bool bIncluded = (m_data[index].GetVariables()&filter) == filter;
+    const_cast<CNormalsDatabase&>(*this).CreateCanal(filter, year, bExcludeUnused, bUseElevation, bUseShoreDistance);
 
-        //		if (bIncluded)
-        //		{
-        //			CLocation pt = *it;//removel
-        //			pt.m_siteSpeceficInformation.clear();//remove ssi for ANN
-        //			pt.SetSSI(CLocation::GetDefaultSSIName(CLocation::SHORE_DIST), it->GetSSI(CLocation::GetDefaultSSIName(CLocation::SHORE_DIST)));//but keep ShoreDistance
-        //			locations.push_back(pt);
-        //			positions.push_back(index);
-        //		}
-        //	}//use it
-        //}
-
-
-        ////by optimization, add the canal event if they are empty
-        //CApproximateNearestNeighborPtr pANN(new CApproximateNearestNeighbor);
-        //pANN->set(locations, bUseElevation, bUseShoreDistance, positions);
-        //CWeatherDatabaseOptimization& zop = const_cast<CWeatherDatabaseOptimization&>(m_zop);
-        //zop.AddCanal(canal, pANN);
-    }
-    const_cast<CNormalsDatabase*>(this)->m_CS.Leave();
+//    const_cast<CNormalsDatabase*>(this)->m_CS.Leave();
 
 
 
@@ -681,7 +646,7 @@ ERMsg CNormalsDatabase::Search(CSearchResultVector& searchResultArray, const CLo
             if (searchResultArray.empty())
             {
                 string filterName = filter.GetVariablesName('+');
-                string error = FormatMsg(IDS_WG_NOTENOUGH_OBSERVATION2, ToString(searchRadius / 1000, 1), GetFileName(m_filePath), ToString(year), filterName);
+                string error = FormatMsg("No stations found after removing stations outside maximum radius (%1 km) in the database (%2) for year %3.[Filter = %4].", to_string(searchRadius / 1000, 1), GetFileName(m_filePath), to_string(year), filterName);
                 msg.ajoute(error);
             }
         }
@@ -692,7 +657,7 @@ ERMsg CNormalsDatabase::Search(CSearchResultVector& searchResultArray, const CLo
 
         assert(!filterName.empty());
         msg = ERMsg();//reset msg and add new message
-        string error = FormatMsg(IDS_WG_NOTENOUGH_NORMALSTATION, ToString(searchResultArray.size()), GetFileName(m_filePath), ToString(nbStation), filterName);
+        string error = FormatMsg("The number of normals stations found (%1) in the database (%2) is smaller than the number requested (%3).[Filter = %4].", to_string(searchResultArray.size()), GetFileName(m_filePath), to_string(nbStation), filterName);
         msg.ajoute(error);
     }
 
@@ -702,45 +667,51 @@ ERMsg CNormalsDatabase::Search(CSearchResultVector& searchResultArray, const CLo
 
 void CNormalsDatabase::CreateCanal(CWVariables filter, int year, bool bExcludeUnused, bool bUseElevation, bool bUseShoreDistance)
 {
-    int64_t canal = m_zop.GetCanal(filter, year, bExcludeUnused, bUseElevation, bUseShoreDistance);
+    std::lock_guard<std::mutex> guard(m_mutex);
 
-
-    CLocationVector locations;
-    locations.reserve(size());
-    std::vector<int64_t> positions;
-    positions.reserve(size());
-
-    //build canal
-    for (CLocationVector::iterator it = m_zop.begin(); it != m_zop.end(); it++)
+    int64_t canal = m_zop.GetCanal(filter, 0, bExcludeUnused, bUseElevation, bUseShoreDistance);
+    if (!m_zop.CanalExists(canal))
     {
-        bool useIt = it->UseIt();
-        if (useIt || !bExcludeUnused)
+        int64_t canal = m_zop.GetCanal(filter, year, bExcludeUnused, bUseElevation, bUseShoreDistance);
+
+
+        CLocationVector locations;
+        locations.reserve(size());
+        std::vector<int64_t> positions;
+        positions.reserve(size());
+
+        //build canal
+        for (CLocationVector::iterator it = m_zop.begin(); it != m_zop.end(); it++)
         {
-            size_t index = std::distance(m_zop.begin(), it);
-            //bool bIncluded = (m_data[index].GetVariables()&filter) == filter;
-
-            //CWVariables var = GetWVariables(index, { {year} });
-            CWVariables var = m_data[index].GetVariables();
-            bool bIncluded = (var&filter) == filter;
-
-
-            if (bIncluded)
+            bool useIt = it->UseIt();
+            if (useIt || !bExcludeUnused)
             {
-                CLocation pt = *it;//removel
-                pt.m_siteSpeceficInformation.clear();//remove ssi for ANN
-                pt.SetSSI(CLocation::GetDefaultSSIName(CLocation::SHORE_DIST), it->GetSSI(CLocation::GetDefaultSSIName(CLocation::SHORE_DIST)));//but keep ShoreDistance
-                locations.push_back(pt);
-                positions.push_back(index);
-            }
-        }//use it
+                size_t index = std::distance(m_zop.begin(), it);
+                //bool bIncluded = (m_data[index].GetVariables()&filter) == filter;
+
+                //CWVariables var = GetWVariables(index, { {year} });
+                CWVariables var = m_data[index].GetVariables();
+                bool bIncluded = (var&filter) == filter;
+
+
+                if (bIncluded)
+                {
+                    CLocation pt = *it;//removel
+                    pt.m_siteSpeceficInformation.clear();//remove ssi for ANN
+                    pt.SetSSI(CLocation::GetDefaultSSIName(CLocation::SHORE_DIST), it->GetSSI(CLocation::GetDefaultSSIName(CLocation::SHORE_DIST)));//but keep ShoreDistance
+                    locations.push_back(pt);
+                    positions.push_back(index);
+                }
+            }//use it
+        }
+
+
+        //by optimization, add the canal event if they are empty
+        CApproximateNearestNeighborPtr pANN(new CApproximateNearestNeighbor);
+        pANN->set(locations, bUseElevation, bUseShoreDistance, positions);
+        //CWeatherDatabaseOptimization& zop = const_cast<CWeatherDatabaseOptimization&>(m_zop);
+        m_zop.AddCanal(canal, pANN);
     }
-
-
-    //by optimization, add the canal event if they are empty
-    CApproximateNearestNeighborPtr pANN(new CApproximateNearestNeighbor);
-    pANN->set(locations, bUseElevation, bUseShoreDistance, positions);
-    //CWeatherDatabaseOptimization& zop = const_cast<CWeatherDatabaseOptimization&>(m_zop);
-    m_zop.AddCanal(canal, pANN);
 }
 
 //void CNormalsDatabase::CreateCanal(CWVariables filter, int year, bool bExcludeUnused, bool bUseElevation, bool bUseShoreDistance);
@@ -831,7 +802,7 @@ ERMsg CNormalsDatabase::VerifyVersion(const string& filePath)const
     {
         if (GetVersion(filePath) != GetVersion())
         {
-            msg.ajoute(FormatMsg(IDS_WG_BAD_VERSION, ToString(GetVersion(filePath)), ToString(GetVersion())));
+            msg.ajoute(FormatMsg("This database version (%1) is incompatible with this BioSIM version. Verion %2 needed.", to_string(GetVersion(filePath)), to_string(GetVersion())));
         }
     }
     else
@@ -906,10 +877,10 @@ ERMsg CNormalsDatabase::DeleteDatabase(const string& filePath, CCallback& callba
 
     if (FileExists(filePath))
     {
-        callback.AddMessage(GetString(IDS_BSC_DELETE_FILE));
+        callback.AddMessage("Delete file: ");
         callback.AddMessage(filePath, 1);
 
-        callback.PushTask(GetString(IDS_BSC_DELETE_FILE) + filePath, 7);
+        callback.PushTask("Delete file: " + filePath, 7);
         //callback.SetNbStep(2);
 
         msg += RemoveFile(filePath);
@@ -1031,7 +1002,7 @@ ERMsg CNormalsDatabase::SaveAsV6(const string& filePath, CCallback& callback)
     assert(IsOpen());
 
     static const short NB_FIELDS = 16;
-    static const short NB_LINE_BY_RECORD = 12;
+//    static const short NB_LINE_BY_RECORD = 12;
 
     ERMsg msg;
 
@@ -1221,7 +1192,7 @@ ERMsg CNormalsDatabase::CreateFromMerge(const std::string& filePath1, const std:
         return msg;
 
 
-    string comment = FormatMsg(IDS_CMN_MERGE_DATABASE, m_filePath, filePath1, filePath2);
+    string comment = FormatMsg("Create ""%1"" database from merge of:\n\t%2\n\t%3", m_filePath, filePath1, filePath2);
     callback.PushTask(comment, inputDB1.size() + inputDB2.size());
     callback.AddMessage(comment);
     callback.AddMessage(GetFileTitle(filePath1) + ": " + to_string(inputDB1.size()) + " stations");
@@ -1271,7 +1242,7 @@ ERMsg CNormalsDatabase::CreateFromMerge(const std::string& filePath1, const std:
         msg += callback.StepIt();
     }
 
-    comment = FormatMsg(IDS_CMN_NB_STATIONS_ADDED, ToString(nbStationAdded));
+    comment = FormatMsg("The number of stations added is: %1" , to_string(nbStationAdded));
     callback.AddMessage(comment, 1);
     callback.PopTask();
 
@@ -1313,7 +1284,7 @@ ERMsg CNormalsDatabase::AppendDatabase(const std::string& inputFilePath1, const 
 
     if (msg)
     {
-        std::string comment = FormatMsg(IDS_BSC_COPY_FILE, inputFilePath1 + "\n\t" + inputFilePath2, m_filePath);
+        std::string comment = FormatMsg("Copy file from :\n\t%1\nto:\n\t%2", inputFilePath1 + "\n\t" + inputFilePath2, m_filePath);
 
         callback.AddMessage(comment);
         callback.PushTask(comment, DB1.size() + DB2.size());
@@ -1339,7 +1310,7 @@ ERMsg CNormalsDatabase::AppendDatabase(const std::string& inputFilePath1, const 
 
         SetPeriod(min(DB1.GetFirstYear(), DB2.GetFirstYear()), max(DB1.GetLastYear(), DB2.GetLastYear()));
         m_bModified = true;
-        comment = FormatMsg(IDS_CMN_NB_STATIONS_ADDED, ToString(DB1.size() + DB2.size()));
+        comment = FormatMsg("The number of stations added is: %1" , to_string(DB1.size() + DB2.size()));
         callback.AddMessage(comment, 1);
 
         callback.PopTask();
@@ -1417,28 +1388,29 @@ void CNormalsDatabase::CreateAllCanals(bool bExcludeUnused, bool bUseElevation, 
 ERMsg CNormalsDatabase::LoadFromBinary(const string& file_path)
 {
     ERMsg msg;
-    ifStream file;
-    msg = file.open(file_path, ios::in | ios::binary);
+  //  ifStream file;
+   // msg = file.open(file_path, ios::in | ios::binary);
     if (msg)
     {
         try
         {
-            boost::iostreams::filtering_istreambuf in;
-            in.push(boost::iostreams::gzip_decompressor());
-            in.push(file);
-            std::istream incoming(&in);
+            //boost::iostreams::filtering_istreambuf in;
+            //in.push(boost::iostreams::gzip_decompressor());
+           // in.push(file);
+           // std::istream incoming(&in);
 
-            size_t version = 0;
-            incoming.read((char *)(&version), sizeof(version));
+            //size_t version = 0;
+            assert(false); //TODO
+            //incoming.read((char *)(&version), sizeof(version));
 
-            if (version == GetVersion())
-            {
-                incoming >> *this;
-            }
-            else
-            {
-                msg.ajoute("Normal binary database (version = " + to_string(version) + ") was not created with the latest version (" + to_string(GetVersion()) + "). Rebuild new binary.");
-            }
+            //if (version == GetVersion())
+            //{
+            //    //incoming >> *this;
+            //}
+            //else
+            //{
+            //    msg.ajoute("Normal binary database (version = " + to_string(version) + ") was not created with the latest version (" + to_string(GetVersion()) + "). Rebuild new binary.");
+            //}
 
         }
         catch (const boost::iostreams::gzip_error& exception)
@@ -1451,7 +1423,7 @@ ERMsg CNormalsDatabase::LoadFromBinary(const string& file_path)
             }
         }
 
-        file.close();
+        //file.close();
     }
 
 

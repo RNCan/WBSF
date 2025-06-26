@@ -151,7 +151,7 @@ void CWaterTemperature::ComputeParams(const CWeatherYears& data)
                     CTRef TRef = itH->GetTRef().as(CTM::DAILY);
                     //CTRef TRef = day.GetTRef().as(CTM::DAILY);
                     //TRef.Transform(CTM(CTM::DAILY));
-                    double d = (double)TRef.GetDAY() / TRef.GetNbDaysPerYear();//d between [0, 1[
+                    double d = (double)TRef.GetDay() / TRef.GetNbDaysPerYear();//d between [0, 1[
 
                     double Tair = (*itH)[H_TAIR];
                     if (!IsMissing(Tair))

@@ -16,7 +16,7 @@
 1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\event.h
 	<boost\thread.hpp>
 
-1741883037 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilstd.h
+1750935130 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilstd.h
 	<cassert>
 	<map>
 	<set>
@@ -238,7 +238,7 @@
 	<boost/math/distributions/normal.hpp>
 	"basic/UtilMath.h"
 
-1729724189 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utiltime.cpp
+1741881185 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utiltime.cpp
 	"UtilTime.h"
 	<cmath>
 	<sstream>
@@ -249,7 +249,7 @@
 	"Basic/Statistic.h"
 	"Basic/UtilMath.h"
 
-1741883490 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilstd.cpp
+1750934859 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilstd.cpp
 	"UtilStd.h"
 	<boost/tokenizer.hpp>
 	<boost/algorithm/string.hpp>
@@ -260,11 +260,7 @@
 	<boost/date_time/posix_time/posix_time.hpp>
 	<boost/date_time/c_local_time_adjustor.hpp>
 	<boost/crc.hpp>
-	<filesystem>
-	<cstdio>
-	<stdexcept>
 	<cmath>
-	<windows.h>
 
 1728558048 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\callcurl.cpp
 	"CallcURL.h"
@@ -859,7 +855,7 @@
 	<array>
 	"Basic/UtilStd.h"
 
-1741699410 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherstation.cpp
+1750855901 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherstation.cpp
 	<locale>
 	<mutex>
 	"WeatherBased/WeatherStation.h"
@@ -898,4 +894,172 @@
 1741692377 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\normalsdata.h
 	"Basic/ERMsg.h"
 	"WeatherBased/WeatherDefine.h"
+
+1742372940 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\dailydatabase.cpp
+	"Basic/UtilStd.h"
+	"WeatherBased/DailyDatabase.h"
+
+1750896981 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\dailydatabase.h
+	"WeatherBased/WeatherDatabase.h"
+
+1750862125 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatabase.h
+	<deque>
+	<memory>
+	<boost/dll/shared_library.hpp>
+	<boost/dll.hpp>
+	"Basic/LRUCache.h"
+	"Basic/Callback.h"
+	"WeatherBased/WeatherStation.h"
+	"WeatherBased/WeatherDatabaseOptimisation.h"
+
+1704992083 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\lrucache.h
+	<unordered_map>
+	<list>
+	<cstddef>
+	<stdexcept>
+	<boost/bimap.hpp>
+	<boost/bimap/list_of.hpp>
+	<boost/bimap/set_of.hpp>
+	<boost/function.hpp>
+	<cassert>
+
+1750858933 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatabaseoptimisation.h
+	<deque>
+	"Basic/Location.h"
+	"Basic/Callback.h"
+	"Basic/UtilSTD.h"
+	"Basic/ApproximateNearestNeighbor.h"
+	"WeatherBased/WeatherDefine.h"
+	"WeatherBased/WeatherDataSection.h"
+
+1750854823 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\hourlydatabase.cpp
+	"HourlyDatabase.h"
+
+1728671739 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\hourlydatabase.h
+	"WeatherBased/WeatherDatabase.h"
+
+1728557260 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\csv.cpp
+	<iostream>
+	<sstream>
+	<vector>
+	<string>
+	<iterator>
+	<boost/algorithm/string.hpp>
+	"Basic/CSV.h"
+
+1750855148 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\csv.h
+	<sstream>
+	"Basic/UtilStd.h"
+	"Basic/ERMsg.h"
+
+1741699231 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weathergeneratordailykernel.cpp
+	<stdlib.h>
+	<math.h>
+	<stdio.h>
+	<string.h>
+	<time.h>
+	<cassert>
+	<float.h>
+	"Basic/UtilMath.h"
+	"Basic/UtilTime.h"
+	"WeatherBased/WeatherStation.h"
+	"WeatherBased/WeatherGeneratorDailyKernel.h"
+
+1741693237 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weathergeneratordailykernel.h
+	<array>
+	"Basic/UtilStd.h"
+	"WeatherBased/WeatherDefine.h"
+	"WeatherBased/AmountPpt.h"
+	"WeatherBased/NormalsStation.h"
+
+1741693250 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\normalsstation.h
+	"Basic/Location.h"
+	"WeatherBased/NormalsData.h"
+
+1741698557 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\normalsstation.cpp
+	"Basic/Location.h"
+	"Basic/Statistic.h"
+	"WeatherBAsed/NormalsStation.h"
+	"WeatherBAsed/WeatherCorrection.h"
+
+1741698598 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\snowanalysis.cpp
+	"WeatherBased/SnowAnalysis.h"
+
+1741692206 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\snowanalysis.h
+	"WeatherBased/WeatherStation.h"
+	"Basic/ModelStat.h"
+	"Basic/Statistic.h"
+
+1741699090 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatabasecreator.cpp
+	"WeatherBased/WeatherDatabaseCreator.h"
+	"WeatherBased/HourlyDatabase.h"
+	"WeatherBased/DailyDatabase.h"
+	"WeatherBased/NormalsDatabase.h"
+
+1741181867 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatabasecreator.h
+	"WeatherBased/WeatherDatabase.h"
+
+1750861296 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\normalsdatabase.h
+	<memory>
+	<array>
+	<deque>
+	"Basic/Location.h"
+	"Basic/SearchResult.h"
+	"WeatherBased/NormalsStation.h"
+	"WeatherBased/WeatherDatabaseOptimisation.h"
+	"WeatherBased/WeatherDatabase.h"
+
+1750857490 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatabaseoptimisation.cpp
+	<boost\archive\binary_oarchive.hpp>
+	<boost\archive\binary_iarchive.hpp>
+	<boost\dynamic_bitset.hpp>
+	<boost\serialization\map.hpp>
+	<boost\serialization\array.hpp>
+	<boost\serialization\vector.hpp>
+	<boost\serialization\set.hpp>
+	<boost/serialization/unordered_map.hpp>
+	<set>
+	"Basic/ANN/ANN.h"
+	"WeatherBased/WeatherStation.h"
+	"WeatherBased/WeatherDatabaseOptimisation.h"
+	"WeatherBased/WeatherDatabaseCreator.h"
+
+1750861522 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\normalsdatabase.cpp
+	"NormalsDatabase.h"
+	<boost\archive\binary_oarchive.hpp>
+	<boost\archive\binary_iarchive.hpp>
+	<boost\dynamic_bitset.hpp>
+	<boost\serialization\array.hpp>
+	<boost\serialization\deque.hpp>
+	<boost\serialization\vector.hpp>
+	<boost/serialization/string.hpp>
+	<boost/serialization/utility.hpp>
+	<boost/serialization/serialization.hpp>
+	<boost/iostreams/stream.hpp>
+	<boost/iostreams/filtering_streambuf.hpp>
+	<boost/iostreams/filter/gzip.hpp>
+	"Basic/GeoBasic.h"
+	"Basic/CSV.h"
+
+1750861920 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\watertemperature.cpp
+	"WaterTemperature.h"
+
+1741698633 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\watertemperature.h
+	"WeatherBased/WeatherStation.h"
+	"Basic/ModelStat.h"
+
+1750935322 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatabase.cpp
+	<direct.h>
+	<boost/archive/binary_oarchive.hpp>
+	<boost/archive/binary_iarchive.hpp>
+	<boost/iostreams/stream.hpp>
+	<boost/iostreams/filtering_streambuf.hpp>
+	<boost/iostreams/filter/gzip.hpp>
+	<boost/dynamic_bitset.hpp>
+	"Basic/UtilStd.h"
+	"Basic/GeoBasic.h"
+	"Basic/OpenMP.h"
+	"Basic/SearchResult.h"
+	"WeatherBased/WeatherDatabase.h"
+	"WeatherBased/WeatherDatabaseCreator.h"
 

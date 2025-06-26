@@ -20,7 +20,8 @@
 #include "Basic/UtilSTD.h"
 #include "Basic/ApproximateNearestNeighbor.h"
 #include "WeatherBased/WeatherDefine.h"
-//#include "WeatherBased/WeatherDataSection.h"
+#include "WeatherBased/WeatherDataSection.h"
+
 
 //#if define(GetFileTitleA)
 //    #error
@@ -31,6 +32,7 @@
 namespace WBSF
 {
 	static const size_t UNSET_INDEX = (size_t)-1;
+
 
 	typedef std::map<int64_t, std::pair<int64_t, uint64_t> > CCanalPositionMap;
 	typedef std::deque<CApproximateNearestNeighborPtr> CApproximateNearestNeighborPtrVector;
@@ -58,8 +60,8 @@ namespace WBSF
 
 		std::string m_filePathIndex;
 		std::string m_filePathData;
-		ofStream m_fileIndex;
-		ofStream m_fileData;
+		fStream m_fileIndex;
+		fStream m_fileData;
 
 		//search section
 		CCanalPositionMap m_canalPosition;
@@ -178,7 +180,7 @@ namespace WBSF
 
 
 
-		std::mutex m_mutex;
+		mutable std::mutex m_mutex;
 		static const int VERSION = 1;
 	};
 
