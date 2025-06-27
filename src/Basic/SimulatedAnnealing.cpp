@@ -13,7 +13,7 @@
 #include "SimulatedAnnealing.h"
 
 
-#include <cmath>
+//#include <cmath>
 #include <sstream>
 
 using namespace std;

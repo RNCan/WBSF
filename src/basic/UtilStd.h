@@ -20,7 +20,8 @@
 #include <cstring>
 #include <filesystem>
 #include <cstdint>
-#include <share.h>
+#include <utility>
+//#include <share.h>
 
 
 #include "Basic/ERMsg.h"
@@ -742,15 +743,15 @@ void write_value(std::ostream& s, const T& v)
     s.write((char*)&v, sizeof(v));
 }
 
-//	inline std::string ReadBuffer(std::istream& s)
-//	{
-//		std::string buffer;
-//		uint64_t size = read_value<uint64_t>(s);
-//		buffer.resize((size_t)size);
-//		s.read(const_cast<char*>(buffer.c_str()), size);
-//
-//		return buffer;
-//	}
+	inline std::string ReadBuffer(std::istream& s)
+	{
+		std::string buffer;
+		uint64_t size = read_value<uint64_t>(s);
+		buffer.resize((size_t)size);
+		s.read(const_cast<char*>(buffer.c_str()), size);
+
+		return buffer;
+	}
 
 inline std::string& ReadBuffer(std::istream& s, std::string& buffer)
 {
@@ -889,16 +890,16 @@ inline void WriteBuffer(std::ostream& s, const std::string& buffer)
 	typedef std::vector<CFileInfo> CFileInfoVector;
 //
 //
-//	extern const char STRVMISS[];
-//	extern const char STRDEFAULT[];
+	extern const std::string STRVMISS;
+	extern const std::string STRDEFAULT;
 //
 //
 //	inline bool CompareNumber(const std::pair<std::string, size_t>& a, const std::pair<std::string, size_t>& b){ return stof(a.first) < stof(b.first); }
 
 	std::string GenerateNewName(std::string name);
 	std::string GenerateNewFileName(std::string name);
-//	std::string GetUserDataPath();
-//	std::string GetTempPath();
+	std::string GetUserDataPath();
+	std::string GetTempPath();
 
 std::filesystem::path GetApplicationPath();
 //	std::string GetRelativePath(const std::string& basePath, const std::string& filePath);
@@ -1126,10 +1127,10 @@ ERMsg WinExecWait(const std::string& command, std::string inputDir = "", bool bS
 	std::vector<std::string>::const_iterator FindStringExact(const std::vector<std::string>& list, const std::string& value, bool bCaseSensitive);
 
     std::string SecondToDHMS(double time);
-//
-//	std::string FilePath2SpecialPath(const std::string& filePath, const std::string& appPath, const std::string& projectPath);
-//	std::string SpecialPath2FilePath(const std::string& filePath, const std::string& appPath, const std::string& projectPath);
-//
+
+	std::string FilePath2SpecialPath(const std::string& filePath, const std::string& appPath, const std::string& projectPath);
+	std::string SpecialPath2FilePath(const std::string& filePath, const std::string& appPath, const std::string& projectPath);
+
 //	inline std::string GetErrorDescription(DWORD errnum)
 //	{
 //
@@ -1463,8 +1464,7 @@ public:
 
 
 	ERMsg open(const std::string& filePath,
-		std::ios_base::openmode _Mode = std::fstream::in | std::fstream::out | std::fstream::app,
-		int _Prot = _SH_DENYWR)
+		std::ios_base::openmode _Mode = std::fstream::in | std::fstream::out | std::fstream::app)
 	{
 		ERMsg msg;
 

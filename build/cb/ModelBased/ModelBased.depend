@@ -1,0 +1,557 @@
+# depslib dependency file v1.0
+1750965017 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\biosimmodelbase.cpp
+	<stdio.h>
+	<math.h>
+	<fstream>
+	"WeatherBased/WeatherDefine.h"
+	"ModelBased/BioSIMModelBase.h"
+	"ModelBased/EntryPoint.h"
+
+1741698111 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdefine.h
+	<vector>
+	<array>
+	<cassert>
+	<bitset>
+	<boost\serialization\array.hpp>
+	<boost\serialization\bitset.hpp>
+	"Basic/ERMsg.h"
+	"Basic/UtilTime.h"
+	"Basic/Statistic.h"
+
+1728557402 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg.h
+	"ERMsg/Syenvmsg.h"
+
+1728557460 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\syenvmsg.h
+	"Erexcept.h"
+	"Sycptref.h"
+	"Symessag.h"
+
+1704992082 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\erexcept.h
+	<string>
+
+1728557482 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\sycptref.h
+	"Erexcept.h"
+	"Sycptref.hpp"
+
+1704992082 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\sycptref.hpp
+
+1728557503 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\symessag.h
+	"Erexcept.h"
+	<vector>
+	<string>
+
+1750985758 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utiltime.h
+	<cassert>
+	<vector>
+	<string>
+	<boost/dynamic_bitset.hpp>
+	<boost/serialization/nvp.hpp>
+	<boost/serialization/version.hpp>
+	<boost/serialization/level.hpp>
+	<boost/serialization/extended_type_info.hpp>
+	<boost/serialization/extended_type_info_no_rtti.hpp>
+	"Basic/ERMsg.h"
+	"Basic/UtilStd.h"
+
+1750981135 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilstd.h
+	<cassert>
+	<map>
+	<set>
+	<unordered_map>
+	<sstream>
+	<functional>
+	<algorithm>
+	<cctype>
+	<fstream>
+	<codecvt>
+	<iomanip>
+	<cstring>
+	<filesystem>
+	<cstdint>
+	<share.h>
+	"Basic/ERMsg.h"
+
+1741691692 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\statistic.h
+	<cassert>
+	<vector>
+	<array>
+	<string>
+
+1750940625 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\biosimmodelbase.h
+	<fstream>
+	<sstream>
+	<array>
+	<vector>
+	<deque>
+	"Basic/ERMsg.h"
+	"Basic/TimeStep.h"
+	"WeatherBased/WeatherStation.h"
+	"Basic/ModelStat.h"
+	"ModelBased/InputParam.h"
+	"ModelBased/ModelBaseError.h"
+	"ModelBased/CommunicationStream.h"
+
+1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\timestep.h
+	<cassert>
+
+1741700142 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherstation.h
+	<cassert>
+	<vector>
+	<array>
+	<memory>
+	"Basic/ERMsg.h"
+	"Basic/Location.h"
+	"Basic/Statistic.h"
+	"WeatherBased/WeatherDataSection.h"
+	"WeatherBased/WeatherDefine.h"
+
+1741683562 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\location.h
+	<array>
+	<boost\serialization\access.hpp>
+	<unordered_map>
+	<utility>
+	<algorithm>
+	"Basic/UtilTime.h"
+	"Basic/GeoBasic.h"
+	"Basic/Callback.h"
+
+1750985540 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\geobasic.h
+	<map>
+	<vector>
+	<deque>
+	<algorithm>
+	<boost/bimap.hpp>
+	<float.h>
+	<boost/serialization/serialization.hpp>
+	<boost/archive/text_iarchive.hpp>
+	<boost/serialization/export.hpp>
+	"ERMsg.h"
+	"basic/UtilMath.h"
+
+1750985589 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilmath.h
+	<random>
+	"basic/UtilStd.h"
+
+1741699765 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\callback.h
+	<mutex>
+	<string>
+	<algorithm>
+	<stack>
+	"Basic/Event.h"
+	"Basic/UtilStd.h"
+	"Basic/ERMsg.h"
+
+1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\event.h
+	<boost\thread.hpp>
+
+1741700010 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatasection.h
+	"boost\array.hpp"
+	"boost\serialization\access.hpp"
+	"Basic/Callback.h"
+	"WeatherBased/WeatherDefine.h"
+
+1750977135 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\modelstat.h
+	<vector>
+	<cassert>
+	"Basic/UtilMath.h"
+	"Basic/UtilTime.h"
+	"Basic/Statistic.h"
+	"Basic/Mtrx.h"
+	"ModelBased/InitialPopulation.h"
+
+1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\mtrx.h
+	<cmath>
+	<climits>
+	<boost/serialization/split_member.hpp>
+	<boost/serialization/access.hpp>
+	<boost\multi_array.hpp>
+
+1750940260 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\inputparam.h
+	<map>
+	"Basic/ERMsg.h"
+	"Basic/UtilMath.h"
+	"Basic/UtilTime.h"
+	"Basic/UtilStd.h"
+	"WeatherBased/WeatherDefine.h"
+
+1750939470 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\modelbaseerror.h
+	"basic/ERMsg.h"
+
+1750940475 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\communicationstream.h
+	"Basic/Location.h"
+	"ModelBased/InputParam.h"
+	"ModelBased/WGInput.h"
+
+1750940418 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\wginput.h
+	"WeatherBased/WeatherDefine.h"
+	"ModelBased/ModelOutputVariable.h"
+
+1750940311 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\modeloutputvariable.h
+	"Basic/UtilTime.h"
+	"ModelBased/InputParam.h"
+
+1750939470 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\entrypoint.h
+
+1750965544 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\communicationstream.cpp
+	<fstream>
+	<sstream>
+	<boost\archive\binary_iarchive.hpp>
+	<boost\archive\binary_oarchive.hpp>
+	<boost/serialization/unordered_map.hpp>
+	<boost\serialization\map.hpp>
+	<boost\serialization\set.hpp>
+	<boost\serialization\shared_ptr.hpp>
+	"WeatherBased/WeatherStation.h"
+	"Basic/ModelStat.h"
+	"Basic/UtilStd.h"
+	"ModelBased/CommunicationStream.h"
+	"ModelBased/ModelBaseError.h"
+
+1750965789 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\devrateequation.cpp
+	<functional>
+	<random>
+	<cmath>
+
+1750966511 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\gridhelp.cpp
+	<cassert>
+	"Basic/UtilStd.h"
+	"ModelBased/GridHelp.h"
+
+1750939470 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\gridhelp.h
+	"basic/ERMsg.h"
+
+1750940260 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\equationtablelookup.cpp
+	"Basic/UtilStd.h"
+	"ModelBased/EquationTableLookup.h"
+
+1750966440 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\equationtablelookup.h
+	"Basic/UtilMath.h"
+
+1750939470 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\modelbaseerror.cpp
+	"ModelBaseError.h"
+
+1750967182 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\mtclim43.cpp
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<time.h>
+	<math.h>
+	<crtdbg.h>
+	"mtclim43.h"
+
+1750939470 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\mtclim43.h
+
+1750978373 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\outputfile.cpp
+	<stdio.h>
+	<math.h>
+	<fstream>
+	"ModelBased/OutputFile.h"
+
+1750939902 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\outputfile.h
+	"basic/ERMsg.h"
+	"basic/UtilStd.h"
+	"ModelBased/InputParam.h"
+
+1750967363 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\survivalequation.cpp
+	"SurvivalEquation.h"
+	<functional>
+
+1750967304 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\survivalequation.h
+	<vector>
+	<bitset>
+	"Basic/SimulatedAnnealing.h"
+
+1728558416 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\simulatedannealing.h
+	<cfloat>
+	<cmath>
+	"Basic/ERMsg.h"
+	"Basic/Statistic.h"
+	"Basic/UtilStd.h"
+
+1750939470 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\weatherstatistic.cpp
+
+1750976420 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\continuingratio.cpp
+	"ModelBased/ContinuingRatio.h"
+
+1750976236 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\continuingratio.h
+	<vector>
+	<crtdbg.h>
+	"Basic/ModelStat.h"
+	"WeatherBased/WeatherStation.h"
+	"Basic/UtilMath.h"
+	"WeatherBased/DegreeDays.h"
+
+1728669581 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\degreedays.h
+	"Basic/ModelStat.h"
+	"Basic/Statistic.h"
+	"WeatherBased/WeatherStation.h"
+
+1750976556 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\modeldistribution.cpp
+	"ModelBased/ModelDistribution.h"
+	"WeatherBased/WeatherStation.h"
+	"WeatherBased/DegreeDays.h"
+	"Basic/UtilMath.h"
+	<cassert>
+
+1750939470 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\modeldistribution.h
+	<boost/math/distributions/weibull.hpp>
+	<boost/math/distributions/logistic.hpp>
+	<boost/math/distributions/exponential.hpp>
+	<boost/math/distributions/non_central_f.hpp>
+	<boost/math/distributions/extreme_value.hpp>
+	<boost/math/distributions/fisher_f.hpp>
+	<boost/math/distributions/lognormal.hpp>
+	<boost/math/distributions/gamma.hpp>
+	<boost/math/distributions/rayleigh.hpp>
+	<random>
+
+1750977135 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\initialpopulation.h
+	<vector>
+	<cassert>
+	"Basic/ModelStat.h"
+	"ModelBased/WeatherBasedSimulation.h"
+
+1750939470 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\weatherbasedsimulation.h
+
+1750976683 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\individualbase.cpp
+	"IndividualBase.h"
+
+1750976633 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\individualbase.h
+	<vector>
+	<deque>
+	<list>
+	<algorithm>
+	"Basic/UtilStd.h"
+	"Basic/ModelStat.h"
+	"ModelBased/BioSIMModelBase.h"
+	"ModelBased/WeatherBasedSimulation.h"
+	"ModelBased/InitialPopulation.h"
+
+1750978446 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\initialpopulation.cpp
+	<algorithm>
+	<cfloat>
+	"Basic/ModelStat.h"
+	"Basic/UtilStd.h"
+	"Basic/UtilMath.h"
+	"WeatherBased/WeatherDefine.h"
+	"ModelBased/WeatherBasedSimulation.h"
+	"ModelBased/InitialPopulation.h"
+
+1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\csv.hpp
+	<algorithm>
+	<deque>
+	<fstream>
+	<iterator>
+	<memory>
+	<mutex>
+	<thread>
+	<sstream>
+	<string>
+	<vector>
+	<windows.h>
+	<unistd.h>
+	<iterator>
+	<string>
+	<system_error>
+	<cstdint>
+	<windows.h>
+	<type_traits>
+	<algorithm>
+	<unistd.h>
+	<fcntl.h>
+	<sys/mman.h>
+	<sys/stat.h>
+	<windows.h>
+	<unistd.h>
+	<system_error>
+	<memory>
+	<algorithm>
+	<array>
+	<condition_variable>
+	<deque>
+	<fstream>
+	<memory>
+	<mutex>
+	<unordered_map>
+	<unordered_set>
+	<thread>
+	<vector>
+	<memory>
+	<unordered_map>
+	<string>
+	<vector>
+	<algorithm>
+	<array>
+	<cmath>
+	<cstdlib>
+	<deque>
+	<windows.h>
+	<unistd.h>
+	<type_traits>
+	<string_view>
+	<algorithm>
+	<cassert>
+	<iterator>
+	<limits>
+	<ostream>
+	<string>
+	<stdexcept>
+	<type_traits>
+	<functional>
+	<stdint.h>
+	<stdint.h>
+	<string_view>
+	<iterator>
+	<stdexcept>
+	<string>
+	<vector>
+	<cmath>
+	<deque>
+	<iterator>
+	<memory>
+	<limits>
+	<unordered_map>
+	<unordered_set>
+	<string>
+	<sstream>
+	<vector>
+	<cmath>
+	<cctype>
+	<string>
+	<cassert>
+	<unordered_map>
+	<sstream>
+	<vector>
+	<string>
+	<type_traits>
+	<unordered_map>
+	<fstream>
+	<iostream>
+	<string>
+	<tuple>
+	<type_traits>
+	<vector>
+	<algorithm>
+	<set>
+	<cassert>
+	<functional>
+	<string>
+	<sstream>
+	<vector>
+
+1750977253 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\inputparam.cpp
+	<fstream>
+	"ModelBased/InputParam.h"
+	"ModelBased/BioSimModelBase.h"
+
+1750978862 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\modeloutputvariable.cpp
+	"ModelOutputVariable.h"
+
+1750980814 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\model.cpp
+	<float.h>
+	"ModelBased/Model.h"
+	"ModelBased/ModelInput.h"
+	"ModelBased/WGInput.h"
+	"ModelBased/CommunicationStream.h"
+
+1750980296 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\model.h
+	<mutex>
+	"WeatherBased/WeatherDefine.h"
+	"Basic/Statistic.h"
+	"ModelBased/ModelInputParameter.h"
+	"ModelBased/ModelOutputVariable.h"
+
+1750967013 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\modelinputparameter.h
+	"Basic/UtilStd.h"
+	"ModelBased/SerializeRect.h"
+	"ModelBased/InputParam.h"
+
+1750980258 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\serializerect.h
+
+1750978121 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\modelinput.h
+	"Basic/ERMsg.h"
+	"Basic/UtilStd.h"
+	"ModelBased/InputParam.h"
+	"ModelBased/ModelInputParameter.h"
+	"ModelBased/ParametersVariations.h"
+
+1750967098 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\parametersvariations.h
+	"ModelInputParameter.h"
+
+1750977887 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\modelinput.cpp
+	<boost/algorithm/string.hpp>
+	"ModelBased/ModelInput.h"
+	"basic/UtilStd.h"
+
+1750980993 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\entrypoint.cpp
+	<map>
+	"Basic/ERMsg.h"
+	"ModelBased/EntryPoint.h"
+	"ModelBased/BioSIMModelBase.h"
+	"ModelBased/SimulatedAnnealingVector.h"
+
+1750939470 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\simulatedannealingvector.h
+	"BioSIMModelBase.h"
+
+1750981051 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\modelinputparameter.cpp
+	<boost/algorithm/string.hpp>
+	"Basic/CSV.h"
+	"Basic/UtilStd.h"
+	"ModelBased/ParametersVariations.h"
+	"ModelBased/SerializeRect.h"
+	"ModelBased/ModelInputParameter.h"
+
+1750855148 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\csv.h
+	<sstream>
+	"Basic/UtilStd.h"
+	"Basic/ERMsg.h"
+
+1750967208 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\parametersvariations.cpp
+	"Basic\UtilMath.h"
+	"ModelBased\ParametersVariations.h"
+	"ModelBased\ModelInput.h"
+	"ModelBased\WGInput.h"
+
+1750940625 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\tempgenhelp.cpp
+	<crtdbg.h>
+	<Windows.h>
+	"ModelBased/TempGenHelp.h"
+
+1750940625 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\tempgenhelp.h
+	<string.h>
+	"basic/ERMsg.h"
+	"Basic/UtilStd.h"
+
+1750967409 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\wginput-modelinput.cpp
+	"ModelBased/WGInput-ModelInput.h"
+	"Basic/UtilMath.h"
+
+1750939902 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\wginput-modelinput.h
+	"ModelBased/ModelInput.h"
+	"ModelBased/WGInput.h"
+	"ModelBased/ModelOutputVariable.h"
+	"ModelBased/ModelInputParameter.h"
+
+1750984770 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\wginput.cpp
+	"Basic/UtilMath.h"
+	"ModelBased/WGInput.h"
+
+1750985758 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\snowmelt.cpp
+	<float.h>
+	"WeatherBased/WeatherStation.h"
+	"Basic/UtilMath.h"
+	"ModelBased/SnowMelt.h"
+
+1750985758 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\snowmelt.h
+	<vector>
+	"Basic/UtilTime.h"
+	"WeatherBased/WeatherDefine.h"
+
+1750985810 source:e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\simulatedannealingvector.cpp
+	<algorithm>
+	<streambuf>
+	"Basic/CSV.h"
+	"Basic/utilStd.h"
+	"ModelBased/SimulatedAnnealingVector.h"
+	"ModelBased/EntryPoint.h"
+

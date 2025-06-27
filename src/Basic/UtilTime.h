@@ -22,6 +22,7 @@
 
 #include "Basic/ERMsg.h"
 #include "Basic/UtilStd.h"
+#include "WBSFconfig.h"
 
 
 
@@ -173,8 +174,8 @@ public:
 
     CTM(size_t t = UNKNOWN, size_t m = FOR_EACH_YEAR)
     {
-        m_type = t;
-        m_mode = m;
+        m_type = (uint32_t)t;
+        m_mode = (uint32_t)m;
         assert(is_valid());
     }
 
@@ -191,6 +192,17 @@ public:
         m_mode = in.m_mode;
         assert(is_valid());
 
+        return *this;
+    }
+
+    CTM& operator=(const std::string& in)
+    {
+        assert(false);//todo
+
+//        m_type = in.m_type;
+//        m_mode = in.m_mode;
+//        assert(is_valid());
+//
         return *this;
     }
 
@@ -283,12 +295,12 @@ public:
     void Type(size_t in)
     {
         assert(in<NB_REFERENCE);
-        m_type=in;
+        m_type= (int32_t)in;
     }
     void Mode(size_t in)
     {
         assert(in<NB_MODE);
-        m_mode=in;
+        m_mode= (int32_t)in;
     }
 
     std::string to_string()const
@@ -347,8 +359,8 @@ protected:
     //uint8_t m_mode : 4;
     //};
 
-    int32_t m_type;
-    int32_t m_mode;
+    uint32_t m_type;
+    uint32_t m_mode;
 
     static const char* TYPE_NAME[8];
     static const char* MODE_NAME[NB_MODE];
@@ -577,11 +589,11 @@ public:
         assert(in.TM() == TM());
         return ((is_init() && in.is_init()) ? GetRef() <= in.GetRef() : false);
     }
-    CTRef& operator+=(int64_t nbRef)
+    CTRef& operator+=(int32_t nbRef)
     {
         return Shift(nbRef);
     }
-    CTRef& operator-=(int64_t nbRef)
+    CTRef& operator-=(int32_t nbRef)
     {
         return Shift(-nbRef);
     }
@@ -1460,6 +1472,11 @@ public:
     {
          return m_period;
     }
+
+   //CTPeriod& period()
+   //{
+   //     return m_period;
+   //}
 
     CTRef TRef(size_t i)const
     {

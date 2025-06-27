@@ -17,7 +17,9 @@
 //******************************************************************************
 
 #include "Symessag.h"
-#include <strstream>
+//#include <strstream>
+//#include <iostream>
+#include <sstream>
 using namespace std;
 
 //******************************************************************************
@@ -197,8 +199,10 @@ void SYMessage::ajoute(double val)
     _INVARIANTS ();
 
     // --- On convertit d'abord.
-    char buffer[256];
-    ostrstream os(buffer, 255);
+    //char buffer[256];
+    //ostrstream os(buffer, 255);
+    string buffer;
+    ostringstream os(buffer);// (buffer, 1023);
     os << val << ends;
 
     // ---  Ajoute à la liste la chaîne dans le buffer
@@ -224,8 +228,9 @@ void SYMessage::ajoute(long val)
     _INVARIANTS ();
 
     // --- On convertit d'abord.
-    char buffer[256];
-    ostrstream os(buffer, 255);
+    //char buffer[256];
+    string buffer;
+    ostringstream os(buffer);// (buffer, 1023);
     os << val << ends;
 
     // ---  Ajoute à la liste la chaîne dans le buffer

@@ -4,7 +4,7 @@
 #include <boost/archive/xml_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/csv_oarchive.hpp>
+//#include <boost/archive/csv_oarchive.hpp>
 #include <boost/interprocess/managed_shared_memory.hpp>
 #include <boost/interprocess/streams/bufferstream.hpp>
 
@@ -585,7 +585,7 @@ TEST_CASE( "UtilTime", "[CTPeriod]" )
 
         pA2.clear();
         REQUIRE( pA2 != pA1 );
-        REQUIRE( pA2.size() = 0 );
+        REQUIRE( pA2.size() == 0 );
     }
 
 
@@ -739,8 +739,8 @@ TEST_CASE( "UtilTime", "[CTReferencedVector]" )
 
     SECTION( "constructor" )
     {
-        CTPeriod p("2024-10-16|2024-10-20")
-        CTReferencedVector v(p);
+        CTPeriod p("2024-10-16|2024-10-20");
+        CTReferencedVector<float> v(p);
         REQUIRE( v.is_init() );
         REQUIRE( v.size() == p.size() );
     }

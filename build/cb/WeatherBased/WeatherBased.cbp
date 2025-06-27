@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/WeatherBase" prefix_auto="1" extension_auto="1" />
+				<Option output="../../../lib/Debug/WeatherBase" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
 				<Option object_output="obj/Debug/" />
 				<Option type="2" />
@@ -23,7 +23,7 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/WeatherBase" prefix_auto="1" extension_auto="1" />
+				<Option output="../../../lib/Release/WeatherBase" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
 				<Option object_output="obj/Release/" />
 				<Option type="2" />
@@ -79,8 +79,6 @@
 		<Unit filename="../../../src/WeatherBased/WeatherDatabaseOptimisation.h" />
 		<Unit filename="../../../src/WeatherBased/WeatherDefine.cpp" />
 		<Unit filename="../../../src/WeatherBased/WeatherDefine.h" />
-		<Unit filename="../../../src/WeatherBased/WeatherGeneratorKernel.cpp" />
-		<Unit filename="../../../src/WeatherBased/WeatherGeneratorKernel.h" />
 		<Unit filename="../../../src/WeatherBased/WeatherStation.cpp" />
 		<Unit filename="../../../src/WeatherBased/WeatherStation.h" />
 		<Extensions>

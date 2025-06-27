@@ -18,7 +18,7 @@
 
 #include "Basic/UtilStd.h"
 #include "Basic/UtilMath.h"
-#include "Basic/CSV.hpp"
+//#include "Basic/CSV.hpp"
 
 //#include "WeatherBased/WeatherDefine.h"
 
@@ -253,7 +253,7 @@ CStatistic CModelStatVector::GetStat(size_t s, const CTPeriod& period)const
 
     for (size_t i = 0; i < size(); i++)
     {
-        if (period.is_inside(m_firstTRef + int64_t(i)))
+        if (period.is_inside(m_firstTRef + int32_t(i)))
         {
             stat += me[i][s];
         }

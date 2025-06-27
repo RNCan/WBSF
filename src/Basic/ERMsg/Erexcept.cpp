@@ -18,7 +18,7 @@
 
 #include "Syenvmsg.h"
 
-#include <strstream>
+#include <sstream>
 #include <iostream>
 #include <assert.h>
 
@@ -87,8 +87,9 @@ ERExceptionContrat::~ERExceptionContrat()
 void ERExceptionContrat::arreteProgramme()
 {
     // ---  Prépare le message
-    char buffer[1024];
-    ostrstream os(buffer, 1023);
+    //char buffer[1024];
+    string buffer;
+    ostringstream os(buffer);// (buffer, 1023);
     os << "Fichier : " << fichier << endl;
     os << "Ligne   : " << ligne << endl;
     os << "Test    : " << expression << endl << ends;

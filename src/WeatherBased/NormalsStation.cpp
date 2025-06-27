@@ -89,7 +89,7 @@ namespace WBSF
 			if (bRep)
 			{
 				char bUseIt = '0';
-				sscanf(line[0].c_str(), "%lf %lf %lf %c", &m_lat, &m_lon, &m_elev, &bUseIt);
+				sscanf_s(line[0].c_str(), "%lf %lf %lf %c", &m_lat, &m_lon, &m_elev, &bUseIt);
 				UseIt(bUseIt != '0');
 
 				m_ID = TrimConst(line[2]);

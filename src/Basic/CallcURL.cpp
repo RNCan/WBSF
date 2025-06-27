@@ -10,11 +10,14 @@
 // 01-10-2020	Rémi Saint-Amant	Include into Weather-based simulation framework
 //******************************************************************************
 
-#include "CallcURL.h"
+
+
+#include "WBSFconfig.h"
 
 #include <boost/process.hpp>
-
 #include "Basic/UtilStd.h"
+#include "CallcURL.h"
+
 
 using namespace std;
 
@@ -76,38 +79,76 @@ ERMsg CCallcURL::copy_file(const std::string& URL, const std::filesystem::path& 
 ERMsg CCallcURL::CallApp(const std::string& cmdline, std::string& str, size_t BUFSIZE)
 {
     ERMsg msg;
+    //
+    //
+    ////see https://www.boost.org/doc/libs/1_86_0/doc/html/process.html
+    //assert(false);//todo
+    //
+    //
+    //namespace bp = boost::process; //we will assume this for all further examples
+    //
+    ////filesystem::path p = "/usr/bin/g++"; //or get it from somewhere else.
+    ////int result = bp::system(p, "main.cpp");
+    //
+    //boost::filesystem::path exe_path = bp::search_path("curl"); //or get it from somewhere else.
+    ////int result = bp::system(p, cmdline);
+    //
+    //bp::child child_proc(exe_path, cmdline);
+    //
+    //while (child_proc.running())
+    //{
+    //    //do_some_stuff();
+    //}
+    //
+    //child_proc.wait(); //wait for the process to exit
+    //int result = child_proc.exit_code();
+    //if (result != 0 )
+    //{
+    //
+    //    msg.ajoute("Unable to execute curl command:");
+    //    msg.ajoute(cmdline);
+    //}
+    //
+    //return msg;
 
 
-    //see https://www.boost.org/doc/libs/1_86_0/doc/html/process.html
-    assert(false);//todo
-
-
-    namespace bp = boost::process; //we will assume this for all further examples
-
-    //filesystem::path p = "/usr/bin/g++"; //or get it from somewhere else.
-    //int result = bp::system(p, "main.cpp");
-
-    boost::filesystem::path exe_path = bp::search_path("curl"); //or get it from somewhere else.
-    //int result = bp::system(p, cmdline);
-
-    bp::child child_proc(exe_path, cmdline);
-
-    while (child_proc.running())
+    try
     {
-        //do_some_stuff();
+        // while (IsPathEndOk(working_dir))
+          //   working_dir = working_dir.substr(0, working_dir.length() - 1);
+
+        boost::process::ipstream pipe_stream;
+        boost::process::child c(cmdline, boost::process::std_out > pipe_stream);
+
+        std::string data;
+        data.resize(BUFSIZE);
+
+        while (pipe_stream.read(&(data[0]), BUFSIZE))
+            str.append(data);
+
+        c.wait();
+
+        if (c.exit_code() != 0)
+        {
+            //*pExitCode = c.exit_code();
+        }
     }
-
-    child_proc.wait(); //wait for the process to exit
-    int result = child_proc.exit_code();
-    if (result != 0 )
+    catch (const boost::process::process_error& e)
     {
-
-        msg.ajoute("Unable to execute curl command:");
-        msg.ajoute(cmdline);
+        //cout << e..what();
+        msg.ajoute(std::string("Unable to execute command: ") + cmdline);
+        msg.ajoute(string("Boost.Process Error: ") + e.what());
+        //std::cerr << "Error Code: " << e.code().value() << std::endl;
+        //std::cerr << "Error Category: " << e.code().category().name() << std::endl;
+    }
+    catch (const std::exception& e)
+    {
+        msg.ajoute(std::string("Unable to execute command: ") + cmdline);
+        msg.ajoute(e.what());
+        //std::cerr << "General C++ Exception: " << e.what() << std::endl;
     }
 
     return msg;
-
 }
 
 

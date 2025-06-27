@@ -1036,7 +1036,7 @@ L300:
 
     if (result)
     {
-        strncpy(result->version, MPFIT_VERSION, 20);
+        strncpy_s(result->version, 20, MPFIT_VERSION, 20);
         result->bestnorm = mp_dmax1(fnorm, fnorm1);
         result->bestnorm *= result->bestnorm;
         result->orignorm = orignorm;

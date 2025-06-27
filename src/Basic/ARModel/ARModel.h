@@ -273,7 +273,7 @@ public:
     /*! Get size of observations*/
     const double N()const
     {
-        return m_N;
+        return (double)m_N;
     }
 
     /*! Get mean of the model*/

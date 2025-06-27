@@ -16,6 +16,8 @@
 #include "Location.h"
 
 #include <algorithm>
+#include <string>
+
 //#include <cmath>       /* fmod */
 
 #include <boost/algorithm/string.hpp>
@@ -26,14 +28,14 @@
 #include "Basic/CallcURL.h"
 //#include "Basic/ExtractLocationInfo.h"
 #include "Basic/json/json11.hpp"
-#include "Basic/CSV.hpp"
+//#include "Basic/CSV.hpp"
 
 
 //#include "WeatherBasedSimulationString.h"
 
 
 using namespace std;
-using namespace boost;
+//using namespace boost;
 using namespace json11;
 
 namespace WBSF
@@ -58,7 +60,7 @@ const char* CLocation::GetMemberTitle(size_t i)
 
     if (MEMBER_TITLE.empty())
     {
-        string str = locale::translate("KeyID|Name|Latitude|Longitude|Elevation|Specific Site Information");
+        string str = boost::locale::translate("KeyID|Name|Latitude|Longitude|Elevation|Specific Site Information");
         MEMBER_TITLE = Tokenize(str, "|");
     }
 
@@ -71,7 +73,7 @@ const char* CLocation::GetDefaultSSITitle(size_t i)
 
     if (DEFAULT_SSI_TITLE.empty())
     {
-        string str = locale::translate("Optional ID|Slope|Aspect|Use It|Data File Name|Time Zone|Variables|Year|Shore Distance|East Horizon|West Horizon");
+        string str = boost::locale::translate("Optional ID|Slope|Aspect|Use It|Data File Name|Time Zone|Variables|Year|Shore Distance|East Horizon|West Horizon");
         DEFAULT_SSI_TITLE = Tokenize(str, "|");
     }
 
@@ -260,9 +262,9 @@ double CLocation::GetSlopeInDegree()const
         return -999;
 
     assert(slope >= 0);
-    assert(atan(GetSlope() / 100) * RAD2DEG >= 0);
-    assert(atan(GetSlope() / 100) * RAD2DEG <= 90);
-    return float(atan(GetSlope() / 100) * RAD2DEG);
+    assert(Rad2Deg(atan(GetSlope() / 100))  >= 0);
+    assert(Rad2Deg(atan(GetSlope() / 100)) <= 90);
+    return float(Rad2Deg(atan(GetSlope() / 100)));
 }
 
 double CLocation::GetAspect()const
@@ -366,12 +368,12 @@ ERMsg CLocation::IsValid(bool bExludeUnknownElev)const
 
     if (m_lat < -90 || m_lat > 90)
     {
-        msg.ajoute(locale::translate("Invalid latitude. Latitude must be in range -90 and 90 degrees."));
+        msg.ajoute(boost::locale::translate("Invalid latitude. Latitude must be in range -90 and 90 degrees."));
     }
 
     if (m_lon < -360 || m_lon > 360)
     {
-        msg.ajoute(locale::translate("Invalid longitude. Longitude must be in range  -360 and 360 degrees."));
+        msg.ajoute(boost::locale::translate("Invalid longitude. Longitude must be in range  -360 and 360 degrees."));
     }
 
     //some stations have under sea level atitude
@@ -379,7 +381,7 @@ ERMsg CLocation::IsValid(bool bExludeUnknownElev)const
     {
         if (m_elev != -999 || !bExludeUnknownElev)
         {
-            msg.ajoute(locale::translate("Invalid elevation. Elevation must be in range -350 and 10000 metres."));
+            msg.ajoute(boost::locale::translate("Invalid elevation. Elevation must be in range -350 and 10000 metres."));
         }
     }
 
@@ -389,7 +391,7 @@ ERMsg CLocation::IsValid(bool bExludeUnknownElev)const
         double slope = ToDouble(it->second.first);
         if (slope < 0)
         {
-            msg.ajoute(locale::translate("Invalid slope. Slope must be % and must be greater than or equal to 0."));
+            msg.ajoute(boost::locale::translate("Invalid slope. Slope must be % and must be greater than or equal to 0."));
         }
     }
 
@@ -401,13 +403,13 @@ ERMsg CLocation::IsValid(bool bExludeUnknownElev)const
 
         if (aspect < 0 || aspect > 360)
         {
-            msg.ajoute(locale::translate("Invalid aspect. Aspect must be between  0 (north) and 360 degrees."));
+            msg.ajoute(boost::locale::translate("Invalid aspect. Aspect must be between  0 (north) and 360 degrees."));
         }
     }
 
     if (!msg)
     {
-        format fmt = format( locale::translate("Invalid location {1} [{2}].")) % m_name % m_ID;
+        boost::format fmt = boost::format(boost::locale::translate("Invalid location {1} [{2}].")) % m_name % m_ID;
         msg.ajoute(fmt.str());
     }
 

@@ -16,6 +16,8 @@
 #include "Basic/UtilTime.h"
 #include "Basic/Statistic.h"
 #include "Basic/Mtrx.h"
+#include "ModelBased/InitialPopulation.h"
+
 //#include "../ModelBase/WeatherBasedSimulation.h"
 
 namespace WBSF
@@ -188,12 +190,12 @@ public:
     CTRef GetFirstTRef(size_t v, const std::string& op, double threshold = 0, int nbDayBefore = 1, const CTPeriod& p = CTPeriod())const
     {
         size_t i = GetFirstIndex(v, op, threshold, nbDayBefore, p);
-        return i == NOT_INIT ? CTRef() : m_firstTRef + int64_t(i);
+        return i == NOT_INIT ? CTRef() : m_firstTRef + int32_t(i);
     }
     CTRef GetLastTRef(size_t v, const std::string& op, double threshold = 0, int nbDayAfter = 1, const CTPeriod& p = CTPeriod())const
     {
         size_t i = GetLastIndex(v, op, threshold, nbDayAfter, p);
-        return i == NOT_INIT ? CTRef() : m_firstTRef + int64_t(i);
+        return i == NOT_INIT ? CTRef() : m_firstTRef + int32_t(i);
     }
     CTPeriod GetTPeriod(size_t v, const std::string& op, double threshold = 0, int nbDayBefore = 1, int nbDayAfter = 1, const CTPeriod& p = CTPeriod())const
     {
@@ -212,7 +214,7 @@ public:
     }
     CTRef GetLastTRef()const
     {
-        return m_firstTRef + ( int64_t(size()) - 1);
+        return m_firstTRef + ( int32_t(size()) - 1);
     }
 
     using CModelStatVectorBase::at;
@@ -243,7 +245,7 @@ public:
     }
     CTPeriod GetTPeriod()const
     {
-        return CTPeriod(m_firstTRef, m_firstTRef + int64_t(size()) - 1);
+        return CTPeriod(m_firstTRef, m_firstTRef + int32_t(size()) - 1);
     }
     bool is_inside(CTRef d)const
     {
@@ -259,8 +261,8 @@ public:
     {
         return m_nbStat;
     }
-//		CInitialPopulation GetInitialPopulation(size_t var, size_t nbObject = 400, double initialPopulation = 100, double age = 0, TSex sex = RANDOM_SEX, bool bFertil = false, size_t generation = 0, CTPeriod p = CTPeriod())const;
-//		CInitialPopulation GetInitialPopulation(size_t var, CTPeriod p)const{ return GetInitialPopulation(var, 400, 100, 0, RANDOM_SEX, false, 0, p); }
+	CInitialPopulation GetInitialPopulation(size_t var, size_t nbObject = 400, double initialPopulation = 100, double age = 0, TSex sex = RANDOM_SEX, bool bFertil = false, size_t generation = 0, CTPeriod p = CTPeriod())const;
+	CInitialPopulation GetInitialPopulation(size_t var, CTPeriod p)const{ return GetInitialPopulation(var, 400, 100, 0, RANDOM_SEX, false, 0, p); }
     void Transform(const CTM& TM, size_t s);//= WBSF::MEAN
     void Transform(const CTTransformation& TT, size_t s );//= WBSF::MEAN
 

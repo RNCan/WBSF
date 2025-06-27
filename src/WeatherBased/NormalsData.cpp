@@ -10,7 +10,7 @@
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 // 15-09-2015	Rémi Saint-Amant	Created from old file
 //******************************************************************************
-#include <cmath>
+//#include <cmath>
 
 #include "Basic/UtilTime.h"
 #include "WeatherBased/NormalsData.h"
@@ -115,7 +115,7 @@ namespace WBSF
 
 		for (size_t i = 0; i < NB_FIELDS; i++)
 		{
-			int iostat = sscanf(str.substr(i*RECORD_LENGTH, RECORD_LENGTH).c_str(), "%f", &at(i));
+			int iostat = sscanf_s(str.substr(i*RECORD_LENGTH, RECORD_LENGTH).c_str(), "%f", &at(i));
 			if (iostat < 1)
 				at(i) = MISSING;
 		}

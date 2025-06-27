@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\ANN">
+      <UniqueIdentifier>{8ec01902-2050-4bf7-9900-bbe9fc29f095}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ARModel">
+      <UniqueIdentifier>{de5c065f-0c66-4bc5-9aba-06e7ac2aa2ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ERMsg">
+      <UniqueIdentifier>{6ad9e82e-4c39-4943-8246-f76e2543f546}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\mpfit">
+      <UniqueIdentifier>{543aae10-7b19-47cb-8e0b-ace3409cd246}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\pugixml">
+      <UniqueIdentifier>{f8bcc145-82d3-4f24-bb14-eb010eed0857}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\tinyxml2">
+      <UniqueIdentifier>{5f29c171-f64b-4408-a266-851cfe8a1cad}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ApproximateNearestNeighbor.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\Callback.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\CallcURL.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\CppUserPrefs.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\CSV.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\Dbf3.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ERMsg.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\Event.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\GeoBasic.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\gzip.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\Location.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\LRUCache.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ModelStat.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\Mtrx.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\OpenMP.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\SearchResult.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\Shore.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\SimulatedAnnealing.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\Statistic.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\Sun.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\TimeStep.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\UtilMath.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\UtilStd.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\UtilTime.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ERMsg\Ererreur.h">
+      <Filter>Source Files\ERMsg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ERMsg\Erexcept.h">
+      <Filter>Source Files\ERMsg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ERMsg\Sycptref.h">
+      <Filter>Source Files\ERMsg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ERMsg\Sycptref.hpp">
+      <Filter>Source Files\ERMsg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ERMsg\Syenvmsg.h">
+      <Filter>Source Files\ERMsg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ERMsg\Symessag.h">
+      <Filter>Source Files\ERMsg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ARModel\ARModel.h">
+      <Filter>Source Files\ARModel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ANN\ANN.h">
+      <Filter>Source Files\ANN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ANN\ANNperf.h">
+      <Filter>Source Files\ANN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ANN\ANNx.h">
+      <Filter>Source Files\ANN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ANN\bd_tree.h">
+      <Filter>Source Files\ANN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ANN\kd_pr_search.h">
+      <Filter>Source Files\ANN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ANN\kd_search.h">
+      <Filter>Source Files\ANN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ANN\kd_split.h">
+      <Filter>Source Files\ANN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ANN\kd_tree.h">
+      <Filter>Source Files\ANN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ANN\kd_util.h">
+      <Filter>Source Files\ANN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ANN\pr_queue.h">
+      <Filter>Source Files\ANN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\ANN\pr_queue_k.h">
+      <Filter>Source Files\ANN</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\mpfit\mpfit.h">
+      <Filter>Source Files\mpfit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\pugixml\pugiconfig.hpp">
+      <Filter>Source Files\tinyxml2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\pugixml\pugixml.hpp">
+      <Filter>Source Files\tinyxml2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\tinyxml2\tinyxml2.h">
+      <Filter>Source Files\pugixml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\WBSFconfig.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Basic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\ApproximateNearestNeighbor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Callback.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\CallcURL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\CSV.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Dbf3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\GeoBasic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\gzip.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Location.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\ModelStat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Mtrx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\SearchResult.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Shore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\SimulatedAnnealing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Statistic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Sun.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\TimeStep.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\UtilMath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\UtilStd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\UtilTime.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\ERMsg\Ererreur.cpp">
+      <Filter>Source Files\ERMsg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\ERMsg\Erexcept.cpp">
+      <Filter>Source Files\ERMsg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\ERMsg\Syenvmsg.cpp">
+      <Filter>Source Files\ERMsg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\ERMsg\Symessag.cpp">
+      <Filter>Source Files\ERMsg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\ARModel\ARModel.cpp">
+      <Filter>Source Files\ARModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\ANN\ANN.cpp">
+      <Filter>Source Files\ANN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\ANN\bd_pr_search.cpp">
+      <Filter>Source Files\ANN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\ANN\bd_search.cpp">
+      <Filter>Source Files\ANN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\ANN\bd_tree.cpp">
+      <Filter>Source Files\ANN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\ANN\brute.cpp">
+      <Filter>Source Files\ANN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\ANN\kd_dump.cpp">
+      <Filter>Source Files\ANN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\ANN\kd_pr_search.cpp">
+      <Filter>Source Files\ANN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\ANN\kd_search.cpp">
+      <Filter>Source Files\ANN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\ANN\kd_split.cpp">
+      <Filter>Source Files\ANN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\ANN\kd_tree.cpp">
+      <Filter>Source Files\ANN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\ANN\kd_util.cpp">
+      <Filter>Source Files\ANN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\ANN\perf.cpp">
+      <Filter>Source Files\ANN</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\mpfit\mpfit.cpp">
+      <Filter>Source Files\mpfit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\pugixml\pugixml.cpp">
+      <Filter>Source Files\tinyxml2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\tinyxml2\tinyxml2.cpp">
+      <Filter>Source Files\pugixml</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

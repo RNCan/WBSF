@@ -10,13 +10,16 @@
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 //******************************************************************************
 
-#include "ApproximateNearestNeighbor.h"
+
 
 #include <boost/locale.hpp>
 #include <boost/format.hpp>
 
 #include "Basic/UtilStd.h"
 #include "Basic/Shore.h"
+
+
+#include "ApproximateNearestNeighbor.h"
 
 
 //#include "WeatherBasedSimulationString.h"

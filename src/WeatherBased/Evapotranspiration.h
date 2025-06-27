@@ -9,9 +9,10 @@
 
 #pragma once
 
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include <map>
 #include <vector>
-#include <cmath>
 #include <assert.h>
 #include <mutex>
 

@@ -4,5 +4,6 @@
 		<Project filename="WeatherBased/WeatherBased.cbp" />
 		<Project filename="Basic/Basic.cbp" />
 		<Project filename="UnitTests/UnitTests.cbp" />
+		<Project filename="ModelBased/ModelBased.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

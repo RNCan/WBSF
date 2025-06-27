@@ -713,7 +713,7 @@ namespace WBSF
 			TRef.m_TM = CTM::DAILY;
 			for (size_t d = 0; d < TRef.GetNbDaysPerMonth(); d++)
 			{
-				TRef.m_day = d;
+				TRef.m_day = (uint8_t)d;
 				at(d).Initialize(TRef, this);
 			}
 		}
@@ -843,7 +843,7 @@ namespace WBSF
 			TRef.m_TM = CTM::MONTHLY;
 			for (size_t m = 0; m < 12; m++)
 			{
-				TRef.m_month = m;
+				TRef.m_month = (uint8_t)m;
 				at(m).Initialize(TRef, this);
 			}
 		}

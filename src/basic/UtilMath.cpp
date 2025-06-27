@@ -9,13 +9,11 @@
 // 14-09-2023   Rémi Saint-Amant	Port un Linux
 // 01-01-2016	Rémi Saint-Amant	Creation
 //******************************************************************************
-#include "UtilMath.h"
-
 #include <ctime>
 #include <cfloat>
 #include <limits>
 
-
+#include "UtilMath.h"
 
 
 using namespace std;
@@ -297,7 +295,7 @@ double StringToCoord(const std::string& coordStr)
 {
     double coord = 0;
     double a = 0, b = 0, c = 0;
-    int nbVal = sscanf(coordStr.c_str(), "%lf %lf %lf", &a, &b, &c);
+    int nbVal = sscanf_s(coordStr.c_str(), "%lf %lf %lf", &a, &b, &c);
     if (nbVal == 1)
     {
         //decimal degree
@@ -1238,7 +1236,7 @@ void ComputeSlopeAndAspect(double latDeg, double exposition, double& slopePource
             slope = Deg2Rad(slope);
             //aspect = (float)Rand(0.0, 360.0);
             //int nPhi = ((aspect < 135) || (aspect >= 255))?1:-1;
-            //_assert(false); // a revoir avex la nouvelle exposition
+            //assert(false); // a revoir avex la nouvelle exposition
             //denominateur = (fCosLat2*nPhi + fSinLat2*cos(Deg2Rad(aspect - 15)));
             denominateur = sin(latitude)*sin(slope);
             if (denominateur != 0)
@@ -1289,7 +1287,7 @@ double GetDistance(double lat1, double lon1, double lat2, double lon2)
     if (lat1 != lat2 || lon1 != lon2)
     {
         double P = (fabs(lon2 - lon1) <= 180) ? (lon2 - lon1) : (360.0 - fabs(lon2 - lon1));
-        double cosA = sin(lat1*DEG2RAD)*sin(lat2*DEG2RAD) + cos(lat1*DEG2RAD)*cos(lat2*DEG2RAD)*cos(P*DEG2RAD);
+        double cosA = sin(Deg2Rad(lat1))*sin(Deg2Rad(lat2)) + cos(Deg2Rad(lat1))*cos(Deg2Rad(lat2))*cos(Deg2Rad(P));
         angle = acos(std::max(-1.0, std::min(1.0, cosA)));
     }
 
@@ -1333,7 +1331,7 @@ void GetSlopeAndAspect(double window[3][3], double ewres, double nsres, double s
     double key = (dx * dx + dy * dy);
 
     slope = (double)(100 * (sqrt(key) / (8 * scale)));
-    aspect = (double)(atan2(dy, -dx) * RAD2DEG);
+    aspect = (double)(Rad2Deg(atan2(dy, -dx)));
 
     if (dx == 0 && dy == 0)
     {
@@ -1495,12 +1493,12 @@ bool CMathEvaluation::Evaluate(double value1, TOperation op, double value2)
 	//	return max(0.0, Fo);
 	//}
 
-    static inline uint64_t rdtscp( uint32_t & aux )
+    /*static inline uint64_t rdtscp( uint32_t & aux )
     {
         uint64_t rax,rdx;
         asm volatile ( "rdtscp\n" : "=a" (rax), "=d" (rdx), "=c" (aux) : : );
         return (rdx << 32) + rax;
-    }
+    }*/
 
 	void CRandomGenerator::Randomize(size_t seed)
 	{
@@ -1512,11 +1510,11 @@ bool CMathEvaluation::Evaluate(double value1, TOperation op, double value2)
 			//seed = static_cast<unsigned long>(rdtsc() + ID * 1000);
 
 			ID++;
-			m_gen.seed(seed);
+			m_gen.seed((uint32_t)seed);
 		}
 		else
 		{
-			m_gen.seed(seed);
+			m_gen.seed((uint32_t)seed);
 		}
 	}
 

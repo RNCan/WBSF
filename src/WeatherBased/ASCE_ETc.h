@@ -10,10 +10,11 @@
 
 #include <sstream>
 
+#include "Basic/ERMsg.h"
 #include "Basic/ModelStat.h"
 #include "WeatherBased/WeatherStation.h"
-#include "ModelBase/InputParam.h"
-#include "Basic/ERMsg.h"
+#include "ModelBased/InputParam.h"
+
 
 
 
@@ -27,7 +28,7 @@ enum TGranularity { FROM_SOIL=-1, COARSE, MEDIUM, FINE, NB_GRANULARITY };
 //after Allen 2005 Table 1 TEWmax[low]*10
 struct SSoilInfo
 {
-    char* name;
+    const char* name;
     double θFC[2];		//volumetric soil water content at field capacity
     double θWP[2];		//volumetric soil water content at wilting point
     double θFC_θWP[2];	//
@@ -90,7 +91,7 @@ enum TCrop
 enum TWettingEvent { I_PRECIPITATION, I_SPRINKLER_FIELD, I_SPRINKLER_ORCHARDS, I_BASIN, I_BORDER, I_FURROW_NARROW, I_FURROW_WIDE, I_FURROW_ALTERNATED, I_MICROSPRAY_ORCHARDS, I_TRICKLE, NB_WETTING };
 struct SWettingEvent
 {
-    char* name;
+    const char* name;
     double fw[2];
 };
 

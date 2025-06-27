@@ -377,8 +377,8 @@ inline CGeoDistance CGeoPoint::GetDistanceXY(const CGeoPoint& pt)const
 
     if (IsGeographic())
     {
-        dist.m_y = Signe(pt.m_y - m_y)*WBSF::GetDistance(pt.m_y, m_x, m_y, m_x);
-        dist.m_x = Signe(pt.m_x - m_x)*WBSF::GetDistance(m_y, pt.m_x, m_y, m_x);
+        dist.m_y = signe(pt.m_y - m_y)*WBSF::GetDistance(pt.m_y, m_x, m_y, m_x);
+        dist.m_x = signe(pt.m_x - m_x)*WBSF::GetDistance(m_y, pt.m_x, m_y, m_x);
     }
     else
     {

@@ -297,7 +297,7 @@
 	<iomanip>
 	<cassert>
 
-1729712068 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utiltime.h
+1751027412 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utiltime.h
 	<cassert>
 	<vector>
 	<string>
@@ -309,6 +309,7 @@
 	<boost/serialization/extended_type_info_no_rtti.hpp>
 	"Basic/ERMsg.h"
 	"Basic/UtilStd.h"
+	"WBSFconfig.h"
 
 1704992082 e:\project(githubdesktop)\wbsfmultiplatform\src\external\ermsg\ermsg.h
 	"external/ERMsg/Syenvmsg.h"
@@ -332,7 +333,7 @@
 	<vector>
 	<string>
 
-1729034311 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilstd.h
+1751042546 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilstd.h
 	<cassert>
 	<map>
 	<set>
@@ -347,6 +348,7 @@
 	<cstring>
 	<filesystem>
 	<cstdint>
+	<utility>
 	"Basic/ERMsg.h"
 
 1728557402 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg.h
@@ -371,7 +373,7 @@
 	<vector>
 	<string>
 
-1729712568 source:e:\project(githubdesktop)\wbsfmultiplatform\test\basic\testutiltime.cpp
+1750986177 source:e:\project(githubdesktop)\wbsfmultiplatform\test\basic\testutiltime.cpp
 	<iostream>
 	<boost/archive/xml_iarchive.hpp>
 	<boost/archive/xml_oarchive.hpp>
@@ -381,4 +383,7 @@
 	<boost/interprocess/streams/bufferstream.hpp>
 	<catch2/catch_all.hpp>
 	"Basic/UtilTime.h"
+
+1751032203 e:\project(githubdesktop)\wbsfmultiplatform\src\wbsfconfig.h
+	<SDKDDKVer.h>
 

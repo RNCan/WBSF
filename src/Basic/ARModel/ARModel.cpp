@@ -20,7 +20,7 @@
 #include <cassert>
 #include <list>
 #include <functional>
-
+#include <numeric>
 
 
 using namespace std;
@@ -63,8 +63,8 @@ vector<double> CARModel::predict(size_t N, const vector<double>& x)const
     vector<double> y(N);
 
 
-    const unsigned seed = chrono::system_clock::now().time_since_epoch().count();
-    default_random_engine generator(seed);
+    const size_t seed = chrono::system_clock::now().time_since_epoch().count();
+    default_random_engine generator((uint32_t)seed);
     normal_distribution<double> distribution(0.0, m_sigma);
 
 

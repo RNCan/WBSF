@@ -10,12 +10,19 @@
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 //******************************************************************************
 
-#include "UtilStd.h"
+
+#include "WBSFconfig.h"
+
+#define _USE_MATH_DEFINES
+#include <cmath>
+#include <iostream>
 
 #include <boost/tokenizer.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem.hpp>
+#include <boost/process.hpp>
+#include <boost/process/extend.hpp>
 #include <boost/date_time/posix_time/posix_time_io.hpp>
 #include <boost/date_time/posix_time/conversion.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
@@ -27,20 +34,20 @@
 //#include <filesystem>
 //#include <cstdio>
 //#include <stdexcept>
-#include <cmath>
+
 //#include <glob.h>
 //#include <sys/stat.h>
 
+#include "UtilStd.h"
 
 
-
-#if _WIN32
-#if !defined (NOMINMAX)
-#define NOMINMAX
-#endif
+//#if _WIN32
+//#if !defined (NOMINMAX)
+//#define NOMINMAX
+//#endif
 //#include <windows.h>
 //#include <processthreadsapi.h>
-#endif
+//#endif
 
 using namespace std;
 
@@ -125,10 +132,10 @@ bool GDALStyleProgressBar(double dfComplete)
 
     return true;
 }
-//	const char STRVMISS[] = "VMiss";
-//	const char STRDEFAULT[] = "Default";
-//
-//
+
+const std::string STRVMISS = "VMiss";
+const std::string STRDEFAULT = "Default";
+
 ERMsg RemoveFile(const std::string& filePath)
 {
     ERMsg msg;
@@ -527,73 +534,65 @@ std::filesystem::path GetAbsolutePath(const std::filesystem::path& base_path, co
 //		return bRep;
 //	}*/
 //
-//	std::string upperCase(std::string input) {
-//		for (std::string::iterator it = input.begin(); it != input.end(); ++it)
-//			*it = toupper(*it);
-//		return input;
-//	}
-//
-//
-//	string FilePath2SpecialPath(const std::string& filePath, const string& appPath, const string& projectPath)
-//	{
-//		string special_path = filePath;
-//		if (!filePath.empty())
-//		{
-//			string::size_type pos = upperCase(filePath).find(upperCase(projectPath));
-//			if (pos != string::npos)
-//			{
-//				special_path.replace(pos, projectPath.length(), "[Project Path]\\");
-//			}
-//			else
-//			{
-//				//pos = upperCase(filePath).find(upperCase(appPath + "Models\\"));
-//				//if (pos != -1)
-//				//{
-//				//	special_path.replace(pos, projectPath.length(), (appPath + "Models\\").c_str(), "[Models Path]\\");
-//				//}
-//				//else
-//				//{
-//				pos = upperCase(filePath).find(upperCase(appPath));
-//				if (pos != -1)
-//				{
-//					special_path.replace(pos, appPath.length(), "[BioSIM Path]\\");
-//				}
-//				//}
-//			}
-//
-//		}
-//
-//		return special_path;
-//	}
-//
-//	string SpecialPath2FilePath(const string& specialPath, const string& appPath, const string& projectPath)
-//	{
-//		string filePath = specialPath;
-//
-//		if (!filePath.empty())
-//		{
-//			string::size_type pos = filePath.find("[Project Path]\\");
-//			if (pos != string::npos)
-//			{
-//				ReplaceString(filePath, "[Project Path]\\", projectPath.c_str());
-//			}
-//
-//			pos = filePath.find("[BioSIM Path]\\");
-//			if (pos != -1)
-//			{
-//				ReplaceString(filePath, "[BioSIM Path]\\", appPath.c_str());
-//			}
-//
-//			pos = filePath.find("[Models Path]\\");
-//			if (pos != -1)
-//			{
-//				ReplaceString(filePath, "[Models Path]\\", (appPath + "Models\\").c_str());
-//			}
-//		}
-//
-//		return filePath;
-//	}
-//
+	std::string upperCase(std::string input) {
+		for (std::string::iterator it = input.begin(); it != input.end(); ++it)
+			*it = toupper(*it);
+		return input;
+	}
+
+
+	string FilePath2SpecialPath(const std::string& filePath, const string& appPath, const string& projectPath)
+	{
+		string special_path = filePath;
+		if (!filePath.empty())
+		{
+			string::size_type pos = upperCase(filePath).find(upperCase(projectPath));
+			if (pos != string::npos)
+			{
+				special_path.replace(pos, projectPath.length(), "[Project Path]\\");
+			}
+			else
+			{
+				pos = upperCase(filePath).find(upperCase(appPath));
+				if (pos != -1)
+				{
+					special_path.replace(pos, appPath.length(), "[BioSIM Path]\\");
+				}
+			}
+
+		}
+
+		return special_path;
+	}
+
+	string SpecialPath2FilePath(const string& specialPath, const string& appPath, const string& projectPath)
+	{
+		string filePath = specialPath;
+
+		if (!filePath.empty())
+		{
+			string::size_type pos = filePath.find("[Project Path]\\");
+			if (pos != string::npos)
+			{
+				ReplaceString(filePath, "[Project Path]\\", projectPath.c_str());
+			}
+
+			pos = filePath.find("[BioSIM Path]\\");
+			if (pos != -1)
+			{
+				ReplaceString(filePath, "[BioSIM Path]\\", appPath.c_str());
+			}
+
+			pos = filePath.find("[Models Path]\\");
+			if (pos != -1)
+			{
+				ReplaceString(filePath, "[Models Path]\\", (appPath + "Models\\").c_str());
+			}
+		}
+
+		return filePath;
+	}
+
 bool FileExists(const std::filesystem::path& file_path)
 {
     return std::filesystem::exists( file_path);
@@ -1107,45 +1106,97 @@ void GetFilesInfo(const std::string& filter, bool bSubDirSearch, CFileInfoVector
 //	}
 //
 //
-ERMsg WinExecWait(const std::string& command, std::string inputDir, bool bShow, int* pExitCode)
+
+struct new_console : boost::process::extend::handler
+{
+    template <typename Char, typename Sequence>
+    void on_setup(boost::process::extend::windows_executor<Char, Sequence>& ex)
+    {
+        ex.creation_flags |= CREATE_NEW_CONSOLE;
+    }
+};
+
+ERMsg WinExecWait(const std::string& exe_path, const std::string& arg, std::string working_dir, bool bShow, int* pExitCode)
 {
     ERMsg msg;
 
-#if _MSC_VER
-    while (IsPathEndOk(inputDir))
-        inputDir = inputDir.substr(0, inputDir.length() - 1);
-
-    STARTUPINFOA si = { 0 };
-    si.cb = sizeof(si);
-    si.dwFlags = STARTF_USESHOWWINDOW;
-    si.wShowWindow = bShow?SW_SHOW:SW_HIDE;
-
-    PROCESS_INFORMATION pi = { 0 };
-
-    //std::wstring wdir(UTF16(inputDir));
-    //std::wstring wcommand = UTF16(command);
-    LPCSTR pDir = inputDir.empty() ? NULL : inputDir.c_str();
-
-    if (::CreateProcessA(NULL, const_cast<LPSTR>(command.c_str()), NULL, NULL, FALSE, NULL, NULL, pDir, &si, &pi))
+    //boost::filesystem::path p1 = "C:/Program Files/GDAL/gdalinfo.exe";
+    //boost::filesystem::path p2 = search_path(p1);
+    try
     {
-        ::CloseHandle(pi.hThread);
-        ::WaitForSingleObject(pi.hProcess, INFINITE);
+        while (IsPathEndOk(working_dir))
+            working_dir = working_dir.substr(0, working_dir.length() - 1);
 
-        if (pExitCode != NULL)
-        {
-            // DWORD E=0;
-            //::GetExitCodeProcess(pi.hProcess, &E);
-        }
+        boost::process::ipstream pipe_stream;
+        boost::process::child c;
+        
+        if(bShow)
+            c = boost::process::child(exe_path, arg, boost::process::std_out > pipe_stream, boost::process::start_dir(working_dir));
+        else 
+            c = boost::process::child(exe_path, arg, boost::process::std_out > pipe_stream, boost::process::start_dir(working_dir), new_console());
+        
+
+        std::string line;
+
+        //while (pipe_stream && std::getline(pipe_stream, line) && !line.empty())
+          //  std::cerr << line << std::endl;
+
+        c.wait();
+
+        if(pExitCode)
+            *pExitCode = c.exit_code();
     }
-    else
+    catch (const boost::process::process_error& e)
     {
-        //msg = GetLastErrorMessage();
-        msg.ajoute(std::string("Unable to execute command: ") + command);
+        //cout << e..what();
+        msg.ajoute(std::string("Unable to execute command: ") + exe_path);
+        msg.ajoute(string("Boost.Process Error: ") + e.what() );
+        //std::cerr << "Error Code: " << e.code().value() << std::endl;
+        //std::cerr << "Error Category: " << e.code().category().name() << std::endl;
     }
-#else
-    system(command.c_str());
-#endif
+    catch (const std::exception& e)
+    {
+        msg.ajoute(std::string("Unable to execute command: ") + exe_path);
+        msg.ajoute(e.what());
+        //std::cerr << "General C++ Exception: " << e.what() << std::endl;
+    }
 
+
+//#if _MSC_VER
+//    while (IsPathEndOk(inputDir))
+//        inputDir = inputDir.substr(0, inputDir.length() - 1);
+//
+//    STARTUPINFOA si = { 0 };
+//    si.cb = sizeof(si);
+//    si.dwFlags = STARTF_USESHOWWINDOW;
+//    si.wShowWindow = bShow?SW_SHOW:SW_HIDE;
+//
+//    PROCESS_INFORMATION pi = { 0 };
+//
+//    //std::wstring wdir(UTF16(inputDir));
+//    //std::wstring wcommand = UTF16(command);
+//    LPCSTR pDir = inputDir.empty() ? NULL : inputDir.c_str();
+//
+//    if (::CreateProcessA(NULL, const_cast<LPSTR>(command.c_str()), NULL, NULL, FALSE, NULL, NULL, pDir, &si, &pi))
+//    {
+//        ::CloseHandle(pi.hThread);
+//        ::WaitForSingleObject(pi.hProcess, INFINITE);
+//
+//        if (pExitCode != NULL)
+//        {
+//            // DWORD E=0;
+//            //::GetExitCodeProcess(pi.hProcess, &E);
+//        }
+//    }
+//    else
+//    {
+//        //msg = GetLastErrorMessage();
+//        msg.ajoute(std::string("Unable to execute command: ") + command);
+//    }
+//#else
+//    system(command.c_str());
+//#endif
+//
 
     return msg;
 }
@@ -1396,34 +1447,38 @@ std::string SecondToDHMS(double time)
 }
 
 
-//	std::string GetTempPath()
-//	{
-//		DWORD size = ::GetTempPathW(0, NULL);
+	std::string GetTempPath()
+	{
+		//DWORD size = ::GetTempPathW(0, NULL);
 //
-//		std::wstring tmp;
-//		tmp.resize(size);
-//		::GetTempPathW(size, &(tmp[0]));
-//		//tmp.ReleaseBuffer();
+		//std::wstring tmp;
+		//tmp.resize(size);
+		//::GetTempPathW(size, &(tmp[0]));
+		////tmp.ReleaseBuffer();
 //
-//		return UTF8(tmp);
-//	}
+		//return UTF8(tmp);
+		assert(false);
+		return "";
+	}
+
+	std::string GetUserDataPath()
+	{
+		//std::wstring path;
+		//path.insert(path.begin(), MAX_PATH, 0);
+		//HRESULT result = SHGetFolderPathW(0, CSIDL_APPDATA | CSIDL_FLAG_CREATE, NULL, 0, &(path[0]));
+		//path.resize(wcslen(path.c_str()));
+		//path.shrink_to_fit();
 //
-//	std::string GetUserDataPath()
-//	{
-//		std::wstring path;
-//		path.insert(path.begin(), MAX_PATH, 0);
-//		HRESULT result = SHGetFolderPathW(0, CSIDL_APPDATA | CSIDL_FLAG_CREATE, NULL, 0, &(path[0]));
-//		path.resize(wcslen(path.c_str()));
-//		path.shrink_to_fit();
+		//if (result == S_OK)
+		//	path += L"\\NRCan\\";
+		//else
+		//	path = UTF16(GetTempPath());
 //
-//		if (result == S_OK)
-//			path += L"\\NRCan\\";
-//		else
-//			path = UTF16(GetTempPath());
-//
-//		return UTF8(path);
-//	}
-//
+		//return UTF8(path);
+		assert(false);
+		return "";
+	}
+
 //
 //
 //

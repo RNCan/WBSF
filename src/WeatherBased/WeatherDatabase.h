@@ -164,7 +164,7 @@ namespace WBSF
 		ERMsg GenerateWellDistributedStation(size_t nbStations, CSearchResultVector& searchResult, std::vector<size_t> priority, bool bUseElevation, CCallback& callback)const;
 
 		std::string m_filePath;
-		short m_openMode;
+		size_t m_openMode;
 		bool m_bModified;
 
 

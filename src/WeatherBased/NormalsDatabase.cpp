@@ -841,7 +841,7 @@ int CNormalsDatabase::GetVersion(const string& filePath)
             else
             {
                 int bidon;
-                if (sscanf(line.c_str(), "%5d%5d%5d%5d%5d%5d\n", &bidon, &bidon, &bidon, &bidon, &bidon, &nVersion) != 6)
+                if (sscanf_s(line.c_str(), "%5d%5d%5d%5d%5d%5d\n", &bidon, &bidon, &bidon, &bidon, &bidon, &nVersion) != 6)
                     nVersion = 1;
             }
         }

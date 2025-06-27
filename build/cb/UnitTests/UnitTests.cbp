@@ -19,9 +19,12 @@
 					<Add directory="../../../src" />
 				</Compiler>
 				<Linker>
+					<Add option="-lgomp" />
+					<Add option="-pthread" />
 					<Add library="catch2" />
-					<Add library="../Basic/bin/Debug/libBasic.a" />
+					<Add library="../../../lib/Debug/libBasic.a" />
 					<Add library="boost_serialization-mt" />
+					<Add library="boost_filesystem-mt" />
 				</Linker>
 			</Target>
 			<Target title="Release">

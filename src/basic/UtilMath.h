@@ -9,12 +9,10 @@
 
 #pragma once
 
-
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include <random>
-//#include <math.h>
-//#include <stdlib.h>
-
-#include "basic/UtilStd.h"
+#include "Basic/UtilStd.h"
 
 
 
@@ -41,39 +39,43 @@ static const double VMISS = -9999999.f;
 static const double EPSILON_DATA = 1.0e-5;
 
 static const double PI = 3.1415926535897932384626433832795;
-static const double TWO_PI = PI * 2;
-static const double DEG2RAD = 2 * PI / 360.0;
-static const double RAD2DEG = 360.0 / (2 * PI);
-static const double FEET2METER = 0.3048;
-static const double METER2FEET = 1 / FEET2METER;
+//static const double TWO_PI = PI * 2;
+//static const double DEG2RAD = 2 * PI / 360.0;
+//static const double RAD2DEG = 360.0 / (2 * PI);
+//static const double FEET2METER = 0.3048;
+//static const double METER2FEET = 1 / FEET2METER;
 
 inline double Deg2Rad(double d)
 {
-    return d*DEG2RAD;
+    return d* 2 * PI / 360.0;
 }
 inline double Rad2Deg(double r)
 {
-    return r*RAD2DEG;
+    return r* 360.0 / (2 * PI);
 }
 inline double Feet2Meter(double f)
 {
-    return f*FEET2METER;
+    return f* 0.3048;
 }
 inline double Meter2Feet(double m)
 {
-    return m*METER2FEET;
+    return m/ 0.3048;
 }
 
-template<class T>
-int Signe(const T& a)
-{
-    return a >= 0 ? 1 : -1;
+//template<class T>
+//int Signe(const T& a)
+//{
+//    return a >= 0 ? 1 : -1;
+//}
+
+template <typename T> int signe(T val) {
+    return (T(0) < val) - (val < T(0));
 }
 
 template<class T>
 int64_t Trunk(const T& a, double prec = 0.0000000001)
 {
-    return int64_t(a + Signe(a)*prec);
+    return int64_t(a + signe(a)*prec);
 }
 
 inline int TrunkLowest(double a, double prec = 0.0000000001)
@@ -110,7 +112,7 @@ T quart(const T&  x)
 template<class T = int64_t, class U>
 T round(const U& a)
 {
-    return T(int64_t(a + 0.5*Signe(a)));
+    return T(int64_t(a + 0.5*signe(a)));
 }
 
 inline double round(double a, size_t digit)
@@ -205,24 +207,24 @@ void ComputeSlopeAndAspect(double lat, double exposition, double& slopePourcent,
 
 inline int GetDegrees(double dec, double mult = 1)
 {
-    int nbSec = long(dec * 3600 * mult + Signe(dec)*0.5);
+    int nbSec = long(dec * 3600 * mult + signe(dec)*0.5);
     return int(nbSec / (3600 * mult));
 }
 
 inline int GetMinutes(double dec, double mult = 1)
 {
-    int nbSec = abs(int(dec * 3600 * mult + Signe(dec)*0.5));
+    int nbSec = abs(int(dec * 3600 * mult + signe(dec)*0.5));
     return int((nbSec - abs(GetDegrees(dec, mult)) * 3600 * mult) / (60 * mult));
 }
 inline int GetSeconds(double dec)
 {
-    int nbSec = abs(int(dec * 3600 + Signe(dec)*0.5));
+    int nbSec = abs(int(dec * 3600 + signe(dec)*0.5));
     return int(nbSec - (abs(GetDegrees(dec)) * 3600 + GetMinutes(dec) * 60));
 }
 
 inline double GetSeconds(double dec, double mult)
 {
-    int nbSec = abs(int(dec * 3600 * mult + Signe(dec)*0.5));
+    int nbSec = abs(int(dec * 3600 * mult + signe(dec)*0.5));
     return (nbSec - (abs(GetDegrees(dec, mult)) * 3600 * mult + GetMinutes(dec, mult) * 60 * mult)) / mult;
 }
 

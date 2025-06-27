@@ -596,7 +596,7 @@ void CDBFElement::SetElement(const CDBFField& field, __time64_t element)
     _localtime64_s(&time, &element);
 
     m_string.resize(9);
-    sprintf("%04d%02d%02d", &(m_string[0]), time.tm_year + 1900, time.tm_mon + 1, time.tm_mday);
+    sprintf_s(&(m_string[0]), 9, "%04d%02d%02d", time.tm_year + 1900, time.tm_mon + 1, time.tm_mday);
 }
 
 //    enum TElement{ CHARACTER, DATE, FLOAT, NUMBER, BOOL, MEMO, UNKNOW};
@@ -651,19 +651,21 @@ void CDBFField::SetField(const string& name, const string& format)
         //number
         SetType('N');
         int length;
-        sscanf(tmp.c_str(), "%d", &length);
+        sscanf_s(tmp.c_str(), "%d", &length);
         assert(length >= 0 && length < 127);
         SetLength((char)length);
     }
     else if (tmp.find('F') < tmp.length())
     {
         //float
-        SetType('N');
+        SetType('F');
         int length = 0;
         int decimalCount = 0;
-        char bidon = 0;
-        //        assert(false); // je croit pas que ca marche
-        int var = sscanf(tmp.c_str(), "%d%c%d", &length, &bidon, &decimalCount);
+        int bidon = 0;
+        //char bidon = 0;
+        //        assert(false); // je crois pas que ca marche
+        //int var = sscanf_s(tmp.c_str(), "%d%c%d", &length, &bidon, &decimalCount);
+        int var = sscanf_s(tmp.c_str(), "%d %d %d", &length, &bidon, &decimalCount);
         assert(var >= 1 && var <= 3);
         assert(length < 127);
         SetLength((char)length);
@@ -678,7 +680,7 @@ void CDBFField::SetField(const string& name, const string& format)
         //string
         SetType('C');
         int length = 0;
-        sscanf(tmp.c_str(), "%d", &length);
+        sscanf_s(tmp.c_str(), "%d", &length);
         assert(length < 127);
         SetLength((char)length);
     }

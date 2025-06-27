@@ -7,6 +7,8 @@
 //  It is provided "as is" without express or implied warranty.
 //******************************************************************************
 #pragma once
+
+#define _USE_MATH_DEFINES
 #include <cmath>
 #include <climits>
 

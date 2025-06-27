@@ -9,8 +9,10 @@
 //******************************************************************************
 #pragma once
 
-#include <cfloat>
+#define _USE_MATH_DEFINES
 #include <cmath>
+
+#include <cfloat>
 
 #include "Basic/ERMsg.h"
 #include "Basic/Statistic.h"
@@ -249,7 +251,7 @@ public:
 
     void from_string(const std::string& str)
     {
-        sscanf(str.c_str(), "[%lf, %lf]", &m_lowerBound, &m_upperBound);
+        sscanf_s(str.c_str(), "[%lf, %lf]", &m_lowerBound, &m_upperBound);
     }
 
 

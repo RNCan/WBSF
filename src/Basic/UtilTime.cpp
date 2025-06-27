@@ -700,9 +700,9 @@ CTRef& CTRef::Set(int y_or_r, size_t m, size_t d, size_t h, const CTM& TM)
 //				d = GetNbDaysPerMonth(y_or_r, m) - 1;
 
         m_year = y_or_r;
-        m_month = m;
-        m_day = d;
-        m_hour = h;
+        m_month = (uint8_t)m;
+        m_day = (uint8_t)d;
+        m_hour = (uint8_t)h;
     }
     else
     {
@@ -1004,13 +1004,13 @@ void CTRef::SetRef(int32_t i32, const CTM& TM)
         break;
     case CTM::DAILY:
         m_year = year;
-        m_month = m;
-        m_day = d;
+        m_month = (uint8_t)m;
+        m_day = (uint8_t)d;
         break;
     case CTM::HOURLY:
         m_year = year;
-        m_month = m;
-        m_day = d;
+        m_month = (uint8_t)m;
+        m_day = (uint8_t)d;
         m_hour = (24 + (i32 % 24)) % 24;
         break;
     case CTM::ATEMPORAL:
@@ -1891,7 +1891,7 @@ CTPeriod CTPeriod::as(CTPeriod p, const CTM& TMi)
         if (bResetMonth)
             p.end().m_month = DECEMBER;
         if (bResetDay)
-            p.end().m_day = WBSF::GetNbDaysPerMonth(p.end().GetYear(), p.end().GetMonth()) - 1;
+            p.end().m_day = uint8_t(WBSF::GetNbDaysPerMonth(p.end().GetYear(), p.end().GetMonth()) - 1);
         if (bResetHour)
             p.end().m_hour = 23;
     }
@@ -2008,11 +2008,12 @@ std::string GetCurrentTimeString(const std::string format)
 {
     time_t rawtime;
     time(&rawtime);
-    struct tm * timeinfo = localtime(&rawtime);
+    struct tm timeinfo = { 0 };
+    localtime_s(&timeinfo , &rawtime);
 
     string str;
     str.resize(150);
-    strftime(&(str[0]), 150, format.c_str(), timeinfo);
+    strftime(&(str[0]), 150, format.c_str(), &timeinfo);
     str.resize(strlen(str.c_str()));
     str.shrink_to_fit();
 
@@ -2023,13 +2024,14 @@ std::string GetCurrentTimeString(const std::string format)
 
 std::string FormatTime(const std::string& format, __time64_t t)
 {
-    struct tm *newtime = _localtime64(&t);
-    newtime->tm_isdst = 0;//don't use
+    struct tm newtime = { 0 };
+    _localtime64_s(&newtime , &t);
+    newtime.tm_isdst = 0;//don't use
 
     string str;
 
     str.resize(150);
-    strftime(&(str[0]), 150, format.c_str(), newtime);
+    strftime(&(str[0]), 150, format.c_str(), &newtime);
 
     //strftime(str.GetBufferSetLength(150), 150, format.c_str(), newtime);
     //str.ReleaseBuffer();

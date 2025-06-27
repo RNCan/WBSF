@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{6ea02a3c-e845-4db1-a86d-80b9fae21101}</ProjectGuid>
+    <RootNamespace>Basic</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>..\..\..\src;E:\Project\external</AdditionalIncludeDirectories>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>..\..\..\src;E:\Project\external</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\Basic\ANN\ANN.h" />
+    <ClInclude Include="..\..\..\src\Basic\ANN\ANNperf.h" />
+    <ClInclude Include="..\..\..\src\Basic\ANN\ANNx.h" />
+    <ClInclude Include="..\..\..\src\Basic\ANN\bd_tree.h" />
+    <ClInclude Include="..\..\..\src\Basic\ANN\kd_pr_search.h" />
+    <ClInclude Include="..\..\..\src\Basic\ANN\kd_search.h" />
+    <ClInclude Include="..\..\..\src\Basic\ANN\kd_split.h" />
+    <ClInclude Include="..\..\..\src\Basic\ANN\kd_tree.h" />
+    <ClInclude Include="..\..\..\src\Basic\ANN\kd_util.h" />
+    <ClInclude Include="..\..\..\src\Basic\ANN\pr_queue.h" />
+    <ClInclude Include="..\..\..\src\Basic\ANN\pr_queue_k.h" />
+    <ClInclude Include="..\..\..\src\Basic\ApproximateNearestNeighbor.h" />
+    <ClInclude Include="..\..\..\src\Basic\ARModel\ARModel.h" />
+    <ClInclude Include="..\..\..\src\Basic\Callback.h" />
+    <ClInclude Include="..\..\..\src\Basic\CallcURL.h" />
+    <ClInclude Include="..\..\..\src\Basic\CppUserPrefs.h" />
+    <ClInclude Include="..\..\..\src\Basic\CSV.h" />
+    <ClInclude Include="..\..\..\src\Basic\Dbf3.h" />
+    <ClInclude Include="..\..\..\src\Basic\ERMsg.h" />
+    <ClInclude Include="..\..\..\src\Basic\ERMsg\Ererreur.h" />
+    <ClInclude Include="..\..\..\src\Basic\ERMsg\Erexcept.h" />
+    <ClInclude Include="..\..\..\src\Basic\ERMsg\Sycptref.h" />
+    <ClInclude Include="..\..\..\src\Basic\ERMsg\Sycptref.hpp" />
+    <ClInclude Include="..\..\..\src\Basic\ERMsg\Syenvmsg.h" />
+    <ClInclude Include="..\..\..\src\Basic\ERMsg\Symessag.h" />
+    <ClInclude Include="..\..\..\src\Basic\Event.h" />
+    <ClInclude Include="..\..\..\src\Basic\GeoBasic.h" />
+    <ClInclude Include="..\..\..\src\Basic\gzip.h" />
+    <ClInclude Include="..\..\..\src\Basic\Location.h" />
+    <ClInclude Include="..\..\..\src\Basic\LRUCache.h" />
+    <ClInclude Include="..\..\..\src\Basic\ModelStat.h" />
+    <ClInclude Include="..\..\..\src\Basic\mpfit\mpfit.h" />
+    <ClInclude Include="..\..\..\src\Basic\Mtrx.h" />
+    <ClInclude Include="..\..\..\src\Basic\OpenMP.h" />
+    <ClInclude Include="..\..\..\src\Basic\pugixml\pugiconfig.hpp" />
+    <ClInclude Include="..\..\..\src\Basic\pugixml\pugixml.hpp" />
+    <ClInclude Include="..\..\..\src\Basic\SearchResult.h" />
+    <ClInclude Include="..\..\..\src\Basic\Shore.h" />
+    <ClInclude Include="..\..\..\src\Basic\SimulatedAnnealing.h" />
+    <ClInclude Include="..\..\..\src\Basic\Statistic.h" />
+    <ClInclude Include="..\..\..\src\Basic\Sun.h" />
+    <ClInclude Include="..\..\..\src\Basic\TimeStep.h" />
+    <ClInclude Include="..\..\..\src\Basic\tinyxml2\tinyxml2.h" />
+    <ClInclude Include="..\..\..\src\Basic\UtilMath.h" />
+    <ClInclude Include="..\..\..\src\Basic\UtilStd.h" />
+    <ClInclude Include="..\..\..\src\Basic\UtilTime.h" />
+    <ClInclude Include="..\..\..\src\WBSFconfig.h" />
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\Basic\ANN\ANN.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\ANN\bd_pr_search.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\ANN\bd_search.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\ANN\bd_tree.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\ANN\brute.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\ANN\kd_dump.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\ANN\kd_pr_search.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\ANN\kd_search.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\ANN\kd_split.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\ANN\kd_tree.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\ANN\kd_util.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\ANN\perf.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\ApproximateNearestNeighbor.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\ARModel\ARModel.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\Callback.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\CallcURL.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\CSV.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\Dbf3.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\ERMsg\Ererreur.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\ERMsg\Erexcept.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\ERMsg\Syenvmsg.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\ERMsg\Symessag.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\GeoBasic.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\gzip.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\Location.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\ModelStat.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\mpfit\mpfit.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\Mtrx.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\pugixml\pugixml.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\SearchResult.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\Shore.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\SimulatedAnnealing.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\Statistic.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\Sun.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\TimeStep.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\tinyxml2\tinyxml2.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\UtilMath.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\UtilStd.cpp" />
+    <ClCompile Include="..\..\..\src\Basic\UtilTime.cpp" />
+    <ClCompile Include="Basic.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
