@@ -10,11 +10,10 @@
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 //******************************************************************************
 
-#include "SimulatedAnnealing.h"
 
-
-//#include <cmath>
 #include <sstream>
+
+#include "SimulatedAnnealing.h"
 
 using namespace std;
 

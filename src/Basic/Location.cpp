@@ -13,23 +13,23 @@
 // 12-11-2013   Rémi Saint-Amant    Creation from existing code.
 //*********************************************************************
 
-#include "Location.h"
+
 
 #include <algorithm>
 #include <string>
-
-//#include <cmath>       /* fmod */
-
+#include <cstdio>
 #include <boost/algorithm/string.hpp>
 #include <boost/format.hpp>
 #include <boost/locale.hpp>
 
+
+
 #include "Basic/Shore.h"
 #include "Basic/CallcURL.h"
-//#include "Basic/ExtractLocationInfo.h"
 #include "Basic/json/json11.hpp"
 //#include "Basic/CSV.hpp"
 
+#include "Location.h"
 
 //#include "WeatherBasedSimulationString.h"
 
@@ -145,9 +145,9 @@ std::istream& CLocation::LoadV2(std::istream& io)
 {
     if (io)
     {
-        char tmp[256] = { 0 };
+        char tmp[FILENAME_MAX] = { 0 };
         io.ignore(1);
-        io.get(tmp, 255, '"');
+        io.get(tmp, FILENAME_MAX, '"');
         io.ignore(1);
 
         m_name = tmp;
@@ -159,10 +159,10 @@ std::istream& CLocation::LoadV2(std::istream& io)
         float aspect = 0;
         io >> slope;
         io >> aspect;
-        SetDefaultSSI(SLOPE, ToString(slope));
-        SetDefaultSSI(ASPECT, ToString(aspect));
+        SetDefaultSSI(SLOPE, to_string(slope));
+        SetDefaultSSI(ASPECT, to_string(aspect));
         //take the line feed
-        io.getline(tmp, _MAX_PATH);
+        io.getline(tmp, FILENAME_MAX);
 
     }
 
@@ -184,13 +184,13 @@ string CLocation::GetMember(size_t i)const
         str = m_name;
         break;
     case LAT:
-        str = ToString(m_lat);
+        str = to_string(m_lat);
         break;
     case LON:
-        str = ToString(m_lon);
+        str = to_string(m_lon);
         break;
     case ELEV:
-        str = ToString(m_elev);
+        str = to_string(m_elev);
         break;
     case SITE_SPECIFIC_INFORMATION:
     {
@@ -295,7 +295,7 @@ double CLocation::GetPressure()const
 
 double CLocation::GetTimeZone()const
 {
-    double timeZone = round(m_lon / 15.0);
+    double timeZone = std::round(m_lon / 15.0);
     std::string tz = GetDefaultSSI(CLocation::TIME_ZONE);
     if (!tz.empty())
         timeZone = ToDouble(tz);
@@ -570,7 +570,7 @@ double CLocation::GetShoreDistance()const
 void CLocation::SetShoreDistance(double shore_distance)
 {
     if (shore_distance > -999)
-        SetSSI(GetDefaultSSIName(SHORE_DIST), ToString(shore_distance / 1000, 1)); //[m] to [km]
+        SetSSI(GetDefaultSSIName(SHORE_DIST), to_string(shore_distance / 1000, 1)); //[m] to [km]
     else
         SetSSI(GetDefaultSSIName(SHORE_DIST), ""); //reset
 }
@@ -797,13 +797,13 @@ ERMsg CLocationVector::Save(std::ostream& file, char separator, CCallback& callb
                 str += it->m_name + separator;
                 break;
             case CLocation::LAT:
-                str += ToString(it->m_lat, 10) + separator;
+                str += to_string(it->m_lat, 10) + separator;
                 break;
             case CLocation::LON:
-                str += ToString(it->m_lon, 10) + separator;
+                str += to_string(it->m_lon, 10) + separator;
                 break;
             case CLocation::ELEV:
-                str += ToString(it->m_elev, 1);
+                str += to_string(it->m_elev, 1);
                 break;
             default:
                 assert(false);
@@ -906,7 +906,7 @@ ERMsg CLocationVector::ExtractNominatimName(CLocationVector& locations, bool bRe
             {
 
                 string strGeo;
-                string URL = "https://nominatim.openstreetmap.org/reverse?zoom=18&format=geojson&lat=" + ToString(locations[i].m_lat) + "&lon=" + ToString(locations[i].m_lon);
+                string URL = "https://nominatim.openstreetmap.org/reverse?zoom=18&format=geojson&lat=" + to_string(locations[i].m_lat) + "&lon=" + to_string(locations[i].m_lon);
 
                 string argument = "-s -k \"" + URL + "\"";
                 //string exe = GetApplicationPath() / "curl.exe";
@@ -1063,7 +1063,7 @@ ERMsg CLocationVector::ExtractOpenTopoDataElevation(CLocationVector& locations, 
                 URL += "|";
 
             size_t index = loc_to_update[i];
-            URL += ToString(locations[index].m_lat) + "," + ToString(locations[index].m_lon);
+            URL += to_string(locations[index].m_lat) + "," + to_string(locations[index].m_lon);
             ii++;
 
             if (ii == 100 || i == loc_to_update.size() - 1)
@@ -1132,7 +1132,7 @@ ERMsg CLocationVector::ExtractShoreDistance(CLocationVector& locations, bool bRe
         if (bReplaceAll || locations[i].GetDefaultSSI(CLocation::SHORE_DIST).empty())
         {
             double d = CShore::GetShoreDistance(locations[i]) / 1000.0;//distance in km
-            locations[i].SetSSI(CLocation::GetDefaultSSIName(CLocation::SHORE_DIST), ToString(d, 1));
+            locations[i].SetSSI(CLocation::GetDefaultSSIName(CLocation::SHORE_DIST), to_string(d, 1));
         }
 
         msg += callback.StepIt();

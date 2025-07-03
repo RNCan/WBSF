@@ -29,15 +29,22 @@
 #include <map>
 
 #include "Basic/ERMsg.h"
-//#include "basic/hxGrid.h"
+//#include "Basic/hxGrid.h"
 #include "ModelBased/EntryPoint.h"
 #include "ModelBased/BioSIMModelBase.h"
 #include "ModelBased/SimulatedAnnealingVector.h"
 
 using namespace std;
 
+#ifdef _WIN32
 #define DllImport   __declspec( dllimport )
 #define DllExport   __declspec( dllexport )
+#else
+#define DllImport
+#define DllExport
+
+#endif // _WIN32
+
 
 static bool bUseHxGrid = false;
 bool GetUseHxGrid()
@@ -76,7 +83,7 @@ extern "C"
         }
 
         size_t length = min(tmp.length(), size_t(1023));
-        strncpy_s(errorMessage, 1024, tmp.c_str(), length);
+        std::strncpy(errorMessage, tmp.c_str(), length);
         errorMessage[length] = 0;
 
         return false;
@@ -142,7 +149,7 @@ extern "C"
         assert(pModel);
 
         //pModel->m_pAgent = agent;
-       // pModel->m_hxGridSessionID = hxGridSessionId;
+        // pModel->m_hxGridSessionID = hxGridSessionId;
 
         try
         {
@@ -204,7 +211,7 @@ public:
 };
 
 
-typedef std::map<unsigned __int64, TSessionData> CSessionDataCache;
+typedef std::map<uint64_t, TSessionData> CSessionDataCache;
 //static CCriticalSection CS;
 
 static CSessionDataCache sessionDataCache;
@@ -286,17 +293,17 @@ extern "C"
 
     //================================================================
     //================================================================
-   // DllExport void __cdecl EndSession(IAgent* agent, int32_t sessionId)
-   // {
-   //     CSessionDataCache::iterator i = sessionDataCache.find(sessionId);
+    // DllExport void __cdecl EndSession(IAgent* agent, int32_t sessionId)
+    // {
+    //     CSessionDataCache::iterator i = sessionDataCache.find(sessionId);
 //
-   //     if (i != sessionDataCache.end())
-   //     {
-   //         sessionDataCache.erase(i);
-   //     }
+    //     if (i != sessionDataCache.end())
+    //     {
+    //         sessionDataCache.erase(i);
+    //     }
 //
 // //       CoFreeUnusedLibrariesEx(0, 0);
-   // }
+    // }
 
 
 
@@ -377,10 +384,10 @@ extern "C"
 //
 //
 //       //here we are not suppose to more than obne simulation in the same loc
-//       unsigned __int64 locNo = 0;
+//       unsigned int64_t locNo = 0;
 //       inStream->Read(&locNo, sizeof(locNo));
 //       assert(locNo < sd.m_modelVector.size());
-//       unsigned __int64 XSize = 0;
+//       unsigned int64_t XSize = 0;
 //       inStream->Read(&XSize, sizeof(XSize));
 //       assert(XSize < (long)100);
 //
@@ -391,7 +398,7 @@ extern "C"
 //       //LeaveCriticalSection(&CS);
 //
 //       CStatisticXY stat;
-//       unsigned __int64 bValid = unsigned __int64(sd.m_modelVector[locNo]->GetFValue(paramArray, stat));
+//       unsigned int64_t bValid = unsigned int64_t(sd.m_modelVector[locNo]->GetFValue(paramArray, stat));
 //
 //       //write outputStream
 //       outStream->Write(&sessionId, sizeof(sessionId));

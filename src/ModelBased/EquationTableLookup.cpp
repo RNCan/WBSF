@@ -25,9 +25,6 @@
 // 14/02/2008   Rémi Saint-Amant    Creation
 //*****************************************************************************
 
-#pragma once
-
-
 #include "Basic/UtilStd.h"
 #include "ModelBased/EquationTableLookup.h"
 

@@ -156,7 +156,7 @@ ERMsg CDailyDatabase::v4_to_v3(const std::string& inputFilePath, const std::stri
 //    }
 //
 //
-//    callback.AddMessage(FormatMsg(IDS_CMN_NB_STATIONS_ADDED, ToString(info.size())), 1);
+//    callback.AddMessage(FormatMsg(IDS_CMN_NB_STATIONS_ADDED, to_string(info.size())), 1);
 //    callback.PopTask();
 
     return msg;
@@ -258,7 +258,7 @@ ERMsg CDailyDatabase::v3_to_v4(const std::string& inputFilePath, const std::stri
 //        }
 //
 //
-//        callback.AddMessage(FormatMsg(IDS_CMN_NB_STATIONS_ADDED, ToString(info.size())), 1);
+//        callback.AddMessage(FormatMsg(IDS_CMN_NB_STATIONS_ADDED, to_string(info.size())), 1);
 //        callback.PopTask();
 //    }
 //    catch (const zen::XmlFileError& e)

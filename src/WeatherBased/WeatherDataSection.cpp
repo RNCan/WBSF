@@ -11,15 +11,15 @@
 // 15-01-2014	Rémi Saint-Amant  Initial version
 //******************************************************************************
 #pragma warning( disable : 4244 )
-#include <boost\archive\binary_oarchive.hpp>
-#include <boost\archive\binary_iarchive.hpp>
-#include <boost\dynamic_bitset.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/dynamic_bitset.hpp>
 #include <boost/serialization/unordered_map.hpp>
-#include <boost\serialization\map.hpp>
-#include <boost\serialization\array.hpp>
-#include <boost\serialization\vector.hpp>
-#include <boost\crc.hpp>
-#include <boost\container\flat_set.hpp>
+#include <boost/serialization/map.hpp>
+#include <boost/serialization/array.hpp>
+#include <boost/serialization/vector.hpp>
+#include <boost/crc.hpp>
+#include <boost/container/flat_set.hpp>
 
 
 #include "WeatherBased/WeatherDataSection.h"

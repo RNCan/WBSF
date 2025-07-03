@@ -7,10 +7,10 @@
 // 15/09/2008  Rémi Saint-Amant	Created from old file
 //****************************************************************************
 
-#include "Basic\UtilMath.h"
-#include "ModelBased\ParametersVariations.h"
-#include "ModelBased\ModelInput.h"
-#include "ModelBased\WGInput.h"
+#include "Basic/UtilMath.h"
+#include "ModelBased/ParametersVariations.h"
+#include "ModelBased/ModelInput.h"
+#include "ModelBased/WGInput.h"
 
 namespace WBSF
 {
@@ -559,7 +559,7 @@ CParameterVector CParametersVariationsDefinition::GetParametersVector()const
     CParameterVector params;
 
     for (size_t i = 0; i < size(); i++)
-        params.push_back(CParameter(at(i).m_name, ToString((at(i).m_min + at(i).m_max) / 2), at(i).m_bActive));
+        params.push_back(CParameter(at(i).m_name, to_string((at(i).m_min + at(i).m_max) / 2), at(i).m_bActive));
 
     return params;
 }

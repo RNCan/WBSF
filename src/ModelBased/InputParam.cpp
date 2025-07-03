@@ -21,7 +21,7 @@
 #include <fstream>
 
 #include "ModelBased/InputParam.h"
-#include "ModelBased/BioSimModelBase.h"
+#include "ModelBased/BioSIMModelBase.h"
 
 
 using namespace std;
@@ -172,7 +172,7 @@ CTRef CParameter::GetTRef()const
 
 /*
 template<typename T>
-std::string toString(const T & val)
+std::string to_string(const T & val)
 {
 std::ostringstream ostr;
 ostr << val;
@@ -187,7 +187,7 @@ return in<<p.first<<p.second;
 
 std::ostream & operator<<(std::ostream & io, const std::map<std::string, std::string> & theMap)
 {
-//io << toString(theMap);
+//io << to_string(theMap);
 io << theMap.size();
 for(std::map<std::string, std::string>::const_iterator it = theMap.begin(); it != theMap.end(); it++)
 {
@@ -306,8 +306,8 @@ float slope=0;
 float aspect=0;
 io >> slope;
 io >> aspect;
-SetDefaultSSI(SLOPE, ToString(slope) );
-SetDefaultSSI(ASPECT, ToString(aspect) );
+SetDefaultSSI(SLOPE, to_string(slope) );
+SetDefaultSSI(ASPECT, to_string(aspect) );
 //take the line feed
 io.getline(tmp,_MAX_PATH);
 
@@ -342,9 +342,9 @@ switch(i)
 {
 case NAME: str=m_name; break;
 case ID:   str=m_ID; break;
-case LAT:  str=ToString(m_lat); break;
-case LON:  str=ToString(m_lon); break;
-case ELEV: str=ToString(m_elev); break;
+case LAT:  str=to_string(m_lat); break;
+case LON:  str=to_string(m_lon); break;
+case ELEV: str=to_string(m_elev); break;
 case SITE_SPECIFIC_INFORMATION:
 {
 for(StringStringMap::const_iterator it=m_siteSpeceficInformation.begin(); it!=m_siteSpeceficInformation.end(); it++)
@@ -553,16 +553,16 @@ m_siteSpeceficInformation[ name ] = SSI;
 //	string str;
 //	switch(i)
 //	{
-//	case LAST_YEAR:			str = ToString(m_lastYear); break;
-//	case NB_YEAR:			str = ToString(m_nbYear); break;
-//	case NB_NORMAL_STATION:	str = ToString(m_nbNormalStation); break;
+//	case LAST_YEAR:			str = to_string(m_lastYear); break;
+//	case NB_YEAR:			str = to_string(m_nbYear); break;
+//	case NB_NORMAL_STATION:	str = to_string(m_nbNormalStation); break;
 //	case NORMAL_DB_NAME:	str = m_normalDBName; break;
-//	case NB_DAILY_STATION:	str = ToString(m_nbDailyStation); break;
+//	case NB_DAILY_STATION:	str = to_string(m_nbDailyStation); break;
 //	case DAILY_DB_NAME:		str = m_dailyDBName; break;
-//	case ALBEDO_TYPE:		str = ToString(m_albedoType); break;
-//	case SEED_TYPE:			str = ToString(m_seedType); break;
+//	case ALBEDO_TYPE:		str = to_string(m_albedoType); break;
+//	case SEED_TYPE:			str = to_string(m_seedType); break;
 //	case SIMULATED_CATEGORY:str = m_category.GetString(); break;
-//	case XVAL:				str = ToString(m_bXValidation); break;
+//	case XVAL:				str = to_string(m_bXValidation); break;
 //
 //	default: assert(false);
 //	}
@@ -636,8 +636,8 @@ std::istream& CCounter::operator << (std::istream& io)
         io >> m_total;
 
         //take the line feed
-        char tmp[_MAX_PATH] = { 0 };
-        io.getline(tmp, _MAX_PATH);
+        char tmp[FILENAME_MAX] = { 0 };
+        io.getline(tmp, FILENAME_MAX);
 
     }
 

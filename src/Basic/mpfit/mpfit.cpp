@@ -16,12 +16,17 @@
 $Id$
  */
 
+
+
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
+#include <cstring>
+
 #include "mpfit.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
+
+using namespace std;
 
 
 /* Forward declarations of functions in this module */
@@ -1036,7 +1041,7 @@ L300:
 
     if (result)
     {
-        strncpy_s(result->version, 20, MPFIT_VERSION, 20);
+        std::strncpy(result->version, MPFIT_VERSION, 20);
         result->bestnorm = mp_dmax1(fnorm, fnorm1);
         result->bestnorm *= result->bestnorm;
         result->orignorm = orignorm;

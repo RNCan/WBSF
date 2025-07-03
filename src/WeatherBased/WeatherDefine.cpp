@@ -146,7 +146,7 @@ namespace WBSF
 		{
 			string str;
 			str.resize(100);
-			_snprintf_s(&(str[0]), 100, 100, "%%-%d.%ds\n", LINE_LENGTH1, LINE_LENGTH1);
+			std::snprintf(&(str[0]), 100, "%%-%d.%ds\n", LINE_LENGTH1, LINE_LENGTH1);
 			str.resize(strlen(str.c_str()));
 			return str;
 		}
@@ -155,7 +155,7 @@ namespace WBSF
 		{
 			string str;
 			str.resize(100);
-			_snprintf_s(&(str[0]), 100, 100, " %%%d.%df", RECORD_LENGTH - 1, GetNormalDataPrecision(i));
+			std::snprintf(&(str[0]), 100, " %%%d.%df", RECORD_LENGTH - 1, GetNormalDataPrecision(i));
 			str.resize(strlen(str.c_str()));
 			return str;
 		}

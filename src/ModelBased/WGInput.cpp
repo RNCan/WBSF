@@ -273,7 +273,7 @@ void CWGInput::SetAsDefaultParameter()
 ERMsg CWGInput::Load(const string& filePath)
 {
     clear();
-   return ERMsg();//zen::LoadXML(filePath, GetXMLFlag(), "1", *this);
+    return ERMsg();//zen::LoadXML(filePath, GetXMLFlag(), "1", *this);
 }
 
 ERMsg CWGInput::Save(const string& filePath)

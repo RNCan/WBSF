@@ -3,7 +3,7 @@
 
 #include <vector>
 //#include <math.h>
-#include <crtdbg.h>
+#include <cassert>
 
 #include "Basic/ModelStat.h"
 #include "WeatherBased/WeatherStation.h"

@@ -24,6 +24,7 @@
 //#include <share.h>
 
 
+#include "WBSFconfig.h"
 #include "Basic/ERMsg.h"
 
 
@@ -31,9 +32,11 @@
 namespace WBSF
 {
 
-static constexpr size_t NOT_INIT = size_t(-1);
-static const size_t UNKNOWN_POS = NOT_INIT;
-
+//static constexpr size_t NOT_INIT = size_t(-1);
+//static const size_t UNKNOWN_POS = NOT_INIT;
+//
+//extern const std::string STRVMISS;
+//extern const std::string STRDEFAULT;
 
 
 ////*********************************************************************************************************************
@@ -218,7 +221,7 @@ std::string FormatV(const char* szFormat, va_list argList);
 //	std::string FormatMsgA(PCSTR szFormat, ...);
 //	//std::string FormatMsg(UINT nFormatId, ...);
 //
-    std::string FormatMsg(std::string_view szFormat, std::string_view v1, std::string_view v2 = "", std::string_view v3 = "", std::string_view  v4 = "", std::string_view v5 = "");
+std::string FormatMsg(std::string_view szFormat, std::string_view v1, std::string_view v2 = "", std::string_view v3 = "", std::string_view  v4 = "", std::string_view v5 = "");
 
 //	inline std::string FormatMsg(UINT nFormatId, const std::string& v1, const std::string& v2 = "", const std::string& v3 = "", const std::string& v4 = "", const std::string& v5 = "", const std::string& v6 = "", const std::string& v7 = "", const std::string& v8 = "", const std::string& v9 = "")
 //	{
@@ -343,11 +346,11 @@ inline std::string& MakeLower(std::string&str)
 
 inline std::string::size_type GetNextLinePos(const std::string& str, std::string::size_type begin)
 {
-	std::string::size_type end = std::min(str.size(), str.find_first_of("\r\n", begin));
-	while (end < str.size() && (str[end] == '\r' || str[end] == '\n'))
-		end++;
+    std::string::size_type end = std::min(str.size(), str.find_first_of("\r\n", begin));
+    while (end < str.size() && (str[end] == '\r' || str[end] == '\n'))
+        end++;
 
-	return end;
+    return end;
 }
 
 inline bool ToBool(const std::string& str)
@@ -478,7 +481,7 @@ T ToValue(const std::string& str)
 //
 //
 template <class T>
-std::string ToStringStd(T val, int pres = -1)
+std::string to_stringStd(T val, int pres = -1)
 {
     std::ostringstream st;
     auto myloc = std::locale::classic();//to avoid memory leak
@@ -580,28 +583,40 @@ inline bool IsEqual(const std::string& str1, const std::string& str2, bool bCase
 //
 
 //
-//	inline std::string ToString(const std::string& str) { return str; }
-//	inline std::string ToString(COLORREF c){ return FormatA("%d %d %d", (int)GetRValue(c), (int)GetGValue(c), (int)GetBValue(c)); }
-inline std::string ToString(int val, int size = -1)
-{
-    return ToStringStd(val, size);
-}
-inline std::string ToString(int64_t val, int size = -1)
-{
-    return ToStringStd(val, size);
-}
-inline std::string ToString(float val, int pres=4)
-{
-    return ToStringStd((double)val, pres);
-}
-inline std::string ToString(double val, int pres=4)
-{
-    return ToStringStd(val, pres);
-}
+//	inline std::string to_string(const std::string& str) { return str; }
+//	inline std::string to_string(COLORREF c){ return FormatA("%d %d %d", (int)GetRValue(c), (int)GetGValue(c), (int)GetBValue(c)); }
+//inline std::string to_string(int val, int size = -1)
+//{
+//    return to_stringStd(val, size);
+//}
+//inline std::string to_string(int64_t val, int size = -1)
+//{
+//    return to_stringStd(val, size);
+//}
+//inline std::string to_string(float val, int pres=4)
+//{
+//    return to_stringStd((double)val, pres);
+//}
+//inline std::string to_string(double val, int pres=4)
+//{
+//    return to_stringStd(val, pres);
+//}
 
 //#include <sstream>
 
-using std::to_string;
+//using std::to_string;
+//template <typename T>
+//std::string to_string(const T a_value, const int n)
+//{
+//    std::ostringstream out;
+//    out.precision(n);
+//    out << std::fixed << a_value;
+//    return std::move(out).str();
+//}
+//	std::string to_stringDMS(double coord, bool bWithFraction);
+
+
+
 template <typename T>
 std::string to_string(const T a_value, const int n)
 {
@@ -610,41 +625,41 @@ std::string to_string(const T a_value, const int n)
     out << std::fixed << a_value;
     return std::move(out).str();
 }
-//	std::string ToStringDMS(double coord, bool bWithFraction);
-//
-//
-//
+
+
+
+
 //	//http://stackoverflow.com/a/13636164/195722
-	template <typename T> inline
-	std::string to_string ( T obj )
-	{
-		std::ostringstream ss;
-		ss << obj;
-		return ss.str();
-	}
+template <typename T> inline
+std::string to_string ( T obj )
+{
+    std::ostringstream ss;
+    ss << obj;
+    return ss.str();
+}
 
-	template <typename T> inline
-	std::string to_string(const std::vector<T>& v, const std::string& be="[", const std::string& sep=",", const std::string& en="]")
-	{
-		std::string str = be;
+template <typename T> inline
+std::string to_string(const std::vector<T>& v, const std::string& be="[", const std::string& sep=",", const std::string& en="]")
+{
+    std::string str = be;
 
-		for(typename std::vector<T>::const_iterator it=v.begin(); it!=v.end(); it++)
-		{
-			if( it!=v.begin() )
-				str  += sep;
-			str  += to_string(*it);
-		}
+    for(typename std::vector<T>::const_iterator it=v.begin(); it!=v.end(); it++)
+    {
+        if( it!=v.begin() )
+            str  += sep;
+        str  += to_string(*it);
+    }
 
-		str  += en;
+    str  += en;
 
-		return str;
-	}
+    return str;
+}
 
 //
 //	typedef std::unordered_map< std::string, std::string> StringStringMap;
 //	typedef std::pair< std::string, std::string> StringStringPair;
 //
-//	inline std::string ToString(StringStringMap const & Map)
+//	inline std::string to_string(StringStringMap const & Map)
 //	{
 //		std::string str;
 //
@@ -662,7 +677,7 @@ std::string to_string(const T a_value, const int n)
 //		{
 //			if (it != v.begin())
 //				str += sep;
-//			str += WBSF::ToString(*it);
+//			str += WBSF::to_string(*it);
 //		}
 //
 //		str += end;
@@ -671,7 +686,7 @@ std::string to_string(const T a_value, const int n)
 //	}
 //
 //
-//	inline StringStringMap ToStringStringMap(const std::string& str)
+//	inline StringStringMap to_stringStringMap(const std::string& str)
 //	{
 //		StringStringMap Map;
 //		std::vector<std::string> tuples = Tokenize(str, "{}");
@@ -733,8 +748,8 @@ T read_value(std::istream& s)
 template <typename T>
 std::istream& read_value(std::istream& s, T& v)
 {
-	s.read((char*)&v, sizeof(v));
-	return s;
+    s.read((char*)&v, sizeof(v));
+    return s;
 }
 
 template <typename T>
@@ -743,15 +758,15 @@ void write_value(std::ostream& s, const T& v)
     s.write((char*)&v, sizeof(v));
 }
 
-	inline std::string ReadBuffer(std::istream& s)
-	{
-		std::string buffer;
-		uint64_t size = read_value<uint64_t>(s);
-		buffer.resize((size_t)size);
-		s.read(const_cast<char*>(buffer.c_str()), size);
+inline std::string ReadBuffer(std::istream& s)
+{
+    std::string buffer;
+    uint64_t size = read_value<uint64_t>(s);
+    buffer.resize((size_t)size);
+    s.read(const_cast<char*>(buffer.c_str()), size);
 
-		return buffer;
-	}
+    return buffer;
+}
 
 inline std::string& ReadBuffer(std::istream& s, std::string& buffer)
 {
@@ -815,93 +830,114 @@ inline void WriteBuffer(std::ostream& s, const std::string& buffer)
 ////CFileInfo
 
 
-	class CFileInfo
-	{
-	public:
+class CFileInfo
+{
+public:
 
-		std::string m_filePath;
-		__time64_t m_time;
-		int64_t    m_size;
-		int64_t    m_attribute;
+    std::string m_filePath;
+    std::time_t m_time;
 
-
-
-		CFileInfo()
-		{
-			m_size = 0;
-			m_time = -1;
-			m_attribute = 0;
-		}
-		CFileInfo(const CFileInfo& in)
-		{
-			operator =(in);
-		}
-
-		void clear()
-		{
-			m_filePath.clear();
-			m_time = -1;
-			m_size = 0;
-			m_attribute = 0;
-		}
-
-		bool is_init()const
-		{
-		    return !m_filePath.empty();
-		}
-
-		CFileInfo& operator =(const CFileInfo& in)
-		{
-			if (&in != this)
-			{
-				m_filePath = in.m_filePath;
-				m_time = in.m_time;
-				m_size = in.m_size;
-				m_attribute = in.m_attribute;
-			}
-
-			return *this;
-		}
-
-		bool operator ==(const CFileInfo& in)const
-		{
-			bool bEqual = true;
-
-			if (!IsEqualNoCase(m_filePath, in.m_filePath))bEqual = false;
-			if (m_time != in.m_time)bEqual = false;
-			if (m_size != in.m_size)bEqual = false;
-			if (m_attribute != in.m_attribute)bEqual = false;
-
-			return bEqual;
-
-		}
-
-		bool operator !=(const CFileInfo& in)const{ return !(operator==(in)); }
+    uint64_t    m_size;
+    uint64_t    m_attribute;
 
 
-		std::ostream& operator>>(std::ostream &s)const{ s << m_filePath << " " << m_time << " " << m_size;	return s; }
-		std::istream& operator<<(std::istream &s){ s >> m_filePath >> m_time >> m_size; return s; }
-		friend std::ostream& operator<<(std::ostream &s, const CFileInfo& pt){ pt >> s; return s; }
-		friend std::istream& operator>>(std::istream &s, CFileInfo& pt){ pt << s;	return s; }
 
-		template<class Archive>	void serialize(Archive& ar, const unsigned int version)	{ ar & m_filePath & m_time & m_size; }
-	};
+    CFileInfo()
+    {
+        m_size = 0;
+        m_time = -1;
+        m_attribute = 0;
+    }
+    CFileInfo(const CFileInfo& in)
+    {
+        operator =(in);
+    }
 
-	typedef std::vector<CFileInfo> CFileInfoVector;
-//
-//
-	extern const std::string STRVMISS;
-	extern const std::string STRDEFAULT;
-//
-//
+    void clear()
+    {
+        m_filePath.clear();
+        m_time = -1;
+        m_size = 0;
+        m_attribute = 0;
+    }
+
+    bool is_init()const
+    {
+        return !m_filePath.empty();
+    }
+
+    CFileInfo& operator =(const CFileInfo& in)
+    {
+        if (&in != this)
+        {
+            m_filePath = in.m_filePath;
+            m_time = in.m_time;
+            m_size = in.m_size;
+            m_attribute = in.m_attribute;
+        }
+
+        return *this;
+    }
+
+    bool operator ==(const CFileInfo& in)const
+    {
+        bool bEqual = true;
+
+        if (!IsEqualNoCase(m_filePath, in.m_filePath))bEqual = false;
+        if (m_time != in.m_time)bEqual = false;
+        if (m_size != in.m_size)bEqual = false;
+        if (m_attribute != in.m_attribute)bEqual = false;
+
+        return bEqual;
+
+    }
+
+    bool operator !=(const CFileInfo& in)const
+    {
+        return !(operator==(in));
+    }
+
+
+    std::ostream& operator>>(std::ostream &s)const
+    {
+        s << m_filePath << " " << m_time << " " << m_size;
+        return s;
+    }
+    std::istream& operator<<(std::istream &s)
+    {
+        s >> m_filePath >> m_time >> m_size;
+        return s;
+    }
+    friend std::ostream& operator<<(std::ostream &s, const CFileInfo& pt)
+    {
+        pt >> s;
+        return s;
+    }
+    friend std::istream& operator>>(std::istream &s, CFileInfo& pt)
+    {
+        pt << s;
+        return s;
+    }
+
+    template<class Archive>	void serialize(Archive& ar, const unsigned int version)
+    {
+        ar & m_filePath & m_time & m_size;
+    }
+};
+
+typedef std::vector<CFileInfo> CFileInfoVector;
+
+
+
+
 //	inline bool CompareNumber(const std::pair<std::string, size_t>& a, const std::pair<std::string, size_t>& b){ return stof(a.first) < stof(b.first); }
 
-	std::string GenerateNewName(std::string name);
-	std::string GenerateNewFileName(std::string name);
-	std::string GetUserDataPath();
-	std::string GetTempPath();
+std::string GenerateNewName(std::string name);
+std::string GenerateNewFileName(std::string name);
+std::string GetUserDataPath();
+std::string GetTempPath();
 
-std::filesystem::path GetApplicationPath();
+std::string GetApplicationPath();
 //	std::string GetRelativePath(const std::string& basePath, const std::string& filePath);
 //	std::string GetAbsolutePath(const std::string& basePath, const std::string& filePath);
 //	std::string SimplifyFilePath(const std::string& path);
@@ -1091,30 +1127,33 @@ ERMsg CopyOneFile(const std::string& filePath1, const std::string& filePath2, bo
 ERMsg CopyDir(const std::string& pathIn1, const std::string& pathIn2);
 
 
-//	// Function: fileExists
-//	/**
-//		Check if a file exists
-//		@param[in] filename - the name of the file to check
-//
-//		@return    true if the file exists, else false
-//
-//		*/
-bool FileExists(const std::filesystem::path& filePath);
-bool DirectoryExists(const std::filesystem::path& path);
+// Function: fileExists
+/**
+	Check if a file exists
+	@param[in] filename - the name of the file to check
 
-	enum TFileNameType { FILE_TITLE, FILE_NAME, FILE_PATH };
-	ERMsg GetFileInfo(const std::string& filePath, CFileInfo& info);
-	CFileInfo GetFileInfo(const std::string& filePath);
-	//ERMsg GetFilesInfo(const std::vector<std::string>& filesList, CFileInfoVector& filesInfo);
+	@return    true if the file exists, else false
 
-	void GetFilesInfo(const std::string& filter, bool bSubDirSearch, CFileInfoVector& filesInfo);
+	*/
+bool FileExists(const std::string& file_path);
+bool DirectoryExists(const std::string& diretory_path);
+
+//enum TFileNameType { FILE_TITLE, FILE_NAME, FILE_PATH };
+ERMsg GetFileInfo(const std::string& file_path, CFileInfo& info);
+CFileInfo GetFileInfo(const std::string& file_path);
+//ERMsg GetFilesInfo(const std::vector<std::string>& filesList, CFileInfoVector& filesInfo);
+
+//void GetFilesInfo(const std::string& filter, bool bSubDirSearch, CFileInfoVector& filesInfo);
+CFileInfoVector GetFilesInfo(const std::vector<std::string>& files_list);
 
 
-	__time64_t GetFileStamp(const std::string& filePath);
-	std::vector<std::string> GetFilesList(const std::string& filter, int type = FILE_PATH, bool bSubDirSearch = false);
+std::time_t GetFileStamp(const std::string& file_path);
+
+std::vector<std::string> GetDirectoriesList(const std::string& directory_path, const std::string& filter="*.*");
+std::vector<std::string> GetFilesList(const std::string& directory_path, const std::string& filter="*.*", bool bSubDirSearch = false);
 //	void GetFilesList(const CFileInfoVector& filesInfo, int type, std::vector<std::string>& filesList);
 
-	std::vector<std::string> GetDirectoriesList(const std::string& filter);
+
 
 
 int GetCrc32(const std::string& str, uint64_t begin = NOT_INIT, uint64_t end = NOT_INIT);
@@ -1124,12 +1163,12 @@ ERMsg WinExecWait(const std::string& command, std::string inputDir = "", bool bS
 //	ERMsg CallApplication(std::string appType, std::string argument, HWND pCaller = NULL, int showMode = SW_HIDE, bool bAddCote = true, bool bWait = false);
 //	size_t GetTotalSystemMemory();
 //
-	std::vector<std::string>::const_iterator FindStringExact(const std::vector<std::string>& list, const std::string& value, bool bCaseSensitive);
+std::vector<std::string>::const_iterator FindStringExact(const std::vector<std::string>& list, const std::string& value, bool bCaseSensitive);
 
-    std::string SecondToDHMS(double time);
+std::string SecondToDHMS(double time);
 
-	std::string FilePath2SpecialPath(const std::string& filePath, const std::string& appPath, const std::string& projectPath);
-	std::string SpecialPath2FilePath(const std::string& filePath, const std::string& appPath, const std::string& projectPath);
+std::string FilePath2SpecialPath(const std::string& filePath, const std::string& appPath, const std::string& projectPath);
+std::string SpecialPath2FilePath(const std::string& filePath, const std::string& appPath, const std::string& projectPath);
 
 //	inline std::string GetErrorDescription(DWORD errnum)
 //	{
@@ -1206,7 +1245,7 @@ ERMsg WinExecWait(const std::string& command, std::string inputDir = "", bool bS
 //		{
 //			// handle error
 //			msg.ajoute("Error in file : " + filePath);
-//			msg.ajoute("Error parsing XML file: col=" + ToString(e.col) + ", row=" + ToString(e.row));
+//			msg.ajoute("Error parsing XML file: col=" + to_string(e.col) + ", row=" + to_string(e.row));
 //		}
 //
 //		return msg;
@@ -1229,7 +1268,7 @@ ERMsg WinExecWait(const std::string& command, std::string inputDir = "", bool bS
 //		catch (const zen::XmlParsingError& e)
 //		{
 //			// handle error
-//			msg.ajoute("Error saving XML file: col=" + ToString(e.col) + ", row=" + ToString(e.row));
+//			msg.ajoute("Error saving XML file: col=" + to_string(e.col) + ", row=" + to_string(e.row));
 //		}
 //
 //		return msg;
@@ -1330,14 +1369,14 @@ ERMsg WinExecWait(const std::string& command, std::string inputDir = "", bool bS
 //
 //	//*********************************************************************************************************************
 //	//ifStream
-	inline std::string getLastLine(std::ifstream& in)
-	{
-		std::string line;
-		while (in >> std::ws && std::getline(in, line)) // skip empty lines
-			;
+inline std::string getLastLine(std::ifstream& in)
+{
+    std::string line;
+    while (in >> std::ws && std::getline(in, line)) // skip empty lines
+        ;
 
-		return line;
-	}
+    return line;
+}
 
 
 //by default deny read and write
@@ -1463,81 +1502,81 @@ class fStream : public std::fstream
 public:
 
 
-	ERMsg open(const std::string& filePath,
-		std::ios_base::openmode _Mode = std::fstream::in | std::fstream::out | std::fstream::app)
-	{
-		ERMsg msg;
+    ERMsg open(const std::string& filePath,
+               std::ios_base::openmode _Mode = std::fstream::in | std::fstream::out | std::fstream::app)
+    {
+        ERMsg msg;
 
-		std::fstream::open(filePath.c_str(), _Mode);//, _Prot
-		//this->set
+        std::fstream::open(filePath.c_str(), _Mode);//, _Prot
+        //this->set
 
-		if (fail())
-		{
-			//msg = GetLastErrorMessage();
-			msg.ajoute("Unable to open: " + filePath);
-		}
+        if (fail())
+        {
+            //msg = GetLastErrorMessage();
+            msg.ajoute("Unable to open: " + filePath);
+        }
 
-		return msg;
-	}
+        return msg;
+    }
 
-	uint64_t lengthg()const
-	{
-		fStream& me = const_cast<fStream&>(*this);
-		std::ios::pos_type pos = me.tellg();
-		me.seekg(0, std::ios::end);
-		std::ios::pos_type length = me.tellg();
-		me.seekg(pos);
+    uint64_t lengthg()const
+    {
+        fStream& me = const_cast<fStream&>(*this);
+        std::ios::pos_type pos = me.tellg();
+        me.seekg(0, std::ios::end);
+        std::ios::pos_type length = me.tellg();
+        me.seekg(pos);
 
-		return uint64_t(length);
-	}
-	uint64_t lengthp()const
-	{
-		fStream& me = const_cast<fStream&>(*this);
-		std::ios::pos_type pos = me.tellp();
-		me.seekp(0, std::ios::end);
-		std::ios::pos_type length = me.tellp();
-		me.seekp(pos);
+        return uint64_t(length);
+    }
+    uint64_t lengthp()const
+    {
+        fStream& me = const_cast<fStream&>(*this);
+        std::ios::pos_type pos = me.tellp();
+        me.seekp(0, std::ios::end);
+        std::ios::pos_type length = me.tellp();
+        me.seekp(pos);
 
-		return uint64_t(length);
-	}
+        return uint64_t(length);
+    }
 
-	//********************************
-	template <typename T>
-	void write_value(const T& v)
-	{
-		write((char*)&v, sizeof(v));
-	}
+    //********************************
+    template <typename T>
+    void write_value(const T& v)
+    {
+        write((char*)&v, sizeof(v));
+    }
 
-	void write_buffer(const std::string& buffer)
-	{
-		uint64_t size = buffer.size();
-		write_value(size);
-		write(buffer.c_str(), size);
-	}
-	//********************************
-	template <typename T>
-	T read_value()
-	{
-		T v = 0;
-		read((char*)&v, sizeof(v));
+    void write_buffer(const std::string& buffer)
+    {
+        uint64_t size = buffer.size();
+        write_value(size);
+        write(buffer.c_str(), size);
+    }
+    //********************************
+    template <typename T>
+    T read_value()
+    {
+        T v = 0;
+        read((char*)&v, sizeof(v));
 
-		return v;
-	}
+        return v;
+    }
 
-	template <typename T>
-	void read_value(const T& v)
-	{
-		read((char*)&v, sizeof(v));
-	}
-	std::string read_buffer()
-	{
-		std::string buffer;
-		uint64_t size = read_value<uint64_t >();
-		buffer.resize((size_t)size);
-		read((char*)(buffer.data()), size);
+    template <typename T>
+    void read_value(const T& v)
+    {
+        read((char*)&v, sizeof(v));
+    }
+    std::string read_buffer()
+    {
+        std::string buffer;
+        uint64_t size = read_value<uint64_t >();
+        buffer.resize((size_t)size);
+        read((char*)(buffer.data()), size);
 
-		return buffer;
-	}
+        return buffer;
+    }
 };
 
 
@@ -1554,7 +1593,7 @@ public:
 //	template <> inline
 //		void writeStruc(const WBSF::std::vector<std::string>& in, XmlElement& output)
 //	{
-//		output.setValue(WBSF::ToString(in));
+//		output.setValue(WBSF::to_string(in));
 //	}
 //
 //	template <> inline

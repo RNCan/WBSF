@@ -45,7 +45,7 @@ bool CSurvivalEquation::IsParamValid(CSurvivalEquation::TSurvivalEquation model,
     case Survival_16:
         bValid = P[P1] < P[P2];
         break;
-        default:;//remove warning;
+    default:;//remove warning;
     }
 
     return bValid;

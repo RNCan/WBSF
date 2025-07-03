@@ -583,10 +583,10 @@ ERMsg CASCE_ETc::Execute(const CWeatherStation& weather, CModelStatVector& outpu
 
 
     //developement length
-    size_t Lini = 25;
-    size_t Ldev = 25;
-    size_t Lmid = 30;
-    size_t Llate = 20;
+    int32_t Lini = 25;
+    int32_t Ldev = 25;
+    int32_t Lmid = 30;
+    int32_t Llate = 20;
 
     //compute all
     for (size_t y=0; y < weather.size(); y++)

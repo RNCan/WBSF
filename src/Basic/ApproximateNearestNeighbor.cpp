@@ -17,15 +17,13 @@
 
 #include "Basic/UtilStd.h"
 #include "Basic/Shore.h"
-
-
 #include "ApproximateNearestNeighbor.h"
 
 
 //#include "WeatherBasedSimulationString.h"
 
 using namespace std;
-namespace bl = boost::locale;
+//namespace bl = boost::locale;
 //using boost::locale::translate;
 
 
@@ -86,8 +84,8 @@ CApproximateNearestNeighbor& CApproximateNearestNeighbor::operator=(const CAppro
         {
             m_pDataPts = annAllocPts(m_nSize, m_nbDimension);
 
-            size_t size = m_nSize*m_nbDimension*sizeof(ANNcoord);
-            memcpy_s(m_pDataPts[0], size, in.m_pDataPts[0], size);
+            size_t the_size = m_nSize*m_nbDimension*sizeof(ANNcoord);
+            std::memcpy(m_pDataPts[0], in.m_pDataPts[0], the_size);
             m_positions = in.m_positions;
         }
     }
@@ -267,15 +265,15 @@ ERMsg CApproximateNearestNeighbor::search(const CLocation& pt, int64_t nbPoint, 
             result[i].m_location.SetXY(m_pDataPts[index][0], m_pDataPts[index][1], m_pDataPts[index][2]);
             result[i].m_distance = pt.GetDistance(result[i].m_location, false, false);
 
-            if (m_nbDimension == 3)
-            {
-                static const double _2x6371x1000_ = 2 * 6371 * 1000;
-                double test = _2x6371x1000_*asin( sqrt(dd[i]) / _2x6371x1000_);//apply sphere curve to distance
-                int uu;
-                uu = 0;
-                //result[i].m_distance = _2x6371x1000_*asin(result[i].m_distance / _2x6371x1000_);//apply sphere curve to distance
-
-            }
+            //if (m_nbDimension == 3)
+            //{
+            //    static const double _2x6371x1000_ = 2 * 6371 * 1000;
+//          //      double test = _2x6371x1000_*asin( sqrt(dd[i]) / _2x6371x1000_);//apply sphere curve to distance
+            //  //  int uu;
+            //    //uu = 0;
+            //    //result[i].m_distance = _2x6371x1000_*asin(result[i].m_distance / _2x6371x1000_);//apply sphere curve to distance
+//
+            //}
 
 
 
@@ -300,12 +298,12 @@ ERMsg CApproximateNearestNeighbor::search(const CLocation& pt, int64_t nbPoint, 
         delete[] nn_idx;
         delete[] dd;
 
-        assert(result.size() == nbPointSearch);
+        assert(result.size() == (size_t)nbPointSearch);
     }
 
-    if (result.size() != nbPoint)
+    if (result.size() != (size_t)nbPoint)
     {
-        boost::format fmt = boost::format(bl::translate("The number of neighbor found ({1}) is lower than the number requested ({2}).")) % result.size() % nbPoint;
+        boost::format fmt = boost::format(boost::locale::translate("The number of neighbor found ({1}) is lower than the number requested ({2}).")) % result.size() % nbPoint;
         msg.ajoute(fmt.str());
     }
 

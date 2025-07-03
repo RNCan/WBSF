@@ -100,7 +100,7 @@ namespace WBSF
 		double w2 = k[6] + k[7] * Sp;
 		assert(w1>0 && w2 > 0);
 
-		double R = __min(25., __max(3., (max - min))) + 1.0f;
+		double R = std::min(25., std::max(3., (max - min))) + 1.0f;
 
 		//	Weibull probability density function (equation [16])
 		double tmp2 = pow(R / w1, w2);
@@ -112,7 +112,7 @@ namespace WBSF
 		double egP = exp(k[0] + k[1] * tmp1 + k[2] * W + k[3] * Sp);
 
 		double pprec = egP / (1 + egP); // Equation [15]
-		assert(!_isnan(pprec));
+		assert(!std::isnan(pprec));
 
 
 		return (pprec);

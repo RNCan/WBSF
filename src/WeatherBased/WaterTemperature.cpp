@@ -184,7 +184,7 @@ ERMsg CWaterTemperature::Export(const std::string& filePath)
         file << "Date,Ta,Ra,Rw,TwI,TwII" << endl;
         for (CTRef d = Ra.GetFirstTRef(); d <= Ra.GetLastTRef(); d++)
         {
-            file << d.GetFormatedString() << "," << GetAnnualCycleTrend(d) << "," << ToString(Ra[d][0], 1) << "," << ToString(Rw[d][0], 1) << "," << ToString(GetTwI(d), 1) << "," << ToString(GetTwII(d), 1) << endl;
+            file << d.GetFormatedString() << "," << GetAnnualCycleTrend(d) << "," << to_string(Ra[d][0], 1) << "," << to_string(Rw[d][0], 1) << "," << to_string(GetTwI(d), 1) << "," << to_string(GetTwII(d), 1) << endl;
         }
 
         file.close();

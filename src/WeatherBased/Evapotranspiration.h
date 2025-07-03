@@ -74,6 +74,9 @@ namespace WBSF
 
 	};
 
+	#if __linux__
+	#define __stdcall
+	#endif // __linux__
 
 	typedef std::shared_ptr<ETInterface> CETPtr;
 	typedef ETInterface* (__stdcall *CreateETFn)(void);

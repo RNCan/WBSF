@@ -52,14 +52,18 @@
 **                  **
 *********************/
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <time.h>
-#include <math.h>
-#include <crtdbg.h>
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
+#include <ctime>
+#include <cmath>
+#include <cassert>
 
-#include "mtclim43.h"
+#include "MTClim43.h"
+
+using namespace std;
+
+
 using namespace MTClim43;
 
 const double CMTClim43::SECPERRAD = 13750.9871;     // seconds per radian of hour angle
@@ -1314,7 +1318,7 @@ int CMTClim43::pulled_boxcar(double *input, double *output, int n, int w, int w_
 {
     int ok = 1;
     //int i, j;
-    
+
     //double total, sum_wt;
 
     if (w > n)
@@ -1326,8 +1330,8 @@ int CMTClim43::pulled_boxcar(double *input, double *output, int n, int w, int w_
 
     //if (ok && !(wt = ))
     //{
-        //printf("Allocation error in boxcar()\n");
-      //  ok = 0;
+    //printf("Allocation error in boxcar()\n");
+    //  ok = 0;
     //}
 
     if (ok)

@@ -22,7 +22,7 @@
 
 #include "WeatherBased/WeatherDefine.h"
 
-//#include "basic/zenXml.h"
+//#include "Basic/zenXml.h"
 //#include "Basic/UtilZen.h"
 
 
@@ -97,7 +97,7 @@ public:
     }
     void Set(double value)
     {
-        m_value = ToString(value, -1);
+        m_value = to_string(value, -1);
     }
 
     bool IsVariable()const

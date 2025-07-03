@@ -14,12 +14,22 @@
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
+					<Add option="-Weffc++" />
 					<Add option="-Wall" />
+					<Add option="-std=c17" />
+					<Add option="-m64" />
 					<Add option="-g" />
+					<Add option="-std=gnu++17" />
+					<Add option="-ggdb" />
 					<Add option="-Wno-unknown-pragmas" />
 					<Add option="-Wno-deprecated-enum-enum-conversion" />
+					<Add option="-Wnooverloaded-virtual" />
+					<Add option="-pthread" />
 					<Add directory="../../../src" />
 				</Compiler>
+				<Linker>
+					<Add option="-m64" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="../../../lib/Release/ModelBased" prefix_auto="1" extension_auto="1" />
@@ -83,8 +93,6 @@
 		<Unit filename="../../../src/ModelBased/SnowMelt.h" />
 		<Unit filename="../../../src/ModelBased/SurvivalEquation.cpp" />
 		<Unit filename="../../../src/ModelBased/SurvivalEquation.h" />
-		<Unit filename="../../../src/ModelBased/TempGenHelp.cpp" />
-		<Unit filename="../../../src/ModelBased/TempGenHelp.h" />
 		<Unit filename="../../../src/ModelBased/WGInput-ModelInput.cpp" />
 		<Unit filename="../../../src/ModelBased/WGInput-ModelInput.h" />
 		<Unit filename="../../../src/ModelBased/WGInput.cpp" />

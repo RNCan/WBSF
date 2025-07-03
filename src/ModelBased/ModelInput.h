@@ -88,19 +88,19 @@ public:
 
     void SetValue(bool value)
     {
-        m_value = ToString(value);
+        m_value = to_string(value);
     }
-    void SetValue(__int32 value)
+    void SetValue(int32_t value)
     {
-        m_value = ToString(value);
+        m_value = to_string(value);
     }
     void SetValue(float value)
     {
-        m_value = ToString(value, -1);
+        m_value = to_string(value, -1);
     }
     void SetValue(double value)
     {
-        m_value = ToString(value, -1);
+        m_value = to_string(value, -1);
     }
 
     void SetValue(const std::string& value)

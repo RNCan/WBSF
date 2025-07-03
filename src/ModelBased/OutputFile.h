@@ -1,7 +1,7 @@
 #pragma once
 
-#include "basic/ERMsg.h"
-#include "basic/UtilStd.h"
+#include "Basic/ERMsg.h"
+#include "Basic/UtilStd.h"
 #include "ModelBased/InputParam.h"
 
 

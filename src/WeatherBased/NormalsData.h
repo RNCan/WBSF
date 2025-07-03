@@ -38,7 +38,7 @@ namespace WBSF
 		void Reset(){ Init(WEATHER::MISSING); }
 		void Init(float v){ fill(v); }
 		ERMsg FromString(const std::string& str);
-		//std::string ToString()const;
+		//std::string to_string()const;
 
 		template<class Archive>
 		void serialize(Archive& ar, const unsigned int version)

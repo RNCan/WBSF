@@ -118,7 +118,7 @@ public:
     virtual CWVariables GetWVariables(size_t i, const std::set<int>& years, bool bForAllYears = false)const;
     virtual CWVariablesCounter GetWVariablesCounter(size_t i, const std::set<int>& years)const;
     virtual ERMsg VerifyVersion(const std::string& filePath)const;
-    virtual __time64_t GetLastUpdate(const std::string& filePath, bool bVerifyAllFiles = true)const;
+    virtual std::time_t GetLastUpdate(const std::string& filePath, bool bVerifyAllFiles = true)const;
     virtual ERMsg VerifyDB(CCallback& callBack = DEFAULT_CALLBACK)const;
     virtual ERMsg CreateFromMerge(const std::string& filePath1, const std::string& filePath2, double distance, double deltaElev, size_t mergeType, size_t priorityRules, std::string& log, CCallback& callback = DEFAULT_CALLBACK);
     //virtual CWVariables GetWVariables(size_t index, std::set<int> years);

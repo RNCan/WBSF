@@ -18,7 +18,7 @@
 #pragma once
 
 #include <crtdbg.h>
-#include "basic/Statistic.h"
+#include "Basic/Statistic.h"
 #error
 //
 //namespace WBSF

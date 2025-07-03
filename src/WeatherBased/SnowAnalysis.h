@@ -23,14 +23,14 @@ public:
 
     enum TStat {S_LAST_JDAY, S_FIRST_JDAY, NB_STAT};
     static const double MINIMUM_SNOW_DEPTH;
-    static const size_t NB_DAY_MIN;
+    static const int32_t NB_DAY_MIN;
 
     HOURLY_DATA::TVarH m_variable;
     double m_minimum_snow_depth;
-    size_t m_nb_day_min;
+    int32_t m_nb_day_min;
 
 
-    CSnowAnalysis(double minimum_snow_depth = MINIMUM_SNOW_DEPTH, size_t nb_day_min = NB_DAY_MIN)
+    CSnowAnalysis(double minimum_snow_depth = MINIMUM_SNOW_DEPTH, int32_t nb_day_min = NB_DAY_MIN)
     {
 
         m_variable = HOURLY_DATA::H_SNDH;

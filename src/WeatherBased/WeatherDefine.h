@@ -14,8 +14,8 @@
 #include <cassert>
 #include <bitset>
 
-#include <boost\serialization\array.hpp>
-#include <boost\serialization\bitset.hpp>
+#include <boost/serialization/array.hpp>
+#include <boost/serialization/bitset.hpp>
 #include "Basic/ERMsg.h"
 //#include "Basic/zenXml.h"
 #include "Basic/UtilTime.h"

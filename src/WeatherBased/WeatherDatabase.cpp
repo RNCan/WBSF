@@ -10,8 +10,10 @@
 // 12-11-2019	Rémi Saint-Amant	Bug correction in MostComplete
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 //****************************************************************************
-//#include "stdafx.h"
-#include <direct.h>
+//#include <cdirect>
+
+#include <thread>
+#include <filesystem>
 
 #pragma warning( disable : 4244 )
 #include <boost/archive/binary_oarchive.hpp>
@@ -52,9 +54,9 @@ namespace WBSF
 		string filePath1 = GetOptimisationSearchFilePath1(filePath);
 		string filePath2 = GetOptimisationSearchFilePath2(filePath);
 
-		__time64_t time = GetFileStamp(filePath);
-		__time64_t time1 = GetFileStamp(filePath1);
-		__time64_t time2 = GetFileStamp(filePath2);
+		std::time_t time = GetFileStamp(filePath);
+		std::time_t time1 = GetFileStamp(filePath1);
+		std::time_t time2 = GetFileStamp(filePath2);
 		bool bRemove = time > time1 || time > time2;
 
 		//Remove Search
@@ -1036,7 +1038,7 @@ namespace WBSF
 
 		if (!m_hDll.is_loaded())
 		{
-			std::filesystem::path filePath = GetApplicationPath() / "External/azure_weather.dll";
+			std::filesystem::path filePath = GetApplicationPath() + "External/azure_weather.dll";
 			if (!m_azure_dll_filepath.empty())
 				filePath = m_azure_dll_filepath;
 
@@ -1067,7 +1069,8 @@ namespace WBSF
 
 			//to prevent a bug in the VCOMP100.dll we must wait 1 sec before closing dll
 			//see http://support.microsoft.com/kb/94248
-			Sleep(1000);
+			//Sleep(1000);
+			std::this_thread::sleep_for(std::chrono::seconds(1));
 			//bool bFree = m_hDll. != 0;
 			//if (bFree)
 			//{
@@ -1783,7 +1786,8 @@ namespace WBSF
 			//this avoid a problem accessing file
 			for (size_t i = 0; i < 20 && msg; i++)
 			{
-				Sleep(50);//wait 50 milisec
+			    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+				//Sleep(50);//wait 50 milisec
 				msg += callback.StepIt(0);
 			}
 
@@ -1810,19 +1814,28 @@ namespace WBSF
 	//
 	// Note:
 	//****************************************************************************
-	__time64_t CDHDatabaseBase::GetLastUpdate(const std::string& filePath, bool bVerifyAllFiles)const
+	std::time_t CDHDatabaseBase::GetLastUpdate(const std::string& filePath, bool bVerifyAllFiles)const
 	{
-		__time64_t lastUpdate = GetFileStamp(filePath);
+		std::time_t lastUpdate = GetFileStamp(filePath);
 
 		if (lastUpdate > 0 && bVerifyAllFiles)
 		{
 			CFileInfoVector info;
-			if (IsNormalsDB(filePath))
-				WBSF::GetFilesInfo(WBSF::GetPath(filePath) + GetFileTitle(filePath) + ".csv", false, info);
-			else
-				WBSF::GetFilesInfo(WBSF::GetPath(filePath) + GetFileTitle(filePath) + "\\*.csv", false, info);
+			//if (IsNormalsDB(filePath))
+            //{
+              //  info = WBSF::GetFilesInfo(WBSF::GetPath(filePath) + GetFileTitle(filePath) + ".csv");
+            //}
+			//else
+            //{
+              //  this->
+            vector<string> files_list = GetFilesList(GetDataPath(), "*.csv");
+            //info = WBSF::GetFilesInfo(WBSF::GetPath(filePath) + GetFileTitle(filePath) + "\\*.csv");
+            info = WBSF::GetFilesInfo(files_list);
 
-			for (int i = 0; i < info.size(); i++)
+            //}
+
+
+			for (size_t i = 0; i < info.size(); i++)
 			{
 				if (info[i].m_time > lastUpdate)
 					lastUpdate = info[i].m_time;

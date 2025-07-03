@@ -57,7 +57,7 @@ CBioSIMModelBase::CBioSIMModelBase() :
     m_randomGenerator(1)
 {
 //    m_pAgent = NULL;
-   // m_hxGridSessionID = 0;
+    // m_hxGridSessionID = 0;
     NB_INPUT_PARAMETER = -1;
     VERSION = "1.0";
 
@@ -306,7 +306,7 @@ bool CBioSIMModelBase::GetFValue(const std::vector<double>& paramArray, CStatist
         if (m_info.m_inputParameters[i].IsVariable())
         {
             std::string value;
-            value = ToString(paramArray[j], -1);
+            value = to_string(paramArray[j], -1);
             m_info.m_inputParameters[i].SetString(value);
             j++;
         }
@@ -400,7 +400,7 @@ const char* CBioSIMModelBase::GetVersion()
     //We have to create an object to update the version of the DLL
     CBioSIMModelBase* pModel = CModelFactory::CreateObject();
     assert(pModel);
-    strncpy_s(version, 250, pModel->VERSION.c_str(), pModel->VERSION.length());
+    std::strncpy(version, pModel->VERSION.c_str(), pModel->VERSION.length());
     delete pModel;
     pModel = NULL;
 

@@ -13,18 +13,24 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-m64" />
 					<Add option="-g" />
+					<Add option="-std=gnu++17" />
 					<Add option="-Wno-unknown-pragmas" />
 					<Add option="-Wno-deprecated-enum-enum-conversion" />
 					<Add directory="../../../src" />
 				</Compiler>
 				<Linker>
+					<Add option="-m64" />
 					<Add option="-lgomp" />
 					<Add option="-pthread" />
-					<Add library="catch2" />
+					<Add option="-lgtest" />
+					<Add option="-lgtest_main" />
+					<Add option="-lboost_system-mt" />
+					<Add option="-lboost_filesystem-mt" />
+					<Add option="-lboost_serialization-mt" />
 					<Add library="../../../lib/Debug/libBasic.a" />
-					<Add library="boost_serialization-mt" />
-					<Add library="boost_filesystem-mt" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -45,7 +51,7 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="../../../test/Basic/TestUtilTime.cpp" />
-		<Unit filename="main.cpp" />
+		<Unit filename="../../../test/main.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

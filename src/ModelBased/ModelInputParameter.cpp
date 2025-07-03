@@ -122,13 +122,13 @@ std::string CModelInputParameterDef::GetMember(size_t i)const
         str = m_description;
         break;
     case TYPE:
-        str = ToString((short)m_type);
+        str = to_string((short)m_type);
         break;
     case RECT:
-        str = ToString(m_rect);
+        str = to_string(m_rect);
         break;
     case SEPARATOR_POS:
-        str = ToString(m_beginSecondField);
+        str = to_string(m_beginSecondField);
         break;
     case DEFAULT_VALUE:
         str = m_default;
@@ -266,7 +266,7 @@ ERMsg CModelInputParameterDef::IsValid(void)
         std::vector<std::string> tmp = Tokenize(m_listValues, ";|\r\n");
         assert(false);
 //        if (tmp.Find(m_default, false) == UNKNOWN_POS)
-  //          msg.ajoute("Invalid default");
+        //          msg.ajoute("Invalid default");
     }
 
     if (m_type == kMVListByCSV)
@@ -478,7 +478,7 @@ CParameterVector CModelInputParameterDefVector::GetParametersVector()const
 
     for (size_t i = 0; i < size(); i++)
     {
-        string type = ToString(at(i).GetType());
+        string type = to_string(at(i).GetType());
         string name = at(i).GetName();
         out.push_back(CParameter(type, name, ""));
     }

@@ -22,7 +22,7 @@ namespace WBSF
 {
 
 const double CSnowAnalysis::MINIMUM_SNOW_DEPTH = 0.1;//cm
-const size_t CSnowAnalysis::NB_DAY_MIN = 7;		//day
+const int32_t CSnowAnalysis::NB_DAY_MIN = 7;		//day
 
 void CSnowAnalysis::Execute(const CWeatherStation& weather, CModelStatVector& output)const
 {

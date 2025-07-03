@@ -11,12 +11,12 @@
 
 #include <fstream>
 #include <sstream>
-#include <boost\archive\binary_iarchive.hpp>
-#include <boost\archive\binary_oarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
 #include <boost/serialization/unordered_map.hpp>
-#include <boost\serialization\map.hpp>
-#include <boost\serialization\set.hpp>
-#include <boost\serialization\shared_ptr.hpp>
+#include <boost/serialization/map.hpp>
+#include <boost/serialization/set.hpp>
+#include <boost/serialization/shared_ptr.hpp>
 
 #include "WeatherBased/WeatherStation.h"
 #include "Basic/ModelStat.h"
@@ -358,23 +358,23 @@ size_t CTransferInfoOut::GetSectionNo()const
 void CTransferInfoOut::WriteStream(ostream& stream)const
 {
 //    string str = zen::to_string(*this, XML_FLAG, "1");
- //   write_value(stream, VERSION);
-  //  WriteBuffer(stream, str);
+//   write_value(stream, VERSION);
+    //  WriteBuffer(stream, str);
 }
 
 ERMsg CTransferInfoOut::ReadStream(istream& stream)
 {
     ERMsg msg;
 
-   //uint64_t version = read_value<uint64_t>(stream);
-   //if (version == 1)
-   //{
-   //    msg = zen::from_string(*this, ReadBuffer(stream));
-   //}
-   //else
-   //{
-   //    msg = GetErrorMessage(ERROR_BAD_STREAM_FORMAT);
-   //}
+    //uint64_t version = read_value<uint64_t>(stream);
+    //if (version == 1)
+    //{
+    //    msg = zen::from_string(*this, ReadBuffer(stream));
+    //}
+    //else
+    //{
+    //    msg = GetErrorMessage(ERROR_BAD_STREAM_FORMAT);
+    //}
 
     return msg;
 }

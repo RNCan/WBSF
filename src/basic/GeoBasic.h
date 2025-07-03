@@ -8,23 +8,24 @@
 //******************************************************************************
 #pragma once
 
-#ifndef NOMINMAX
-#define NOMINMAX
-#endif
+//#ifndef NOMINMAX
+//#define NOMINMAX
+//#endif
 
 
 #include <map>
 #include <vector>
 #include <deque>
 #include <algorithm>
+#include <cfloat>
 #include <boost/bimap.hpp>
-#include <float.h>
 #include <boost/serialization/serialization.hpp>
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/export.hpp>
 
-#include "ERMsg.h"
-#include "basic/UtilMath.h"
+#include "WBSFconfig.h"
+#include "Basic/ERMsg.h"
+#include "Basic/UtilMath.h"
 
 
 namespace WBSF
@@ -1960,7 +1961,7 @@ public:
     }
     void SetXRes(double in)
     {
-        m_xSize = std::max(1, (int)round(fabs((m_xMax - m_xMin)/in)));
+        m_xSize = std::max(1, (int)std::round(fabs((m_xMax - m_xMin)/in)));
     }
     double YRes()const
     {
@@ -1968,7 +1969,7 @@ public:
     }
     void SetYRes(double in)
     {
-        m_ySize = std::max(1, (int)round(fabs((m_yMin-m_yMax)/in)));
+        m_ySize = std::max(1, (int)std::round(fabs((m_yMin-m_yMax)/in)));
     }
 
     bool IsEmpty()const

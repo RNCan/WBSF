@@ -103,7 +103,10 @@ public:
     //void Compute(const CWeather& weather);
     //void Compute(const CWeather& weather, CSnowMeltParam& smp, bool bUpdateBegin);
 
-    const CSnowMeltResultVector& GetResult()const{return m_result; }
+    const CSnowMeltResultVector& GetResult()const
+    {
+        return m_result;
+    }
     //CSnowMeltResultVector& GetResult(){return m_result; }
 
     void SetLandType(size_t in)

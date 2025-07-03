@@ -251,7 +251,7 @@ public:
 
     void from_string(const std::string& str)
     {
-        sscanf_s(str.c_str(), "[%lf, %lf]", &m_lowerBound, &m_upperBound);
+        std::sscanf(str.c_str(), "[%lf, %lf]", &m_lowerBound, &m_upperBound);
     }
 
 
@@ -505,7 +505,7 @@ public:
 //	template <> inline
 //		void writeStruc(const WBSF::CVariableBound& in, XmlElement& output)
 //	{
-//		output.setValue(in.ToString());
+//		output.setValue(in.to_string());
 //	}
 //
 //	template <> inline

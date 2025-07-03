@@ -1,4 +1,3 @@
-
 #include "IndividualBase.h"
 
 using namespace std;

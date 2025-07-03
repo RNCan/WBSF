@@ -10,8 +10,8 @@
 #pragma once
 
 #include <vector>
+
 #include "Basic/UtilMath.h"
-//#include "Basic/WeatherDefine.h"
 #include "Basic/Location.h"
 #include "Basic/UtilStd.h"
 #include "Basic/ERMsg.h"

@@ -8471,7 +8471,7 @@ PUGI_IMPL_FN double gen_nan()
 PUGI_IMPL_FN bool is_nan(double value)
 {
 #if defined(PUGI_IMPL_MSVC_CRT_VERSION) || defined(__BORLANDC__)
-    return !!_isnan(value);
+    return !!std::isnan(value);
 #elif defined(fpclassify) && defined(FP_NAN)
     return fpclassify(value) == FP_NAN;
 #else
@@ -8484,8 +8484,8 @@ PUGI_IMPL_FN bool is_nan(double value)
 PUGI_IMPL_FN const char_t* convert_number_to_string_special(double value)
 {
 #if defined(PUGI_IMPL_MSVC_CRT_VERSION) || defined(__BORLANDC__)
-    if (_finite(value)) return (value == 0) ? PUGIXML_TEXT("0") : 0;
-    if (_isnan(value)) return PUGIXML_TEXT("NaN");
+    if (std::isfinite(value)) return (value == 0) ? PUGIXML_TEXT("0") : 0;
+    if (std::isnan(value)) return PUGIXML_TEXT("NaN");
     return value > 0 ? PUGIXML_TEXT("Infinity") : PUGIXML_TEXT("-Infinity");
 #elif defined(fpclassify) && defined(FP_NAN) && defined(FP_INFINITE) && defined(FP_ZERO)
     switch (fpclassify(value))

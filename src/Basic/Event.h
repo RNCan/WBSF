@@ -9,7 +9,7 @@
 //******************************************************************************
 #pragma once
 
-#include <boost\thread.hpp>
+#include <boost/thread.hpp>
 
 
 class manual_reset_event

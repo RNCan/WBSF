@@ -13,20 +13,20 @@ namespace WBSF
 
 void WGInput2ModelInput(const CWGInput& WGInput, CModelInput& modelInput)
 {
-   //zen::XmlDoc input;
-   //zen::writeStruc(WGInput, input.root());
+    //zen::XmlDoc input;
+    //zen::writeStruc(WGInput, input.root());
 //
 //
-   //zen::XmlDoc output(CModelInput::GetXMLFlag());
-   //for (auto it = input.root().getChildren().first; it != input.root().getChildren().second; it++)
-   //{
-   //    std::string value;
-   //    it->getValue(value);
-   //    CModelInputParam in(it->getNameAs<std::string>(), value);
-   //    zen::writeStruc(in, output.root().addChild(CModelInput::XML_FLAG_PARAM));
-   //}
+    //zen::XmlDoc output(CModelInput::GetXMLFlag());
+    //for (auto it = input.root().getChildren().first; it != input.root().getChildren().second; it++)
+    //{
+    //    std::string value;
+    //    it->getValue(value);
+    //    CModelInputParam in(it->getNameAs<std::string>(), value);
+    //    zen::writeStruc(in, output.root().addChild(CModelInput::XML_FLAG_PARAM));
+    //}
 //
-   //zen::readStruc(output.root(), modelInput);
+    //zen::readStruc(output.root(), modelInput);
 }
 
 void ModelInput2WGInput(const CModelInput& modelInput, CWGInput& WGInput)

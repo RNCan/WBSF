@@ -1,4 +1,3 @@
-
 #include <float.h>
 
 #include "WeatherBased/WeatherStation.h"
@@ -211,9 +210,9 @@ void CSnowMelt::Compute(const CWeatherStation& weather, CSnowMeltParam& smp, boo
                 }//end for h
 
 
-                assert(!_isnan(smp.hs));
-                assert(!_isnan(smp.rs));
-                assert(!_isnan(smp.SWE));
+                assert(!std::isnan(smp.hs));
+                assert(!std::isnan(smp.rs));
+                assert(!std::isnan(smp.SWE));
                 assert(newSWESum <= wDay[H_PRCP][SUM] + 0.001);
 
 
@@ -347,7 +346,7 @@ double CSnowMelt::Compaction(double T, double SWE, double hs, double rs, short t
         rs = 0;
     }
 
-    assert(!_isnan(rs));
+    assert(!std::isnan(rs));
     return rs;
 }
 }

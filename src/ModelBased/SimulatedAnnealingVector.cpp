@@ -16,7 +16,7 @@
 #include <streambuf>
 
 #include "Basic/CSV.h"
-#include "Basic/utilStd.h"
+#include "Basic/UtilStd.h"
 #include "ModelBased/SimulatedAnnealingVector.h"
 #include "ModelBased/EntryPoint.h"
 
@@ -46,7 +46,7 @@ void CSimulatedAnnealingVector::Reset()
     clear();
 }
 
-//double CSimulatedAnnealingVector::GetFValue(__int64 sizeArray, const double* paramArray, CStatisticXYVector& stat)
+//double CSimulatedAnnealingVector::GetFValue(int64_t sizeArray, const double* paramArray, CStatisticXYVector& stat)
 //{
 //	assert( stat.size() == 1 );
 //	//stat.clear();
@@ -100,14 +100,14 @@ ERMsg CSimulatedAnnealingVector::ReadStream(istream& stream)
 {
     ERMsg msg;
 
-    size_t fieldPos = (size_t)read_value<__int64>(stream);
+    size_t fieldPos = (size_t)read_value<int64_t>(stream);
     if (fieldPos < 0 && fieldPos>2000)
     {
         msg.ajoute("Invalid location field position (" + to_string(fieldPos + 1) + ")");
         return msg;
     }
 
-    size_t locSize = (size_t)read_value<__int64 >(stream);
+    size_t locSize = (size_t)read_value<int64_t >(stream);
 
     if (locSize <= 0 && locSize > 1000000)
     {

@@ -15,9 +15,9 @@
 				<Option createDefFile="1" />
 				<Compiler>
 					<Add option="-Wall" />
-					<Add option="-std=c17" />
 					<Add option="-m64" />
 					<Add option="-g" />
+					<Add option="-std=gnu++17" />
 					<Add option="-Wno-unknown-pragmas" />
 					<Add option="-Wno-deprecated-enum-enum-conversion" />
 					<Add directory="../../../src" />
@@ -44,9 +44,6 @@
 				</Linker>
 			</Target>
 		</Build>
-		<Compiler>
-			<Add option="-D_WIN32" />
-		</Compiler>
 		<Unit filename="../../../src/Basic/ANN/ANN.cpp" />
 		<Unit filename="../../../src/Basic/ANN/ANN.h" />
 		<Unit filename="../../../src/Basic/ANN/ANNperf.h" />
@@ -79,8 +76,8 @@
 		<Unit filename="../../../src/Basic/CallcURL.cpp" />
 		<Unit filename="../../../src/Basic/CallcURL.h" />
 		<Unit filename="../../../src/Basic/CppUserPrefs.h" />
-		<Unit filename="../../../src/Basic/Dbf3.cpp" />
-		<Unit filename="../../../src/Basic/Dbf3.h" />
+		<Unit filename="../../../src/Basic/DBF3.cpp" />
+		<Unit filename="../../../src/Basic/DBF3.h" />
 		<Unit filename="../../../src/Basic/ERMsg.h" />
 		<Unit filename="../../../src/Basic/ERMsg/ERMsg.h" />
 		<Unit filename="../../../src/Basic/ERMsg/Ererreur.cpp" />
@@ -135,7 +132,9 @@
 		<Unit filename="../../../src/Basic/tinyxml2/tinyxml2.cpp" />
 		<Unit filename="../../../src/Basic/tinyxml2/tinyxml2.h" />
 		<Unit filename="../../../src/Basic/tortellini.hh" />
+		<Unit filename="../../../src/WBSFconfig.h" />
 		<Extensions>
+			<envvars set="default" />
 			<lib_finder disable_auto="1" />
 		</Extensions>
 	</Project>

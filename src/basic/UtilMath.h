@@ -12,7 +12,10 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <random>
-#include "Basic/UtilStd.h"
+#include <cassert>
+#include <iostream>
+#include <string>
+//#include "Basic/UtilStd.h"
 
 
 
@@ -109,16 +112,17 @@ T quart(const T&  x)
     return x*x*x*x;
 }
 
-template<class T = int64_t, class U>
-T round(const U& a)
-{
-    return T(int64_t(a + 0.5*signe(a)));
-}
+//template<class T = int64_t, class U>
+//T round(const U& a)
+//{
+//    return T(int64_t(a + 0.5*signe(a)));
+//}
 
+using std::round;
 inline double round(double a, size_t digit)
 {
     a *= pow(10, digit);
-    a = double(round(a));
+    a = double(std::round(a));
     a /= pow(10, digit);
     return a;
 }
@@ -243,7 +247,7 @@ inline double GetDecimalDegree(int degree, int minute, double second = 0)
 }
 
 double StringToCoord(const std::string& coordStr);
-std::string CoordToString(double coord, int prec = 0);
+std::string Coordto_string(double coord, int prec = 0);
 
 
 //Get distance in meter from 2 points

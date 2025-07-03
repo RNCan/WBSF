@@ -10,20 +10,24 @@
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 //******************************************************************************
 
-#include "UtilTime.h"
+//#include "Basic/UtilStd.h"
 
 #include <cmath>
 #include <sstream>
 #include <iostream>
 #include <ctime>
-
-
 #include <boost/date_time.hpp>
 
-#include "Basic/UtilStd.h"
+
+
+
+
+//#include "Basic/UtilStd.h"
 #include "Basic/Statistic.h"
 #include "Basic/UtilMath.h"
 
+
+#include "UtilTime.h"
 //#include "WeatherBasedSimulationString.h"
 
 
@@ -1151,7 +1155,7 @@ string CTRef::GetFormatedString(std::string format)const
             {
                 timeinfo.tm_year = WBSF::IsLeap(m_year) ? 96 : 95;//leap/non leap year
 
-                string year = WBSF::ToString(GetYear());
+                string year = WBSF::to_string(GetYear());
 
                 ReplaceString(format, "%y", "%Y");
                 ReplaceString(format, "%#Y", "%Y");
@@ -1170,7 +1174,7 @@ string CTRef::GetFormatedString(std::string format)const
         }
         else
         {
-            str = WBSF::ToString(int32_t(m_ref));
+            str = WBSF::to_string(int32_t(m_ref));
         }
 
         //if(m_TM.Mode() == CTM::OVERALL_YEARS)
@@ -1318,39 +1322,53 @@ CTRef CTRef::GetCurrentTRef(CTM TM, bool bUTC)
 {
     CTRef TRef;
 
-    if (bUTC)
-    {
-        time_t ltime;
-        tm today = { 0 };
+    // For all C++ versions: Using std::chrono::system_clock
+    // and converting to C-style time for formatting
+    auto now = std::chrono::system_clock::now();
+    time_t sys_time_t = std::chrono::system_clock::to_time_t(now);
+    std::tm* timeinfo = bUTC? std::localtime(&sys_time_t):std::gmtime(&sys_time_t);
+    TRef = CTRef(1900 + timeinfo->tm_year, timeinfo->tm_mon, timeinfo->tm_mday - 1, timeinfo->tm_hour, TM);
 
-        _tzset();
-        time(&ltime);
-        _gmtime64_s(&today, &ltime);
 
-        //month is un zero base and day is in 1 base
-        TRef = CTRef(1900 + today.tm_year, today.tm_mon, today.tm_mday - 1, today.tm_hour, TM);
-
-    }
-    else
-    {
-        time_t ltime;
-        tm today = { 0 };
-
-        _tzset();
-        time(&ltime);
-        _localtime64_s(&today, &ltime);
-
-        //month is un zero base and day is in 1 base
-        TRef = CTRef(1900 + today.tm_year, today.tm_mon, today.tm_mday - 1, today.tm_hour, TM);
-    }
+    //{
+    //    //time_t ltime;
+    //    //tm today = { 0 };
+//
+    //    //_tzset();
+    //    //time(&ltime);
+    //    //_gmtime64_s(&today, &ltime);
+//
+    //    //month is un zero base and day is in 1 base
+    //    //TRef = CTRef(1900 + today.tm_year, today.tm_mon, today.tm_mday - 1, today.tm_hour, TM);
+    //
+    //
+    //    std::tm* timeinfo = std::localtime(&ltime);
+    //    TRef = CTRef(1900 + timeinfo->tm_year, timeinfo->tm_mon, timeinfo->tm_mday - 1, timeinfo->tm_hour, TM);
+//
+    //}
+    //else
+    //{
+    //    time_t ltime;
+    //    tm today = { 0 };
+//
+    //    _tzset();
+    //    time(&ltime);
+    //    _localtime64_s(&today, &ltime);
+//
+    //    // Convert to UTC tm structure
+    //    std::tm* gmt_tm = std::gmtime(&sys_time_t);
+    //
+    //    //month is zero base and day is in 1 base
+    //    TRef = CTRef(1900 + gmt_tm->tm_year, gmt_tm->tm_mon, gmt_tm->tm_mday - 1, gmt_tm->tm_hour, TM);
+    //}
 
     return TRef;
 }
 
 
-__time64_t CTRef::get_time64()const
+std::time_t CTRef::get_time64()const
 {
-    __time64_t time64 = 0;
+    std::time_t time64 = 0;
     if(is_init() && m_TM.IsTemporal() )
         time64 = WBSF::get_time64(m_year, m_month, m_day, m_hour);
 
@@ -1384,6 +1402,20 @@ __time64_t CTRef::get_time64()const
 //
 //    return copy;
 //}
+
+//*************************************************************
+CTimeRef::CTimeRef(std::time_t t, CTM TM, bool bUTC)
+{
+    m_time = t;
+    if (t > 0)
+    {
+        //CTRef CTRef::GetCurrentTRef(CTM TM, bool bUTC);
+        //tm theTime = { 0 };
+        //_localtime64_s(&theTime, &t);
+        std::tm* timeinfo = std::localtime(&m_time);
+        Set(1900 + timeinfo->tm_year, timeinfo->tm_mon, timeinfo->tm_mday - 1, timeinfo->tm_hour, TM);
+    }
+}
 
 //*************************************************************
 //CTPeriod
@@ -2006,32 +2038,38 @@ size_t CTTransformation::GetCluster(CTRef TRef)const
 
 std::string GetCurrentTimeString(const std::string format)
 {
-    time_t rawtime;
-    time(&rawtime);
-    struct tm timeinfo = { 0 };
-    localtime_s(&timeinfo , &rawtime);
+    //CTRef TRef = CTRef::GetCurrentTRef(TM, bUTC);
+
+    //TRef.Format(format);
+
+    //time_t rawtime;
+    //time(&rawtime);
+    //struct tm timeinfo = { 0 };
+    //localtime_s(&timeinfo , &rawtime);
 
     string str;
-    str.resize(150);
-    strftime(&(str[0]), 150, format.c_str(), &timeinfo);
-    str.resize(strlen(str.c_str()));
-    str.shrink_to_fit();
-
+    //str.resize(150);
+    //strftime(&(str[0]), 150, format.c_str(), &timeinfo);
+    //str.resize(strlen(str.c_str()));
+    //str.shrink_to_fit();
+    assert(false);
     return str;
 }
 
 
 
-std::string FormatTime(const std::string& format, __time64_t t)
+std::string FormatTime(const std::string& format, std::time_t t)
 {
-    struct tm newtime = { 0 };
-    _localtime64_s(&newtime , &t);
-    newtime.tm_isdst = 0;//don't use
-
     string str;
+    assert(false);
 
-    str.resize(150);
-    strftime(&(str[0]), 150, format.c_str(), &newtime);
+    //struct tm newtime = { 0 };
+    //_localtime64_s(&newtime , &t);
+    //newtime.tm_isdst = 0;//don't use
+//
+    //
+    //str.resize(150);
+    //strftime(&(str[0]), 150, format.c_str(), &newtime);
 
     //strftime(str.GetBufferSetLength(150), 150, format.c_str(), newtime);
     //str.ReleaseBuffer();
@@ -2063,7 +2101,7 @@ std::string FormatTime(const std::string& format, int year, size_t m, size_t d, 
     return str;
 }
 
-__time64_t get_time64(int year, size_t m, size_t d, size_t h, size_t minute, size_t second)
+std::time_t get_time64(int year, size_t m, size_t d, size_t h, size_t minute, size_t second)
 {
     assert(year>=1900);
 
@@ -2084,7 +2122,7 @@ __time64_t get_time64(int year, size_t m, size_t d, size_t h, size_t minute, siz
 
 //lat: latitude (in degree)
 //DOY: day of the year
-// return daylength (seconds)
+// return day length (seconds)
 double GetDayLength(double latDeg, size_t DOY)
 {
     //size_t jd = date.GetJDay();
@@ -2110,14 +2148,14 @@ double GetDayLength(double latDeg, size_t DOY)
     double cosdecl = cos(decl);
     double sindecl = sin(decl);
 
-    // calculate daylength as a function of lat and decl
+    // calculate day length as a function of lat and decl
     double cosegeom = coslat * cosdecl;
     double sinegeom = sinlat * sindecl;
     double coshss = -(sinegeom) / cosegeom;
     if (coshss < -1.0) coshss = -1.0;  // 24-hr daylight
     if (coshss > 1.0) coshss = 1.0;    // 0-hr daylight
     double hss = acos(coshss);                // hour angle at sunset (radians)
-    // daylength (seconds)
+    // day length (seconds)
     double daylength = 2.0 * hss * SECPERRAD;
 
     return daylength;

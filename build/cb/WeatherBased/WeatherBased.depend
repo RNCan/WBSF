@@ -1,18 +1,25 @@
 # depslib dependency file v1.0
-1584205422 source:e:\project(githubdesktop)\wbsfmultiplatform\build\cb\weatherbase\main.c
-
-1741881087 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\amountppt.cpp
+1751134531 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\amountppt.cpp
 	"WeatherBased/AmountPpt.h"
 
-1741699231 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\amountppt.h
-	<crtdbg.h>
+1751133016 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\amountppt.h
+	<cassert>
 	"Basic/UtilMath.h"
 
-1750985589 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilmath.h
+1751424117 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilmath.h
+	<cmath>
 	<random>
-	"basic/UtilStd.h"
+	<cassert>
+	<iostream>
+	<string>
 
-1750981135 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilstd.h
+1751423404 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\asce_etc.cpp
+	<cassert>
+	"Basic/UtilStd.h"
+	"WeatherBased/Evapotranspiration.h"
+	"WeatherBased/ASCE_ETc.h"
+
+1751379571 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilstd.h
 	<cassert>
 	<map>
 	<set>
@@ -27,69 +34,57 @@
 	<cstring>
 	<filesystem>
 	<cstdint>
-	<share.h>
+	<utility>
+	"WBSFconfig.h"
 	"Basic/ERMsg.h"
 
-1704992082 e:\project(githubdesktop)\wbsfmultiplatform\src\external\ermsg\ermsg.h
-	"external/ERMsg/Syenvmsg.h"
-
-1704992082 e:\project(githubdesktop)\wbsfmultiplatform\src\external\ermsg\syenvmsg.h
-	"external/ERMsg/Erexcept.h"
-	"external/ERMsg/Sycptref.h"
-	"external/ERMsg/Symessag.h"
-
-1704992082 e:\project(githubdesktop)\wbsfmultiplatform\src\external\ermsg\erexcept.h
+1751422278 e:\project(githubdesktop)\wbsfmultiplatform\src\wbsfconfig.h
+	<cstddef>
 	<string>
+	<SDKDDKVer.h>
 
-1704992082 e:\project(githubdesktop)\wbsfmultiplatform\src\external\ermsg\sycptref.h
-	"external/ERMsg/Erexcept.h"
-	"Sycptref.hpp"
-
-1704992082 e:\project(githubdesktop)\wbsfmultiplatform\src\external\ermsg\sycptref.hpp
-
-1704992082 e:\project(githubdesktop)\wbsfmultiplatform\src\external\ermsg\symessag.h
-	"external/ERMsg/Erexcept.h"
-	<vector>
-	<string>
-
-1728670580 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\asce_etc.cpp
-	<cassert>
-	"Basic/UtilStd.h"
-	"WeatherBased/Evapotranspiration.h"
-	"WeatherBased/ASCE_ETc.h"
-
-1728557402 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg.h
+1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg.h
 	"ERMsg/Syenvmsg.h"
 
-1728557460 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\syenvmsg.h
+1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\syenvmsg.h
 	"Erexcept.h"
 	"Sycptref.h"
 	"Symessag.h"
 
-1704992082 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\erexcept.h
+1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\erexcept.h
 	<string>
 
-1728557482 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\sycptref.h
+1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\sycptref.h
 	"Erexcept.h"
 	"Sycptref.hpp"
 
-1704992082 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\sycptref.hpp
+1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\sycptref.hpp
 
-1728557503 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\symessag.h
+1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\symessag.h
 	"Erexcept.h"
 	<vector>
 	<string>
 
-1741691792 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\evapotranspiration.h
+1751134464 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\evapotranspiration.h
+	<cmath>
 	<map>
 	<vector>
-	<cmath>
 	<assert.h>
 	<mutex>
 	"Basic/UtilTime.h"
 	"Basic/ModelStat.h"
 
-1750977135 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\modelstat.h
+1751422402 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utiltime.h
+	<cassert>
+	<vector>
+	<string>
+	<boost/dynamic_bitset.hpp>
+	<boost/serialization/serialization.hpp>
+	<boost/serialization/nvp.hpp>
+	"Basic/ERMsg.h"
+	"Basic/UtilStd.h"
+
+1751118733 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\modelstat.h
 	<vector>
 	<cassert>
 	"Basic/UtilMath.h"
@@ -98,33 +93,35 @@
 	"Basic/Mtrx.h"
 	"ModelBased/InitialPopulation.h"
 
-1750985758 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utiltime.h
-	<cassert>
-	<vector>
-	<string>
-	<boost/dynamic_bitset.hpp>
-	<boost/serialization/nvp.hpp>
-	<boost/serialization/version.hpp>
-	<boost/serialization/level.hpp>
-	<boost/serialization/extended_type_info.hpp>
-	<boost/serialization/extended_type_info_no_rtti.hpp>
-	"Basic/ERMsg.h"
-	"Basic/UtilStd.h"
-
-1741691692 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\statistic.h
+1751118820 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\statistic.h
 	<cassert>
 	<vector>
 	<array>
 	<string>
 
-1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\mtrx.h
+1751119000 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\mtrx.h
 	<cmath>
 	<climits>
 	<boost/serialization/split_member.hpp>
 	<boost/serialization/access.hpp>
-	<boost\multi_array.hpp>
+	<boost/multi_array.hpp>
 
-1741700142 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherstation.h
+1751118734 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\initialpopulation.h
+	<vector>
+	<cassert>
+	"Basic/ModelStat.h"
+	"ModelBased/WeatherBasedSimulation.h"
+
+1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\weatherbasedsimulation.h
+
+1751118733 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\asce_etc.h
+	<sstream>
+	"Basic/ERMsg.h"
+	"Basic/ModelStat.h"
+	"WeatherBased/WeatherStation.h"
+	"ModelBased/InputParam.h"
+
+1751118733 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherstation.h
 	<cassert>
 	<vector>
 	<array>
@@ -135,9 +132,9 @@
 	"WeatherBased/WeatherDataSection.h"
 	"WeatherBased/WeatherDefine.h"
 
-1741683562 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\location.h
+1751130550 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\location.h
 	<array>
-	<boost\serialization\access.hpp>
+	<boost/serialization/access.hpp>
 	<unordered_map>
 	<utility>
 	<algorithm>
@@ -145,20 +142,21 @@
 	"Basic/GeoBasic.h"
 	"Basic/Callback.h"
 
-1750985540 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\geobasic.h
+1751423909 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\geobasic.h
 	<map>
 	<vector>
 	<deque>
 	<algorithm>
+	<cfloat>
 	<boost/bimap.hpp>
-	<float.h>
 	<boost/serialization/serialization.hpp>
 	<boost/archive/text_iarchive.hpp>
 	<boost/serialization/export.hpp>
-	"ERMsg.h"
-	"basic/UtilMath.h"
+	"WBSFconfig.h"
+	"Basic/ERMsg.h"
+	"Basic/UtilMath.h"
 
-1741699765 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\callback.h
+1751118733 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\callback.h
 	<mutex>
 	<string>
 	<algorithm>
@@ -167,34 +165,27 @@
 	"Basic/UtilStd.h"
 	"Basic/ERMsg.h"
 
-1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\event.h
-	<boost\thread.hpp>
+1751119000 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\event.h
+	<boost/thread.hpp>
 
-1741698111 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdefine.h
+1751119000 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatasection.h
+	"boost/array.hpp"
+	"boost/serialization/access.hpp"
+	"Basic/Callback.h"
+	"WeatherBased/WeatherDefine.h"
+
+1751118733 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdefine.h
 	<vector>
 	<array>
 	<cassert>
 	<bitset>
-	<boost\serialization\array.hpp>
-	<boost\serialization\bitset.hpp>
+	<boost/serialization/array.hpp>
+	<boost/serialization/bitset.hpp>
 	"Basic/ERMsg.h"
 	"Basic/UtilTime.h"
 	"Basic/Statistic.h"
 
-1741700010 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatasection.h
-	"boost\array.hpp"
-	"boost\serialization\access.hpp"
-	"Basic/Callback.h"
-	"WeatherBased/WeatherDefine.h"
-
-1750986035 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\asce_etc.h
-	<sstream>
-	"Basic/ERMsg.h"
-	"Basic/ModelStat.h"
-	"WeatherBased/WeatherStation.h"
-	"ModelBased/InputParam.h"
-
-1728669542 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbase\inputparam.h
+1751130550 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\inputparam.h
 	<map>
 	"Basic/ERMsg.h"
 	"Basic/UtilMath.h"
@@ -202,65 +193,14 @@
 	"Basic/UtilStd.h"
 	"WeatherBased/WeatherDefine.h"
 
-1741683562 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\degreedays.cpp
-	<math.h>
-	<fstream>
-	<ostream>
-	"WeatherBased/DegreeDays.h"
-
-1728669581 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\degreedays.h
-	"Basic/ModelStat.h"
-	"Basic/Statistic.h"
-	"WeatherBased/WeatherStation.h"
-
-1741181867 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\dimension.cpp
-	"Dimension.h"
-
-1741181867 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\dimension.h
-	<array>
-	"Basic/UtilStd.h"
-
-1741193237 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weathercorrection.cpp
-	"WeatherBased/WeatherCorrection.h"
-
-1741193221 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weathercorrection.h
-	"Basic/Location.h"
-	"Basic/Statistic.h"
-	"WeatherBased/WeatherDefine.h"
-
-1741700010 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatasection.cpp
-	<boost\archive\binary_oarchive.hpp>
-	<boost\archive\binary_iarchive.hpp>
-	<boost\dynamic_bitset.hpp>
-	<boost/serialization/unordered_map.hpp>
-	<boost\serialization\map.hpp>
-	<boost\serialization\array.hpp>
-	<boost\serialization\vector.hpp>
-	<boost\crc.hpp>
-	<boost\container\flat_set.hpp>
-	"WeatherBased/WeatherDataSection.h"
-
-1741691877 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\evapotranspiration.cpp
-	"Evapotranspiration.h"
-	"WeatherStation.h"
-	"Basic/UtilMath.h"
-
-1750977135 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\initialpopulation.h
-	<vector>
-	<cassert>
-	"Basic/ModelStat.h"
-	"ModelBased/WeatherBasedSimulation.h"
-
-1750939470 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\weatherbasedsimulation.h
-
-1742372940 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\dailydatabase.cpp
+1751458406 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\dailydatabase.cpp
 	"Basic/UtilStd.h"
 	"WeatherBased/DailyDatabase.h"
 
-1750896981 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\dailydatabase.h
+1751458406 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\dailydatabase.h
 	"WeatherBased/WeatherDatabase.h"
 
-1750862125 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatabase.h
+1751121526 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatabase.h
 	<deque>
 	<memory>
 	<boost/dll/shared_library.hpp>
@@ -270,7 +210,7 @@
 	"WeatherBased/WeatherStation.h"
 	"WeatherBased/WeatherDatabaseOptimisation.h"
 
-1704992083 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\lrucache.h
+1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\lrucache.h
 	<unordered_map>
 	<list>
 	<cstddef>
@@ -281,16 +221,16 @@
 	<boost/function.hpp>
 	<cassert>
 
-1750858933 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatabaseoptimisation.h
+1751133373 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatabaseoptimisation.h
 	<deque>
 	"Basic/Location.h"
 	"Basic/Callback.h"
-	"Basic/UtilSTD.h"
+	"Basic/UtilStd.h"
 	"Basic/ApproximateNearestNeighbor.h"
 	"WeatherBased/WeatherDefine.h"
 	"WeatherBased/WeatherDataSection.h"
 
-1741699007 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\approximatenearestneighbor.h
+1751118733 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\approximatenearestneighbor.h
 	<mutex>
 	<boost/serialization/split_member.hpp>
 	<boost/serialization/access.hpp>
@@ -300,60 +240,79 @@
 	"Basic/ERMsg.h"
 	"Basic/ANN/ANN.h"
 
-1729018357 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\searchresult.h
+1751131573 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\searchresult.h
 	<vector>
 	"Basic/UtilMath.h"
 	"Basic/Location.h"
 	"Basic/UtilStd.h"
 	"Basic/ERMsg.h"
 
-1728557260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\ann.h
+1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\ann.h
 	<cmath>
 	<iostream>
 	<cvalues>
 	<climits>
 	<cfloat>
 
-1741692178 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\growingseason.cpp
-	"WeatherBased/GrowingSeason.h"
+1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\degreedays.cpp
+	<math.h>
+	<fstream>
+	<ostream>
+	"WeatherBased/DegreeDays.h"
 
-1741193548 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\growingseason.h
+1751118733 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\degreedays.h
 	"Basic/ModelStat.h"
 	"Basic/Statistic.h"
 	"WeatherBased/WeatherStation.h"
 
-1741698481 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\normalsdata.cpp
-	<cmath>
+1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\dimension.cpp
+	"Dimension.h"
+
+1751118733 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\dimension.h
+	<array>
+	"Basic/UtilStd.h"
+
+1751424042 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\evapotranspiration.cpp
+	"Evapotranspiration.h"
+	"WeatherStation.h"
+	"Basic/UtilMath.h"
+
+1751460604 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\growingseason.cpp
+	"WeatherBased/GrowingSeason.h"
+
+1751118733 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\growingseason.h
+	"Basic/ModelStat.h"
+	"Basic/Statistic.h"
+	"WeatherBased/WeatherStation.h"
+
+1751458423 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\hourlydatabase.cpp
+	"HourlyDatabase.h"
+
+1751458440 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\hourlydatabase.h
+	"WeatherBased/WeatherDatabase.h"
+
+1751460604 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\normalsdata.cpp
 	"Basic/UtilTime.h"
 	"WeatherBased/NormalsData.h"
 	"WeatherBased/WeatherCorrection.h"
 
-1741692377 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\normalsdata.h
+1751130549 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\normalsdata.h
 	"Basic/ERMsg.h"
 	"WeatherBased/WeatherDefine.h"
 
-1750940260 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\inputparam.h
-	<map>
-	"Basic/ERMsg.h"
-	"Basic/UtilMath.h"
-	"Basic/UtilTime.h"
-	"Basic/UtilStd.h"
+1751118733 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weathercorrection.h
+	"Basic/Location.h"
+	"Basic/Statistic.h"
 	"WeatherBased/WeatherDefine.h"
 
-1750854823 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\hourlydatabase.cpp
-	"HourlyDatabase.h"
-
-1728671739 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\hourlydatabase.h
-	"WeatherBased/WeatherDatabase.h"
-
-1750861522 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\normalsdatabase.cpp
+1751134983 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\normalsdatabase.cpp
 	"NormalsDatabase.h"
-	<boost\archive\binary_oarchive.hpp>
-	<boost\archive\binary_iarchive.hpp>
-	<boost\dynamic_bitset.hpp>
-	<boost\serialization\array.hpp>
-	<boost\serialization\deque.hpp>
-	<boost\serialization\vector.hpp>
+	<boost/archive/binary_oarchive.hpp>
+	<boost/archive/binary_iarchive.hpp>
+	<boost/dynamic_bitset.hpp>
+	<boost/serialization/array.hpp>
+	<boost/serialization/deque.hpp>
+	<boost/serialization/vector.hpp>
 	<boost/serialization/string.hpp>
 	<boost/serialization/utility.hpp>
 	<boost/serialization/serialization.hpp>
@@ -363,7 +322,7 @@
 	"Basic/GeoBasic.h"
 	"Basic/CSV.h"
 
-1750861296 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\normalsdatabase.h
+1751121526 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\normalsdatabase.h
 	<memory>
 	<array>
 	<deque>
@@ -373,38 +332,42 @@
 	"WeatherBased/WeatherDatabaseOptimisation.h"
 	"WeatherBased/WeatherDatabase.h"
 
-1741693250 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\normalsstation.h
+1751118733 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\normalsstation.h
 	"Basic/Location.h"
 	"WeatherBased/NormalsData.h"
 
-1750855148 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\csv.h
+1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\csv.h
 	<sstream>
 	"Basic/UtilStd.h"
 	"Basic/ERMsg.h"
 
-1741698557 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\normalsstation.cpp
+1751134588 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\normalsstation.cpp
 	"Basic/Location.h"
 	"Basic/Statistic.h"
-	"WeatherBAsed/NormalsStation.h"
-	"WeatherBAsed/WeatherCorrection.h"
+	"WeatherBased/NormalsStation.h"
+	"WeatherBased/WeatherCorrection.h"
 
-1741698598 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\snowanalysis.cpp
+1751460623 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\snowanalysis.cpp
 	"WeatherBased/SnowAnalysis.h"
 
-1741692206 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\snowanalysis.h
+1751460604 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\snowanalysis.h
 	"WeatherBased/WeatherStation.h"
 	"Basic/ModelStat.h"
 	"Basic/Statistic.h"
 
-1750861920 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\watertemperature.cpp
+1751130549 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\watertemperature.cpp
 	"WaterTemperature.h"
 
-1741698633 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\watertemperature.h
+1751118733 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\watertemperature.h
 	"WeatherBased/WeatherStation.h"
 	"Basic/ModelStat.h"
 
-1750935322 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatabase.cpp
-	<direct.h>
+1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weathercorrection.cpp
+	"WeatherBased/WeatherCorrection.h"
+
+1751133916 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatabase.cpp
+	<thread>
+	<filesystem>
 	<boost/archive/binary_oarchive.hpp>
 	<boost/archive/binary_iarchive.hpp>
 	<boost/iostreams/stream.hpp>
@@ -418,26 +381,26 @@
 	"WeatherBased/WeatherDatabase.h"
 	"WeatherBased/WeatherDatabaseCreator.h"
 
-1704992082 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\openmp.h
+1751118808 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\openmp.h
 	<omp.h>
 
-1741181867 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatabasecreator.h
+1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatabasecreator.h
 	"WeatherBased/WeatherDatabase.h"
 
-1741699090 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatabasecreator.cpp
+1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatabasecreator.cpp
 	"WeatherBased/WeatherDatabaseCreator.h"
 	"WeatherBased/HourlyDatabase.h"
 	"WeatherBased/DailyDatabase.h"
 	"WeatherBased/NormalsDatabase.h"
 
-1750857490 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatabaseoptimisation.cpp
-	<boost\archive\binary_oarchive.hpp>
-	<boost\archive\binary_iarchive.hpp>
-	<boost\dynamic_bitset.hpp>
-	<boost\serialization\map.hpp>
-	<boost\serialization\array.hpp>
-	<boost\serialization\vector.hpp>
-	<boost\serialization\set.hpp>
+1751134960 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatabaseoptimisation.cpp
+	<boost/archive/binary_oarchive.hpp>
+	<boost/archive/binary_iarchive.hpp>
+	<boost/dynamic_bitset.hpp>
+	<boost/serialization/map.hpp>
+	<boost/serialization/array.hpp>
+	<boost/serialization/vector.hpp>
+	<boost/serialization/set.hpp>
 	<boost/serialization/unordered_map.hpp>
 	<set>
 	"Basic/ANN/ANN.h"
@@ -445,11 +408,23 @@
 	"WeatherBased/WeatherDatabaseOptimisation.h"
 	"WeatherBased/WeatherDatabaseCreator.h"
 
-1741699169 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdefine.cpp
+1751134124 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdatasection.cpp
+	<boost/archive/binary_oarchive.hpp>
+	<boost/archive/binary_iarchive.hpp>
+	<boost/dynamic_bitset.hpp>
+	<boost/serialization/unordered_map.hpp>
+	<boost/serialization/map.hpp>
+	<boost/serialization/array.hpp>
+	<boost/serialization/vector.hpp>
+	<boost/crc.hpp>
+	<boost/container/flat_set.hpp>
+	"WeatherBased/WeatherDataSection.h"
+
+1751134124 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherdefine.cpp
 	"Basic/UtilStd.h"
 	"WeatherBased/WeatherDefine.h"
 
-1750855901 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherstation.cpp
+1751462702 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weatherstation.cpp
 	<locale>
 	<mutex>
 	"WeatherBased/WeatherStation.h"
@@ -459,7 +434,7 @@
 	"Basic/Sun.h"
 	"Basic/UtilMath.h"
 
-1728653463 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\sun.h
+1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\sun.h
 	<cmath>
 	"UtilTime.h"
 

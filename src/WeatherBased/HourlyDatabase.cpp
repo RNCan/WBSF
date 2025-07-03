@@ -41,16 +41,17 @@ ERMsg CHourlyDatabase::CreateDatabase(const std::string& filePath)
 
 int CHourlyDatabase::GetVersion(const std::string& filePath)
 {
-    return CHourlyDatabase::GetVersion(filePath);
+    return CDHDatabaseBase::GetVersion(filePath);
 }
+
 ERMsg CHourlyDatabase::DeleteDatabase(const std::string&  outputFilePath, CCallback& callback)
 {
-    return CHourlyDatabase::DeleteDatabase(outputFilePath, callback);
+    return CDHDatabaseBase::DeleteDatabase(outputFilePath, callback);
 }
 
 ERMsg CHourlyDatabase::RenameDatabase(const std::string& inputFilePath, const std::string& outputFilePath, CCallback& callback)
 {
-    return CHourlyDatabase::RenameDatabase(inputFilePath, outputFilePath, callback);
+    return CDHDatabaseBase::RenameDatabase(inputFilePath, outputFilePath, callback);
 }
 
 }

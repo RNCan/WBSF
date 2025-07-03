@@ -21,11 +21,11 @@ class CCallcURL
 {
 public:
 
-    CCallcURL(const std::filesystem::path& exe_filepath="", size_t bufsize = 4096);
+    CCallcURL(const std::string& exe_filepath="", size_t bufsize = 4096);
 
 
     ERMsg get_text(const std::string& arg, std::string& str_out);
-    ERMsg copy_file(const std::string& URL, const std::filesystem::path& outputFilePath, bool bShowCurl=false);
+    ERMsg copy_file(const std::string& URL, const std::string& outputFilePath, bool bShowCurl=false);
     static ERMsg CallApp(const std::string& cmdline, std::string& str, size_t BUFSIZE = 4096);
 
 
@@ -40,7 +40,7 @@ protected:
     //static ERMsg ReadFromPipe(HANDLE& g_hChildStd_OUT_Rd, HANDLE& g_hChildStd_ERR_Rd, std::string& str, size_t BUFSIZE);
 
 
-    std::filesystem::path m_exe_filepath;
+    std::string m_exe_filepath;
 };
 
 }

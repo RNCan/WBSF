@@ -14,15 +14,12 @@
 #include <string>
 
 #include <boost/dynamic_bitset.hpp>
+#include <boost/serialization/serialization.hpp>
 #include <boost/serialization/nvp.hpp>
-#include <boost/serialization/version.hpp>
-#include <boost/serialization/level.hpp>
-#include <boost/serialization/extended_type_info.hpp>
-#include <boost/serialization/extended_type_info_no_rtti.hpp>
 
 #include "Basic/ERMsg.h"
 #include "Basic/UtilStd.h"
-#include "WBSFconfig.h"
+
 
 
 
@@ -100,9 +97,9 @@ inline size_t GetMonth(size_t DOY)
 }
 
 
-std::string FormatTime(const std::string& format, __time64_t t);
+std::string FormatTime(const std::string& format, std::time_t t);
 std::string FormatTime(const std::string& format, int year, size_t m, size_t d, size_t h, size_t minute=0, size_t second=0);
-__time64_t get_time64(int year, size_t m, size_t d, size_t h, size_t minute=0, size_t second=0);
+std::time_t get_time64(int year, size_t m, size_t d, size_t h, size_t minute=0, size_t second=0);
 
 //For backward compatibility
 //[[deprecated("Use GetDOY instead.")]]
@@ -751,7 +748,7 @@ public:
         SetDOY(DOY);
     }
 
-    __time64_t get_time64()const;
+    std::time_t get_time64()const;
 
 
 
@@ -1007,19 +1004,10 @@ class CTimeRef : public CTRef
 {
 public:
 
-    CTimeRef(__time64_t t, CTM TM = CTM::DAILY)
-    {
-        m_time = t;
-        if (t > 0)
-        {
-            tm theTime = { 0 };
-            _localtime64_s(&theTime, &t);
-            Set(1900 + theTime.tm_year, theTime.tm_mon, theTime.tm_mday - 1, theTime.tm_hour, TM);
-        }
-    }
+    CTimeRef(std::time_t t, CTM TM = CTM::DAILY, bool bUTC = false);
+    
 
-
-    __time64_t m_time;
+    std::time_t m_time;
 };
 
 
@@ -1187,20 +1175,6 @@ public:
         return true;//m_exclusion == nullptr;
     }
 
-    //boost::dynamic_bitset<> get_bitset(const CTRef& TRef)const;
-
-
-//    CTRef GetFirstAnnualTRef(size_t y)const;
-//    CTRef GetLastAnnualTRef(size_t y)const;
-//    int GetAnnualSize(size_t y)const
-//    {
-//        return (GetLastAnnualTRef(y) - GetFirstAnnualTRef(y)) + 1;
-//    }
-//    CTPeriod GetAnnualPeriodByIndex(size_t y)const
-//    {
-//        return CTPeriod(GetFirstAnnualTRef(y), GetLastAnnualTRef(y));
-//    }
-//    CTPeriod GetAnnualPeriod(int year)const;
 
 
     CTM TM()const
@@ -1283,6 +1257,7 @@ public:
         return unions(*this, TRef);
     }
 
+    friend class boost::serialization::access;
     template<class Archive>
     void serialize(Archive& ar, const unsigned int version)
     {
@@ -1559,7 +1534,7 @@ inline double GetDayLength(double latDeg, size_t m, size_t d)
 
 //namespace std
 //{
-//	inline string to_string(const WBSF::CTM& in){ return WBSF::ToString(in); }
+//	inline string to_string(const WBSF::CTM& in){ return WBSF::to_string(in); }
 //	inline WBSF::CTM to_CTM(const string& str){ return WBSF::ToObject<WBSF::CTM>(str); }
 //}
 
@@ -1569,7 +1544,7 @@ inline double GetDayLength(double latDeg, size_t m, size_t d)
 	template <> inline
 		void writeStruc(const WBSF::CTRef& in, XmlElement& output)
 	{
-		output.setValue(in.ToString());
+		output.setValue(in.to_string());
 	}
 
 	template <> inline
@@ -1602,7 +1577,7 @@ inline double GetDayLength(double latDeg, size_t m, size_t d)
 	template <> inline
 		void writeStruc(const WBSF::CTPeriod& in, XmlElement& output)
 	{
-		output.setValue(in.ToString());
+		output.setValue(in.to_string());
 	}
 
 	template <> inline

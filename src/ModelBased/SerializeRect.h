@@ -2,7 +2,7 @@
 
 //#include <WTypes.h>
 
-//#include "basic/zenXml.h"
+//#include "Basic/zenXml.h"
 
 
 namespace WBSF
@@ -18,7 +18,7 @@ public:
     int right;
 };
 
-inline std::string ToString(const tagRECT& rect)
+inline std::string to_string(const tagRECT& rect)
 {
     std::stringstream s;
     s << rect.top << " " << rect.left << " " << rect.bottom << " " << rect.right;
@@ -48,7 +48,7 @@ inline tagRECT ToRect(const std::string& str)
 //template <> inline
 //void writeStruc(const tagRECT& rect, XmlElement& output)
 //{
-//    std::string str = WBSF::ToString(rect);
+//    std::string str = WBSF::to_string(rect);
 //
 //    output.setValue( str );
 //}

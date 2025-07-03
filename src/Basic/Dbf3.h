@@ -208,7 +208,7 @@ public:
     }
     void SetName(const std::string& name)
     {
-        strncpy_s(m_name, 11, name.c_str(), 10);
+        std::strncpy(m_name, name.c_str(), 10);
     }
     char GetType()const
     {
@@ -319,7 +319,7 @@ public:
     void SetElement(const CDBFField& field, int nElement);
     void SetElement(const CDBFField& field, float fElement);
     void SetElement(const CDBFField& field, const char* sElement);
-    void SetElement(const CDBFField& field, __time64_t element);
+    void SetElement(const CDBFField& field, std::time_t element);
 
 private:
 
@@ -431,7 +431,7 @@ public:
     {
         m_record[index].SetElement(m_tableField[index], sElement);
     }
-    void SetElement(int index, __time64_t element)
+    void SetElement(int index, std::time_t element)
     {
         m_record[index].SetElement(m_tableField[index], element);
     }
@@ -552,9 +552,13 @@ public:
 
 private:
 
+
     bool VerifyField(CDBFRecord& record);
 
-    CDBFFirstByte m_firstByte;
+    CDBFAccessor* m_pAccessor;
+    std::map<std::string, int>* m_pUniqueID;
+
+
     char m_year;
     char m_month;
     char m_day;
@@ -565,15 +569,11 @@ private:
     char m_MDX;
     char m_languageID;
     char m_reserved2[2];
+    int m_uniqueIDTableFieldNo;
 
     CTableField m_tableField;
+    CDBFFirstByte m_firstByte;
     CDBFRecordArray m_records;
-
-    CDBFAccessor* m_pAccessor;
-
-    std::map<std::string, int>* m_pUniqueID;
-    int m_uniqueIDTableFieldNo;
-    //tmp string for unique ID
 
     std::string m_tmpStr;
 

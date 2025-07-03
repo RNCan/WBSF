@@ -12,13 +12,13 @@
 //****************************************************************************
 //#include "stdafx.h"
 #pragma warning( disable : 4244 )
-#include <boost\archive\binary_oarchive.hpp>
-#include <boost\archive\binary_iarchive.hpp>
-#include <boost\dynamic_bitset.hpp>
-#include <boost\serialization\map.hpp>
-#include <boost\serialization\array.hpp>
-#include <boost\serialization\vector.hpp>
-#include <boost\serialization\set.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/dynamic_bitset.hpp>
+#include <boost/serialization/map.hpp>
+#include <boost/serialization/array.hpp>
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/set.hpp>
 #include <boost/serialization/unordered_map.hpp>
 #include <set>
 
@@ -242,7 +242,7 @@ namespace WBSF
 			m_fileData << ss.rdbuf();
 			m_fileData.flush();
 
-			fpos_t test = m_fileData.tellp();
+			std::fstream::pos_type test = m_fileData.tellp();
 			assert(test == curPos + length + sizeof(curPos) + sizeof(length));
 		}
 
@@ -383,7 +383,7 @@ namespace WBSF
 				CFileStampMap::const_iterator it2 = m_filesStamps.find(oldFileName);
 				if (it2 != m_filesStamps.end())
 				{
-					__time64_t tmp = it2->second;
+					std::time_t tmp = it2->second;
 					m_filesStamps.erase(it2);
 					m_filesStamps[newFileName] = tmp;
 

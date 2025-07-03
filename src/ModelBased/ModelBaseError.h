@@ -1,6 +1,6 @@
 #pragma once
 
-#include "basic/ERMsg.h"
+#include "Basic/ERMsg.h"
 
 #define ERROR_USER_BASE 0x00001000
 enum TError {   ERROR_NOINPUT_FILE = 0x00000021,  //no input file

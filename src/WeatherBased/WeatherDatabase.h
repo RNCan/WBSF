@@ -59,7 +59,7 @@ namespace WBSF
 
 
 		virtual ERMsg VerifyVersion(const std::string& filePath)const = 0;
-		virtual __time64_t GetLastUpdate(const std::string& filePath, bool bVerifyAllFiles = true)const = 0;
+		virtual std::time_t GetLastUpdate(const std::string& filePath, bool bVerifyAllFiles = true)const = 0;
 		virtual ERMsg VerifyDB(CCallback& callBack = CCallback::DEFAULT_CALLBACK)const = 0;
 		virtual ERMsg CreateFromMerge(const std::string& filePath1, const std::string& filePath2, double distance, double deltaElev, size_t mergeType, size_t priorityRules, std::string& log, CCallback& callback = CCallback::DEFAULT_CALLBACK) = 0;
 		virtual ERMsg Search(CSearchResultVector& searchResultArray, const CLocation& station, size_t nbStation, double searchRadius = -1, CWVariables filter = CWVariables(), int year = YEAR_NOT_INIT, bool bExcludeUnused = true, bool bUseElevation = true, bool bUseShoreDistance=true)const = 0;
@@ -205,7 +205,7 @@ namespace WBSF
 		virtual std::string GetDataPath(const std::string& filePath)const{ return WBSF::GetPath(filePath) + GetFileTitle(filePath) + GetDBType() + "\\"; }
 
 		virtual ERMsg VerifyVersion(const std::string& filePath)const;
-		virtual __time64_t GetLastUpdate(const std::string& filePath, bool bVerifyAllFiles = true)const;
+		virtual std::time_t GetLastUpdate(const std::string& filePath, bool bVerifyAllFiles = true)const;
 		virtual ERMsg VerifyDB(CCallback& callBack = DEFAULT_CALLBACK)const;
 		virtual ERMsg CreateFromMerge(const std::string& filePath1, const std::string& filePath2, double distance, double deltaElev, size_t mergeType, size_t priorityRules, std::string& log, CCallback& callback = DEFAULT_CALLBACK);
 		virtual ERMsg Search(CSearchResultVector& searchResultArray, const CLocation& station, size_t nbStation, double radius, CWVariables filter = CWVariables(), int year = YEAR_NOT_INIT, bool bExcludeUnused = true, bool bUseElevation = true, bool bUseShoreDistance=true)const;

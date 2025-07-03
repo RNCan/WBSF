@@ -10,14 +10,14 @@
 #pragma once
 
 #include <deque>
-//#include <boost\serialization\access.hpp>
-//#include <boost\array.hpp>
-//#include "basic/zenXml.h"
+//#include <boost/serialization/access.hpp>
+//#include <boost/array.hpp>
+//#include "Basic/zenXml.h"
 
 
 #include "Basic/Location.h"
 #include "Basic/Callback.h"
-#include "Basic/UtilSTD.h"
+#include "Basic/UtilStd.h"
 #include "Basic/ApproximateNearestNeighbor.h"
 #include "WeatherBased/WeatherDefine.h"
 #include "WeatherBased/WeatherDataSection.h"
@@ -71,7 +71,7 @@ namespace WBSF
 		static const int VERSION = 1;
 	};
 
-	typedef std::map<std::string, __time64_t> CFileStampMap;
+	typedef std::map<std::string, std::time_t> CFileStampMap;
 
 	class CWeatherDatabaseOptimization : public CLocationVector
 	{
@@ -164,7 +164,7 @@ namespace WBSF
 	protected:
 
 		std::string m_filePath;
-		__time64_t m_time;
+		std::time_t m_time;
 
 		//std::string m_subDir;
 		bool m_bSubDir;

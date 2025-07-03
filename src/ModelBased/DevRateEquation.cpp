@@ -1,5 +1,4 @@
-﻿
-#define _USE_MATH_DEFINES
+﻿#define _USE_MATH_DEFINES
 #include <cmath>
 #include <functional>
 #include <random>
@@ -225,7 +224,7 @@ bool CDevRateEquation::IsParamValid(CDevRateEquation::TDevRateEquation model, co
         bValid = P[P3] < P[P4];
         break;
 
-        default: ;//do nothing; avoid warning message
+    default: ;//do nothing; avoid warning message
     }
 
     return bValid;

@@ -25,12 +25,15 @@
 //https://www.boost.org/doc/libs/1_66_0/doc/html/boost_dll/tutorial.html#boost_dll.tutorial.plugin_basics
 
 
-#include <float.h>
+#include <cfloat>
+#include <thread>
 
-#include "ModelBased/Model.h"
+
 #include "ModelBased/ModelInput.h"
 #include "ModelBased/WGInput.h"
 #include "ModelBased/CommunicationStream.h"
+
+#include "ModelBased/Model.h"
 
 //#include "WeatherBasedSimulationString.h"
 
@@ -313,7 +316,8 @@ void CModel::UnloadDLL()
 
         //to prevent a bug in the VCOMP100.dll we must wait 1 sec before closing dll
         //see http://support.microsoft.com/kb/94248
-        Sleep(1000);
+        //Sleep(1000);
+        std::this_thread::sleep_for(std::chrono::seconds(1));
         bool bFree = true;//FreeLibrary(m_hDll) != 0;
         if (bFree)
         {
@@ -543,7 +547,7 @@ bool CModel::GetDiskSpaceOk(const string & nameInputFile)
 //  //verification supplémentaire pour vérifier qu'il y a assez d'espace sur le disque
 //  GetDiskFreeSpaceExW(convert(path).c_str(), &FreeBytesAvailableToCaller, &TotalNumberOfBytes, &TotalNumberOfFreeBytes);
 
-assert(false);//todo
+    assert(false);//todo
     return true;//FreeBytesAvailableToCaller.QuadPart > 500000;
 }
 
@@ -608,23 +612,23 @@ string CModel::GetDLLVersion(const string& filePath)
     string version;
 
     //regarder de près DLLGetVersion dans la doc pour voir si on peux utuliser ça
- //   HINSTANCE hDLL = LoadLibraryW(convert(filePath).c_str());
- //   GetModelVersionF GetModelVersion = NULL;
- //   if (hDLL)
- //       GetModelVersion = (GetModelVersionF)GetProcAddress(hDLL, "GetModelVersion");
+//   HINSTANCE hDLL = LoadLibraryW(convert(filePath).c_str());
+//   GetModelVersionF GetModelVersion = NULL;
+//   if (hDLL)
+//       GetModelVersion = (GetModelVersionF)GetProcAddress(hDLL, "GetModelVersion");
 //
- //   if (hDLL && GetModelVersion)
- //   {
- //       version = GetModelVersion();
- //   }
- //   else
- //   {
- //       //try with the version of the file info
- //       version = GetVersionString(filePath);
- //   }
+//   if (hDLL && GetModelVersion)
+//   {
+//       version = GetModelVersion();
+//   }
+//   else
+//   {
+//       //try with the version of the file info
+//       version = GetVersionString(filePath);
+//   }
 //
- //   if (hDLL)
- //       FreeLibrary(hDLL);
+//   if (hDLL)
+//       FreeLibrary(hDLL);
 
     return version;
 }

@@ -115,7 +115,7 @@ namespace WBSF
 
 		for (size_t i = 0; i < NB_FIELDS; i++)
 		{
-			int iostat = sscanf_s(str.substr(i*RECORD_LENGTH, RECORD_LENGTH).c_str(), "%f", &at(i));
+			int iostat = std::sscanf(str.substr(i*RECORD_LENGTH, RECORD_LENGTH).c_str(), "%f", &at(i));
 			if (iostat < 1)
 				at(i) = MISSING;
 		}
@@ -492,7 +492,7 @@ namespace WBSF
 							if (f == PRCP_TT && me[m][f] < 0)
 								me[m][f] = 0;
 
-							me[m][f] = round(me[m][f], GetNormalDataPrecision(f));
+							me[m][f] = (float)round((double)me[m][f], GetNormalDataPrecision(f));
 						}
 					}
 				}

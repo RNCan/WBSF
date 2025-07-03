@@ -65,7 +65,7 @@ public:
 
     //hxGrid variable
     //IAgent* m_pAgent;
-   // DWORD  m_hxGridSessionID;
+    // DWORD  m_hxGridSessionID;
     CTransferInfoIn m_info;
     CWeatherStation m_weather;			//holds weather and statistics
     CTimeStep m_timeStep;

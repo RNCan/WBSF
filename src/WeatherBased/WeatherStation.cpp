@@ -1161,8 +1161,8 @@ namespace WBSF
 		{
 			const CLocation& loc = GetLocation();
 			CSun sun(loc.m_lat, loc.m_lon);
-			size_t sunrise = round(sun.GetSunrise(GetTRef()));
-			size_t sunset = min(23ll, round(sun.GetSunset(GetTRef())));
+			size_t sunrise = std::round(sun.GetSunrise(GetTRef()));
+			size_t sunset = std::min(23.0, std::round(sun.GetSunset(GetTRef())));
 
 			for (size_t h = sunrise; h <= sunset; h++)
 				Tdaylight += me[h][H_TAIR];
@@ -2278,7 +2278,7 @@ namespace WBSF
 
 		for (size_t t = 0; t < 3600 * 24; t += 60)
 		{
-			size_t h = size_t(round(double(t) / 3600.0)) % 24;//take centered on the hour
+			size_t h = size_t(std::round(double(t) / 3600.0)) % 24;//take centered on the hour
 			double w = 2 * PI * (double(t) / 3600 - 12) / 24;
 			double solarAltitude = max(0.0, sin(ϕ) * sin(δ) + cos(ϕ) * cos(δ) * cos(w));
 
@@ -2344,7 +2344,7 @@ namespace WBSF
 		size_t Tmethod = HG_DOUBLE_SINE;
 
 		CWeatherDay& me = *this;
-		for (TVarH v = H_FIRST_VAR; v < variables.size(); v++)
+		for (TVarH v = H_FIRST_VAR; v < (TVarH)variables.size(); v++)
 		{
 			if (variables[v])
 			{
@@ -3618,7 +3618,7 @@ namespace WBSF
 		CWVariables variableToAdjust("TD H WS Z WS2");
 		variableToAdjust &= variables;
 
-		for (TVarH v = H_TDEW; v < variableToAdjust.size(); v++)
+		for (TVarH v = H_TDEW; v < (TVarH)variableToAdjust.size(); v++)
 		{
 			if (variableToAdjust[v])
 			{

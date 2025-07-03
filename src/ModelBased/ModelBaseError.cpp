@@ -1,4 +1,3 @@
-
 #include "ModelBaseError.h"
 
 static short gLanguage=ENGLISH;

@@ -9,6 +9,7 @@
 #pragma once
 
 #include <cassert>
+ #include <cstddef>
 //#include <cmath>
 
 namespace WBSF

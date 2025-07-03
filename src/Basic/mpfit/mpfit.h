@@ -183,10 +183,10 @@ extern int mpfit(mp_func funct, int m, int npar,
 #if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 #define mpfinite(x) isfinite(x)
 
-/* Microsoft C uses _finite(x) instead of finite(x) */
+/* Microsoft C uses std::isfinite(x) instead of finite(x) */
 #elif defined(_MSC_VER) && _MSC_VER
 #include <float.h>
-#define mpfinite(x) _finite(x)
+#define mpfinite(x) std::isfinite(x)
 
 /* Default is to assume that compiler/library has finite() function */
 #else

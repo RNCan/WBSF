@@ -23,6 +23,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/process.hpp>
 #include <boost/process/extend.hpp>
+#include <boost/dll/runtime_symbol_info.hpp>
 #include <boost/date_time/posix_time/posix_time_io.hpp>
 #include <boost/date_time/posix_time/conversion.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
@@ -64,6 +65,12 @@ namespace fs = boost::filesystem;
 //    return *this;
 //}
 
+
+
+namespace WBSF
+{
+
+
 // Return path when appended to a_From will resolve to same as a_To
 std::filesystem::path make_relative(std::filesystem::path a_From, std::filesystem::path a_To)
 {
@@ -92,11 +99,6 @@ std::filesystem::path make_relative(std::filesystem::path a_From, std::filesyste
 
     return ret;
 }
-
-
-namespace WBSF
-{
-
 
 
 bool GDALStyleProgressBar(double dfComplete)
@@ -133,8 +135,8 @@ bool GDALStyleProgressBar(double dfComplete)
     return true;
 }
 
-const std::string STRVMISS = "VMiss";
-const std::string STRDEFAULT = "Default";
+//const std::string STRVMISS = "VMiss";
+//const std::string STRDEFAULT = "Default";
 
 ERMsg RemoveFile(const std::string& filePath)
 {
@@ -534,66 +536,67 @@ std::filesystem::path GetAbsolutePath(const std::filesystem::path& base_path, co
 //		return bRep;
 //	}*/
 //
-	std::string upperCase(std::string input) {
-		for (std::string::iterator it = input.begin(); it != input.end(); ++it)
-			*it = toupper(*it);
-		return input;
-	}
+std::string upperCase(std::string input)
+{
+    for (std::string::iterator it = input.begin(); it != input.end(); ++it)
+        *it = toupper(*it);
+    return input;
+}
 
 
-	string FilePath2SpecialPath(const std::string& filePath, const string& appPath, const string& projectPath)
-	{
-		string special_path = filePath;
-		if (!filePath.empty())
-		{
-			string::size_type pos = upperCase(filePath).find(upperCase(projectPath));
-			if (pos != string::npos)
-			{
-				special_path.replace(pos, projectPath.length(), "[Project Path]\\");
-			}
-			else
-			{
-				pos = upperCase(filePath).find(upperCase(appPath));
-				if (pos != -1)
-				{
-					special_path.replace(pos, appPath.length(), "[BioSIM Path]\\");
-				}
-			}
+string FilePath2SpecialPath(const std::string& filePath, const string& appPath, const string& projectPath)
+{
+    string special_path = filePath;
+    if (!filePath.empty())
+    {
+        string::size_type pos = upperCase(filePath).find(upperCase(projectPath));
+        if (pos != string::npos)
+        {
+            special_path.replace(pos, projectPath.length(), "[Project Path]\\");
+        }
+        else
+        {
+            pos = upperCase(filePath).find(upperCase(appPath));
+            if (pos != NOT_INIT)
+            {
+                special_path.replace(pos, appPath.length(), "[BioSIM Path]\\");
+            }
+        }
 
-		}
+    }
 
-		return special_path;
-	}
+    return special_path;
+}
 
-	string SpecialPath2FilePath(const string& specialPath, const string& appPath, const string& projectPath)
-	{
-		string filePath = specialPath;
+string SpecialPath2FilePath(const string& specialPath, const string& appPath, const string& projectPath)
+{
+    string filePath = specialPath;
 
-		if (!filePath.empty())
-		{
-			string::size_type pos = filePath.find("[Project Path]\\");
-			if (pos != string::npos)
-			{
-				ReplaceString(filePath, "[Project Path]\\", projectPath.c_str());
-			}
+    if (!filePath.empty())
+    {
+        string::size_type pos = filePath.find("[Project Path]\\");
+        if (pos != string::npos)
+        {
+            ReplaceString(filePath, "[Project Path]\\", projectPath.c_str());
+        }
 
-			pos = filePath.find("[BioSIM Path]\\");
-			if (pos != -1)
-			{
-				ReplaceString(filePath, "[BioSIM Path]\\", appPath.c_str());
-			}
+        pos = filePath.find("[BioSIM Path]\\");
+        if (pos != NOT_INIT)
+        {
+            ReplaceString(filePath, "[BioSIM Path]\\", appPath.c_str());
+        }
 
-			pos = filePath.find("[Models Path]\\");
-			if (pos != -1)
-			{
-				ReplaceString(filePath, "[Models Path]\\", (appPath + "Models\\").c_str());
-			}
-		}
+        pos = filePath.find("[Models Path]\\");
+        if (pos != NOT_INIT)
+        {
+            ReplaceString(filePath, "[Models Path]\\", (appPath + "Models\\").c_str());
+        }
+    }
 
-		return filePath;
-	}
+    return filePath;
+}
 
-bool FileExists(const std::filesystem::path& file_path)
+bool FileExists(const std::string& file_path)
 {
     return std::filesystem::exists( file_path);
 //		DWORD ftyp = GetFileAttributesA(filePath.c_str());
@@ -608,7 +611,7 @@ bool FileExists(const std::filesystem::path& file_path)
 }
 
 
-bool DirectoryExists(const std::filesystem::path& file_path)
+bool DirectoryExists(const std::string& file_path)
 {
     return std::filesystem::exists( file_path);
 
@@ -627,44 +630,49 @@ bool DirectoryExists(const std::filesystem::path& file_path)
     //return false;    // this is not a directory!
 }
 
-filesystem::path GetApplicationPath()
+std::string GetApplicationPath()
 {
-    filesystem::path app_path;
+    //filesystem::path app_path;
 
-#ifdef _WIN32
+//    boost::dll::program_location();
 
-//    dladdr(&GetApplicationPath, &dlInfo);
-    assert(false);
-    //Get full path with decoration
-    std::wstring appPath;
-    //appPath.resize(MAX_PATH);
-    // GetModuleFileNameW(NULL, &(appPath[0]), MAX_PATH);
-    appPath.resize(wcslen(appPath.c_str()));
-    appPath.shrink_to_fit();
+    string executable_path = boost::dll::program_location().string();
 
-    //remove inutile decoration (ie .\)
-    //char	szAbsolutePath[_MAX_PATH]={0};
-    //if( PathCanonicalize(szAbsolutePath, appPath) )
-    //appPath = szAbsolutePath;
-    //std::string appPath2 = SimplifyFilePath(UTF8(appPath));
+//#ifdef _WIN32
+//
+////    dladdr(&GetApplicationPath, &dlInfo);
+//    assert(false);
+//    //Get full path with decoration
+//    std::wstring appPath;
+//    //appPath.resize(MAX_PATH);
+//    // GetModuleFileNameW(NULL, &(appPath[0]), MAX_PATH);
+//    appPath.resize(wcslen(appPath.c_str()));
+//    appPath.shrink_to_fit();
+//
+//    //remove inutile decoration (ie .\)
+//    //char	szAbsolutePath[_MAX_PATH]={0};
+//    //if( PathCanonicalize(szAbsolutePath, appPath) )
+//    //appPath = szAbsolutePath;
+//    //std::string appPath2 = SimplifyFilePath(UTF8(appPath));
+//
+//    //assert(!appPath2.empty());
+//    //path = appPath2.substr(0, appPath2.find_last_of("\\/") + 1);
+//
+//    app_path = filesystem::canonical(appPath);
+//    app_path = app_path.parent_path();
+//
+//#else
+//
+//    dladdr(&X, &dlInfo);
+//    app_path = filesystem::canonical("/proc/self/exe");
+//    app_path = app_path.parent_path();
+//    //path = p.string();
+//#endif
 
-    //assert(!appPath2.empty());
-    //path = appPath2.substr(0, appPath2.find_last_of("\\/") + 1);
 
-    app_path = filesystem::canonical(appPath);
-    app_path = app_path.parent_path();
-
-#else
-
-    dladdr(&X, &dlInfo);
-    app_path = filesystem::canonical("/proc/self/exe");
-    app_path = app_path.parent_path();
-    //path = p.string();
-#endif
-
-
-    return app_path;
+    return executable_path;
 }
+
 
 ERMsg GetFileInfo(const std::string& file_path, CFileInfo& info)
 {
@@ -692,46 +700,16 @@ CFileInfo GetFileInfo(const std::string& file_path_in)
         info.m_filePath = file_path_in;
         fs::last_write_time(file_path, info.m_time);
         info.m_size = fs::file_size(file_path);
+
+        //= boost::filesystem::last_write_time(p);
     }
-
-
-//    for (fs::recursive_directory_iterator it(path), endit; it != endit; ++it)
-//        if (fs::is_regular_file(*it) && it->path().extension() == ext)
-//        {
-//            try {
-//                auto stamp = pt::from_time_t(fs::last_write_time(*it));
-//                if (stamp >= max) {
-//                    last = *it;
-//                    max = stamp;
-//                }
-//            } catch(std::exception const& e) {
-//                std::cerr << "Skipping: " << *it << " (" << e.what() << ")\n";
-//            }
-//        }
-//
-//    return last; // empty if no file matched
-
-////		int fd = fopen(filePath.c_str(), OFN_READONLY);
-//        struct stat st;
-//        fstat(fd, &st);
-//
-//		//stat_struct file_stat={0};
-//		_stat64i32 file_stat={0};
-//		int rc = _stat64i32(filePath.c_str(), &file_stat);
-//		if (rc == 0)
-//		{
-//			info.m_filePath = filePath;
-//			info.m_time = stat.st_mtime;
-//			info.m_size = stat.st_size;
-//		}
-
 
     return info;
 }
 
-__time64_t GetFileStamp(const std::string& filePath)
+std::time_t GetFileStamp(const std::string& filePath)
 {
-    __time64_t fileStamp = 0;
+    std::time_t fileStamp = 0;
 
     CFileInfo info = GetFileInfo(filePath);
     //if (GetFileInfo(filePath, info))
@@ -740,39 +718,46 @@ __time64_t GetFileStamp(const std::string& filePath)
     return fileStamp;
 }
 
-//	/*ERMsg GetFilesInfo(const std::vector<std::string>& filesList, CFileInfoVector& filesInfo)
-//	{
-//		ERMsg msg;
-//		typedef std::pair<std::vector<std::string>::const_iterator, CFileInfoVector::iterator > SVFIVIterator;
-//
-//		filesInfo.resize(filesList.size());
-//		for(SVFIVIterator it(filesList.begin(), filesInfo.begin()); it.first!=filesList.end(); it.first++, it.second++)
-//			msg+=GetFileInfo(*it.first, *it.second);
-//
-//		return msg;
-//	}
-//*/
-//
-//	__time64_t FILETIME_to_time64(FILETIME const& ft)
-//	{
-//		ULARGE_INTEGER ull;
-//		ull.LowPart = ft.dwLowDateTime;
-//		ull.HighPart = ft.dwHighDateTime;
-//		return ull.QuadPart / 10000000ULL - 11644473600ULL;
-//	}
-//
-void GetFilesInfo(const std::string& filter, bool bSubDirSearch, CFileInfoVector& filesInfo)
+CFileInfoVector GetFilesInfo(const std::vector<std::string>& files_list)
 {
+    CFileInfoVector files_info(files_list.size());
 
-    bool bAddEmptyExtension = filter.substr(filter.length() - 1) == ".";
-    std::string path = GetPath(filter);
+    for (size_t i=0; i<files_list.size(); i++)
+    {
+        files_info[i] = GetFileInfo(files_list [i]);
+    }
 
-    assert(false);
+    return files_info;
+}
 
-    //std::string path = "/path/to/directory";
-    for (const auto & entry : fs::directory_iterator(path))
-        std::cout << entry.path() << std::endl;
+template<typename DirectoryIterator>
+std::vector<std::string> iter_dir(DirectoryIterator it, const std::string& filter)
+{
+    std::vector<std::string> files_list;
+//    files_list.reserve(it->size());
 
+    for (const auto& entry : it)
+    {
+        // Check if the file matches the extension filter
+        if (boost::filesystem::is_regular_file(entry.path())&& entry.path().extension() == filter )
+        {
+            files_list.push_back(entry.path().filename().string());
+        }
+    }
+
+    return files_list;
+}
+
+
+std::vector<std::string> GetFilesList(const std::string& directory_path, const std::string& filter, bool bSubDirSearch)
+{
+    if(bSubDirSearch)
+        return iter_dir(boost::filesystem::recursive_directory_iterator(directory_path), filter);
+
+
+
+    return iter_dir(boost::filesystem::directory_iterator(directory_path), filter);
+}
 //		std::string ext = GetFileExtension(filter);
 //		if (!ext.empty() && ext.find('*') != string::npos)
 //			ext.clear();
@@ -836,7 +821,7 @@ void GetFilesInfo(const std::string& filter, bool bSubDirSearch, CFileInfoVector
 //				FindClose(hFind);
 //			}
 //		}
-}
+//}
 //
 //	void GetFilesList(const CFileInfoVector& filesInfo, int type, std::vector<std::string>& filesList)
 //	{
@@ -1106,15 +1091,25 @@ void GetFilesInfo(const std::string& filter, bool bSubDirSearch, CFileInfoVector
 //	}
 //
 //
-
+#ifdef _WIND32
 struct new_console : boost::process::extend::handler
 {
-    template <typename Char, typename Sequence>
-    void on_setup(boost::process::extend::windows_executor<Char, Sequence>& ex)
+    template <typename Executor>
+    void on_setup(Executor& ex)
     {
-        ex.creation_flags |= CREATE_NEW_CONSOLE;
+        // This template will only be instantiated for windows_executor
+        // due to SFINAE or specific template specialization in Boost.Process.
+        // On POSIX systems, this method will not be called for the handler.
+        if constexpr (std::is_same_v<Executor, boost::process::extend::windows_executor<typename Executor::char_type, typename Executor::sequence_type>>)
+        {
+
+            ex.creation_flags |= CREATE_NEW_CONSOLE;
+
+        }
     }
 };
+
+#endif
 
 ERMsg WinExecWait(const std::string& exe_path, const std::string& arg, std::string working_dir, bool bShow, int* pExitCode)
 {
@@ -1124,22 +1119,22 @@ ERMsg WinExecWait(const std::string& exe_path, const std::string& arg, std::stri
     //boost::filesystem::path p2 = search_path(p1);
     try
     {
-        while (IsPathEndOk(working_dir))
-            working_dir = working_dir.substr(0, working_dir.length() - 1);
+//        while (IsPathEndOk(working_dir))
+        // working_dir = working_dir.substr(0, working_dir.length() - 1);
 
         boost::process::ipstream pipe_stream;
         boost::process::child c;
-        
-        if(bShow)
-            c = boost::process::child(exe_path, arg, boost::process::std_out > pipe_stream, boost::process::start_dir(working_dir));
-        else 
-            c = boost::process::child(exe_path, arg, boost::process::std_out > pipe_stream, boost::process::start_dir(working_dir), new_console());
-        
+
+        //if(bShow)
+        //  c = boost::process::child(exe_path, arg, boost::process::std_out > pipe_stream, boost::process::start_dir(working_dir), new_console());
+        //else
+        c = boost::process::child(exe_path, arg, boost::process::std_out > pipe_stream, boost::process::start_dir(working_dir));
+
 
         std::string line;
 
         //while (pipe_stream && std::getline(pipe_stream, line) && !line.empty())
-          //  std::cerr << line << std::endl;
+        //  std::cerr << line << std::endl;
 
         c.wait();
 
@@ -1300,7 +1295,7 @@ int GetEndNumber(std::string name)
         std::string::size_type posEnd = name.find_last_of("0123456789");
         if (posBeg != std::string::npos && posEnd != std::string::npos && name[posBeg] == ' ' && posEnd == name.length() - 1)
         {
-            number = ToValue<int>(name.substr(posBeg + 1, posEnd - posBeg));
+            number = std::stoi(name.substr(posBeg + 1, posEnd - posBeg));
         }
     }
 
@@ -1318,10 +1313,10 @@ std::string GenerateNewName(std::string name)
         }
         else
         {
-            std::string noStr = ToString(no);
+            std::string noStr = to_string(no);
             std::string::size_type pos = name.rfind(noStr);
             assert(pos != std::string::npos);
-            name = name.substr(0, pos) + ToString(no + 1);
+            name = name.substr(0, pos) + to_string(no + 1);
         }
     }
 
@@ -1332,11 +1327,11 @@ std::string GenerateNewFileName(std::string name)
 {
     if (!name.empty())
     {
-        while (FileExists(name))
+        while (WBSF::FileExists(name))
         {
-            std::string title = GetFileTitle(name);
+            std::string title = WBSF::GetFileTitle(name);
             title = GenerateNewName(title);
-            SetFileTitle(name, title);
+            WBSF::SetFileTitle(name, title);
         }
 
     }
@@ -1447,37 +1442,37 @@ std::string SecondToDHMS(double time)
 }
 
 
-	std::string GetTempPath()
-	{
-		//DWORD size = ::GetTempPathW(0, NULL);
+std::string GetTempPath()
+{
+    //DWORD size = ::GetTempPathW(0, NULL);
 //
-		//std::wstring tmp;
-		//tmp.resize(size);
-		//::GetTempPathW(size, &(tmp[0]));
-		////tmp.ReleaseBuffer();
+    //std::wstring tmp;
+    //tmp.resize(size);
+    //::GetTempPathW(size, &(tmp[0]));
+    ////tmp.ReleaseBuffer();
 //
-		//return UTF8(tmp);
-		assert(false);
-		return "";
-	}
+    //return UTF8(tmp);
+    assert(false);
+    return "";
+}
 
-	std::string GetUserDataPath()
-	{
-		//std::wstring path;
-		//path.insert(path.begin(), MAX_PATH, 0);
-		//HRESULT result = SHGetFolderPathW(0, CSIDL_APPDATA | CSIDL_FLAG_CREATE, NULL, 0, &(path[0]));
-		//path.resize(wcslen(path.c_str()));
-		//path.shrink_to_fit();
+std::string GetUserDataPath()
+{
+    //std::wstring path;
+    //path.insert(path.begin(), MAX_PATH, 0);
+    //HRESULT result = SHGetFolderPathW(0, CSIDL_APPDATA | CSIDL_FLAG_CREATE, NULL, 0, &(path[0]));
+    //path.resize(wcslen(path.c_str()));
+    //path.shrink_to_fit();
 //
-		//if (result == S_OK)
-		//	path += L"\\NRCan\\";
-		//else
-		//	path = UTF16(GetTempPath());
+    //if (result == S_OK)
+    //	path += L"\\NRCan\\";
+    //else
+    //	path = UTF16(GetTempPath());
 //
-		//return UTF8(path);
-		assert(false);
-		return "";
-	}
+    //return UTF8(path);
+    assert(false);
+    return "";
+}
 
 //
 //
@@ -1507,7 +1502,7 @@ std::string SecondToDHMS(double time)
 //			DWORD dwSecondRight = HIWORD(dwFileVersionLS);
 //			DWORD dwRightMost = LOWORD(dwFileVersionLS);
 //
-//			version = ToString(dwLeftMost) + "." + ToString(dwSecondLeft) + "." + ToString(dwSecondRight) + "." + ToString(dwRightMost);
+//			version = to_string(dwLeftMost) + "." + to_string(dwSecondLeft) + "." + to_string(dwSecondRight) + "." + to_string(dwRightMost);
 //		}
 //
 //		return version;
@@ -1645,7 +1640,7 @@ std::string PurgeFileName(std::string name)
     std::replace(name.begin(), name.end(), '\'', ' ');
     ReplaceString(name, "œ", "oe");
 
-    Trim(name);
+    WBSF::Trim(name);
 
     return name;
 }
@@ -1914,7 +1909,7 @@ std::string& UppercaseFirstLetter(std::string& str)
 //
 //	std::string GetString(UINT ID) { return LoadString(ID); }
 //
-//	std::string ToStringDMS(double coord, bool bWithFraction)
+//	std::string to_stringDMS(double coord, bool bWithFraction)
 //	{
 //		std::string deg;
 //		std::string min;
@@ -1927,9 +1922,9 @@ std::string& UppercaseFirstLetter(std::string& str)
 //			prec = 2;
 //
 //		double mult = pow(10.0, prec);
-//		deg = ToString(GetDegrees(coord, mult));
-//		min = ToString(GetMinutes(coord, mult));
-//		sec = ToString(GetSeconds(coord, mult), prec);
+//		deg = to_string(GetDegrees(coord, mult));
+//		min = to_string(GetMinutes(coord, mult));
+//		sec = to_string(GetSeconds(coord, mult), prec);
 //
 //		if (sec == "0" || sec == "-0")
 //			sec.clear();
@@ -1940,10 +1935,10 @@ std::string& UppercaseFirstLetter(std::string& str)
 //		return deg + min + sec;
 //	}
 //
-//	//std::string ToString(const CGeoRectIndex& rect )
+//	//std::string to_string(const CGeoRectIndex& rect )
 //	//{
 //	//
-//	//	return ToString(rect.top) + " " + ToString(rect.left) + " " + ToString( rect.bottom) + " " + ToString(rect.right);
+//	//	return to_string(rect.top) + " " + to_string(rect.left) + " " + to_string( rect.bottom) + " " + to_string(rect.right);
 //	//}
 //
 //	//CGeoRectIndex ToCRect(const std::string& str)
@@ -2328,9 +2323,9 @@ std::string FormatMsg(std::string_view szFormat, std::string_view v1, std::strin
 
 size_t Find(const std::vector<std::string>& v, const std::string& str, bool bCaseSensitive, bool bExact)
 {
-    std::set<size_t> cols = FindAll(v, str, bCaseSensitive, bExact);
+    std::set<size_t> cols = WBSF::FindAll(v, str, bCaseSensitive, bExact);
 
-    return cols.empty() ? UNKNOWN_POS : *cols.begin();
+    return cols.empty() ? NOT_INIT : *cols.begin();
 }
 
 std::set<size_t> FindAll(const std::vector<std::string>& v, const std::string& str, bool bCaseSensitive, bool bExact)
@@ -2409,13 +2404,12 @@ std::set<size_t> FindAll(const std::vector<std::string>& v, const std::string& s
 //			if (it != begin())
 //				str += sep;
 //
-//			str += ToString(*it);
+//			str += to_string(*it);
 //		}
 //
 //		return str;
 //	}
 //
-
 
 }//namespace WBSF
 

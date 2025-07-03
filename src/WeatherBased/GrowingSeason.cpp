@@ -166,10 +166,10 @@ CTRef CGSInfo::GetFirst(const CWeatherYear& weather, size_t first_month, size_t 
 
     CTPeriod p = weather.GetEntireTPeriod(CTM::DAILY);
 
-    p.begin().m_month = first_month;
-    p.begin().m_day = DAY_01;
-    p.end().m_month = last_month;
-    p.end().m_day = CTRef::GetNbDaysPerMonth(p.end().GetYear(), last_month) - 1;
+    p.begin().m_month = (uint8_t)first_month;
+    p.begin().m_day = (uint8_t)DAY_01;
+    p.end().m_month = (uint8_t)last_month;
+    p.end().m_day = (uint8_t)CTRef::GetNbDaysPerMonth(p.end().GetYear(), last_month) - 1;
 
 
     CTRef firstTRef;
@@ -221,11 +221,11 @@ CTRef CGSInfo::GetLast(const CWeatherYear& weather, size_t first_month, size_t l
 
     CTPeriod p = weather.GetEntireTPeriod(CTM::DAILY);
 
-    p.begin().m_month = first_month;
+    p.begin().m_month = (uint8_t)first_month;
     p.begin().m_day = DAY_01;
 
-    p.end().m_month = last_month;
-    p.end().m_day = CTRef::GetNbDaysPerMonth(p.end().GetYear(), last_month) - 1;
+    p.end().m_month = (uint8_t)last_month;
+    p.end().m_day = (uint8_t)(CTRef::GetNbDaysPerMonth(p.end().GetYear(), last_month) - 1);
 
     size_t nb_valid = 0;
     for (CTRef TRef = p.end(); TRef >= p.begin() && !lastTRef.is_init(); TRef--)
@@ -253,7 +253,7 @@ CTRef CGSInfo::GetLast(const CWeatherYear& weather, size_t first_month, size_t l
             nb_valid = 0;
 
         if (nb_valid >= m_nbDays)
-            lastTRef = TRef + (int)round(m_nbDays-1) + shift;
+            lastTRef = TRef + (int)std::round(m_nbDays-1) + shift;
         //}
     }
 

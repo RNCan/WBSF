@@ -1594,7 +1594,7 @@ void CASCE_ETsz::AdjustSolarTimeAngle(double& ω1, double& ω2, double ωs)
 double CASCE_ETsz::GetCenterLocalTimeZone(double Lm)
 {
 	assert(Lm>=0 && Lm<360);
-	int zone = round(Lm/15)%24;
+	int zone = int(std::round(Lm/15))%24;
 	assert(zone>=0 && zone<24);
 
 	return zone*15;

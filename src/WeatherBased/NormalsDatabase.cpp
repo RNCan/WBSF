@@ -22,12 +22,12 @@
 
 
 
-#include <boost\archive\binary_oarchive.hpp>
-#include <boost\archive\binary_iarchive.hpp>
-#include <boost\dynamic_bitset.hpp>
-#include <boost\serialization\array.hpp>
-#include <boost\serialization\deque.hpp>
-#include <boost\serialization\vector.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/dynamic_bitset.hpp>
+#include <boost/serialization/array.hpp>
+#include <boost/serialization/deque.hpp>
+#include <boost/serialization/vector.hpp>
 
 #include <boost/serialization/string.hpp>
 #include <boost/serialization/utility.hpp>
@@ -779,10 +779,10 @@ ERMsg CNormalsDatabase::GetStations(CNormalsStationVector& stations, const CSear
 //
 // Note:
 //****************************************************************************
-__time64_t CNormalsDatabase::GetLastUpdate(const string& filePath, bool bVerifyAllFiles)const
+std::time_t CNormalsDatabase::GetLastUpdate(const string& filePath, bool bVerifyAllFiles)const
 {
 
-    __time64_t lastUpdate = GetFileStamp(filePath);
+    std::time_t lastUpdate = GetFileStamp(filePath);
     if (bVerifyAllFiles)
         lastUpdate = GetFileStamp(GetOptimisationFilePath(filePath));
 
@@ -841,7 +841,7 @@ int CNormalsDatabase::GetVersion(const string& filePath)
             else
             {
                 int bidon;
-                if (sscanf_s(line.c_str(), "%5d%5d%5d%5d%5d%5d\n", &bidon, &bidon, &bidon, &bidon, &bidon, &nVersion) != 6)
+                if (std::sscanf(line.c_str(), "%5d%5d%5d%5d%5d%5d\n", &bidon, &bidon, &bidon, &bidon, &bidon, &nVersion) != 6)
                     nVersion = 1;
             }
         }

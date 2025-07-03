@@ -11,12 +11,13 @@
 
 #pragma warning( disable : 4244 )
 
-#include "DBF3.h"
-
 #include <cfloat>
 
-#include <boost\archive\binary_oarchive.hpp>
-#include <boost\archive\binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+
+
+#include "DBF3.h"
 
 
 //#include "Basic/Registry.h"
@@ -36,25 +37,31 @@ CDBFFirstByte::CDBFFirstByte() :
 
 tm get_current_tm()
 {
-    time_t ltime = 0;
-    _tzset();
-    time(&ltime);
+//time_t ltime = 0;
+//_tzset();
+//time(&ltime);
+//
+//tm today = { 0 };
+//_localtime64_s(&today, &ltime);
 
-    tm today = { 0 };
-    _localtime64_s(&today, &ltime);
-    return today;
+
+    auto now = std::chrono::system_clock::now();
+    time_t sys_time_t = std::chrono::system_clock::to_time_t(now);
+    std::tm timeinfo = *std::localtime(&sys_time_t);
+
+    return timeinfo;
 }
 
 
 CDBF3::CDBF3() :
-    m_pAccessor(NULL),
+    m_pAccessor(nullptr),
+    m_pUniqueID(nullptr),
     m_bIncomplete(0),
     m_Encryption(0),
     m_MDX(0),
     m_languageID(0x0),
-    m_tableField(NULL),
-    m_uniqueIDTableFieldNo(-1),
-    m_pUniqueID(NULL)
+    m_uniqueIDTableFieldNo(-1)
+
 {
     tm today = get_current_tm();
 
@@ -221,7 +228,7 @@ ERMsg CDBF3::Read(const string& filePath)
                 m_records[i].ReadRecord(io, m_tableField);
             }
         }
-        catch (boost::archive::archive_exception e)
+        catch (boost::archive::archive_exception& e)
         {
             msg.ajoute(e.what());
         }
@@ -295,7 +302,7 @@ const string& CDBF3::GetElementStringForUniqueID(int tableFieldNo, int UniqueID)
         return me.m_tmpStr;
     }
 
-    me.m_tmpStr = ToString(UniqueID + 1);
+    me.m_tmpStr = to_string(UniqueID + 1);
     return m_tmpStr;
 }
 
@@ -397,7 +404,7 @@ void CDBF3::SetNbRecord(int32_t nbRecord)
     m_records.resize(nbRecord);
     for (int index = 0; index < nbRecord; index++)
     {
-        if (m_records[index].size() != nbField)
+        if (m_records[index].size() != (size_t)nbField)
         {
             m_records[index].resize(nbField);
         }
@@ -474,7 +481,7 @@ ERMsg CDBF3::Write(const string& filePath)const
 
             io << CDBFField::END_HEAD;
 
-            assert(nbRecord == m_records.size());
+            assert((size_t)nbRecord == m_records.size());
             for (int i = 0; i < nbRecord; i++)
             {
                 m_records[i].WriteRecord(io, m_tableField);
@@ -482,7 +489,7 @@ ERMsg CDBF3::Write(const string& filePath)const
 
             io << CDBFField::DBF_FILE_END;
         }
-        catch (boost::archive::archive_exception e)
+        catch (boost::archive::archive_exception& e)
         {
             msg.ajoute(e.what());
         }
@@ -563,7 +570,7 @@ void CDBFElement::SetElement(const CDBFField& field, int nElement)
 {
     assert(field.GetType() == 'N');
 
-    m_string = ToString(nElement);
+    m_string = to_string(nElement);
     assert(m_string.length() <= field.GetLength());
     //    AjustLength(field.GetLength());
 
@@ -573,7 +580,7 @@ void CDBFElement::SetElement(const CDBFField& field, int nElement)
 void CDBFElement::SetElement(const CDBFField& field, float fElement)
 {
     assert(field.GetType() == 'N');
-    m_string = ToString(fElement, field.GetDecimalCount());
+    m_string = to_string(fElement, field.GetDecimalCount());
     assert(m_string.length() <= field.GetLength());
 
     //AjustLength(field.GetLength());
@@ -587,16 +594,16 @@ void CDBFElement::SetElement(const CDBFField& field, const char* sElement)
     assert(m_string.length() <= field.GetLength());
 }
 
-void CDBFElement::SetElement(const CDBFField& field, __time64_t element)
+void CDBFElement::SetElement(const CDBFField& field, std::time_t element)
 {
     assert(field.GetType() == 'D');
     assert(field.GetLength() == 8);
 
-    tm time = { 0 };
-    _localtime64_s(&time, &element);
+    tm time = *std::localtime(&element);
+//    _localtime64_s(&time, &element);
 
     m_string.resize(9);
-    sprintf_s(&(m_string[0]), 9, "%04d%02d%02d", time.tm_year + 1900, time.tm_mon + 1, time.tm_mday);
+    std::sprintf(&(m_string[0]), "%04d%02d%02d", time.tm_year + 1900, time.tm_mon + 1, time.tm_mday);
 }
 
 //    enum TElement{ CHARACTER, DATE, FLOAT, NUMBER, BOOL, MEMO, UNKNOW};
@@ -651,7 +658,7 @@ void CDBFField::SetField(const string& name, const string& format)
         //number
         SetType('N');
         int length;
-        sscanf_s(tmp.c_str(), "%d", &length);
+        std::sscanf(tmp.c_str(), "%d", &length);
         assert(length >= 0 && length < 127);
         SetLength((char)length);
     }
@@ -665,7 +672,7 @@ void CDBFField::SetField(const string& name, const string& format)
         //char bidon = 0;
         //        assert(false); // je crois pas que ca marche
         //int var = sscanf_s(tmp.c_str(), "%d%c%d", &length, &bidon, &decimalCount);
-        int var = sscanf_s(tmp.c_str(), "%d %d %d", &length, &bidon, &decimalCount);
+        int var = std::sscanf(tmp.c_str(), "%d %d %d", &length, &bidon, &decimalCount);
         assert(var >= 1 && var <= 3);
         assert(length < 127);
         SetLength((char)length);
@@ -680,7 +687,7 @@ void CDBFField::SetField(const string& name, const string& format)
         //string
         SetType('C');
         int length = 0;
-        sscanf_s(tmp.c_str(), "%d", &length);
+        std::sscanf(tmp.c_str(), "%d", &length);
         assert(length < 127);
         SetLength((char)length);
     }

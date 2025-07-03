@@ -11,7 +11,7 @@
 #include <array>
 //#include <map>
 
-#include <boost\serialization\access.hpp>
+#include <boost/serialization/access.hpp>
 #include <unordered_map>
 #include <utility>
 #include <algorithm>
@@ -176,7 +176,7 @@ public:
     double GetTimeZone()const;
     void SetTimeZone(double in)
     {
-        SetDefaultSSI(CLocation::TIME_ZONE, ToString(in));
+        SetDefaultSSI(CLocation::TIME_ZONE, to_string(in));
     }
 
     bool UseIt()const

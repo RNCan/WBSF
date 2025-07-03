@@ -10,7 +10,7 @@
 #include <boost/algorithm/string.hpp>
 
 #include "ModelBased/ModelInput.h"
-#include "basic/UtilStd.h"
+#include "Basic/UtilStd.h"
 //#include "WeatherBasedSimulationString.h"
 
 using namespace std;
@@ -34,7 +34,7 @@ short CModelInputParam::GetListIndex()const
 
 void CModelInputParam::SetListIndex(short value)
 {
-    m_value = ToString(value);
+    m_value = to_string(value);
 }
 
 
@@ -131,7 +131,7 @@ ERMsg CModelInput::IsValid(const CModelInputParameterDefVector& def)const
 
                 if ((me[j].GetFloat() < min) || (me[j].GetFloat() > max))
                 {
-                    msg.ajoute(FormatMsg("The value or default value for variable ""%1"" must be between %2 and %3.", def[i].GetCaption(), ToString(min), ToString(max)));
+                    msg.ajoute(FormatMsg("The value or default value for variable ""%1"" must be between %2 and %3.", def[i].GetCaption(), to_string(min), to_string(max)));
                 }
                 break;
             }
@@ -147,7 +147,7 @@ ERMsg CModelInput::IsValid(const CModelInputParameterDefVector& def)const
 
                     if ((me[j].GetListIndex() < min) || (me[j].GetListIndex() >= max))
                     {
-                        msg.ajoute(FormatMsg("The value or default value for variable ""%1"" must be between %2 and %3.", def[i].GetCaption(), ToString(min), ToString(max)));
+                        msg.ajoute(FormatMsg("The value or default value for variable ""%1"" must be between %2 and %3.", def[i].GetCaption(), to_string(min), to_string(max)));
                     }
                 }
                 break;
@@ -182,7 +182,7 @@ ERMsg CModelInput::IsValid(const CModelInputParameterDefVector& def)const
             //}
             /*else
             {
-            msg.ajoute(FormatMsg(IDS_SIM_BADARG_MODELIN, ToString(i), def[i].GetTypeName()));
+            msg.ajoute(FormatMsg(IDS_SIM_BADARG_MODELIN, to_string(i), def[i].GetTypeName()));
             }*/
 
             j++;
@@ -194,7 +194,7 @@ ERMsg CModelInput::IsValid(const CModelInputParameterDefVector& def)const
     {
         assert(false);
         msg.ajoute(FormatMsg("The number of variables found in model input (%1) does not match that expected for this model (%2).", to_string(j), ""));
-        //ToString(nSize2)
+        //to_string(nSize2)
     }
 
 

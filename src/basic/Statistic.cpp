@@ -9,7 +9,7 @@
 // Class:	CStatistic, CStatisticEx, CStatisticXW, CStatisticXY, CStatisticXYEx, CStatisticXYW
 //
 //****************************************************************************
-// 14-09-2023   Rémi Saint-Amant	Port un Linux
+// 14-09-2023   Rémi Saint-Amant  Port to Linux
 // 02/12/2015   Rémi Saint-Amant  Add weathed statistic and quartile
 // 22/12/2014   Rémi Saint-Amant  Add RANGE as statistic type
 // 24/05/2013	Rémi Saint-Amant  Add standart deviation over population (N)
@@ -18,18 +18,20 @@
 // 20/11/2003	Rémi Saint-Amant  Initiale Version
 //****************************************************************************
 
-#include "Statistic.h"
-
 
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <float.h>
 #include <algorithm>
-
 #include <boost/math/distributions/normal.hpp>
 
-#include "basic/UtilMath.h"
+
+#include "Basic/UtilMath.h"
+#include "Statistic.h"
+
+
 //#include "WeatherBasedSimulationString.h"
+
 
 
 using namespace std;

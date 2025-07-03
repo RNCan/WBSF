@@ -207,8 +207,8 @@ void CSunBase::Compute(double lat, double lon, double tzone, int year, size_t m,
     solarNoon = noont;
     daylength = daylen;
 
-    assert(!_isnan(sunrise) && _finite(sunrise));
-    assert(!_isnan(sunset) && _finite(sunset));
+    assert(!std::isnan(sunrise) && std::isfinite(sunrise));
+    assert(!std::isnan(sunset) && std::isfinite(sunset));
     assert(sunrise >= 0 && sunrise <= 24);
     assert(sunset >= 0 && sunset <= 24);
     assert(solarNoon >= 0 && solarNoon <= 24);

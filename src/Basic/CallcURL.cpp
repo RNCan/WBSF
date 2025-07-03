@@ -24,7 +24,7 @@ using namespace std;
 namespace WBSF
 {
 
-CCallcURL::CCallcURL(const std::filesystem::path& exe_filepath, size_t bufsize)
+CCallcURL::CCallcURL(const std::string& exe_filepath, size_t bufsize)
 {
 
     m_exe_filepath = exe_filepath;
@@ -44,14 +44,14 @@ ERMsg CCallcURL::get_text(const std::string& arg, std::string& str_out)
 
     str_out.clear();
 
-    string cmdline = "\"" + m_exe_filepath.string() + "\" " + arg;
+    string cmdline = "\"" + m_exe_filepath + "\" " + arg;
     msg = CallApp(cmdline, str_out, m_bufsize);
 
     return msg;
 }
 
 
-ERMsg CCallcURL::copy_file(const std::string& URL, const std::filesystem::path& output_filepath, bool bShowCurl)
+ERMsg CCallcURL::copy_file(const std::string& URL, const std::string& output_filepath, bool bShowCurl)
 {
     ERMsg msg;
 
@@ -59,9 +59,9 @@ ERMsg CCallcURL::copy_file(const std::string& URL, const std::filesystem::path& 
     if (m_timeout > 0)
         argument += "--connect-timeout " + to_string(m_timeout) + " ";
 
-    argument += "\"" + URL + "\" --output \"" + output_filepath.string() + "\"";
+    argument += "\"" + URL + "\" --output \"" + output_filepath + "\"";
 
-    string command= "\"" + m_exe_filepath.string() + "\" " + argument;
+    string command= "\"" + m_exe_filepath + "\" " + argument;
 
 
     int exit_code;
@@ -70,7 +70,7 @@ ERMsg CCallcURL::copy_file(const std::string& URL, const std::filesystem::path& 
     {
 
         msg.ajoute("Unable to download file:");
-        msg.ajoute(output_filepath.string());
+        msg.ajoute(output_filepath);
     }
 
     return msg;

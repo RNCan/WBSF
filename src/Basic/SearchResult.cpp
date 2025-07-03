@@ -11,11 +11,13 @@
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 // 15-11-2013	Rémi Saint-Amant	Created from old file
 //****************************************************************************
-//#include "stdafx.h"
+
+#include <set>
+
 
 #include "SearchResult.h"
 
-#include <set>
+
 
 
 namespace WBSF

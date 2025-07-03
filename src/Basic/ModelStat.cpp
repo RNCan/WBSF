@@ -339,7 +339,7 @@ ERMsg CModelStatVector::ReadStream(std::istream& stream)
 
 
     assert(version == 1);
-    assert(rawSize == nbRows * nbCols * sizeof(float));
+    assert((size_t)rawSize == nbRows * nbCols * sizeof(float));
     assert(m_firstTRef.is_valid());
 
     return msg;
@@ -402,7 +402,7 @@ ERMsg CModelStatVector::Load(std::istream& stream)
 //					}
 //					else
 //					{
-//						msg.ajoute("Problem reading line " + ToString(line));
+//						msg.ajoute("Problem reading line " + to_string(line));
 //						msg.ajoute((*loop).GetLastLine());
 //					}
 //				}
@@ -515,7 +515,7 @@ int32_t CModelStatVector::GetNbDay(size_t v, const string& op_str, const CTPerio
         else firstDWP = d + 1;
     }
 
-    assert(nbDay >= 0 && nbDay <= p.size());
+    assert(nbDay >= 0 && (size_t)nbDay <= p.size());
 
     return nbDay;
 }
@@ -544,7 +544,7 @@ size_t CModelStatVector::Insert(CTRef r, const CModelStat& row)
     {
         insert(begin() + index, row);
     }
-    else if (index == size())
+    else if ((size_t)index == size())
     {
         push_back(row);
     }

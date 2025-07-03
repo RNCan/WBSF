@@ -1,4 +1,3 @@
-
 #include <vector>
 #include <bitset>
 #include "Basic/SimulatedAnnealing.h"

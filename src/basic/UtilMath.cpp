@@ -12,8 +12,10 @@
 #include <ctime>
 #include <cfloat>
 #include <limits>
+#include <cstdio>
 
 #include "UtilMath.h"
+#include "UtilStd.h"
 
 
 using namespace std;
@@ -291,11 +293,13 @@ double LogGamma(double x)
 
 
 
-double StringToCoord(const std::string& coordStr)
+double string_to_coord(const std::string& str_coord)
 {
+
+
     double coord = 0;
     double a = 0, b = 0, c = 0;
-    int nbVal = sscanf_s(coordStr.c_str(), "%lf %lf %lf", &a, &b, &c);
+    int nbVal = std::sscanf(str_coord.c_str(), "%lf %lf %lf", &a, &b, &c);
     if (nbVal == 1)
     {
         //decimal degree
@@ -313,12 +317,12 @@ double StringToCoord(const std::string& coordStr)
     return coord;
 }
 
-std::string CoordToString(double coord, int prec)
+std::string coord_to_string(double coord, int prec)
 {
     double mult = pow(10.0, prec);
-    std::string deg = ToString(GetDegrees(coord, mult));
-    std::string min = ToString(GetMinutes(coord, mult));
-    std::string sec = ToString(GetSeconds(coord, mult), prec);
+    std::string deg = to_string(GetDegrees(coord, mult));
+    std::string min = to_string(GetMinutes(coord, mult));
+    std::string sec = to_string(GetSeconds(coord, mult), prec);
 
     if (sec == "0" || sec == "-0")
         sec.clear();
@@ -1369,7 +1373,7 @@ CMathEvaluation::CMathEvaluation(const char* strIn)
     assert(pos >= 0);
 
     m_op = GetOp(str.substr(0, pos));
-    m_value = ToValue<double>(str.substr(pos));
+    m_value = std::stof(str.substr(pos));
 }
 
 CMathEvaluation::TOperation CMathEvaluation::GetOp(const string& str)
@@ -1467,7 +1471,7 @@ bool CMathEvaluation::Evaluate(double value1, TOperation op, double value2)
 	//		}
 	//	}
 //
-	//	assert(!_isnan(x));
+	//	assert(!std::isnan(x));
 	//	assert(x >= 0);
 	//	return x;
 	//}

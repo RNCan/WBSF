@@ -23,7 +23,7 @@
 // 30-09-2010                    Add seedType and Xval on the TGInput
 //****************************************************************************
 
-#include <crtdbg.h>
+#include <cassert.h>
 #include <Windows.h>
 
 #include "ModelBased/TempGenHelp.h"

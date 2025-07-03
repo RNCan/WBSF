@@ -12,8 +12,6 @@
  * Class to fit and predict autoregression model (AR) using burg_method .
  */
 
-#include "ARModel.h"
-
 #include <random>
 #include <chrono>
 #include <algorithm>
@@ -22,6 +20,8 @@
 #include <functional>
 #include <numeric>
 
+
+#include "ARModel.h"
 
 using namespace std;
 

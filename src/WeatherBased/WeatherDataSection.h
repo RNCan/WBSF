@@ -9,8 +9,8 @@
 //******************************************************************************
 #pragma once
 
-#include "boost\array.hpp"
-#include "boost\serialization\access.hpp"
+#include "boost/array.hpp"
+#include "boost/serialization/access.hpp"
 
 
 #include "Basic/Callback.h"
