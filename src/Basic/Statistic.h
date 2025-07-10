@@ -571,7 +571,7 @@ public:
 
     bool operator ==(const CXY& in)const
     {
-        return m_x==in.m_x && m_y == in.y;
+        return m_x==in.m_x && m_y == in.m_y;
     }
     bool operator !=(const CXY& in)const
     {

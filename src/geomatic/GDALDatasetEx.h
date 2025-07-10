@@ -9,8 +9,8 @@
 #pragma once
 
 #include <boost/dynamic_bitset.hpp>
-#include "external/ERMsg/ERMsg.h"
-#include "basic/GeoBasic.h"
+#include "Basic/ERMsg.h"
+#include "Basic/GeoBasic.h"
 #include "geomatic/UtilGDAL.h"
 #include "geomatic/GDAL.h"
 
@@ -131,9 +131,9 @@ public:
                 //double pValid = double(m_valid.count())/m_valid.size();
 
                 if(m_valid[pos])
-                //if (true)
+                    //if (true)
                     v = m_data.at((size_t)pos);
-                
+
 //                if (m_pMaskWindow && (m_pMaskWindow.get() != NULL) && m_pMaskWindow->IsPixelMasked(x, y))
                 //                  v = (DataType)m_noData;
             }
@@ -160,11 +160,11 @@ public:
     {
         return at(x, y);
     }
-    
-   /* DataType operator [](size_t xy)const
-    {
-        return m_data[xy];
-    }*/
+
+    /* DataType operator [](size_t xy)const
+     {
+         return m_data[xy];
+     }*/
     bool IsValid(CGeoPointIndex xy)const
     {
         return IsValid(at(xy)) && IsPixelValid(xy.m_x+ m_windowRect.m_x, xy.m_y+ m_windowRect.m_y);
@@ -203,9 +203,12 @@ public:
     }
 
     CStatisticEx GetWindowStat(int x, int y, int n_rings)const;
-    
-    void SetValidity(const boost::dynamic_bitset<>& in) { m_valid = in; }
-    
+
+    void SetValidity(const boost::dynamic_bitset<>& in)
+    {
+        m_valid = in;
+    }
+
 protected:
 
     //does the pixel is used. this layer is a mask layer
@@ -226,7 +229,7 @@ protected:
 
         assert(m_valid.size() == m_dataRect.size());
         return m_valid[pos];
-      //  DataType maskValue = m_mask.at(pos);
+        //  DataType maskValue = m_mask.at(pos);
 
         //return (m_maskDataUsed == DataTypeMin) ? fabs(maskValue - m_noData) < EPSILON_NODATA : maskValue != m_maskDataUsed;
     }
@@ -235,7 +238,7 @@ protected:
     CGeoRectIndex m_dataRect;
     CGeoRectIndex m_windowRect;
     double m_noData;
-    
+
     CGeoExtents m_extents;
 
     //DataType m_maskDataUsed;
@@ -267,7 +270,7 @@ public:
     }
 
 
-    bool IsInit()const
+    bool is_init()const
     {
         return m_sceneSize!= 0;
     }
@@ -325,7 +328,7 @@ public:
         return m_extents;
     }
 
-    
+
 protected:
 
     size_t m_sceneSize;
@@ -615,7 +618,7 @@ protected:
     std::vector<GDALDataset*> m_poDatasetVector;
 
     //temporal section of the dataset
-    std::vector<size_t> m_scenes_def;//one band by 
+    std::vector<size_t> m_scenes_def;//one band by
 
 };
 

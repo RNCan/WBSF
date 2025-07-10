@@ -1159,7 +1159,7 @@ std::vector<std::string> GetFilesList(const std::string& directory_path, const s
 int GetCrc32(const std::string& str, uint64_t begin = NOT_INIT, uint64_t end = NOT_INIT);
 
 
-ERMsg WinExecWait(const std::string& command, std::string inputDir = "", bool bShow = false, int* pExitCode = NULL);
+ERMsg WinExecWait(const std::string& exe_path, const std::string& arg, std::string working_dir = "", bool bShow = false, int* pExitCode = NULL);
 //	ERMsg CallApplication(std::string appType, std::string argument, HWND pCaller = NULL, int showMode = SW_HIDE, bool bAddCote = true, bool bWait = false);
 //	size_t GetTotalSystemMemory();
 //

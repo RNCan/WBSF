@@ -23,7 +23,7 @@
 					<Add option="-ggdb" />
 					<Add option="-Wno-unknown-pragmas" />
 					<Add option="-Wno-deprecated-enum-enum-conversion" />
-					<Add option="-Wnooverloaded-virtual" />
+					<Add option="-Wno-overloaded-virtual" />
 					<Add option="-pthread" />
 					<Add directory="../../../src" />
 				</Compiler>

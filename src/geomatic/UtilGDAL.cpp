@@ -102,12 +102,12 @@ ERMsg VerifyNoData(double nodata, short eType)
 
         if (eType != GDT_Byte)
         {
-            string error = string("ERROR: Nodata (" + ToString(nodata) + ") is out of range[" + ToString(GetTypeLimit(eType, true)) + ", " + ToString(GetTypeLimit(eType, false)) + "]\n");
+            string error = string("ERROR: Nodata (" + to_string(nodata) + ") is out of range[" + to_string(GetTypeLimit(eType, true)) + ", " + to_string(GetTypeLimit(eType, false)) + "]\n");
             msg.ajoute(error);
         }
         else
         {
-            string warning = string("ERROR: Nodata (" + ToString(nodata) + ") is out of range[" + ToString(GetTypeLimit(eType, true)) + ", " + ToString(GetTypeLimit(eType, false)) + "]\n");
+            string warning = string("ERROR: Nodata (" + to_string(nodata) + ") is out of range[" + to_string(GetTypeLimit(eType, true)) + ", " + to_string(GetTypeLimit(eType, false)) + "]\n");
             cout << warning << endl;
         }
     }
@@ -261,7 +261,7 @@ ERMsg OpenOutputImage(const string& filePath, GDALDataset* poInputDS, GDALDatase
         papszOptions = CSLAddString(papszOptions, createOptions[i].c_str());
 
 
-    if (!extents.IsInit())
+    if (!extents.is_init())
     {
         CGeoTransform GT;
         poInputDS->GetGeoTransform(GT);

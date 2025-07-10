@@ -13,8 +13,10 @@
 
 
 #include "WBSFconfig.h"
-
+#include <boost/process/v1/child.hpp>
+#include <boost/process/v1/io.hpp>
 #include <boost/process.hpp>
+
 #include "Basic/UtilStd.h"
 #include "CallcURL.h"
 
@@ -61,11 +63,11 @@ ERMsg CCallcURL::copy_file(const std::string& URL, const std::string& output_fil
 
     argument += "\"" + URL + "\" --output \"" + output_filepath + "\"";
 
-    string command= "\"" + m_exe_filepath + "\" " + argument;
+    //string command= "\"" + m_exe_filepath + "\" " + argument;
 
 
     int exit_code;
-    msg = WinExecWait(command, "", bShowCurl, &exit_code);
+    msg = WinExecWait(m_exe_filepath, argument, "", bShowCurl, &exit_code);
     if (exit_code != 0 && !FileExists(output_filepath))
     {
 
@@ -117,8 +119,8 @@ ERMsg CCallcURL::CallApp(const std::string& cmdline, std::string& str, size_t BU
         // while (IsPathEndOk(working_dir))
           //   working_dir = working_dir.substr(0, working_dir.length() - 1);
 
-        boost::process::ipstream pipe_stream;
-        boost::process::child c(cmdline, boost::process::std_out > pipe_stream);
+        boost::process::v1::ipstream pipe_stream;
+        boost::process::v1::child c(cmdline, boost::process::v1::std_out > pipe_stream);
 
         std::string data;
         data.resize(BUFSIZE);
@@ -133,7 +135,7 @@ ERMsg CCallcURL::CallApp(const std::string& cmdline, std::string& str, size_t BU
             //*pExitCode = c.exit_code();
         }
     }
-    catch (const boost::process::process_error& e)
+    catch (const boost::process::v1::process_error& e)
     {
         //cout << e..what();
         msg.ajoute(std::string("Unable to execute command: ") + cmdline);

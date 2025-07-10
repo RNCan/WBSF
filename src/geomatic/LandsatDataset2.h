@@ -8,7 +8,7 @@
 //******************************************************************************
 #pragma once
 
-#include "external/ERMsg/ERMsg.h"
+#include "Basic/ERMsg.h"
 #include "geomatic/GDALDatasetEx.h"
 
 
@@ -69,8 +69,8 @@ public:
     static LandsatDataType GetLandsatNoData();
 
 
-    bool IsInit()const;
-    bool IsInit(Landsat2::TIndices i)const;
+    bool is_init()const;
+    bool is_init(Landsat2::TIndices i)const;
     bool IsValid()const;
     bool IsBlack()const
     {

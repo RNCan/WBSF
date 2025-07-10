@@ -48,7 +48,7 @@
 
 
 #include "LandTrendUtil.h"
-#include "external/mpfit/mpfit.h"
+#include "Basic/mpfit/mpfit.h"
 
 
 using namespace std;
@@ -217,7 +217,7 @@ CRealArray desawtooth(CRealArray vals, const CBoolArray& goods, REAL_TYPE  stopa
 {
     assert(stopat != 0);
     assert(output_corr_factore == nullptr || output_corr_factore->size() == vals.size());
-   
+
     CRealArray v = vals[goods];
 
     CRealArray cf;

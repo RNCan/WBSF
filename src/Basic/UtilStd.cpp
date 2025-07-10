@@ -11,6 +11,20 @@
 //******************************************************************************
 
 
+#include <boost/asio.hpp> // Or boost::process.hpp
+#include <boost/process.hpp>
+#include <boost/process/process.hpp>
+
+
+#include <boost/process/v1/child.hpp>
+#include <boost/process/v1/io.hpp>
+#include <boost/process/v1/extend.hpp>
+#include <boost/process/v1/args.hpp>
+#include <boost/process/v1/start_dir.hpp>
+
+
+
+
 #include "WBSFconfig.h"
 
 #define _USE_MATH_DEFINES
@@ -21,8 +35,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem.hpp>
-#include <boost/process.hpp>
-#include <boost/process/extend.hpp>
+
 #include <boost/dll/runtime_symbol_info.hpp>
 #include <boost/date_time/posix_time/posix_time_io.hpp>
 #include <boost/date_time/posix_time/conversion.hpp>
@@ -55,6 +68,7 @@ using namespace std;
 using boost::tokenizer;
 using boost::escaped_list_separator;
 namespace fs = boost::filesystem;
+namespace boost_process = boost::process::v1;
 
 
 //template < >
@@ -1111,6 +1125,7 @@ struct new_console : boost::process::extend::handler
 
 #endif
 
+
 ERMsg WinExecWait(const std::string& exe_path, const std::string& arg, std::string working_dir, bool bShow, int* pExitCode)
 {
     ERMsg msg;
@@ -1122,13 +1137,13 @@ ERMsg WinExecWait(const std::string& exe_path, const std::string& arg, std::stri
 //        while (IsPathEndOk(working_dir))
         // working_dir = working_dir.substr(0, working_dir.length() - 1);
 
-        boost::process::ipstream pipe_stream;
-        boost::process::child c;
+        boost_process::ipstream pipe_stream;
+        boost_process::child c;
 
         //if(bShow)
         //  c = boost::process::child(exe_path, arg, boost::process::std_out > pipe_stream, boost::process::start_dir(working_dir), new_console());
         //else
-        c = boost::process::child(exe_path, arg, boost::process::std_out > pipe_stream, boost::process::start_dir(working_dir));
+        c = boost_process::child(exe_path, arg, boost_process::std_out > pipe_stream, boost_process::start_dir(working_dir));
 
 
         std::string line;
@@ -1141,7 +1156,7 @@ ERMsg WinExecWait(const std::string& exe_path, const std::string& arg, std::stri
         if(pExitCode)
             *pExitCode = c.exit_code();
     }
-    catch (const boost::process::process_error& e)
+    catch (const boost_process::process_error& e)
     {
         //cout << e..what();
         msg.ajoute(std::string("Unable to execute command: ") + exe_path);

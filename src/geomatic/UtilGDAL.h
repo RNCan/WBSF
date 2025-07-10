@@ -10,10 +10,10 @@
 
 
 #include <boost/timer/timer.hpp>
-#include "external/ERMsg/ERMsg.h"
-#include "basic/UtilStd.h"
-#include "basic/Statistic.h"
-#include "basic/GeoBasic.h"
+#include "Basic/ERMsg.h"
+#include "Basic/UtilStd.h"
+#include "Basic/Statistic.h"
+#include "Basic/GeoBasic.h"
 #include "geomatic/GDAL.h"
 
 class GDALDataset;
@@ -186,7 +186,7 @@ public:
                 if (!bandInfo.empty())
                 {
                     bandNo++;
-                    cmdLine = std::string("    ") + ToString(bandNo) + "-";
+                    cmdLine = std::string("    ") + to_string(bandNo) + "-";
 
 
                     std::string::size_type pos = 0;
@@ -250,7 +250,7 @@ typedef std::vector< CIOFileInfoDef > CIOFileInfoDefVector;
 class CBaseOptions
 {
 public:
-    
+
     enum TRGBTye { NO_RGB=-1, NATURAL, LANDWATER, TRUE_COLOR, OLD_NATURAL, NB_RGB };
     static const char* RGB_NAME[NB_RGB];
 
@@ -346,9 +346,9 @@ public:
         m_extents = extents;
     }
 
-    
 
-    size_t GetSceneSize()const 
+
+    size_t GetSceneSize()const
     {
         return m_scenes_def.empty() ? 1 : m_scenes_def.size();
     }

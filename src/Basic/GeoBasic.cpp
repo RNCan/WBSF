@@ -563,8 +563,9 @@ ERMsg BuildVRT(string filePath, vector<string> fileList, bool bQuiet, std::strin
         file.close();
     }
 
-    string command = EXEPath + "GDALBuildVRT.exe -separate -overwrite -input_file_list \"" + listFilePath + "\" \"" + filePath + "\"";
-    msg = WinExecWait(command);
+    //string command = EXEPath + "GDALBuildVRT.exe -separate -overwrite -input_file_list \"" + listFilePath + "\" \"" + filePath + "\"";
+    string arg = " -separate -overwrite -input_file_list \"" + listFilePath + "\" \"" + filePath + "\"";
+    msg = WinExecWait(EXEPath + "GDALBuildVRT.exe", arg);
 
 
     //remove temporary file list
