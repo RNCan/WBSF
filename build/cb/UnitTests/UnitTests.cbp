@@ -12,6 +12,8 @@
 				<Option additional_output="../Basic/bin/Debug/libBasic.a;" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option projectCompilerOptionsRelation="2" />
+				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-m64" />
@@ -19,17 +21,12 @@
 					<Add option="-std=gnu++17" />
 					<Add option="-Wno-unknown-pragmas" />
 					<Add option="-Wno-deprecated-enum-enum-conversion" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DBOOST_PROCESS_USE_STD_FS" />
 					<Add directory="../../../src" />
 				</Compiler>
 				<Linker>
 					<Add option="-m64" />
-					<Add option="-lgomp" />
-					<Add option="-pthread" />
-					<Add option="-lgtest" />
-					<Add option="-lgtest_main" />
-					<Add option="-lboost_system-mt" />
-					<Add option="-lboost_filesystem-mt" />
-					<Add option="-lboost_serialization-mt" />
 					<Add library="../../../lib/Debug/libBasic.a" />
 				</Linker>
 			</Target>
@@ -40,6 +37,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-DNDEBUG" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -50,6 +48,15 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Linker>
+			<Add option="-lgomp" />
+			<Add option="-pthread" />
+			<Add option="-lgtest" />
+			<Add option="-lgtest_main" />
+			<Add library="libboost_process-mt" />
+			<Add library="libboost_filesystem-mt" />
+			<Add library="libboost_serialization-mt" />
+		</Linker>
 		<Unit filename="../../../test/Basic/TestUtilTime.cpp" />
 		<Unit filename="../../../test/main.cpp" />
 		<Extensions>

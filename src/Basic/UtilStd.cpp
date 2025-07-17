@@ -12,15 +12,28 @@
 
 
 #include <boost/asio.hpp> // Or boost::process.hpp
+//#include <boost/process/windows/default_launcher.hpp>
+//#include <boost/process.hpp>
+
 #include <boost/process.hpp>
-#include <boost/process/process.hpp>
+#include <iostream>
+#include <string>
 
 
-#include <boost/process/v1/child.hpp>
-#include <boost/process/v1/io.hpp>
-#include <boost/process/v1/extend.hpp>
-#include <boost/process/v1/args.hpp>
-#include <boost/process/v1/start_dir.hpp>
+//
+//#include <boost/process/v2/process.hpp> // or other necessary headers
+
+
+
+//#include <boost/process/error.hpp>
+//#include <boost/process/process.hpp>
+
+
+//#include <boost/process/v1/child.hpp>
+//#include <boost/process/v1/io.hpp>
+//#include <boost/process/v1/extend.hpp>
+//#include <boost/process/v1/args.hpp>
+//#include <boost/process/v1/start_dir.hpp>
 
 
 
@@ -68,7 +81,8 @@ using namespace std;
 using boost::tokenizer;
 using boost::escaped_list_separator;
 namespace fs = boost::filesystem;
-namespace boost_process = boost::process::v1;
+//namespace boost_process = boost::process::v2;
+namespace boost_process = boost::process;
 
 
 //template < >
@@ -1130,46 +1144,64 @@ ERMsg WinExecWait(const std::string& exe_path, const std::string& arg, std::stri
 {
     ERMsg msg;
 
-    //boost::filesystem::path p1 = "C:/Program Files/GDAL/gdalinfo.exe";
-    //boost::filesystem::path p2 = search_path(p1);
-    try
-    {
-//        while (IsPathEndOk(working_dir))
-        // working_dir = working_dir.substr(0, working_dir.length() - 1);
+  //  try
+   // {
 
-        boost_process::ipstream pipe_stream;
+
+        /*boost_process::ipstream pipe_stream;
         boost_process::child c;
 
-        //if(bShow)
-        //  c = boost::process::child(exe_path, arg, boost::process::std_out > pipe_stream, boost::process::start_dir(working_dir), new_console());
-        //else
         c = boost_process::child(exe_path, arg, boost_process::std_out > pipe_stream, boost_process::start_dir(working_dir));
 
 
         std::string line;
 
-        //while (pipe_stream && std::getline(pipe_stream, line) && !line.empty())
-        //  std::cerr << line << std::endl;
-
         c.wait();
 
         if(pExitCode)
             *pExitCode = c.exit_code();
-    }
-    catch (const boost_process::process_error& e)
-    {
-        //cout << e..what();
-        msg.ajoute(std::string("Unable to execute command: ") + exe_path);
-        msg.ajoute(string("Boost.Process Error: ") + e.what() );
-        //std::cerr << "Error Code: " << e.code().value() << std::endl;
-        //std::cerr << "Error Category: " << e.code().category().name() << std::endl;
-    }
-    catch (const std::exception& e)
-    {
-        msg.ajoute(std::string("Unable to execute command: ") + exe_path);
-        msg.ajoute(e.what());
-        //std::cerr << "General C++ Exception: " << e.what() << std::endl;
-    }
+
+        */
+
+
+
+        //auto l = boost_process::windows::default_launcher();
+        //boost::asio::io_context ctx;
+
+        //boost::process::w
+        // forward both stderr & stdout to stdout of the parent process
+        //boost_process::process proc(ctx, exe_path.c_str(), arg.c_str());//, boost_process::process_stdio{{ /* in to default */}, stdout, stdout});
+        //proc.wait();
+
+
+        namespace bp = boost::process::v2;
+        using namespace boost::process;
+
+        boost::asio::io_context ctx;
+        bp::process proc(ctx, "cmd.exe", {"/c", "echo Hello from child process"});
+
+        proc.wait();
+        // Or you can get the exit code
+        int exit_code = proc.exit_code();
+    // std::cout << "Exit code: " << exit_code << std::endl;
+
+
+
+    //}
+    //catch (const boost_process::process_error& e)
+    //{
+    //    //cout << e..what();
+    //    msg.ajoute(std::string("Unable to execute command: ") + exe_path);
+    //    msg.ajoute(string("Boost.Process Error: ") + e.what() );
+    //    //std::cerr << "Error Code: " << e.code().value() << std::endl;
+    //    //std::cerr << "Error Category: " << e.code().category().name() << std::endl;
+    //}
+    //catch (const std::exception& e)
+    //{
+    //    msg.ajoute(std::string("Unable to execute command: ") + exe_path);
+    //    msg.ajoute(e.what());
+    //    //std::cerr << "General C++ Exception: " << e.what() << std::endl;
+    //}
 
 
 //#if _MSC_VER

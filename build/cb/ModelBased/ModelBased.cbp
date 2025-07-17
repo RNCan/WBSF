@@ -25,6 +25,8 @@
 					<Add option="-Wno-deprecated-enum-enum-conversion" />
 					<Add option="-Wno-overloaded-virtual" />
 					<Add option="-pthread" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DBOOST_PROCESS_USE_STD_FS" />
 					<Add directory="../../../src" />
 				</Compiler>
 				<Linker>

@@ -13,8 +13,10 @@
 
 
 #include "WBSFconfig.h"
-#include <boost/process/v1/child.hpp>
-#include <boost/process/v1/io.hpp>
+//#include <boost/process/v1/child.hpp>
+//#include <boost/process/v1/io.hpp>
+
+#include <boost/asio.hpp> // Or boost::process.hpp
 #include <boost/process.hpp>
 
 #include "Basic/UtilStd.h"
@@ -114,41 +116,41 @@ ERMsg CCallcURL::CallApp(const std::string& cmdline, std::string& str, size_t BU
     //return msg;
 
 
-    try
-    {
-        // while (IsPathEndOk(working_dir))
-          //   working_dir = working_dir.substr(0, working_dir.length() - 1);
-
-        boost::process::v1::ipstream pipe_stream;
-        boost::process::v1::child c(cmdline, boost::process::v1::std_out > pipe_stream);
-
-        std::string data;
-        data.resize(BUFSIZE);
-
-        while (pipe_stream.read(&(data[0]), BUFSIZE))
-            str.append(data);
-
-        c.wait();
-
-        if (c.exit_code() != 0)
-        {
-            //*pExitCode = c.exit_code();
-        }
-    }
-    catch (const boost::process::v1::process_error& e)
-    {
-        //cout << e..what();
-        msg.ajoute(std::string("Unable to execute command: ") + cmdline);
-        msg.ajoute(string("Boost.Process Error: ") + e.what());
-        //std::cerr << "Error Code: " << e.code().value() << std::endl;
-        //std::cerr << "Error Category: " << e.code().category().name() << std::endl;
-    }
-    catch (const std::exception& e)
-    {
-        msg.ajoute(std::string("Unable to execute command: ") + cmdline);
-        msg.ajoute(e.what());
-        //std::cerr << "General C++ Exception: " << e.what() << std::endl;
-    }
+    //try
+    //{
+    //    // while (IsPathEndOk(working_dir))
+    //      //   working_dir = working_dir.substr(0, working_dir.length() - 1);
+//
+    //    boost::process::v1::ipstream pipe_stream;
+    //    boost::process::v1::child c(cmdline, boost::process::v1::std_out > pipe_stream);
+//
+    //    std::string data;
+    //    data.resize(BUFSIZE);
+//
+    //    while (pipe_stream.read(&(data[0]), BUFSIZE))
+    //        str.append(data);
+//
+    //    c.wait();
+//
+    //    if (c.exit_code() != 0)
+    //    {
+    //        //*pExitCode = c.exit_code();
+    //    }
+    //}
+    //catch (const boost::process::v1::process_error& e)
+    //{
+    //    //cout << e..what();
+    //    msg.ajoute(std::string("Unable to execute command: ") + cmdline);
+    //    msg.ajoute(string("Boost.Process Error: ") + e.what());
+    //    //std::cerr << "Error Code: " << e.code().value() << std::endl;
+    //    //std::cerr << "Error Category: " << e.code().category().name() << std::endl;
+    //}
+    //catch (const std::exception& e)
+    //{
+    //    msg.ajoute(std::string("Unable to execute command: ") + cmdline);
+    //    msg.ajoute(e.what());
+    //    //std::cerr << "General C++ Exception: " << e.what() << std::endl;
+    //}
 
     return msg;
 }

@@ -3,5 +3,8 @@
 	<Workspace title="Workspace">
 		<Project filename="Basic/Basic.cbp" />
 		<Project filename="Geomatic/Geomatic.cbp" />
+		<Project filename="ModelBased/ModelBased.cbp" />
+		<Project filename="WeatherBased/WeatherBased.cbp" />
+		<Project filename="UnitTests/UnitTests.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

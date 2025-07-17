@@ -25,6 +25,8 @@
 					<Add option="-pthread" />
 					<Add option="-fopenmp" />
 					<Add option="-Wno-unused-result" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DBOOST_PROCESS_USE_STD_FS" />
 					<Add directory="../../../src" />
 				</Compiler>
 				<Linker>

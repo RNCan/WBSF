@@ -20,6 +20,8 @@
 					<Add option="-Wno-unknown-pragmas" />
 					<Add option="-Wno-deprecated-enum-enum-conversion" />
 					<Add option="-I/usr/include" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DBOOST_PROCESS_USE_STD_FS" />
 					<Add directory="../../../src" />
 					<Add directory="/usr/include" />
 				</Compiler>

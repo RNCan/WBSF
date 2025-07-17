@@ -255,10 +255,9 @@
 1752070242 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\openmp.h
 	<omp.h>
 
-1752083175 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\callcurl.cpp
+1752775191 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\callcurl.cpp
 	"WBSFconfig.h"
-	<boost/process/v1/child.hpp>
-	<boost/process/v1/io.hpp>
+	<boost/asio.hpp>
 	<boost/process.hpp>
 	"Basic/UtilStd.h"
 	"CallcURL.h"
@@ -510,15 +509,11 @@
 	"UtilMath.h"
 	"UtilStd.h"
 
-1752082994 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilstd.cpp
+1752775083 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilstd.cpp
 	<boost/asio.hpp>
 	<boost/process.hpp>
-	<boost/process/process.hpp>
-	<boost/process/v1/child.hpp>
-	<boost/process/v1/io.hpp>
-	<boost/process/v1/extend.hpp>
-	<boost/process/v1/args.hpp>
-	<boost/process/v1/start_dir.hpp>
+	<iostream>
+	<string>
 	"WBSFconfig.h"
 	<cmath>
 	<iostream>
