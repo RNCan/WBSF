@@ -73,10 +73,10 @@ namespace WBSF
 			return m_gradient[z][g][m][s];
 		}
 
-		CNormalsDatabasePtr& GetNormalsDatabase(){ return m_pNormalDB; }
-		void SetNormalsDatabase(CNormalsDatabasePtr& pNormalDB){ m_pNormalDB = pNormalDB; }
-		CWeatherDatabasePtr& GetObservedDatabase() { return m_pObservedDB; }
-		void SetObservedDatabase(CWeatherDatabasePtr& pObservedDB) { m_pObservedDB = pObservedDB; }
+		CNormalsDatabasePtr GetNormalsDatabase(){ return m_pNormalDB; }
+		void SetNormalsDatabase(CNormalsDatabasePtr pNormalDB){ m_pNormalDB = pNormalDB; }
+		CWeatherDatabasePtr GetObservedDatabase() { return m_pObservedDB; }
+		void SetObservedDatabase(CWeatherDatabasePtr pObservedDB) { m_pObservedDB = pObservedDB; }
 		ERMsg ExportInput(const std::string& filePath, size_t v, CSearchResultVector& results);
 
 

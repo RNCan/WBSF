@@ -2047,14 +2047,14 @@ std::string GetCurrentTimeString(const std::string format)
     //struct tm timeinfo = { 0 };
     //localtime_s(&timeinfo , &rawtime);
 
-    string str;
+  // string str;
     //str.resize(150);
     //strftime(&(str[0]), 150, format.c_str(), &timeinfo);
     //str.resize(strlen(str.c_str()));
     //str.shrink_to_fit();
     assert(false);//todo
 
-    std::time_t t;
+    std::time_t t=0;
     std::string str = FormatTime(format, t);
 
     return str;
