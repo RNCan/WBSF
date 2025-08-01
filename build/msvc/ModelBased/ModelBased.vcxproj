@@ -34,11 +34,9 @@
     <ClCompile Include="..\..\..\src\ModelBased\ModelInput.cpp" />
     <ClCompile Include="..\..\..\src\ModelBased\ModelInputParameter.cpp" />
     <ClCompile Include="..\..\..\src\ModelBased\ModelOutputVariable.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\MTClim43.cpp" />
     <ClCompile Include="..\..\..\src\ModelBased\OutputFile.cpp" />
     <ClCompile Include="..\..\..\src\ModelBased\ParametersVariations.cpp" />
     <ClCompile Include="..\..\..\src\ModelBased\SimulatedAnnealingVector.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\SnowMelt.cpp" />
     <ClCompile Include="..\..\..\src\ModelBased\SurvivalEquation.cpp" />
     <ClCompile Include="..\..\..\src\ModelBased\WeatherStatistic.cpp" />
     <ClCompile Include="..\..\..\src\ModelBased\WGInput-ModelInput.cpp" />
@@ -60,12 +58,10 @@
     <ClInclude Include="..\..\..\src\ModelBased\ModelInput.h" />
     <ClInclude Include="..\..\..\src\ModelBased\ModelInputParameter.h" />
     <ClInclude Include="..\..\..\src\ModelBased\ModelOutputVariable.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\MTClim43.h" />
     <ClInclude Include="..\..\..\src\ModelBased\OutputFile.h" />
     <ClInclude Include="..\..\..\src\ModelBased\ParametersVariations.h" />
     <ClInclude Include="..\..\..\src\ModelBased\SerializeRect.h" />
     <ClInclude Include="..\..\..\src\ModelBased\SimulatedAnnealingVector.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\SnowMelt.h" />
     <ClInclude Include="..\..\..\src\ModelBased\SurvivalEquation.h" />
     <ClInclude Include="..\..\..\src\ModelBased\WeatherBasedSimulation.h" />
     <ClInclude Include="..\..\..\src\ModelBased\WeatherStatistic.h" />

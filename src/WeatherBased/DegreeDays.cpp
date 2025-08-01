@@ -318,11 +318,11 @@ double CDegreeDays::GetDoubleSineDD(const CWeatherDay& in)const
 
 double CDegreeDays::GetModifiedAllenWaveDD(const CWeatherDay& in)const
 {
-    double tmin1 = GetTmin(in);//minimum temperature in this day
-    double tmax = GetTmax(in);//maximum temperature in this day
+//    double tmin1 = GetTmin(in);//minimum temperature in this day
+//    double tmax = GetTmax(in);//maximum temperature in this day
 
     const CWeatherDay& nextDay = in.GetNext();
-    double tmin2 = GetTmin(nextDay);//minimum temperature in the next day
+//    double tmin2 = GetTmin(nextDay);//minimum temperature in the next day
 
     double DD = 0;
     double x1 = GetModifiedAllenWaveDD(in, m_lowerThreshold, m_upperThreshold);

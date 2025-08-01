@@ -49,6 +49,8 @@
 		</Build>
 		<Unit filename="../../../src/WeatherBased/ASCE_ETc.cpp" />
 		<Unit filename="../../../src/WeatherBased/ASCE_ETc.h" />
+		<Unit filename="../../../src/WeatherBased/AdvancedNormalStation.cpp" />
+		<Unit filename="../../../src/WeatherBased/AdvancedNormalStation.h" />
 		<Unit filename="../../../src/WeatherBased/AmountPpt.cpp" />
 		<Unit filename="../../../src/WeatherBased/AmountPpt.h" />
 		<Unit filename="../../../src/WeatherBased/DailyDatabase.cpp" />
@@ -86,6 +88,8 @@
 		<Unit filename="../../../src/WeatherBased/WeatherDatabaseOptimisation.h" />
 		<Unit filename="../../../src/WeatherBased/WeatherDefine.cpp" />
 		<Unit filename="../../../src/WeatherBased/WeatherDefine.h" />
+		<Unit filename="../../../src/WeatherBased/WeatherGradient.cpp" />
+		<Unit filename="../../../src/WeatherBased/WeatherGradient.h" />
 		<Unit filename="../../../src/WeatherBased/WeatherStation.cpp" />
 		<Unit filename="../../../src/WeatherBased/WeatherStation.h" />
 		<Extensions>

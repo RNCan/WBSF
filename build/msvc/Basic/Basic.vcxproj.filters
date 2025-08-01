@@ -27,6 +27,12 @@
     <Filter Include="Source Files\tinyxml2">
       <UniqueIdentifier>{5f29c171-f64b-4408-a266-851cfe8a1cad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\KMeanLocal">
+      <UniqueIdentifier>{81efd38c-25ca-4eb9-bdf3-91703607055f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\NewMat">
+      <UniqueIdentifier>{0ea074bc-9dd4-4a58-a75b-1de4366df163}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -171,6 +177,72 @@
       <Filter>Source Files\pugixml</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\WBSFconfig.h" />
+    <ClInclude Include="..\..\..\src\Basic\KMeanLocal\KCtree.h">
+      <Filter>Source Files\KMeanLocal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\KMeanLocal\KCutil.h">
+      <Filter>Source Files\KMeanLocal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\KMeanLocal\KM_ANN.h">
+      <Filter>Source Files\KMeanLocal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\KMeanLocal\KMcenters.h">
+      <Filter>Source Files\KMeanLocal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\KMeanLocal\KMdata.h">
+      <Filter>Source Files\KMeanLocal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\KMeanLocal\KMeans.h">
+      <Filter>Source Files\KMeanLocal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\KMeanLocal\KMfilterCenters.h">
+      <Filter>Source Files\KMeanLocal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\KMeanLocal\KMlocal.h">
+      <Filter>Source Files\KMeanLocal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\KMeanLocal\KMrand.h">
+      <Filter>Source Files\KMeanLocal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\KMeanLocal\KMterm.h">
+      <Filter>Source Files\KMeanLocal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\Newmat\controlw.h">
+      <Filter>Source Files\NewMat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\Newmat\include.h">
+      <Filter>Source Files\NewMat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\Newmat\myexcept.h">
+      <Filter>Source Files\NewMat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\Newmat\newmat.h">
+      <Filter>Source Files\NewMat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\Newmat\newmatap.h">
+      <Filter>Source Files\NewMat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\Newmat\newmatio.h">
+      <Filter>Source Files\NewMat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\Newmat\newmatnl.h">
+      <Filter>Source Files\NewMat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\Newmat\newmatrc.h">
+      <Filter>Source Files\NewMat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\Newmat\newmatrm.h">
+      <Filter>Source Files\NewMat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\Newmat\precisio.h">
+      <Filter>Source Files\NewMat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\Newmat\Regression.h">
+      <Filter>Source Files\NewMat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Basic\Newmat\solution.h">
+      <Filter>Source Files\NewMat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Basic\ApproximateNearestNeighbor.cpp">
@@ -290,5 +362,121 @@
     <ClCompile Include="..\..\..\src\Basic\tinyxml2\tinyxml2.cpp">
       <Filter>Source Files\pugixml</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\KMeanLocal\KCtree.cpp">
+      <Filter>Source Files\KMeanLocal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\KMeanLocal\KCutil.cpp">
+      <Filter>Source Files\KMeanLocal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\KMeanLocal\KM_ANN.cpp">
+      <Filter>Source Files\KMeanLocal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\KMeanLocal\KMcenters.cpp">
+      <Filter>Source Files\KMeanLocal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\KMeanLocal\KMdata.cpp">
+      <Filter>Source Files\KMeanLocal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\KMeanLocal\KMeans.cpp">
+      <Filter>Source Files\KMeanLocal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\KMeanLocal\KMfilterCenters.cpp">
+      <Filter>Source Files\KMeanLocal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\KMeanLocal\KMlocal.cpp">
+      <Filter>Source Files\KMeanLocal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\KMeanLocal\KMrand.cpp">
+      <Filter>Source Files\KMeanLocal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\KMeanLocal\KMterm.cpp">
+      <Filter>Source Files\KMeanLocal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\bandmat.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\cholesky.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\evalue.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\fft.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\hholder.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\jacobi.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\myexcept.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\newfft.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\newmat1.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\newmat2.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\newmat3.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\newmat4.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\newmat5.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\newmat6.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\newmat7.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\newmat8.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\newmat9.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\newmatex.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\newmatnl.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\newmatrm.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\nm_misc.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\Regression.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\solution.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\sort.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\submat.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Basic\Newmat\svd.cpp">
+      <Filter>Source Files\NewMat</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\src\Basic\Newmat\CMakeLists.txt">
+      <Filter>Source Files\NewMat</Filter>
+    </Text>
+    <Text Include="..\..\..\src\Basic\Newmat\readme.txt">
+      <Filter>Source Files\NewMat</Filter>
+    </Text>
   </ItemGroup>
 </Project>

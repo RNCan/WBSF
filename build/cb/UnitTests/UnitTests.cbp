@@ -49,13 +49,14 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Linker>
-			<Add option="-lgomp" />
-			<Add option="-pthread" />
 			<Add option="-lgtest" />
 			<Add option="-lgtest_main" />
+			<Add option="-fopenmp" />
+			<Add option="-pthread" />
 			<Add library="libboost_process-mt" />
 			<Add library="libboost_filesystem-mt" />
 			<Add library="libboost_serialization-mt" />
+			<Add library="ws2_32" />
 		</Linker>
 		<Unit filename="../../../test/Basic/TestUtilTime.cpp" />
 		<Unit filename="../../../test/main.cpp" />

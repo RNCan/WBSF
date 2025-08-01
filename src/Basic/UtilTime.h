@@ -97,6 +97,7 @@ inline size_t GetMonth(size_t DOY)
 }
 
 
+std::string GetCurrentTimeString(const std::string format);
 std::string FormatTime(const std::string& format, std::time_t t);
 std::string FormatTime(const std::string& format, int year, size_t m, size_t d, size_t h, size_t minute=0, size_t second=0);
 std::time_t get_time64(int year, size_t m, size_t d, size_t h, size_t minute=0, size_t second=0);

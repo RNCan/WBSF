@@ -2052,7 +2052,11 @@ std::string GetCurrentTimeString(const std::string format)
     //strftime(&(str[0]), 150, format.c_str(), &timeinfo);
     //str.resize(strlen(str.c_str()));
     //str.shrink_to_fit();
-    assert(false);
+    assert(false);//todo
+
+    std::time_t t;
+    std::string str = FormatTime(format, t);
+
     return str;
 }
 
@@ -2160,6 +2164,7 @@ double GetDayLength(double latDeg, size_t DOY)
 
     return daylength;
 }
+
 
 
 

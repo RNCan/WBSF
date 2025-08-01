@@ -142,7 +142,7 @@
 	"Basic/GeoBasic.h"
 	"Basic/Callback.h"
 
-1752070242 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\geobasic.h
+1753981733 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\geobasic.h
 	<map>
 	<vector>
 	<deque>
@@ -437,4 +437,121 @@
 1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\sun.h
 	<cmath>
 	"UtilTime.h"
+
+1753981275 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\advancednormalstation.cpp
+	"Basic/UtilTime.h"
+	"Basic/Mtrx.h"
+	"Basic/Newmat/Regression.h"
+	"WeatherBased/AdvancedNormalStation.h"
+
+1287542578 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\regression.h
+	"NEWMAT.h"
+
+1157867940 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\newmat.h
+	"include.h"
+	"myexcept.h"
+
+1288031901 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\include.h
+	<cstdlib>
+	<limits>
+	<iostream>
+	<iomanip>
+	<cmath>
+	<cstring>
+	<ctime>
+	<fstream>
+	<stdlib.h>
+	<iostream.h>
+	<iomanip.h>
+	<math.h>
+	<float.h>
+	<string.h>
+	<time.h>
+	<fstream.h>
+	<stdlib.h>
+	<iostream.hpp>
+	<iomanip.hpp>
+	<math.h>
+	<float.h>
+	<string.h>
+	<time.h>
+	<fstream.h>
+	<stdlib.h>
+	<iostream.h>
+	<iomanip.h>
+	<math.h>
+	<float.h>
+	<string.h>
+	<time.h>
+	<fstream.h>
+	<stdlib.h>
+	<iostream.h>
+	<iomanip.h>
+	<math.h>
+	<float.h>
+	<string.h>
+	<time.h>
+	<fstream.h>
+	<stdlib.h>
+	<iostream.h>
+	<iomanip.h>
+	<math.h>
+	<float.h>
+	<string.h>
+	<time.h>
+	<fstream.h>
+	<stdlib.h>
+	<iostream.h>
+	<iomanip.h>
+	<float.h>
+	<math.h>
+	<string.h>
+	<time.h>
+	<fstream.h>
+	<stdlib.h>
+	<iostream.h>
+	<iomanip.h>
+	<float.h>
+	<math.h>
+	<string.h>
+	<time.h>
+	<fstream.h>
+	<stdlib.h>
+	<iostream.h>
+	<iomanip.h>
+	<math.h>
+	<values.h>
+	<string.h>
+	<time.h>
+	<fstream.h>
+
+1288032258 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\myexcept.h
+	"include.h"
+	<setjmp.h>
+
+1753981043 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\advancednormalstation.h
+	"Basic/statistic.h"
+	"WeatherBased/NormalsStation.h"
+	"WeatherBased/WeatherStation.h"
+
+1753981366 source:e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weathergradient.cpp
+	<math.h>
+	<algorithm>
+	"Basic/Statistic.h"
+	"Basic/Shore.h"
+	"Basic/Newmat/Regression.h"
+	"WeatherBased/NormalsStation.h"
+	"WeatherBased/WeatherCorrection.h"
+	"WeatherBased/WeatherGradient.h"
+
+1751118733 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\shore.h
+	"Basic/ApproximateNearestNeighbor.h"
+	"Basic/ERMsg.h"
+
+1753980836 e:\project(githubdesktop)\wbsfmultiplatform\src\weatherbased\weathergradient.h
+	"Basic/ERMsg.h"
+	"Basic/SearchResult.h"
+	"WeatherBased/WeatherDefine.h"
+	"WeatherBased/NormalsDatabase.h"
+	"WeatherBased/WeatherCorrection.h"
 

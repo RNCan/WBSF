@@ -56,9 +56,6 @@
     <ClCompile Include="..\..\..\src\ModelBased\ModelOutputVariable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\MTClim43.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\ModelBased\OutputFile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -66,9 +63,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\ModelBased\SimulatedAnnealingVector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\SnowMelt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\ModelBased\SurvivalEquation.cpp">
@@ -130,9 +124,6 @@
     <ClInclude Include="..\..\..\src\ModelBased\ModelOutputVariable.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\MTClim43.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\ModelBased\OutputFile.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -143,9 +134,6 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\ModelBased\SimulatedAnnealingVector.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\SnowMelt.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\ModelBased\SurvivalEquation.h">

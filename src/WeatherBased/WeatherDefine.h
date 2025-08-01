@@ -38,7 +38,9 @@ namespace WBSF
 
 	namespace WEATHER
 	{
-		enum TMissing{ MISSING = -999 };
+		//enum TMissing{ MISSING = -999 };
+
+		static const float MISSING = -999.0;
 		inline bool IsMissing(double v){ return v <= MISSING; }
 		inline bool HaveValue(double v){ return v > MISSING; }
 
@@ -222,7 +224,7 @@ namespace WBSF
 		std::string GetVariablesName(char sep);
 
 		bool operator==(const CWVariables& in)const{ return std::bitset<HOURLY_DATA::NB_VAR_H>::operator==(in); }
-		bool operator!=(const CWVariables& in)const{ return std::bitset<HOURLY_DATA::NB_VAR_H>::operator!=(in); }
+		bool operator!=(const CWVariables& in)const{ return !std::bitset<HOURLY_DATA::NB_VAR_H>::operator==(in); }
 
 
 		template<class Archive>

@@ -39,7 +39,7 @@ static constexpr double EPSILON_COORDINATES = 0.0000000001;
 
 ERMsg BuildVRT(std::string filePath, std::vector<std::string> fileList, bool bQuiet, std::string EXEPath="");
 
-enum TProjection { PRJ_NOT_INIT, PRJ_GEOGRAPHIC, PRJ_PROJECTED, PRJ_GEOCENTRIC, NB_PRJ_TYPES};
+enum TProjection { PRJ_NOT_INIT=-1, PRJ_GEOGRAPHIC, PRJ_WGS_84=PRJ_GEOGRAPHIC, PRJ_PROJECTED, PRJ_GEOCENTRIC, NB_PRJ_TYPES};
 
 
 static constexpr double ELEV_FACTOR = 100;
@@ -94,7 +94,7 @@ public:
 
     bool is_init()const
     {
-        return m_prjID!=PRJ_NOT_INIT;
+        return m_prjID!=size_t(PRJ_NOT_INIT);
     }
     bool IsGeographic()const
     {
