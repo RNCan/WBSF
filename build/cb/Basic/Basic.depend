@@ -1,118 +1,118 @@
 # depslib dependency file v1.0
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\ann.cpp
+1751580906 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/ANN.cpp
 	"ANNx.h"
 	"ANNperf.h"
 	<string>
 	<cstdlib>
 
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\annx.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/ANNx.h
 	<iomanip>
 	<string>
 	"ANN.h"
 
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\ann.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/ANN.h
 	<cmath>
 	<iostream>
 	<cvalues>
 	<climits>
 	<cfloat>
 
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\annperf.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/ANNperf.h
 	"ANN.h"
 
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\bd_pr_search.cpp
+1751580906 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/bd_pr_search.cpp
 	"bd_tree.h"
 	"kd_pr_search.h"
 
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\bd_tree.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/bd_tree.h
 	"ANNx.h"
 	"kd_tree.h"
 
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_tree.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/kd_tree.h
 	"ANNx.h"
 	"pr_queue_k.h"
 
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\pr_queue_k.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/pr_queue_k.h
 	"ANNx.h"
 	"ANNperf.h"
 
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_pr_search.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/kd_pr_search.h
 	"kd_tree.h"
 	"kd_util.h"
 	"pr_queue.h"
 	"pr_queue_k.h"
 	"ANNperf.h"
 
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_util.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/kd_util.h
 	"kd_tree.h"
 
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\pr_queue.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/pr_queue.h
 	"ANNx.h"
 	"ANNperf.h"
 
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\bd_search.cpp
+1751580906 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/bd_search.cpp
 	"bd_tree.h"
 	"kd_search.h"
 
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_search.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/kd_search.h
 	"kd_tree.h"
 	"kd_util.h"
 	"pr_queue_k.h"
 	"ANNperf.h"
 
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\bd_tree.cpp
+1751580906 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/bd_tree.cpp
 	"bd_tree.h"
 	"kd_util.h"
 	"kd_split.h"
 	"ANNperf.h"
 
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_split.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/kd_split.h
 	"kd_tree.h"
 
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\brute.cpp
+1751580906 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/brute.cpp
 	"ANNx.h"
 	"pr_queue_k.h"
 
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_dump.cpp
+1751580906 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/kd_dump.cpp
 	"kd_tree.h"
 	"bd_tree.h"
 	<cstring>
 	<cstdlib>
 
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_pr_search.cpp
+1751580906 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/kd_pr_search.cpp
 	"kd_pr_search.h"
 
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_search.cpp
+1751580906 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/kd_search.cpp
 	"kd_search.h"
 
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_split.cpp
+1751580906 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/kd_split.cpp
 	"kd_tree.h"
 	"kd_util.h"
 	"kd_split.h"
 
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_tree.cpp
+1751580906 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/kd_tree.cpp
 	"kd_tree.h"
 	"kd_split.h"
 	"kd_util.h"
 	"ANNperf.h"
 
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\kd_util.cpp
+1751580906 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/kd_util.cpp
 	"kd_util.h"
 	"ANNperf.h"
 
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ann\perf.cpp
+1751580906 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/ANN/perf.cpp
 	"ANN.h"
 	"ANNperf.h"
 	<string>
 
-1751461875 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\approximatenearestneighbor.cpp
+1751580906 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/ApproximateNearestNeighbor.cpp
 	<boost/locale.hpp>
 	<boost/format.hpp>
 	"Basic/UtilStd.h"
 	"Basic/Shore.h"
 	"ApproximateNearestNeighbor.h"
 
-1752082994 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilstd.h
+1754573832 /home/remi/Project/WBSFMultiPlatform/src/Basic/UtilStd.h
 	<cassert>
 	<map>
 	<set>
@@ -131,38 +131,38 @@
 	"WBSFconfig.h"
 	"Basic/ERMsg.h"
 
-1751422278 e:\project(githubdesktop)\wbsfmultiplatform\src\wbsfconfig.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/WBSFconfig.h
 	<cstddef>
 	<string>
 	<SDKDDKVer.h>
 
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/ERMsg.h
 	"ERMsg/Syenvmsg.h"
 
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\syenvmsg.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/ERMsg/Syenvmsg.h
 	"Erexcept.h"
 	"Sycptref.h"
 	"Symessag.h"
 
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\erexcept.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/ERMsg/Erexcept.h
 	<string>
 
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\sycptref.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/ERMsg/Sycptref.h
 	"Erexcept.h"
 	"Sycptref.hpp"
 
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\sycptref.hpp
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/ERMsg/Sycptref.hpp
 
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\symessag.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/ERMsg/Symessag.h
 	"Erexcept.h"
 	<vector>
 	<string>
 
-1751118733 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\shore.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/Shore.h
 	"Basic/ApproximateNearestNeighbor.h"
 	"Basic/ERMsg.h"
 
-1751118733 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\approximatenearestneighbor.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/ApproximateNearestNeighbor.h
 	<mutex>
 	<boost/serialization/split_member.hpp>
 	<boost/serialization/access.hpp>
@@ -172,7 +172,7 @@
 	"Basic/ERMsg.h"
 	"Basic/ANN/ANN.h"
 
-1751130550 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\location.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/Location.h
 	<array>
 	<boost/serialization/access.hpp>
 	<unordered_map>
@@ -182,7 +182,7 @@
 	"Basic/GeoBasic.h"
 	"Basic/Callback.h"
 
-1751422402 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utiltime.h
+1754573832 /home/remi/Project/WBSFMultiPlatform/src/Basic/UtilTime.h
 	<cassert>
 	<vector>
 	<string>
@@ -192,7 +192,7 @@
 	"Basic/ERMsg.h"
 	"Basic/UtilStd.h"
 
-1752070242 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\geobasic.h
+1754573832 /home/remi/Project/WBSFMultiPlatform/src/Basic/GeoBasic.h
 	<map>
 	<vector>
 	<deque>
@@ -206,14 +206,14 @@
 	"Basic/ERMsg.h"
 	"Basic/UtilMath.h"
 
-1752070242 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilmath.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/UtilMath.h
 	<cmath>
 	<random>
 	<cassert>
 	<iostream>
 	<string>
 
-1751118733 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\callback.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/Callback.h
 	<mutex>
 	<string>
 	<algorithm>
@@ -222,17 +222,17 @@
 	"Basic/UtilStd.h"
 	"Basic/ERMsg.h"
 
-1751119000 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\event.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/Event.h
 	<boost/thread.hpp>
 
-1751131573 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\searchresult.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/SearchResult.h
 	<vector>
 	"Basic/UtilMath.h"
 	"Basic/Location.h"
 	"Basic/UtilStd.h"
 	"Basic/ERMsg.h"
 
-1751131642 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\armodel\armodel.cpp
+1751580906 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/ARModel/ARModel.cpp
 	<random>
 	<chrono>
 	<algorithm>
@@ -242,56 +242,69 @@
 	<numeric>
 	"ARModel.h"
 
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\armodel\armodel.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/ARModel/ARModel.h
 	<vector>
 	<cmath>
 	<string>
 
-1751118733 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\callback.cpp
+1751580906 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/Callback.cpp
 	"Callback.h"
 	"Basic/UtilStd.h"
 	"Basic/OpenMP.h"
 
-1752070242 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\openmp.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/OpenMP.h
 	<omp.h>
 
-1752775191 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\callcurl.cpp
+1753264895 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/CallcURL.cpp
 	"WBSFconfig.h"
 	<boost/asio.hpp>
 	<boost/process.hpp>
 	"Basic/UtilStd.h"
 	"CallcURL.h"
 
-1751423404 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\callcurl.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/CallcURL.h
 	<string>
 	<filesystem>
 	"Basic/ERMsg.h"
 
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\ererreur.cpp
+1751580906 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/ERMsg/Ererreur.cpp
 	"Ererreur.h"
 	<iostream>
 	<fstream>
 	<signal.h>
 	<stdlib.h>
 
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\ererreur.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/ERMsg/Ererreur.h
 	"Syenvmsg.h"
 	<string>
 
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\erexcept.cpp
+1751580906 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/ERMsg/Erexcept.cpp
 	"Syenvmsg.h"
 	<sstream>
 	<iostream>
 	<assert.h>
 
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\syenvmsg.cpp
+1751580906 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/ERMsg/Syenvmsg.cpp
 	"Syenvmsg.h"
 
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\ermsg\symessag.cpp
+1751580906 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/ERMsg/Symessag.cpp
 	"Symessag.h"
 	<sstream>
 
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\gzip.cpp
+1753264895 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/GeoBasic.cpp
+	<iostream>
+	"Basic/Statistic.h"
+	"Basic/ERMsg.h"
+	"Basic/UtilStd.h"
+	"Basic/GeoBasic.h"
+
+1753264895 /home/remi/Project/WBSFMultiPlatform/src/Basic/Statistic.h
+	<cassert>
+	<vector>
+	<array>
+	<string>
+
+1751580906 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/gzip.cpp
 	"gzip.h"
 	<sstream>
 	<boost/iostreams/stream.hpp>
@@ -299,11 +312,11 @@
 	<boost/iostreams/filter/gzip.hpp>
 	<boost/iostreams/copy.hpp>
 
-1751118733 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\gzip.h
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/gzip.h
 	<string>
 	"Basic/ERMsg.h"
 
-1752075529 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\json\json11.cpp
+1753264895 source:/home/remi/Project/WBSFMultiPlatform/src/Basic/json/json11.cpp
 	"json11.hpp"
 	<cassert>
 	<cmath>
@@ -312,450 +325,10 @@
 	<cstdint>
 	<limits>
 
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\json\json11.hpp
+1751580906 /home/remi/Project/WBSFMultiPlatform/src/Basic/json/json11.hpp
 	<string>
 	<vector>
 	<map>
 	<memory>
 	<initializer_list>
-
-1751424042 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\location.cpp
-	<algorithm>
-	<string>
-	<cstdio>
-	<boost/algorithm/string.hpp>
-	<boost/format.hpp>
-	<boost/locale.hpp>
-	"Basic/Shore.h"
-	"Basic/CallcURL.h"
-	"Basic/json/json11.hpp"
-	"Location.h"
-
-1751461875 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\modelstat.cpp
-	"ModelStat.h"
-	<algorithm>
-	<cfloat>
-	"Basic/UtilStd.h"
-	"Basic/UtilMath.h"
-
-1751118733 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\modelstat.h
-	<vector>
-	<cassert>
-	"Basic/UtilMath.h"
-	"Basic/UtilTime.h"
-	"Basic/Statistic.h"
-	"Basic/Mtrx.h"
-	"ModelBased/InitialPopulation.h"
-
-1752075136 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\statistic.h
-	<cassert>
-	<vector>
-	<array>
-	<string>
-
-1751119000 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\mtrx.h
-	<cmath>
-	<climits>
-	<boost/serialization/split_member.hpp>
-	<boost/serialization/access.hpp>
-	<boost/multi_array.hpp>
-
-1751118734 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\initialpopulation.h
-	<vector>
-	<cassert>
-	"Basic/ModelStat.h"
-	"ModelBased/WeatherBasedSimulation.h"
-
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\modelbased\weatherbasedsimulation.h
-
-1752086291 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\mpfit\mpfit.cpp
-	<cstdio>
-	<cstdlib>
-	<cmath>
-	<cstring>
-	"mpfit.h"
-
-1751131373 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\mpfit\mpfit.h
-	<float.h>
-
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\mtrx.cpp
-	"Mtrx.h"
-
-1751131373 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\pugixml\pugixml.cpp
-	"pugixml.hpp"
-	<stdlib.h>
-	<stdio.h>
-	<string.h>
-	<assert.h>
-	<limits.h>
-	<wchar.h>
-	<math.h>
-	<float.h>
-	<istream>
-	<ostream>
-	<string>
-	<new>
-	<sys/stat.h>
-	<stdint.h>
-
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\pugixml\pugixml.hpp
-	"pugiconfig.hpp"
-	<stddef.h>
-	<exception>
-	<iterator>
-	<iosfwd>
-	<string>
-
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\pugixml\pugiconfig.hpp
-
-1751131572 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\searchresult.cpp
-	<set>
-	"SearchResult.h"
-
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\shore.cpp
-	"Shore.h"
-
-1751131463 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\simulatedannealing.cpp
-	<sstream>
-	"SimulatedAnnealing.h"
-
-1751131473 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\simulatedannealing.h
-	<cmath>
-	<cfloat>
-	"Basic/ERMsg.h"
-	"Basic/Statistic.h"
-	"Basic/UtilStd.h"
-
-1751131373 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\sun.cpp
-	"Sun.h"
-
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\sun.h
-	<cmath>
-	"UtilTime.h"
-
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\timestep.cpp
-	"TimeStep.h"
-
-1751131260 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\timestep.h
-	<cassert>
-	<cstddef>
-
-1751115570 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\tinyxml2\tinyxml2.cpp
-	"tinyxml2.h"
-	<new>
-	<stddef.h>
-	<stdarg.h>
-	<cstddef>
-	<cstdarg>
-
-1751115570 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\tinyxml2\tinyxml2.h
-	<ctype.h>
-	<limits.h>
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-	<stddef.h>
-	<cctype>
-	<climits>
-	<cstdio>
-	<cstdlib>
-	<cstring>
-	<stdint.h>
-	<android/log.h>
-	<assert.h>
-
-1751423114 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utiltime.cpp
-	<cmath>
-	<sstream>
-	<iostream>
-	<ctime>
-	<boost/date_time.hpp>
-	"Basic/Statistic.h"
-	"Basic/UtilMath.h"
-	"UtilTime.h"
-
-1752070233 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\dbf3.cpp
-	<cfloat>
-	<boost/archive/binary_oarchive.hpp>
-	<boost/archive/binary_iarchive.hpp>
-	"DBF3.h"
-
-1752070233 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\dbf3.h
-	<vector>
-	<cassert>
-	"Basic/ERMsg.h"
-	"Basic/UtilStd.h"
-
-1752083175 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\geobasic.cpp
-	<iostream>
-	"Basic/Statistic.h"
-	"Basic/ERMsg.h"
-	"Basic/UtilStd.h"
-	"Basic/GeoBasic.h"
-
-1752070242 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\statistic.cpp
-	<cmath>
-	<float.h>
-	<algorithm>
-	<boost/math/distributions/normal.hpp>
-	"Basic/UtilMath.h"
-	"Statistic.h"
-
-1752070242 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilmath.cpp
-	<ctime>
-	<cfloat>
-	<limits>
-	<cstdio>
-	"UtilMath.h"
-	"UtilStd.h"
-
-1752775083 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\utilstd.cpp
-	<boost/asio.hpp>
-	<boost/process.hpp>
-	<iostream>
-	<string>
-	"WBSFconfig.h"
-	<cmath>
-	<iostream>
-	<boost/tokenizer.hpp>
-	<boost/algorithm/string.hpp>
-	<boost/filesystem/path.hpp>
-	<boost/filesystem.hpp>
-	<boost/dll/runtime_symbol_info.hpp>
-	<boost/date_time/posix_time/posix_time_io.hpp>
-	<boost/date_time/posix_time/conversion.hpp>
-	<boost/date_time/posix_time/posix_time.hpp>
-	<boost/date_time/c_local_time_adjustor.hpp>
-	<boost/crc.hpp>
-	"UtilStd.h"
-
-1129933260 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\bandmat.cpp
-	"include.h"
-	"newmat.h"
-	"newmatrc.h"
-
-1288031901 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\include.h
-	<cstdlib>
-	<limits>
-	<iostream>
-	<iomanip>
-	<cmath>
-	<cstring>
-	<ctime>
-	<fstream>
-	<stdlib.h>
-	<iostream.h>
-	<iomanip.h>
-	<math.h>
-	<float.h>
-	<string.h>
-	<time.h>
-	<fstream.h>
-	<stdlib.h>
-	<iostream.hpp>
-	<iomanip.hpp>
-	<math.h>
-	<float.h>
-	<string.h>
-	<time.h>
-	<fstream.h>
-	<stdlib.h>
-	<iostream.h>
-	<iomanip.h>
-	<math.h>
-	<float.h>
-	<string.h>
-	<time.h>
-	<fstream.h>
-	<stdlib.h>
-	<iostream.h>
-	<iomanip.h>
-	<math.h>
-	<float.h>
-	<string.h>
-	<time.h>
-	<fstream.h>
-	<stdlib.h>
-	<iostream.h>
-	<iomanip.h>
-	<math.h>
-	<float.h>
-	<string.h>
-	<time.h>
-	<fstream.h>
-	<stdlib.h>
-	<iostream.h>
-	<iomanip.h>
-	<float.h>
-	<math.h>
-	<string.h>
-	<time.h>
-	<fstream.h>
-	<stdlib.h>
-	<iostream.h>
-	<iomanip.h>
-	<float.h>
-	<math.h>
-	<string.h>
-	<time.h>
-	<fstream.h>
-	<stdlib.h>
-	<iostream.h>
-	<iomanip.h>
-	<math.h>
-	<values.h>
-	<string.h>
-	<time.h>
-	<fstream.h>
-
-1157867940 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\newmat.h
-	"include.h"
-	"myexcept.h"
-
-1288032258 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\myexcept.h
-	"include.h"
-	<setjmp.h>
-
-1128961620 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\newmatrc.h
-	"controlw.h"
-
-1128960840 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\controlw.h
-
-1124509800 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\cholesky.cpp
-	"include.h"
-	"newmat.h"
-	"newmatrm.h"
-
-1128961860 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\newmatrm.h
-
-1124509980 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\evalue.cpp
-	"include.h"
-	"newmatap.h"
-	"newmatrm.h"
-	"precisio.h"
-
-1226187420 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\newmatap.h
-	"newmat.h"
-
-1128962280 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\precisio.h
-	"include.h"
-	<limits>
-	<cfloat>
-
-1124510100 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\fft.cpp
-	"include.h"
-	"newmatap.h"
-
-1226190420 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\hholder.cpp
-	"include.h"
-	"newmatap.h"
-
-1124510400 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\jacobi.cpp
-	"include.h"
-	"newmatap.h"
-	"precisio.h"
-	"newmatrm.h"
-
-1403093943 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\myexcept.cpp
-	"include.h"
-	"myexcept.h"
-
-1124510580 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\newfft.cpp
-	"newmatap.h"
-
-1124511000 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\newmat1.cpp
-	"newmat.h"
-
-1124511060 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\newmat2.cpp
-	"include.h"
-	"newmat.h"
-	"newmatrc.h"
-
-1124511120 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\newmat3.cpp
-	"include.h"
-	"newmat.h"
-	"newmatrc.h"
-
-1129933380 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\newmat4.cpp
-	"include.h"
-	"newmat.h"
-	"newmatrc.h"
-
-1124511180 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\newmat5.cpp
-	"include.h"
-	"newmat.h"
-	"newmatrc.h"
-
-1157865900 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\newmat7.cpp
-	"include.h"
-	"newmat.h"
-	"newmatrc.h"
-
-1124511240 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\newmat8.cpp
-	"include.h"
-	"newmat.h"
-	"newmatrc.h"
-	"precisio.h"
-
-1154216460 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\newmat9.cpp
-	"include.h"
-	"newmat.h"
-	"newmatio.h"
-	"newmatrc.h"
-
-1124511600 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\newmatio.h
-	"newmat.h"
-
-1124512260 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\newmatex.cpp
-	"include.h"
-	"newmat.h"
-
-1124511600 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\newmatnl.cpp
-	"newmatap.h"
-	"newmatnl.h"
-
-1124511660 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\newmatnl.h
-	"newmat.h"
-
-1124511720 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\newmatrm.cpp
-	"newmat.h"
-	"newmatrm.h"
-
-1124511900 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\nm_misc.cpp
-	"include.h"
-	"newmatap.h"
-
-1287530253 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\regression.cpp
-	"Regression.h"
-
-1287542578 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\regression.h
-	"NEWMAT.h"
-
-1124512020 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\solution.cpp
-	"include.h"
-	"myexcept.h"
-	"solution.h"
-
-1129922460 e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\solution.h
-	"myexcept.h"
-
-1753980451 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\newmat6.cpp
-	"include.h"
-	"newmat.h"
-	"newmatrc.h"
-
-1124512080 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\sort.cpp
-	"include.h"
-	"newmatap.h"
-
-1157854980 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\submat.cpp
-	"include.h"
-	"newmat.h"
-	"newmatrc.h"
-
-1124512200 source:e:\project(githubdesktop)\wbsfmultiplatform\src\basic\newmat\svd.cpp
-	"include.h"
-	"newmatap.h"
-	"newmatrm.h"
-	"precisio.h"
 
