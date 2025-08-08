@@ -6,7 +6,51 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Debug">
+			<Target title="Debug (Linux)">
+				<Option output="../../../lib/Debug/ModelBased" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Weffc++" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++17" />
+					<Add option="-m64" />
+					<Add option="-ggdb" />
+					<Add option="-g" />
+					<Add option="-Wno-unknown-pragmas" />
+					<Add option="-Wno-deprecated-enum-enum-conversion" />
+					<Add option="-Wno-overloaded-virtual" />
+					<Add option="-pthread" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DBOOST_PROCESS_USE_STD_FS" />
+					<Add directory="../../../src" />
+				</Compiler>
+				<Linker>
+					<Add option="-m64" />
+				</Linker>
+			</Target>
+			<Target title="Release (Linux)">
+				<Option output="../../../lib/Release/ModelBased" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Release/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-Wall" />
+					<Add option="-Wno-unknown-pragmas" />
+					<Add option="-Wno-deprecated-enum-enum-conversion" />
+					<Add directory="../../../src" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+			<Target title="Debug (Windows)">
 				<Option output="../../../lib/Debug/ModelBased" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
 				<Option object_output="obj/Debug/" />
@@ -33,7 +77,7 @@
 					<Add option="-m64" />
 				</Linker>
 			</Target>
-			<Target title="Release">
+			<Target title="Release (Windows)">
 				<Option output="../../../lib/Release/ModelBased" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
 				<Option object_output="obj/Release/" />
@@ -70,8 +114,6 @@
 		<Unit filename="../../../src/ModelBased/InitialPopulation.h" />
 		<Unit filename="../../../src/ModelBased/InputParam.cpp" />
 		<Unit filename="../../../src/ModelBased/InputParam.h" />
-		<Unit filename="../../../src/ModelBased/MTClim43.cpp" />
-		<Unit filename="../../../src/ModelBased/MTClim43.h" />
 		<Unit filename="../../../src/ModelBased/Model.cpp" />
 		<Unit filename="../../../src/ModelBased/Model.h" />
 		<Unit filename="../../../src/ModelBased/ModelBaseError.cpp" />
@@ -91,8 +133,6 @@
 		<Unit filename="../../../src/ModelBased/SerializeRect.h" />
 		<Unit filename="../../../src/ModelBased/SimulatedAnnealingVector.cpp" />
 		<Unit filename="../../../src/ModelBased/SimulatedAnnealingVector.h" />
-		<Unit filename="../../../src/ModelBased/SnowMelt.cpp" />
-		<Unit filename="../../../src/ModelBased/SnowMelt.h" />
 		<Unit filename="../../../src/ModelBased/SurvivalEquation.cpp" />
 		<Unit filename="../../../src/ModelBased/SurvivalEquation.h" />
 		<Unit filename="../../../src/ModelBased/WGInput-ModelInput.cpp" />

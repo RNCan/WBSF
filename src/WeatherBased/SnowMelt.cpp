@@ -1,8 +1,8 @@
-#include <float.h>
+#include <cfloat>
 
-#include "WeatherBased/WeatherStation.h"
 #include "Basic/UtilMath.h"
-#include "ModelBased/SnowMelt.h"
+#include "WeatherBased/WeatherStation.h"
+#include "WeatherBased/SnowMelt.h"
 
 
 using namespace std;

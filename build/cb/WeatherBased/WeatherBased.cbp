@@ -6,7 +6,7 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Debug">
+			<Target title="Debug (Linux)">
 				<Option output="../../../lib/Debug/WeatherBase" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
 				<Option object_output="obj/Debug/" />
@@ -15,21 +15,21 @@
 				<Option createDefFile="1" />
 				<Compiler>
 					<Add option="-Wall" />
+					<Add option="-std=gnu++17" />
+					<Add option="-ggdb" />
 					<Add option="-g" />
-					<Add option="-std=c++17" />
 					<Add option="-Wno-unknown-pragmas" />
 					<Add option="-Wno-deprecated-enum-enum-conversion" />
 					<Add option="-I/usr/include" />
 					<Add option="-D_DEBUG" />
 					<Add option="-DBOOST_PROCESS_USE_STD_FS" />
 					<Add directory="../../../src" />
-					<Add directory="/usr/include" />
 				</Compiler>
 				<Linker>
 					<Add directory="/usr/lib" />
 				</Linker>
 			</Target>
-			<Target title="Release">
+			<Target title="Release (Linux)">
 				<Option output="../../../lib/Release/WeatherBase" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
 				<Option object_output="obj/Release/" />
@@ -39,8 +39,53 @@
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-Wall" />
+					<Add option="-std=gnu++17" />
 					<Add option="-Wno-unknown-pragmas" />
 					<Add option="-Wno-deprecated-enum-enum-conversion" />
+					<Add option="-DNDEBUG" />
+					<Add directory="../../../src" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+			<Target title="Debug (Windows)">
+				<Option output="../../../lib/Debug/WeatherBase" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-std=gnu++17" />
+					<Add option="-g" />
+					<Add option="-Wno-unknown-pragmas" />
+					<Add option="-Wno-deprecated-enum-enum-conversion" />
+					<Add option="-I/usr/include" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DBOOST_PROCESS_USE_STD_FS" />
+					<Add directory="../../../src" />
+				</Compiler>
+				<Linker>
+					<Add directory="/usr/lib" />
+				</Linker>
+			</Target>
+			<Target title="Release (Windows)">
+				<Option output="../../../lib/Release/WeatherBase" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Release/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++17" />
+					<Add option="-Wno-unknown-pragmas" />
+					<Add option="-Wno-deprecated-enum-enum-conversion" />
+					<Add option="-DNDEBUG" />
+					<Add directory="../../../src" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -66,6 +111,8 @@
 		<Unit filename="../../../src/WeatherBased/GrowingSeason.h" />
 		<Unit filename="../../../src/WeatherBased/HourlyDatabase.cpp" />
 		<Unit filename="../../../src/WeatherBased/HourlyDatabase.h" />
+		<Unit filename="../../../src/WeatherBased/MTClim43.cpp" />
+		<Unit filename="../../../src/WeatherBased/MTClim43.h" />
 		<Unit filename="../../../src/WeatherBased/NormalsData.cpp" />
 		<Unit filename="../../../src/WeatherBased/NormalsData.h" />
 		<Unit filename="../../../src/WeatherBased/NormalsDatabase.cpp" />
@@ -74,6 +121,8 @@
 		<Unit filename="../../../src/WeatherBased/NormalsStation.h" />
 		<Unit filename="../../../src/WeatherBased/SnowAnalysis.cpp" />
 		<Unit filename="../../../src/WeatherBased/SnowAnalysis.h" />
+		<Unit filename="../../../src/WeatherBased/SnowMelt.cpp" />
+		<Unit filename="../../../src/WeatherBased/SnowMelt.h" />
 		<Unit filename="../../../src/WeatherBased/WaterTemperature.cpp" />
 		<Unit filename="../../../src/WeatherBased/WaterTemperature.h" />
 		<Unit filename="../../../src/WeatherBased/WeatherCorrection.cpp" />

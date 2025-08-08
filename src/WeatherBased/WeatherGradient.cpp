@@ -1065,7 +1065,7 @@ namespace WBSF
 		{
 			assert(m_firstYear <= m_lastYear);
 			assert(m_firstYear > -999 && m_lastYear > -999);
-			for (size_t y = m_firstYear; y <= m_lastYear; y++)
+			for (int y = m_firstYear; y <= m_lastYear; y++)
 				years.insert(years.end(), int(y));
 		}
 
@@ -1100,7 +1100,7 @@ namespace WBSF
 		else
 			e = NORTH_EST;
 
-		size_t nbSpaces = GetNbSpaces();
+//		size_t nbSpaces = GetNbSpaces();
 		std::set<int> years = GetYears();
 
 		for (TVarH v = H_FIRST_VAR; v < NB_VAR_H&&msg; v++)
@@ -1282,7 +1282,7 @@ namespace WBSF
 				for (size_t s = 0; s < nbSpaces; s++)
 				{
 					int i = int(s) + 1;
-					if (!_isnan(result[i]) && isfinite(result[i]))
+					if (!std::isnan(result[i]) && isfinite(result[i]))
 					{
 						Gr[m][s] = result[i];
 					}

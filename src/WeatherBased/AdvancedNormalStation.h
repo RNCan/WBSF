@@ -9,7 +9,7 @@
 //******************************************************************************
 #pragma once
 
-#include "Basic/statistic.h"
+#include "Basic/Statistic.h"
 #include "WeatherBased/NormalsStation.h"
 #include "WeatherBased/WeatherStation.h"
 

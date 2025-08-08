@@ -1,4 +1,4 @@
-#include "NEWMAT.h"
+#include "Basic/Newmat/newmat.h"
 
 namespace NEWMAT
 {
