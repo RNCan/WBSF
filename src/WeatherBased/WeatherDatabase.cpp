@@ -141,7 +141,7 @@ namespace WBSF
 	// Note:        Si la BD n'est pas chargée en mémoire, on la charge avec
 	//              CheckIfDBReady().
 	//****************************************************************************
-	ERMsg CWeatherDatabase::Open(const std::string& filePath, size_t flag, CCallback& callback, bool bSkipVerify)
+	ERMsg CWeatherDatabase::Open(const std::string& filePath, TOpenMode flag, CCallback& callback, bool bSkipVerify)
 	{
 		assert(!filePath.empty());
 		assert(m_openMode == modeNotOpen);

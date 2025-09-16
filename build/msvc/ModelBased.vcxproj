@@ -123,12 +123,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <IntDir>$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>..\..\lib\$(Configuration)$(Platform)\</OutDir>
+    <IntDir>obj\$(Configuration)$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <IntDir>$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>..\..\lib\$(Configuration)$(Platform)\</OutDir>
+    <IntDir>obj\$(Configuration)$(Platform)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -170,7 +170,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\src;C:\msys64\home\Remi</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src;C:\local\gdal-3-11-3;C:\local\boost_1_89_0</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/w34996 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -190,7 +190,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\src;C:\msys64\home\Remi</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src;C:\local\gdal-3-11-3;C:\local\boost_1_89_0</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/w34996 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
