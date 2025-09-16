@@ -19,54 +19,56 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\ModelBased\BioSIMModelBase.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\CommunicationStream.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\ContinuingRatio.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\DevRateEquation.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\EntryPoint.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\EquationTableLookup.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\IndividualBase.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\InitialPopulation.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\InputParam.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\Model.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\ModelBaseError.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\ModelDistribution.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\ModelInput.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\ModelInputParameter.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\ModelOutputVariable.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\OutputFile.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\ParametersVariations.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\SimulatedAnnealingVector.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\SurvivalEquation.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\WeatherStatistic.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\WGInput-ModelInput.cpp" />
-    <ClCompile Include="..\..\..\src\ModelBased\WGInput.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\BioSIMModelBase.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\CommunicationStream.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\ContinuingRatio.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\DevRateEquation.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\EntryPoint.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\EquationTableLookup.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\GridHelp.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\IndividualBase.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\InitialPopulation.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\InputParam.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\Model.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\ModelBaseError.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\ModelDistribution.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\ModelInput.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\ModelInputParameter.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\ModelOutputVariable.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\OutputFile.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\ParametersVariations.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\SimulatedAnnealingVector.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\SurvivalEquation.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\WeatherStatistic.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\WGInput-ModelInput.cpp" />
+    <ClCompile Include="..\..\src\ModelBased\WGInput.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\ModelBased\BioSIMModelBase.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\CommunicationStream.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\ContinuingRatio.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\DevRateEquation.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\EntryPoint.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\EquationTableLookup.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\IndividualBase.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\InitialPopulation.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\InputParam.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\Model.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\ModelBaseError.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\ModelDistribution.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\ModelInput.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\ModelInputParameter.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\ModelOutputVariable.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\OutputFile.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\ParametersVariations.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\SerializeRect.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\SimulatedAnnealingVector.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\SurvivalEquation.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\WeatherBasedSimulation.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\WeatherStatistic.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\WGInput-ModelInput.h" />
-    <ClInclude Include="..\..\..\src\ModelBased\WGInput.h" />
+    <ClInclude Include="..\..\src\ModelBased\BioSIMModelBase.h" />
+    <ClInclude Include="..\..\src\ModelBased\CommunicationStream.h" />
+    <ClInclude Include="..\..\src\ModelBased\ContinuingRatio.h" />
+    <ClInclude Include="..\..\src\ModelBased\DevRateEquation.h" />
+    <ClInclude Include="..\..\src\ModelBased\EntryPoint.h" />
+    <ClInclude Include="..\..\src\ModelBased\EquationTableLookup.h" />
+    <ClInclude Include="..\..\src\ModelBased\GridHelp.h" />
+    <ClInclude Include="..\..\src\ModelBased\IndividualBase.h" />
+    <ClInclude Include="..\..\src\ModelBased\InitialPopulation.h" />
+    <ClInclude Include="..\..\src\ModelBased\InputParam.h" />
+    <ClInclude Include="..\..\src\ModelBased\Model.h" />
+    <ClInclude Include="..\..\src\ModelBased\ModelBaseError.h" />
+    <ClInclude Include="..\..\src\ModelBased\ModelDistribution.h" />
+    <ClInclude Include="..\..\src\ModelBased\ModelInput.h" />
+    <ClInclude Include="..\..\src\ModelBased\ModelInputParameter.h" />
+    <ClInclude Include="..\..\src\ModelBased\ModelOutputVariable.h" />
+    <ClInclude Include="..\..\src\ModelBased\OutputFile.h" />
+    <ClInclude Include="..\..\src\ModelBased\ParametersVariations.h" />
+    <ClInclude Include="..\..\src\ModelBased\SerializeRect.h" />
+    <ClInclude Include="..\..\src\ModelBased\SimulatedAnnealingVector.h" />
+    <ClInclude Include="..\..\src\ModelBased\SurvivalEquation.h" />
+    <ClInclude Include="..\..\src\ModelBased\WeatherBasedSimulation.h" />
+    <ClInclude Include="..\..\src\ModelBased\WeatherStatistic.h" />
+    <ClInclude Include="..\..\src\ModelBased\WGInput-ModelInput.h" />
+    <ClInclude Include="..\..\src\ModelBased\WGInput.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -120,6 +122,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -160,8 +170,9 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\..\src;E:\Project\external</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src;C:\msys64\home\Remi</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/w34996 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -179,8 +190,9 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\..\src;E:\Project\external</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src;C:\msys64\home\Remi</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/w34996 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>

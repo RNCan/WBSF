@@ -11,144 +11,150 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\ModelBased\BioSIMModelBase.cpp">
+    <ClCompile Include="..\..\src\ModelBased\BioSIMModelBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\CommunicationStream.cpp">
+    <ClCompile Include="..\..\src\ModelBased\CommunicationStream.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\ContinuingRatio.cpp">
+    <ClCompile Include="..\..\src\ModelBased\ContinuingRatio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\DevRateEquation.cpp">
+    <ClCompile Include="..\..\src\ModelBased\DevRateEquation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\EntryPoint.cpp">
+    <ClCompile Include="..\..\src\ModelBased\EntryPoint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\EquationTableLookup.cpp">
+    <ClCompile Include="..\..\src\ModelBased\EquationTableLookup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\IndividualBase.cpp">
+    <ClCompile Include="..\..\src\ModelBased\GridHelp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\InitialPopulation.cpp">
+    <ClCompile Include="..\..\src\ModelBased\IndividualBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\InputParam.cpp">
+    <ClCompile Include="..\..\src\ModelBased\InitialPopulation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\Model.cpp">
+    <ClCompile Include="..\..\src\ModelBased\InputParam.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\ModelBaseError.cpp">
+    <ClCompile Include="..\..\src\ModelBased\Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\ModelDistribution.cpp">
+    <ClCompile Include="..\..\src\ModelBased\ModelBaseError.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\ModelInput.cpp">
+    <ClCompile Include="..\..\src\ModelBased\ModelDistribution.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\ModelInputParameter.cpp">
+    <ClCompile Include="..\..\src\ModelBased\ModelInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\ModelOutputVariable.cpp">
+    <ClCompile Include="..\..\src\ModelBased\ModelInputParameter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\OutputFile.cpp">
+    <ClCompile Include="..\..\src\ModelBased\ModelOutputVariable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\ParametersVariations.cpp">
+    <ClCompile Include="..\..\src\ModelBased\OutputFile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\SimulatedAnnealingVector.cpp">
+    <ClCompile Include="..\..\src\ModelBased\ParametersVariations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\SurvivalEquation.cpp">
+    <ClCompile Include="..\..\src\ModelBased\SimulatedAnnealingVector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\WeatherStatistic.cpp">
+    <ClCompile Include="..\..\src\ModelBased\SurvivalEquation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\WGInput.cpp">
+    <ClCompile Include="..\..\src\ModelBased\WeatherStatistic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\ModelBased\WGInput-ModelInput.cpp">
+    <ClCompile Include="..\..\src\ModelBased\WGInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\ModelBased\WGInput-ModelInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\ModelBased\BioSIMModelBase.h">
+    <ClInclude Include="..\..\src\ModelBased\BioSIMModelBase.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\CommunicationStream.h">
+    <ClInclude Include="..\..\src\ModelBased\CommunicationStream.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\ContinuingRatio.h">
+    <ClInclude Include="..\..\src\ModelBased\ContinuingRatio.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\DevRateEquation.h">
+    <ClInclude Include="..\..\src\ModelBased\DevRateEquation.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\EntryPoint.h">
+    <ClInclude Include="..\..\src\ModelBased\EntryPoint.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\EquationTableLookup.h">
+    <ClInclude Include="..\..\src\ModelBased\EquationTableLookup.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\IndividualBase.h">
+    <ClInclude Include="..\..\src\ModelBased\GridHelp.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\InitialPopulation.h">
+    <ClInclude Include="..\..\src\ModelBased\IndividualBase.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\InputParam.h">
+    <ClInclude Include="..\..\src\ModelBased\InitialPopulation.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\Model.h">
+    <ClInclude Include="..\..\src\ModelBased\InputParam.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\ModelBaseError.h">
+    <ClInclude Include="..\..\src\ModelBased\Model.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\ModelDistribution.h">
+    <ClInclude Include="..\..\src\ModelBased\ModelBaseError.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\ModelInput.h">
+    <ClInclude Include="..\..\src\ModelBased\ModelDistribution.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\ModelInputParameter.h">
+    <ClInclude Include="..\..\src\ModelBased\ModelInput.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\ModelOutputVariable.h">
+    <ClInclude Include="..\..\src\ModelBased\ModelInputParameter.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\OutputFile.h">
+    <ClInclude Include="..\..\src\ModelBased\ModelOutputVariable.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\ParametersVariations.h">
+    <ClInclude Include="..\..\src\ModelBased\OutputFile.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\SerializeRect.h">
+    <ClInclude Include="..\..\src\ModelBased\ParametersVariations.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\SimulatedAnnealingVector.h">
+    <ClInclude Include="..\..\src\ModelBased\SerializeRect.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\SurvivalEquation.h">
+    <ClInclude Include="..\..\src\ModelBased\SimulatedAnnealingVector.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\WeatherBasedSimulation.h">
+    <ClInclude Include="..\..\src\ModelBased\SurvivalEquation.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\WeatherStatistic.h">
+    <ClInclude Include="..\..\src\ModelBased\WeatherBasedSimulation.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\WGInput.h">
+    <ClInclude Include="..\..\src\ModelBased\WeatherStatistic.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\ModelBased\WGInput-ModelInput.h">
+    <ClInclude Include="..\..\src\ModelBased\WGInput.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ModelBased\WGInput-ModelInput.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

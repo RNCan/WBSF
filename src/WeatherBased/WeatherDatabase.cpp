@@ -1753,7 +1753,7 @@ namespace WBSF
 				ERMsg msg2 = RemoveDirectory(dataPath);
 				if (!msg2)
 					callback.AddMessage(msg2);
-			}
+			} 
 
 			std::string zop = GetOptimisationFilePath(filePath);
 			if (FileExists(zop))

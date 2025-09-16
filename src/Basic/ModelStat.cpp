@@ -11,13 +11,16 @@
 // 01-01-2005	Remi Saint-Amant	Creation
 //******************************************************************************
 
-#include "ModelStat.h"
+
 
 #include <algorithm>
 #include <cfloat>
 
 #include "Basic/UtilStd.h"
 #include "Basic/UtilMath.h"
+
+#include "ModelStat.h"
+
 //#include "Basic/CSV.hpp"
 
 //#include "WeatherBased/WeatherDefine.h"

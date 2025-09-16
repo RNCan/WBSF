@@ -454,9 +454,11 @@ public:
     virtual ERMsg OpenInputImage(const std::string& filePath, const CBaseOptions& options = CBaseOptions());
     virtual ERMsg CreateImage(const std::string& filePath, const CBaseOptions& option);
     virtual void UpdateOption(CBaseOptions& options)const;
-    virtual void Close(const CBaseOptions& options = CBaseOptions());
+    virtual ERMsg Close(const CBaseOptions& options = CBaseOptions());
     virtual void ReadBlock(size_t i, size_t j, CRasterWindow& block)const;
-    virtual void ReadBlock(const CGeoExtents& window_extents, CRasterWindow& window_data, int rings =0, int IOCPU=1, size_t first_scene = NOT_INIT, size_t last_scene = NOT_INIT)const;
+    virtual void ReadBlock(const CGeoExtents& window_extents, CRasterWindow& window_data, int rings =0, size_t first_scene = NOT_INIT, size_t last_scene = NOT_INIT, boost::dynamic_bitset<> bands_to_read = boost::dynamic_bitset<>())const;
+//    virtual void ReadBlock(const CGeoExtents& window_extents, CRasterWindow& window_data, int rings = 0)const;
+    
 
     void BuildOverviews(const std::vector<int>& list, bool bQuiet, int CPU = 1);
     void ComputeStats(bool bQuiet, int CPU = 1);

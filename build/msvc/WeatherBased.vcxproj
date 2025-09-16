@@ -19,51 +19,65 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\WeatherBased\AmountPpt.cpp" />
-    <ClCompile Include="..\..\..\src\WeatherBased\ASCE_ETc.cpp" />
-    <ClCompile Include="..\..\..\src\WeatherBased\DailyDatabase.cpp" />
-    <ClCompile Include="..\..\..\src\WeatherBased\DegreeDays.cpp" />
-    <ClCompile Include="..\..\..\src\WeatherBased\Dimension.cpp" />
-    <ClCompile Include="..\..\..\src\WeatherBased\Evapotranspiration.cpp" />
-    <ClCompile Include="..\..\..\src\WeatherBased\GrowingSeason.cpp" />
-    <ClCompile Include="..\..\..\src\WeatherBased\HourlyDatabase.cpp" />
-    <ClCompile Include="..\..\..\src\WeatherBased\NormalsData.cpp" />
-    <ClCompile Include="..\..\..\src\WeatherBased\NormalsDatabase.cpp" />
-    <ClCompile Include="..\..\..\src\WeatherBased\NormalsStation.cpp" />
-    <ClCompile Include="..\..\..\src\WeatherBased\SnowAnalysis.cpp" />
-    <ClCompile Include="..\..\..\src\WeatherBased\WaterTemperature.cpp" />
-    <ClCompile Include="..\..\..\src\WeatherBased\WeatherCorrection.cpp" />
-    <ClCompile Include="..\..\..\src\WeatherBased\WeatherDatabase.cpp" />
-    <ClCompile Include="..\..\..\src\WeatherBased\WeatherDatabaseCreator.cpp" />
-    <ClCompile Include="..\..\..\src\WeatherBased\WeatherDatabaseOptimisation.cpp" />
-    <ClCompile Include="..\..\..\src\WeatherBased\WeatherDataSection.cpp" />
-    <ClCompile Include="..\..\..\src\WeatherBased\WeatherDefine.cpp" />
-    <ClCompile Include="..\..\..\src\WeatherBased\WeatherGeneratorDailyKernel.cpp" />
-    <ClCompile Include="..\..\..\src\WeatherBased\WeatherStation.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\AdvancedNormalStation.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\src\WeatherBased\AmountPpt.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\ASCE_ETc.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\DailyDatabase.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\DegreeDays.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\Dimension.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\Evapotranspiration.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\GrowingSeason.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\HourlyDatabase.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\MTClim43.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\NormalsData.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\NormalsDatabase.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\NormalsStation.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\SnowAnalysis.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\SnowMelt.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\WaterTemperature.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\WeatherCorrection.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\WeatherDatabase.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\WeatherDatabaseCreator.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\WeatherDatabaseOptimisation.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\WeatherDataSection.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\WeatherDefine.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\WeatherGeneratorDailyKernel.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\WeatherGradient.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\WeatherStation.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\WeatherBased\AmountPpt.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\ASCE_ETc.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\DailyDatabase.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\DegreeDays.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\Dimension.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\Duration.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\Evapotranspiration.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\GrowingSeason.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\HourlyDatabase.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\NormalsData.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\NormalsDatabase.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\NormalsStation.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\SnowAnalysis.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\WaterTemperature.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\WeatherCorrection.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\WeatherDatabase.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\WeatherDatabaseCreator.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\WeatherDatabaseOptimisation.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\WeatherDataSection.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\WeatherDefine.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\WeatherGeneratorDailyKernel.h" />
-    <ClInclude Include="..\..\..\src\WeatherBased\WeatherStation.h" />
+    <ClInclude Include="..\..\src\WeatherBased\AdvancedNormalStation.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\src\WeatherBased\AmountPpt.h" />
+    <ClInclude Include="..\..\src\WeatherBased\ASCE_ETc.h" />
+    <ClInclude Include="..\..\src\WeatherBased\DailyDatabase.h" />
+    <ClInclude Include="..\..\src\WeatherBased\DegreeDays.h" />
+    <ClInclude Include="..\..\src\WeatherBased\Dimension.h" />
+    <ClInclude Include="..\..\src\WeatherBased\Duration.h" />
+    <ClInclude Include="..\..\src\WeatherBased\Evapotranspiration.h" />
+    <ClInclude Include="..\..\src\WeatherBased\GrowingSeason.h" />
+    <ClInclude Include="..\..\src\WeatherBased\HourlyDatabase.h" />
+    <ClInclude Include="..\..\src\WeatherBased\MTClim43.h" />
+    <ClInclude Include="..\..\src\WeatherBased\NormalsData.h" />
+    <ClInclude Include="..\..\src\WeatherBased\NormalsDatabase.h" />
+    <ClInclude Include="..\..\src\WeatherBased\NormalsStation.h" />
+    <ClInclude Include="..\..\src\WeatherBased\SnowAnalysis.h" />
+    <ClInclude Include="..\..\src\WeatherBased\SnowMelt.h" />
+    <ClInclude Include="..\..\src\WeatherBased\WaterTemperature.h" />
+    <ClInclude Include="..\..\src\WeatherBased\WeatherCorrection.h" />
+    <ClInclude Include="..\..\src\WeatherBased\WeatherDatabase.h" />
+    <ClInclude Include="..\..\src\WeatherBased\WeatherDatabaseCreator.h" />
+    <ClInclude Include="..\..\src\WeatherBased\WeatherDatabaseOptimisation.h" />
+    <ClInclude Include="..\..\src\WeatherBased\WeatherDataSection.h" />
+    <ClInclude Include="..\..\src\WeatherBased\WeatherDefine.h" />
+    <ClInclude Include="..\..\src\WeatherBased\WeatherGeneratorDailyKernel.h" />
+    <ClInclude Include="..\..\src\WeatherBased\WeatherGradient.h" />
+    <ClInclude Include="..\..\src\WeatherBased\WeatherStation.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -117,6 +131,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -157,8 +179,9 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\..\src;E:\Project\external</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src;C:\msys64\home\Remi</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/w34996 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -176,8 +199,9 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\..\src;E:\Project\external</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src;C:\msys64\home\Remi</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/w34996 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>

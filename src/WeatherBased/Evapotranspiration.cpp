@@ -39,6 +39,10 @@ namespace WBSF
 extern const char ET_HEADER[] = "ETo";
 //extern const char EXTENDED_ET_HEADER[] = "ETo";
 
+
+std::mutex CETFactory::m_mutex;
+
+
 CETFactory::CETFactory()
 {
 }

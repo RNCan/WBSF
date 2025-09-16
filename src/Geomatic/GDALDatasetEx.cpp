@@ -48,8 +48,9 @@ CGDALDatasetEx::~CGDALDatasetEx()
     Close(CBaseOptions());
 }
 
-void CGDALDatasetEx::Close(const CBaseOptions& options)
+ERMsg CGDALDatasetEx::Close(const CBaseOptions& options)
 {
+    ERMsg msg;
     if (IsOpen())
     {
         if (m_bOpenUpdate)
@@ -71,7 +72,7 @@ void CGDALDatasetEx::Close(const CBaseOptions& options)
                 CloseVRTBand(i);
 
             //build vrt must be done after closing images to have valid images.
-            BuildVRT(options);
+            msg += BuildVRT(options);
 
 
             m_poDatasetVector.clear();
@@ -99,6 +100,8 @@ void CGDALDatasetEx::Close(const CBaseOptions& options)
 
         //temporal section of the dataset
     }
+
+    return msg;
 }
 
 short CGDALDatasetEx::GetDataType(size_t i)const
@@ -740,40 +743,14 @@ ERMsg CGDALDatasetEx::BuildVRT(const CBaseOptions& options)
             }
         }
 
-        //else
-        //{
-        //	assert(m_internalName.size() == GetRasterCount());
-        //	for (size_t b = 0; b < m_internalName.size(); b++)//for all segment
-        //	{
-        //		bool bUseIt = true;
-        //		if (options.bRemoveEmptyBand)
-        //		{
-        //			double min = 0;
-        //			double max = 0;
-        //			double mean = 0;
-        //			double stddev = 0;
-
-        //			GDALRasterBand * pBand = GetRasterBand(b);
-        //			if (pBand->GetStatistics(true, true, &min, &max, &mean, &stddev) != CE_None)
-        //				bUseIt = false;
-        //		}
-
-        //		if (bUseIt)
-        //			file << m_internalName[b] << endl;
-        //	}
-        //}
+       
         file.close();
+
+
+        string arg = "-separate -input_file_list " + listFilePath + " " + m_filePath + (options.m_bQuiet ? " -q" : "");
+        msg = WinExecWait("gdalbuildvrt.exe", arg, "", !options.m_bQuiet);
     }
 
-//#if _MSC_VER
-    //string command = "gdalbuildvrt.exe -separate -overwrite -input_file_list \"" + listFilePath + "\" \"" + m_filePath + "\"" + (options.m_bQuiet ? " -q" : "");
-    string arg = "-separate -overwrite -input_file_list \"" + listFilePath + "\" \"" + m_filePath + "\"" + (options.m_bQuiet ? " -q" : "");
-
-    msg = WinExecWait("gdalbuildvrt.exe", arg);
-//#else
-  //  string command = "gdalbuildvrt -separate -overwrite -input_file_list \"" + listFilePath + "\" \"" + m_filePath + "\"" + (options.m_bQuiet ? " -q" : "");
-//    system(command.c_str());
-//#endif
 
 
     return msg;
@@ -834,21 +811,25 @@ void CGDALDatasetEx::ReadBlock(size_t i, size_t j, CRasterWindow& block)const
 }
 
 
-void CGDALDatasetEx::ReadBlock(const CGeoExtents& windowExtents, CRasterWindow& window_data, int rings, int IOCPU, size_t first_scene, size_t last_scene)const
+
+void CGDALDatasetEx::ReadBlock(const CGeoExtents& windowExtents, CRasterWindow& window_data, int rings, size_t first_scene, size_t last_scene, boost::dynamic_bitset<> bands_to_read)const
 {
-    assert(first_scene < GetNbScenes() && last_scene < GetNbScenes());
+    assert(first_scene == NOT_INIT || first_scene < GetNbScenes());
+    assert(last_scene == NOT_INIT || last_scene < GetNbScenes());
+    assert(bands_to_read.empty() || bands_to_read.size() == GetSceneSize() || bands_to_read.size() == GetRasterCount());
 
     if (first_scene == NOT_INIT)
         first_scene = 0;
     if (last_scene == NOT_INIT)
-        last_scene = GetNbScenes();
+        last_scene = GetNbScenes() - 1;
 
     assert(first_scene <= last_scene);
 
+
     size_t totalMem = 0;
 
+
     size_t first_layer = first_scene * GetSceneSize();
-    //size_t last_layer = (last_scene +1)* GetSceneSize();
     size_t nb_layer = (last_scene - first_scene + 1) * GetSceneSize();
 
     int nb_non_empty = 0;
@@ -863,8 +844,12 @@ void CGDALDatasetEx::ReadBlock(const CGeoExtents& windowExtents, CRasterWindow& 
         {
             CGeoRectIndex windowRect = m_extents.CoordToXYPos(windowExtents); //portion of valid map in extents coordinate
             CGeoRectIndex loadRect = m_extents.CoordToXYPos(loadExtents); //get map rect to load in map coordinate
+            bool bRead0 = bands_to_read.empty();
+            bool bRead1 = (bands_to_read.size() == GetSceneSize()) && bands_to_read.at(i% GetSceneSize());
+            bool bRead2 = bands_to_read.size() == GetRasterCount() && bands_to_read.test(i);
+            bool bRead = bRead0 || bRead1 || bRead2;
 
-            if (!windowRect.IsRectEmpty() && !loadRect.IsRectEmpty())
+            if (!windowRect.IsRectEmpty() && !loadRect.IsRectEmpty()&& bRead)
             {
                 assert(loadRect.m_x >= 0 && loadRect.m_x <= GetRasterXSize());
                 assert(loadRect.m_y >= 0 && loadRect.m_y <= GetRasterYSize());
@@ -1078,7 +1063,7 @@ void CGDALDatasetEx::BuildOverviews(const vector<int>& list, bool bQuiet, int CP
             {
                 int ii = 0;
                 #pragma omp parallel for num_threads( CPU )
-                for (size_t i = 0; i < GetRasterCount(); i++)
+                for (int i = 0; i < int(GetRasterCount()); i++)
                 {
                     if (m_poDatasetVector[i])
                         m_poDatasetVector[i]->BuildOverviews("NEAREST", (int)list.size(), const_cast<int*>(list.data()), 0, NULL, pProgressFunc, NULL, papszOptions);

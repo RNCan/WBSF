@@ -169,10 +169,10 @@ class CLandsatDataset : public CGDALDatasetEx
 {
 public:
 
-    virtual ERMsg OpenInputImage(const std::string& filePath, const CBaseOptions& options = CBaseOptions());
+    virtual ERMsg OpenInputImage(const std::string& filePath, const CBaseOptions& options = CBaseOptions())override;
     virtual ERMsg CreateImage(const std::string& filePath, const CBaseOptions& options)override;
-    virtual void UpdateOption(CBaseOptions& options)const;
-    virtual void Close(const CBaseOptions& options = CBaseOptions());
+    virtual void UpdateOption(CBaseOptions& options)const override;
+    virtual ERMsg Close(const CBaseOptions& options = CBaseOptions())override;
 
     ERMsg CreateIndices(size_t i, const std::string filePath, Landsat2::TIndices type);
 

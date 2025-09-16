@@ -513,11 +513,11 @@ namespace WBSF
 								double Tmax[3] = { MISSING, MISSING, MISSING };
 								for (size_t dd = 0; dd < 3; dd++)
 								{
-									CTRef shiftTRef = TRef - dd;
+									CTRef shiftTRef = TRef - int32_t(dd);
 									if (period.is_inside(shiftTRef) &&
 										dailyStation.IsYearInit(shiftTRef.GetYear()) &&
-										dailyStation[TRef - dd][H_TMIN].is_init() &&
-										dailyStation[TRef - dd][H_TMAX].is_init())
+										dailyStation[TRef - int32_t(dd)][H_TMIN].is_init() &&
+										dailyStation[TRef - int32_t(dd)][H_TMAX].is_init())
 									{
 										//remove interpolated mean
 										Tmin[dd] = dailyStation[shiftTRef][H_TMIN][MEAN] - TminMonthNormal;

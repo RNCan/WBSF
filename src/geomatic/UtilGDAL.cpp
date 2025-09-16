@@ -1460,7 +1460,7 @@ const COptionDef CBaseOptions::OPTIONS_DEF[] =
     {"-maskValue",1,"value",false,"Select a value in the mask to treat. By default all valid data are treat."},
     {"-multi",0,"",false,"Use multi threaded implementation. Multiple threads will be used to process chunks of image and perform input/output operation simultaneously."},
     {"-CPU",1,"nbCPU",false,"Number of CPUs to used when computation. If the number is negative, then CPU define the number of free CPU. CPUs = AllCPU/BLOCK_CPU by default. Only  used when -multi is define."},
-    {"-IOCPU",1,"nbCPU",false,"number of CPUs used to read files. If the number is negative, then CPU define the number of free CPU. Only one thread is assigned by default. Only  used when -multi is define."},
+    //{"-IOCPU",1,"nbCPU",false,"number of CPUs used to read files. If the number is negative, then CPU define the number of free CPU. Only one thread is assigned by default. Only  used when -multi is define."},
     {"-BLOCK_THREADS",1,"threads",false,"Number of threads used to process blocks. 2 by default. Only used when -multi is define. "},
     {"-wm",1,"size(mb)",false,"Set the amount of memory (in megabytes) that API is allowed to use for caching."},
     {"-ResetJobLog",0,"",false,"Create a log with output information. If the file already exist, the text will be append at the end of the file."},
@@ -1496,8 +1496,8 @@ int CBaseOptions::GetOptionIndex(const char* name)
     return index;
 }
 
-
-const char* CBaseOptions::DEFAULT_OPTIONS[] = { "-of","-ot","-co","-srcnodata","-dstnodata","-dstNoDataEx","-wo","-q","-overwrite","-te","-tap", "-mask","-maskValue","-multi","-CPU","-IOCPU","-BLOCK_THREADS","-BlockSize","-NoResult","-Overview","-stats", "-hist", "-?","-??","-???","-help" };//, "-stats"
+//,"-IOCPU"
+const char* CBaseOptions::DEFAULT_OPTIONS[] = { "-of","-ot","-co","-srcnodata","-dstnodata","-dstNoDataEx","-wo","-q","-overwrite","-te","-tap", "-mask","-maskValue","-multi","-CPU","-BLOCK_THREADS","-BlockSize","-NoResult","-Overview","-stats", "-hist", "-?","-??","-???","-help" };//, "-stats"
 static const int NB_DEFAULT_OPTIONS = sizeof(CBaseOptions::DEFAULT_OPTIONS) / sizeof(char*);
 CBaseOptions::CBaseOptions(bool bAddDefaultOption)
 {
@@ -1565,7 +1565,7 @@ void CBaseOptions::Reset()
     m_scenes_def.clear();
     m_maskDataUsed = DefaultNoData;
     m_CPU = 0;//select all cpu by default
-    m_IOCPU = 1;//by default take only one thread for IO
+    //m_IOCPU = 1;//by default take only one thread for IO
     m_BLOCK_THREADS = 2;
 
     m_bMulti = false;
@@ -1724,7 +1724,7 @@ ERMsg CBaseOptions::ParseOption(int argc, char* argv[])
     if (!m_bMulti)
     {
         m_BLOCK_THREADS = 1;
-        m_IOCPU = 1;
+        //m_IOCPU = 1;
     }
 
     return msg;
@@ -1860,13 +1860,13 @@ ERMsg CBaseOptions::ProcessOption(int& i, int argc, char* argv[])
         if (m_CPU <= 0)
             m_CPU = max(1, omp_get_num_procs() + m_CPU);
     }
-    else if (IsEqual(argv[i], "-IOCPU"))
-    {
-        m_IOCPU = atoi(argv[i + 1]);
-        i++;
-        if (m_IOCPU <= 0)
-            m_IOCPU = max(1, omp_get_num_procs() + m_IOCPU);
-    }
+    //else if (IsEqual(argv[i], "-IOCPU"))
+    //{
+    //    m_IOCPU = atoi(argv[i + 1]);
+    //    i++;
+    //    if (m_IOCPU <= 0)
+    //        m_IOCPU = max(1, omp_get_num_procs() + m_IOCPU);
+    //}
     else if (IsEqual(argv[i], "-BLOCK_THREADS"))
     {
         m_BLOCK_THREADS = atoi(argv[++i]);

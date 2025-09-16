@@ -13,8 +13,9 @@
 
 #include <algorithm>
 #include <bitset>
-#include "geomatic/GDAL.h"
-#include "geomatic/LandsatDataset2.h"
+#include "Geomatic/GDAL.h"
+//#include "geomatic/LandsatDataset2.h"
+#include "Geomatic/ImageParser.h"
 
 
 
@@ -493,8 +494,9 @@ std::string CLandsatDataset::GetSpecificBandName(size_t i, size_t b)const
     return CLandsatDataset::GetSpecificBandName(i * SCENES_SIZE + b);
 }
 
-void CLandsatDataset::Close(const CBaseOptions& options)
+ERMsg CLandsatDataset::Close(const CBaseOptions& options)
 {
+    ERMsg msg;
     if (IsOpen())
     {
         if (m_bOpenUpdate)
@@ -524,8 +526,10 @@ void CLandsatDataset::Close(const CBaseOptions& options)
             //            }
         }
 
-        CGDALDatasetEx::Close(options);
+        msg = CGDALDatasetEx::Close(options);
     }
+
+    return msg;
 }
 
 //	ERMsg CLandsatDataset::CreateRGB(size_t iz, const std::string filePath, CBaseOptions::TRGBTye type)

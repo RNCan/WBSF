@@ -1124,7 +1124,7 @@ namespace WBSF
 	ERMsg RenameFile(const std::string& filePath1, const std::string& filePath2);
 	ERMsg RenameDir(const std::string& path1, const std::string& path2);
 	ERMsg CopyOneFile(const std::string& filePath1, const std::string& filePath2, bool failIfExist = true);
-	ERMsg CopyDir(const std::string& pathIn1, const std::string& pathIn2);
+	ERMsg CopyDirectory(const std::string& pathIn1, const std::string& pathIn2);
 
 
 	// Function: fileExists

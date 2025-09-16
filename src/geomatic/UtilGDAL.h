@@ -26,8 +26,8 @@ class GDALDriver;
 namespace WBSF
 {
 
-class CGDALDatasetEx;
-class CGDALDatasetExVector;
+//class CGDALDatasetEx;
+//class CGDALDatasetExVector;
 
 //General function
 void RegisterGDAL();
@@ -308,7 +308,6 @@ public:
     std::string m_maskName;
     float m_maskDataUsed;
     int m_CPU;
-    int m_IOCPU;
     int m_BLOCK_THREADS;
 
     bool m_bMulti;

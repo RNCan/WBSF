@@ -15,6 +15,51 @@
 
 namespace WBSF
 {
+	//***********************************************************************
+	void CBetaDistribution::SetTable(double alpha, double beta)
+	{
+
+		int i;
+		double tmp;
+		double sum_P = 0;
+
+		//Compute Beta cumulative probability distribution
+
+		m_XP[0].m_x = 0;
+		m_XP[0].m_p = 0;
+		for (i = 1; i <= 50; ++i)
+		{
+			tmp = (double)i / 50.;
+			m_XP[i].m_x = tmp;
+			if (i == 50) tmp = 0.995;
+			sum_P += pow(tmp, alpha - 1) * pow((1 - tmp), beta - 1);
+			m_XP[i].m_p = sum_P;
+		}
+		//Scale so P is [0,1]
+		for (i = 0; i <= 50; ++i)
+		{
+			m_XP[i].m_p /= sum_P;
+		}
+	}
+
+	double CBetaDistribution::XfromP(double p)const
+	{
+		assert(p >= 0.0 && p <= 1.0);
+		double x = 0;
+		for (int i = 49; i >= 0; --i)
+		{
+			if (p > m_XP[i].m_p)
+			{
+				double slope = (m_XP[i + 1].m_x - m_XP[i].m_x) / (m_XP[i + 1].m_p - m_XP[i].m_p);
+				x = m_XP[i].m_x + (p - m_XP[i].m_p)* slope;
+				break;
+			}
+		}
+
+		assert(!std::isnan(x));
+		assert(x >= 0);
+		return x;
+	}
 
 	//***********************************************************************
 	//CAmountPpt

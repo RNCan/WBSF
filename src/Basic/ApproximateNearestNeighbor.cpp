@@ -30,7 +30,7 @@ using namespace std;
 namespace WBSF
 {
 
-//    std::mutex CApproximateNearestNeighbor::MUTEX;
+    std::mutex CApproximateNearestNeighbor::Mutex;
 
 
 double GetShoreDistance(const CLocation& pt)

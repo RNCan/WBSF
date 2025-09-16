@@ -11,51 +11,51 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\Geomatic\GDAL.h">
+    <ClInclude Include="..\..\src\Geomatic\GDAL.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Geomatic\GDALDatasetEx.h">
+    <ClInclude Include="..\..\src\Geomatic\GDALDatasetEx.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Geomatic\LandsatDataset2.h">
+    <ClInclude Include="..\..\src\Geomatic\ImageParser.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Geomatic\LandTrendCore.h">
+    <ClInclude Include="..\..\src\Geomatic\LandsatDataset2.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Geomatic\LandTrendUtil.h">
+    <ClInclude Include="..\..\src\Geomatic\LandTrendCore.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Geomatic\SfcGribsDatabase.h">
+    <ClInclude Include="..\..\src\Geomatic\LandTrendUtil.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Geomatic\ShoreCreator.h">
+    <ClInclude Include="..\..\src\Geomatic\SfcGribsDatabase.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Geomatic\UtilGDAL.h">
+    <ClInclude Include="..\..\src\Geomatic\UtilGDAL.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\Geomatic\GDALDatasetEx.cpp">
+    <ClCompile Include="..\..\src\Geomatic\GDALDatasetEx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Geomatic\LandsatDataset2.cpp">
+    <ClCompile Include="..\..\src\Geomatic\ImageParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Geomatic\LandTrendCore.cpp">
+    <ClCompile Include="..\..\src\Geomatic\LandsatDataset2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Geomatic\LandTrendUtil.cpp">
+    <ClCompile Include="..\..\src\Geomatic\LandTrendCore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Geomatic\SfcGribsDatabase.cpp">
+    <ClCompile Include="..\..\src\Geomatic\LandTrendUtil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Geomatic\ShoreCreator.cpp">
+    <ClCompile Include="..\..\src\Geomatic\SfcGribsDatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Geomatic\UtilGDAL.cpp">
+    <ClCompile Include="..\..\src\Geomatic\UtilGDAL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

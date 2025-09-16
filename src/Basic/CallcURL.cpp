@@ -63,9 +63,10 @@ ERMsg CCallcURL::copy_file(const std::string& URL, const std::string& output_fil
     if (m_timeout > 0)
         argument += "--connect-timeout " + to_string(m_timeout) + " ";
 
-    argument += "\"" + URL + "\" --output \"" + output_filepath + "\"";
+    //argument += "\"" + URL + "\" --output \"" + output_filepath + "\"";
+    argument += URL + " --output " + output_filepath;
 
-    //string command= "\"" + m_exe_filepath + "\" " + argument;
+    
 
 
     int exit_code;

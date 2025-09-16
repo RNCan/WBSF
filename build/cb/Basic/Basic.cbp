@@ -6,92 +6,57 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Debug (Linux)">
-				<Option output="../../../lib/Debug/Basic" prefix_auto="1" extension_auto="1" />
+			<Target title="Debug">
+				<Option output="../../../lib/Debugx64/Basic" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
-				<Option object_output="obj/Debug/" />
+				<Option object_output="obj/Debugx64/" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
 					<Add option="-Wall" />
-					<Add option="-std=gnu++17" />
 					<Add option="-m64" />
-					<Add option="-ggdb" />
 					<Add option="-g" />
-					<Add option="-Wno-unknown-pragmas" />
-					<Add option="-Wno-deprecated-enum-enum-conversion" />
-					<Add option="-Wno-overloaded-virtual" />
+					<Add option="-std=gnu++20" />
+					<Add option="-ggdb" />
 					<Add option="-pthread" />
 					<Add option="-fopenmp" />
+					<Add option="-Wno-unknown-pragmas" />
 					<Add option="-Wno-unused-result" />
+					<Add option="-Wno-unused-function" />
+					<Add option="-Wno-deprecated-enum-enum-conversion" />
+					<Add option="-Wno-overloaded-virtual" />
 					<Add option="-D_DEBUG" />
 					<Add option="-DBOOST_PROCESS_USE_STD_FS" />
+					<Add option="-DMUPARSER_STATIC" />
 					<Add directory="../../../src" />
 				</Compiler>
 				<Linker>
 					<Add option="-m64" />
 				</Linker>
 			</Target>
-			<Target title="Release (Linux)">
-				<Option output="../../../lib/Release/Basic" prefix_auto="1" extension_auto="1" />
+			<Target title="Release">
+				<Option output="../../../lib/Releasex64/Basic" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
-				<Option object_output="obj/Release/" />
+				<Option object_output="obj/Releasex64/" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-Wall" />
-					<Add option="-std=gnu++17" />
-					<Add option="-Wno-unknown-pragmas" />
-					<Add option="-Wno-deprecated-enum-enum-conversion" />
-					<Add directory="../../../src" />
-				</Compiler>
-				<Linker>
-					<Add option="-s" />
-				</Linker>
-			</Target>
-			<Target title="Debug (Windows)">
-				<Option output="../../../lib/Debug/Basic" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="" />
-				<Option object_output="obj/Debug/" />
-				<Option type="2" />
-				<Option compiler="gcc" />
-				<Option createDefFile="1" />
-				<Compiler>
-					<Add option="-Wall" />
-					<Add option="-std=gnu++17" />
-					<Add option="-m64" />
+					<Add option="-std=gnu++20" />
 					<Add option="-ggdb" />
-					<Add option="-g" />
-					<Add option="-Wno-unknown-pragmas" />
-					<Add option="-Wno-deprecated-enum-enum-conversion" />
-					<Add option="-Wno-overloaded-virtual" />
 					<Add option="-pthread" />
 					<Add option="-fopenmp" />
-					<Add option="-Wno-unused-result" />
-					<Add option="-D_DEBUG" />
-					<Add option="-DBOOST_PROCESS_USE_STD_FS" />
-					<Add directory="../../../src" />
-				</Compiler>
-				<Linker>
-					<Add option="-m64" />
-				</Linker>
-			</Target>
-			<Target title="Release (Windows)">
-				<Option output="../../../lib/Release/Basic" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="" />
-				<Option object_output="obj/Release/" />
-				<Option type="2" />
-				<Option compiler="gcc" />
-				<Option createDefFile="1" />
-				<Compiler>
-					<Add option="-O2" />
-					<Add option="-Wall" />
-					<Add option="-std=gnu++17" />
 					<Add option="-Wno-unknown-pragmas" />
+					<Add option="-Wno-unused-result" />
+					<Add option="-Wno-unused-function" />
 					<Add option="-Wno-deprecated-enum-enum-conversion" />
+					<Add option="-Wno-overloaded-virtual" />
+					<Add option="-DNDEBUG" />
+					<Add option="-DBOOST_PROCESS_USE_STD_FS" />
+					<Add option="-DMUPARSER_STATIC" />
 					<Add directory="../../../src" />
 				</Compiler>
 				<Linker>
@@ -218,6 +183,30 @@
 		<Unit filename="../../../src/Basic/json/json11.hpp" />
 		<Unit filename="../../../src/Basic/mpfit/mpfit.cpp" />
 		<Unit filename="../../../src/Basic/mpfit/mpfit.h" />
+		<Unit filename="../../../src/Basic/muparser/LICENSE" />
+		<Unit filename="../../../src/Basic/muparser/README.md" />
+		<Unit filename="../../../src/Basic/muparser/muParser.cpp" />
+		<Unit filename="../../../src/Basic/muparser/muParser.h" />
+		<Unit filename="../../../src/Basic/muparser/muParserBase.cpp" />
+		<Unit filename="../../../src/Basic/muparser/muParserBase.h" />
+		<Unit filename="../../../src/Basic/muparser/muParserBytecode.cpp" />
+		<Unit filename="../../../src/Basic/muparser/muParserBytecode.h" />
+		<Unit filename="../../../src/Basic/muparser/muParserCallback.cpp" />
+		<Unit filename="../../../src/Basic/muparser/muParserCallback.h" />
+		<Unit filename="../../../src/Basic/muparser/muParserDLL.cpp" />
+		<Unit filename="../../../src/Basic/muparser/muParserDLL.h" />
+		<Unit filename="../../../src/Basic/muparser/muParserDef.h" />
+		<Unit filename="../../../src/Basic/muparser/muParserError.cpp" />
+		<Unit filename="../../../src/Basic/muparser/muParserError.h" />
+		<Unit filename="../../../src/Basic/muparser/muParserFixes.h" />
+		<Unit filename="../../../src/Basic/muparser/muParserInt.cpp" />
+		<Unit filename="../../../src/Basic/muparser/muParserInt.h" />
+		<Unit filename="../../../src/Basic/muparser/muParserTemplateMagic.h" />
+		<Unit filename="../../../src/Basic/muparser/muParserTest.cpp" />
+		<Unit filename="../../../src/Basic/muparser/muParserTest.h" />
+		<Unit filename="../../../src/Basic/muparser/muParserToken.h" />
+		<Unit filename="../../../src/Basic/muparser/muParserTokenReader.cpp" />
+		<Unit filename="../../../src/Basic/muparser/muParserTokenReader.h" />
 		<Unit filename="../../../src/Basic/pugixml/pugiconfig.hpp" />
 		<Unit filename="../../../src/Basic/pugixml/pugixml.cpp" />
 		<Unit filename="../../../src/Basic/pugixml/pugixml.hpp" />

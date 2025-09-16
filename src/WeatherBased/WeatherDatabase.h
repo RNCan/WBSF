@@ -72,7 +72,7 @@ namespace WBSF
 		virtual const CTM	GetDataTM()const = 0;
 		virtual const char	GetDBType()const = 0;
 
-		virtual ERMsg Open(const std::string& filePath, size_t flag = modeRead, CCallback& callback = DEFAULT_CALLBACK, bool bSkipVerify=false);
+		virtual ERMsg Open(const std::string& filePath, TOpenMode flag = modeRead, CCallback& callback = DEFAULT_CALLBACK, bool bSkipVerify=false);
 		virtual ERMsg OpenOptimizationFile(const std::string& referencedFilePath, CCallback& callback = DEFAULT_CALLBACK, bool bSkipVerify=false);
 		virtual ERMsg Save();
 		virtual ERMsg Close(bool bSave = true, CCallback& callback = DEFAULT_CALLBACK);
@@ -164,7 +164,7 @@ namespace WBSF
 		ERMsg GenerateWellDistributedStation(size_t nbStations, CSearchResultVector& searchResult, std::vector<size_t> priority, bool bUseElevation, CCallback& callback)const;
 
 		std::string m_filePath;
-		size_t m_openMode;
+		TOpenMode m_openMode;
 		bool m_bModified;
 
 

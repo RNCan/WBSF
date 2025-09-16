@@ -223,7 +223,7 @@ CRealArray desawtooth(CRealArray vals, const CBoolArray& goods, REAL_TYPE  stopa
     CRealArray cf;//(goods.count());
     if (output_corr_factore)
     {
-    //    cf .resize(goods.size());
+        //    cf .resize(goods.size());
         cf = CRealArray ((*output_corr_factore)[goods]);
     }
 

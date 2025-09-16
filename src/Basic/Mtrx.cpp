@@ -13,4 +13,3 @@
 #include "Mtrx.h"
 
 static const char test = 0;
-

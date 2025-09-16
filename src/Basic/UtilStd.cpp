@@ -6,36 +6,24 @@
 //     the Free Software Foundation
 //  It is provided "as is" without express or implied warranty.
 //******************************************************************************
-// 14-09-2023   Rémi Saint-Amant	Port un Linux
+// 16-09-2025   Rémi Saint-Amant	Port on Linux
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 //******************************************************************************
 
 
-#include <boost/asio.hpp> // Or boost::process.hpp
-//#include <boost/process/windows/default_launcher.hpp>
-//#include <boost/process.hpp>
 
-#include <boost/process.hpp>
+#include <SDKDDKVer.h>//add this include to avoid warning in boost/local.hpp
+#include <boost/locale.hpp>
+
+//#include <boost/process.hpp>
+#include <boost/process/v1.hpp> 
+
+
+#include <boost/asio.hpp> // Or boost::process.hpp
+
+
 #include <iostream>
 #include <string>
-
-
-
-//
-//#include <boost/process/v2/process.hpp> // or other necessary headers
-
-
-
-//#include <boost/process/error.hpp>
-//#include <boost/process/process.hpp>
-
-
-//#include <boost/process/v1/child.hpp>
-//#include <boost/process/v1/io.hpp>
-//#include <boost/process/v1/extend.hpp>
-//#include <boost/process/v1/args.hpp>
-//#include <boost/process/v1/start_dir.hpp>
-
 
 
 
@@ -168,6 +156,7 @@ namespace WBSF
 	}
 
 
+
 	ERMsg RemoveDirectory(const std::string& pathIn)
 	{
 		ERMsg msg;
@@ -231,49 +220,49 @@ namespace WBSF
 		return msg;
 	}
 
-	//	ERMsg CopyOneFile(const std::string& filePath1, const std::string& filePath2, bool failIfExist)
-	//	{
-	//		ERMsg msg;
-	//
-	//		if (!CopyFileW(UTF16(filePath1).c_str(), UTF16(filePath2).c_str(), failIfExist))
-	//		{
-	//			msg = GetLastErrorMessage();
-	//			msg.ajoute(FormatMsg(IDS_BSC_UNABLE_COPY_FILE, filePath1, filePath2));
-	//		}
-	//
-	//		return msg;
-	//	}
-	//
-	//	ERMsg CopyDirectory(const std::string& pathIn1, const std::string& pathIn2)
-	//	{
-	//		ERMsg msg;
-	//
-	//
-	//		std::wstring path1(UTF16(pathIn1));
-	//
-	//		//		if (IsPathEndOk(path1))
-	//					//path1 = path1.substr(0, path1.size() - 1);
-	//
-	//		std::wstring path2(UTF16(pathIn1));
-	//
-	//		//if (IsPathEndOk(path2))
-	//			//path2 = path2.substr(0, path2.size() - 1);
-	//
-	//		assert(false);
-	//		SHFILEOPSTRUCTW s = { 0 };
-	//		s.hwnd = NULL;
-	//		s.wFunc = FO_COPY;
-	//		s.fFlags = FOF_SILENT;
-	//		s.pTo = path2.c_str();
-	//		s.pFrom = path1.c_str();
-	//
-	//
-	//		//if (SHFileOperation(&s)>0)
-	//		//msg.ajoute("Erreur copy dir");
-	//
-	//
-	//		return msg;
-	//	}
+	ERMsg CopyOneFile(const std::string& filePath1, const std::string& filePath2, bool failIfExist)
+	{
+		ERMsg msg;
+
+		//		if (!CopyFileA(filePath1.c_str(), filePath2.c_str(), failIfExist))
+		//		{
+		//			msg = GetLastErrorMessage();
+		//			msg.ajoute(FormatMsg(IDS_BSC_UNABLE_COPY_FILE, filePath1, filePath2));
+		//		}
+
+		return msg;
+	}
+
+	ERMsg CopyDirectory(const std::string& pathIn1, const std::string& pathIn2)
+	{
+		ERMsg msg;
+		//
+		//
+		//		std::wstring path1(UTF16(pathIn1));
+		//
+		//		//		if (IsPathEndOk(path1))
+		//					//path1 = path1.substr(0, path1.size() - 1);
+		//
+		//		std::wstring path2(UTF16(pathIn1));
+		//
+		//		//if (IsPathEndOk(path2))
+		//			//path2 = path2.substr(0, path2.size() - 1);
+		//
+		//		assert(false);
+		//		SHFILEOPSTRUCTW s = { 0 };
+		//		s.hwnd = NULL;
+		//		s.wFunc = FO_COPY;
+		//		s.fFlags = FOF_SILENT;
+		//		s.pTo = path2.c_str();
+		//		s.pFrom = path1.c_str();
+		//
+		//
+		//		//if (SHFileOperation(&s)>0)
+		//		//msg.ajoute("Erreur copy dir");
+		//
+
+		return msg;
+	}
 	//
 	//	std::string GetErrorString(ERMsg msg, const char* sep)
 	//	{
@@ -1142,7 +1131,7 @@ namespace WBSF
 		ERMsg msg;
 
 
-#if defined(_MSC_VER) || defined(__linux__)
+#if defined(__linux__)
 
 		try
 		{
@@ -1183,21 +1172,85 @@ namespace WBSF
 		//auto l = boost_process::windows::default_launcher();
 		//boost::asio::io_context ctx;
 
-		//boost::process::w
+
 		// forward both stderr & stdout to stdout of the parent process
-		//boost_process::process proc(ctx, exe_path.c_str(), arg.c_str());//, boost_process::process_stdio{{ /* in to default */}, stdout, stdout});
+		//boost::process::v1::proce proc(ctx, exe_path.c_str(), arg.c_str());//, boost_process::process_stdio{{ /* in to default */}, stdout, stdout});
 		//proc.wait();
 
+		namespace bp = boost::process::v1;
 
-		namespace bp = boost::process::v2;
-		using namespace boost::process;
 
-		boost::asio::io_context ctx;
-		bp::process proc(ctx, "cmd.exe", { "/c", "echo Hello from child process" });
+		
+		bp::filesystem::path the_path = bp::search_path(exe_path);
+		
 
-		proc.wait();
+		try
+		{
+
+			std::wstring w_working_dir = bp::filesystem::path(working_dir).wstring();
+			if (w_working_dir.empty())
+				w_working_dir = bp::filesystem::current_path().wstring();
+
+			// Convert UTF-8 to UTF-16 (std::wstring)
+			// stange way to convert but it works
+			std::wstring w_arg = std::filesystem::path((const char8_t*)arg.c_str()).wstring();
+
+			bp::ipstream output;
+			std::wstring command = the_path.wstring() + L" " + w_arg;
+			
+			
+			boost::process::v1::child child;
+
+			if (bShow)
+			{
+				child = boost::process::v1::child(command, bp::start_dir(w_working_dir));
+				
+			}
+			else
+			{
+				child = boost::process::v1::child(command, bp::start_dir(w_working_dir), bp::std_out > output);
+			}
+
+			
+			child.wait();
+			int exitCode = child.exit_code();
+			if (exitCode != 0)
+			{
+				msg.ajoute(std::string("Unable to execute command: ") + the_path.string() + " " + arg);
+			}
+
+
+			if (pExitCode)
+				*pExitCode = exitCode;
+		}
+		catch (const bp::process_error& e)
+		{
+			//cout << e..what();
+			msg.ajoute(std::string("Unable to execute command: ") + the_path.string() + " " + arg);
+			msg.ajoute(string("Boost.Process Error: ") + e.what());
+			//std::cerr << "Error Code: " << e.code().value() << std::endl;
+			//std::cerr << "Error Category: " << e.code().category().name() << std::endl;
+		}
+		catch (const std::exception& e)
+		{
+			msg.ajoute(std::string("Unable to execute command: ") + the_path.string() + " " + arg);
+			msg.ajoute(e.what());
+			//std::cerr << "General C++ Exception: " << e.what() << std::endl;
+		}
+
+
+		//bp::child c(bp::search_path(exe_path), arg, bp::start_dir(working_dir));
+		// ... perform other tasks while the child process runs ...
+		//c.wait(); // Wait for the child process to complete if needed
+
+
+		//int result = bp::system("your_executable", "arg1", "arg2", bp::start_dir("/path/to/working/directory"));
+
+		//namespace bp = boost::process;
+		//using namespace boost::process;
+
 		// Or you can get the exit code
-		int exit_code = proc.exit_code();
+		//int exit_code = proc.exit_code();
 		// std::cout << "Exit code: " << exit_code << std::endl;
 
 #endif
@@ -1439,7 +1492,7 @@ namespace WBSF
 		MEMORYSTATUSEX status;
 		status.dwLength = sizeof(status);
 		GlobalMemoryStatusEx(&status);
-		total= status.ullTotalPhys;
+		total = status.ullTotalPhys;
 #else
 
 		assert(false);//todo
