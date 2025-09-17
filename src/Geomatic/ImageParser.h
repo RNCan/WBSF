@@ -80,16 +80,12 @@ struct WBSFMathImpl
     {
         return (v1 - v2) / (v1 + v2);
     }
-    static T round1(T v1, T digit)
+    static T round(T v1, T digit)
     {
         v1 *= pow(10, digit);
         v1 = T(std::round(v1));
         v1 /= pow(10, digit);
         return v1;
-    }
-    static T round(T v1)
-    {
-        return round1(v1, 0);
     }
 };
 

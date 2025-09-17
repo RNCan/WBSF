@@ -274,7 +274,6 @@ ERMsg CImageParser::Compile(std::string formula, const vector <CGDALDatasetEx>& 
     {
 
         m_parser.DefineFun("round", WBSFMathImpl<mu::value_type>::round, false);
-        m_parser.DefineFun("round1", WBSFMathImpl<mu::value_type>::round1, false);
         m_parser.SetExpr(formula);
 
         for (auto v : m_parser.GetUsedVar())
