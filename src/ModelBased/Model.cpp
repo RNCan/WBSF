@@ -293,13 +293,13 @@ ERMsg CModel::LoadDLL()
     {
         string filePath = GetDLLFilePath();
 
-        if (Find(filePath, ".dll"))
+        if (Find(filePath, ".dll")!=string::npos)
         {
             //it's not a exe but a dll.
             //m_hDll = LoadLibrary(convert(filePath).c_str());
             if (m_hDll == NULL)
             {
-                msg.ajoute(FormatMsg("Cannot load library ""%1"".", filePath));
+                msg.ajoute(FormatMsg("Cannot load library \"%1%\".", filePath));
             }
         }
     }
@@ -344,7 +344,7 @@ ERMsg  CModel::RunModel(const string & nameInputFile)
 
     string filePath = GetDLLFilePath();
 
-    if (Find(filePath, ".dll"))
+    if (Find(filePath, ".dll") != string::npos)
     {
         msg = LoadDLL();
 
@@ -383,7 +383,7 @@ ERMsg CModel::RunModel(std::istream& inStream, std::iostream& outStream)
 
             if (m_RunModelStream == NULL)
             {
-                msg.ajoute(FormatMsg("Cannot obtain method '%1' in library ""%2"".", "RunModelStream", GetDLLFilePath()));
+                msg.ajoute(FormatMsg("Cannot obtain method '%1%' in library \"%2%\".", "RunModelStream", GetDLLFilePath()));
             }
         }
     }
@@ -415,7 +415,7 @@ ERMsg CModel::SetStaticData(std::istream& inStream)
 
                 if (m_SetStaticData == NULL)
                 {
-                    msg.ajoute(FormatMsg("Cannot obtain method '%1' in library ""%2"".", "SetStaticData", GetDLLFilePath()));
+                    msg.ajoute(FormatMsg("Cannot obtain method '%1%' in library \"%2%\".", "SetStaticData", GetDLLFilePath()));
                 }
             }
         }
@@ -568,7 +568,7 @@ ERMsg CModel::FormatModelError(int code)
     //if (m_RunModelFile == NULL)
     //error = FormatMsg(IDS_SIM_ERRORINMODEL, filePath, to_string(code) );
     //else
-    error = FormatMsg("DLL ""%1"" returned error code '%2'.", m_DLLName, to_string(code));
+    error = FormatMsg("DLL \"%1%\" returned error code '%2%'.", m_DLLName, to_string(code));
 
     msg.ajoute(error);
 
@@ -741,7 +741,7 @@ ERMsg CModel::VerifyWGInput(const CWGInput& WGInput)const
     if (WGInput.GetNbYears() < GetNbYearMin() ||
             WGInput.GetNbYears() > GetNbYearMax())
     {
-        msg.ajoute(FormatMsg("The number of year(s) (%1) defined in the WG Input is invalid for this model. The model ""%2"" needs at least %3 year(s) and not more than %4 year(s).", to_string(WGInput.GetNbYears()), GetName(), to_string(GetNbYearMin()), to_string(GetNbYearMax())));
+        msg.ajoute(FormatMsg("The number of year(s) (%1%) defined in the WG Input is invalid for this model. The model \"%2%\" needs at least %3% year(s) and not more than %4% year(s).", to_string(WGInput.GetNbYears()), GetName(), to_string(GetNbYearMin()), to_string(GetNbYearMax())));
     }
 
 
@@ -768,7 +768,7 @@ ERMsg CModel::VerifyInputs(const std::vector<std::string>& SSIHeader, CWVariable
     {
         if (m_variables[v] && !variables[v])
         {
-            msg.ajoute(FormatMsg("The input weather variable %1 is missing.", HOURLY_DATA::GetVariableName(v)));
+            msg.ajoute(FormatMsg("The input weather variable %1% is missing.", HOURLY_DATA::GetVariableName(v)));
         }
     }
 

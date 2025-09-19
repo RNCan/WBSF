@@ -257,7 +257,7 @@ namespace WBSF
 				std::string optFilePath = GetOptimisationFilePath(referencedFilePath);
 				if (FileExists(optFilePath))
 				{
-					callback.AddMessage(FormatMsg("Openning file \"%1\"", GetFileName(optFilePath)));
+					callback.AddMessage(FormatMsg("Openning file \"%1%\"", GetFileName(optFilePath)));
 					msg = m_zop.Load(optFilePath);
 					if (msg)
 					{
@@ -279,7 +279,7 @@ namespace WBSF
 
 					if (msg)
 					{
-						callback.AddMessage(FormatMsg("Openning file \"%1\" ...", GetFileName(referencedFilePath)));
+						callback.AddMessage(FormatMsg("Openning file \"%1%\" ...", GetFileName(referencedFilePath)));
 						msg = m_zop.LoadFromXML(referencedFilePath, GetXMLFlag(), GetHeaderExtension());
 					}
 				}
@@ -297,7 +297,7 @@ namespace WBSF
 
 					if (bDataAsChange)
 					{
-						callback.AddMessage(FormatMsg("Updating file \"%1\" ...", GetFileName(optFilePath)));
+						callback.AddMessage(FormatMsg("Updating file \"%1%\" ...", GetFileName(optFilePath)));
 						string dataOptFilePath = GetOptimisationDataFilePath(referencedFilePath);
 						msg = m_zop.UpdateDataFilesYearsIndex(dataOptFilePath, fileInfo, callback);
 					}
@@ -305,19 +305,19 @@ namespace WBSF
 
 				if (msg && (bStationsAsChange || bDataAsChange))
 				{
-					callback.AddMessage(FormatMsg("Save file \"%1\" ...", GetFileName(optFilePath)));
+					callback.AddMessage(FormatMsg("Save file \"%1%\" ...", GetFileName(optFilePath)));
 
 					msg += m_zop.Save(optFilePath);
 				}
 			}
 			else
 			{
-				msg.ajoute(FormatMsg("Database %1 does not exist.", headerFilePath));
+				msg.ajoute(FormatMsg("Database %1% does not exist.", headerFilePath));
 			}
 		}
 		else
 		{
-			msg.ajoute(FormatMsg("Database %1 does not exist.", referencedFilePath));
+			msg.ajoute(FormatMsg("Database %1% does not exist.", referencedFilePath));
 		}
 
 		msg += ClearSearchOpt(referencedFilePath);
@@ -337,7 +337,7 @@ namespace WBSF
 		if (m_openMode != modeBinary && m_zop.GetDataSection().GetFilePath().empty())
 		{
 			string filePath = GetOptimisationDataFilePath(m_filePath);
-			callback.PushTask(FormatMsg("Load optimization file %1...", GetFileName(filePath)), NOT_INIT);
+			callback.PushTask(FormatMsg("Load optimization file %1%...", GetFileName(filePath)), NOT_INIT);
 			CWeatherDatabaseOptimization& zop = const_cast<CWeatherDatabaseOptimization&>(m_zop);
 			msg = zop.LoadData(filePath);
 			callback.PopTask();
@@ -345,7 +345,7 @@ namespace WBSF
 
 		if (m_openMode != modeBinary && !m_zop.SearchIsOpen())
 		{
-			callback.PushTask(FormatMsg("Load optimization file %1...", GetFileName(GetOptimisationSearchFilePath1())), NOT_INIT);
+			callback.PushTask(FormatMsg("Load optimization file %1%...", GetFileName(GetOptimisationSearchFilePath1())), NOT_INIT);
 			//run even of they are not able to open search optimization
 			msg = m_zop.OpenSearch(GetOptimisationSearchFilePath1(), GetOptimisationSearchFilePath2());
 			callback.PopTask();
@@ -620,10 +620,10 @@ namespace WBSF
 		while (status.count() > nbStations && msg)
 		{
 			step++;
-			callback.PushTask(FormatMsg("Eliminate points: step%1", to_string(step)), searchResult.size() * 3);
+			callback.PushTask(FormatMsg("Eliminate points: step%1%", to_string(step)), searchResult.size() * 3);
 			//callback.SetNbStep(searchResult.size() * 3);
 
-			callback.AddMessage(FormatMsg("Number of station left: %1", to_string(status.count())));
+			callback.AddMessage(FormatMsg("Number of station left: %1%", to_string(status.count())));
 
 			CLocationVector locations(status.count());
 			vector<int64_t> positions(status.count());
@@ -1049,11 +1049,11 @@ namespace WBSF
 			{
 				//load_azure_weather_years = (load_azure_weather_yearsF)GetProcAddress(m_hDll, "load_azure_weather_years");
 				//if (load_azure_weather_years == NULL)
-//					msg.ajoute(FormatMsg("Cannot obtain method '%1' in library \"%2\".", "load_azure_weather_years", filePath));
+//					msg.ajoute(FormatMsg("Cannot obtain method '%1%' in library \"%2%\".", "load_azure_weather_years", filePath));
 			}
 			else
 			{
-				msg.ajoute(FormatMsg( "Cannot load library \"%1\".", filePath.string()));
+				msg.ajoute(FormatMsg( "Cannot load library \"%1%\".", filePath.string()));
 			}
 
 		}
@@ -1225,7 +1225,7 @@ namespace WBSF
 
 		log = "Output Station ID,Output Station Name,Input station IDs,Input Station Names,Database,Nb Variables,Nb Days,Oldest day,Newest day,Distance(m),Delta Elevation(m)\n";
 
-		string comment = FormatMsg("Create ""%1"" database from merge of:\n\t%2\n\t%3", m_filePath, filePath1, filePath2);
+		string comment = FormatMsg("Create \"%1%\" database from merge of:\n\t%2%\n\t%3%", m_filePath, filePath1, filePath2);
 		callback.AddMessage(comment);
 		callback.AddMessage("");
 
@@ -1250,8 +1250,8 @@ namespace WBSF
 		boost::dynamic_bitset<size_t> addedIndex1(DB1Order.size());
 		boost::dynamic_bitset<size_t> addedIndex2(DB2Order.size());
 
-		//\n\t%2\n\t%3
-		callback.PushTask(FormatMsg("Create ""%1"" database from merge of:\n\t%2\n\t%3", GetFileName(m_filePath), " \"" + GetFileName(filePath1) + "\", \"", GetFileName(filePath2) + "\""), pDB1->size() + pDB2->size());
+		//\n\t%2%\n\t%3%
+		callback.PushTask(FormatMsg("Create \"%1%\" database from merge of:\n\t%2%\n\t%3%", GetFileName(m_filePath), " \"" + GetFileName(filePath1) + "\", \"", GetFileName(filePath2) + "\""), pDB1->size() + pDB2->size());
 
 		for (size_t _i = 0; _i < DB1Order.size() && msg; _i++)
 		{
@@ -1416,7 +1416,7 @@ namespace WBSF
 		}//for DB2
 
 
-		comment = FormatMsg("The number of stations added is: %1" , to_string(nbStationAdded));
+		comment = FormatMsg("The number of stations added is: %1%" , to_string(nbStationAdded));
 		callback.AddMessage(comment, 1);
 
 		callback.PopTask();
@@ -1518,14 +1518,14 @@ namespace WBSF
 		{
 			if (GetVersion(filePath) != GetVersion())
 			{
-				std::string error = FormatMsg("Database version is '%1'. Version '%2' expected.", std::to_string(GetVersion(filePath)), std::to_string(GetVersion()));
+				std::string error = FormatMsg("Database version is '%1%'. Version '%2%' expected.", std::to_string(GetVersion(filePath)), std::to_string(GetVersion()));
 				msg.ajoute(error);
 				return msg;
 			}
 		}
 		else
 		{
-			std::string error = FormatMsg("Database %1 does not exist.", filePath);
+			std::string error = FormatMsg("Database %1% does not exist.", filePath);
 			msg.ajoute(error);
 		}
 
@@ -1544,7 +1544,7 @@ namespace WBSF
 			std::string line;
 			if (std::getline(file, line))
 			{
-				if (Find(line, "<?xml"))
+				if (Find(line, "<?xml")!=string::npos)
 				{
 					nVersion = 3;
 					if (std::getline(file, line))
@@ -1588,7 +1588,7 @@ namespace WBSF
 		if (FileExists(inputFilePath1) && FileExists(inputFilePath2) &&
 			DirectoryExists(inputPath1) && DirectoryExists(inputPath2))
 		{
-			std::string comment = FormatMsg("Copy file from :\n\t%1\nto:\n\t%2", inputFilePath1 + "\n\t" + inputFilePath2, m_filePath);
+			std::string comment = FormatMsg("Copy file from :\n\t%1%\nto:\n\t%2%", inputFilePath1 + "\n\t" + inputFilePath2, m_filePath);
 
 			CWeatherDatabaseOptimization zop1;
 			CWeatherDatabaseOptimization zop2;
@@ -1648,7 +1648,7 @@ namespace WBSF
 
 
 				m_bModified = true;
-				comment = FormatMsg("The number of stations added is: %1" , to_string(zop1.size() + zop2.size()));
+				comment = FormatMsg("The number of stations added is: %1%" , to_string(zop1.size() + zop2.size()));
 				callback.AddMessage(comment, 1);
 
 
@@ -1708,13 +1708,13 @@ namespace WBSF
 			}
 			else
 			{
-				callback.AddMessage(FormatMsg("Unable to rename file ""%1"" to ""%2""", GetFileName(inputPath), GetFileName(outputPath)));
+				callback.AddMessage(FormatMsg("Unable to rename file \"%1%\" to \"%2%\"", GetFileName(inputPath), GetFileName(outputPath)));
 
 			}
 		}
 		else
 		{
-			callback.AddMessage(FormatMsg("Unable to rename file ""%1"" to ""%2""", GetFileName(inputPath), GetFileName(outputPath)));
+			callback.AddMessage(FormatMsg("Unable to rename file \"%1%\" to \"%2%\"", GetFileName(inputPath), GetFileName(outputPath)));
 		}
 
 
@@ -1750,7 +1750,7 @@ namespace WBSF
 			std::string dataPath = GetDataPath(filePath);
 			if (DirectoryExists(dataPath))
 			{
-				ERMsg msg2 = RemoveDirectory(dataPath);
+				ERMsg msg2 = RemoveDir(dataPath);
 				if (!msg2)
 					callback.AddMessage(msg2);
 			} 
@@ -2241,10 +2241,10 @@ namespace WBSF
 			//m_CS.Enter();
 			//int64_t canal = (filter.to_ullong()) * 100000 + max(year, 0) * 10 + (bUseShoreDistance ? 4 : 0) + (bUseElevation ? 2 : 0) + (bExcludeUnused ? 1 : 0);
 			int64_t canal = m_zop.GetCanal(filter, year, bExcludeUnused, bUseElevation, bUseShoreDistance);
-			//if (!m_zop.CanalExists(canal))
-			//{
+			if (!m_zop.CanalExists(canal))
+			{
 				const_cast<CDHDatabaseBase&>(*this).CreateCanal(filter, year, bExcludeUnused, bUseElevation, bUseShoreDistance);
-//}
+			}
 
 			msg = m_zop.Search(station, nbStation, searchResultArray, canal);
 		}
@@ -2262,7 +2262,7 @@ namespace WBSF
 			if (searchResultArray.empty())
 			{
 				string filterName = filter.GetVariablesName('+');
-				string error = FormatMsg("No stations found after removing stations outside maximum radius (%1 km) in the database (%2) for year %3.[Filter = %4].", to_string(searchRadius / 1000, 1), string(m_filePath.empty() ? " " : GetFileName(m_filePath)), to_string(year), filterName);
+				string error = FormatMsg("No stations found after removing stations outside maximum radius (%1% km) in the database (%2%) for year %3%.[Filter = %4%].", to_string(searchRadius / 1000, 1), string(m_filePath.empty() ? " " : GetFileName(m_filePath)), to_string(year), filterName);
 				msg.ajoute(error);
 			}
 		}
@@ -2272,7 +2272,7 @@ namespace WBSF
 			string filterName = filter.GetVariablesName('+');
 
 			msg = ERMsg();//reset it and add the new message
-			string error = FormatMsg("The number of stations found (%1) in the database (%2) for year %3 is smaller than the number requested (%4).[Filter = %5].", to_string(searchResultArray.size()), string(m_filePath.empty() ? " " : GetFileName(m_filePath)), to_string(year), to_string(nbStation), filterName);
+			string error = FormatMsg("The number of stations found (%1%) in the database (%2%) for year %3% is smaller than the number requested (%4%).[Filter = %5%].", to_string(searchResultArray.size()), string(m_filePath.empty() ? " " : GetFileName(m_filePath)), to_string(year), to_string(nbStation), filterName);
 			msg.ajoute(error);
 		}
 

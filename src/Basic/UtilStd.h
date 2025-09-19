@@ -1119,7 +1119,7 @@ namespace WBSF
 	//
 	//
 	ERMsg RemoveFile(const std::string& filePath);
-	ERMsg RemoveDirectory(const std::string& path);
+	ERMsg RemoveDir(const std::string& path);
 	ERMsg CreateMultipleDir(const std::string& filePath);
 	ERMsg RenameFile(const std::string& filePath1, const std::string& filePath2);
 	ERMsg RenameDir(const std::string& path1, const std::string& path2);

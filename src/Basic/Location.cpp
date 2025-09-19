@@ -27,7 +27,7 @@
 #include "Basic/Shore.h"
 #include "Basic/CallcURL.h"
 #include "Basic/json/json11.hpp"
-//#include "Basic/CSV.hpp"
+#include "Basic/CSV.h"
 
 #include "Location.h"
 
@@ -391,7 +391,7 @@ ERMsg CLocation::IsValid(bool bExludeUnknownElev)const
         double slope = ToDouble(it->second.first);
         if (slope < 0)
         {
-            msg.ajoute(boost::locale::translate("Invalid slope. Slope must be % and must be greater than or equal to 0."));
+            msg.ajoute(boost::locale::translate("Invalid slope. Slope must be in percent and must be greater than or equal to 0."));
         }
     }
 
@@ -403,13 +403,13 @@ ERMsg CLocation::IsValid(bool bExludeUnknownElev)const
 
         if (aspect < 0 || aspect > 360)
         {
-            msg.ajoute(boost::locale::translate("Invalid aspect. Aspect must be between  0 (north) and 360 degrees."));
+            msg.ajoute("Invalid aspect. Aspect must be between  0 (north) and 360 degrees.");
         }
     }
 
     if (!msg)
     {
-        boost::format fmt = boost::format(boost::locale::translate("Invalid location {1} [{2}].")) % m_name % m_ID;
+        boost::format fmt = boost::format("Invalid location %1% [%2%].") % m_name % m_ID;
         msg.ajoute(fmt.str());
     }
 
@@ -654,15 +654,14 @@ ERMsg CLocationVector::Load(const std::string& filePath, const char* separator, 
     auto myloc = std::locale();//by RSA 18-02-2017, une bonne chose ou non???
     file.imbue(myloc);
     msg = file.open(filePath);
+    
 
     if (msg)
     {
+        msg = Load(file, separator, callback);
         if (msg)
-        {
-            msg = Load(file, separator, callback);
-            if (msg)
-                m_filePath = filePath;
-        }
+            m_filePath = filePath;
+     
     }
 
     return msg;
@@ -685,47 +684,45 @@ ERMsg CLocationVector::Load(std::istream& file, const char* separator, CCallback
     vector<size_t> members;
 
 
-//    for (CSVIterator loop(file, separator); loop != CSVIterator() && msg; ++loop)
-//    {
-//        if (members.empty())
-//            members = CLocation::GetMembers((vector<string>&)loop.Header());
-//
-//        if (loop->size() > 1)//can be empty line or some spaces...
-//        {
-//            size_t i = this->size();
-//            resize(i + 1);
-//
-//            for (size_t j = 0; j < members.size() && j < (*loop).size(); j++)
-//            {
-//                switch (members[j])
-//                {
-//                case CLocation::ID:
-//                    at(i).m_ID = (*loop)[j];
-//                    break;
-//                case CLocation::NAME:
-//                    at(i).m_name = (*loop)[j];
-//                    break;
-//                case CLocation::LAT:
-//                    at(i).m_lat = ToDouble((*loop)[j]);
-//                    break;
-//                case CLocation::LON:
-//                    at(i).m_lon = ToDouble((*loop)[j]);
-//                    break;
-//                case CLocation::ELEV:
-//                    at(i).m_elev = ToDouble((*loop)[j]);
-//                    break;
-//                case CLocation::SSI:
-//                    at(i).SetSSI(loop.Header()[j], (*loop)[j]);
-//                    break;
-//                default:
-//                    assert(false);
-//                }
-//            }
-//        }
-//        msg += callback.SetCurrentStepPos((double)file.tellg());
-//    }
+    for (CSVIterator loop(file, separator); loop != CSVIterator() && msg; ++loop)
+    {
+        if (members.empty())
+            members = CLocation::GetMembers((vector<string>&)loop.Header());
 
-    assert(false);//todo
+        if (loop->size() > 1)//can be empty line or some spaces...
+        {
+            size_t i = this->size();
+            resize(i + 1);
+
+            for (size_t j = 0; j < members.size() && j < (*loop).size(); j++)
+            {
+                switch (members[j])
+                {
+                case CLocation::ID:
+                    at(i).m_ID = (*loop)[j];
+                    break;
+                case CLocation::NAME:
+                    at(i).m_name = (*loop)[j];
+                    break;
+                case CLocation::LAT:
+                    at(i).m_lat = ToDouble((*loop)[j]);
+                    break;
+                case CLocation::LON:
+                    at(i).m_lon = ToDouble((*loop)[j]);
+                    break;
+                case CLocation::ELEV:
+                    at(i).m_elev = ToDouble((*loop)[j]);
+                    break;
+                case CLocation::SSI:
+                    at(i).SetSSI(loop.Header()[j], (*loop)[j]);
+                    break;
+                default:
+                    assert(false);
+                }
+            }
+        }
+        msg += callback.SetCurrentStepPos((double)file.tellg());
+    }
 
     callback.PopTask();
     return msg;

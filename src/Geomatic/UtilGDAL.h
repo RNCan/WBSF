@@ -14,7 +14,7 @@
 #include "Basic/UtilStd.h"
 #include "Basic/Statistic.h"
 #include "Basic/GeoBasic.h"
-#include "geomatic/GDAL.h"
+#include "Geomatic/GDAL.h"
 
 class GDALDataset;
 class GDALRasterBand;

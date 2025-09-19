@@ -210,8 +210,6 @@
 		<Unit filename="../../../src/Basic/pugixml/pugiconfig.hpp" />
 		<Unit filename="../../../src/Basic/pugixml/pugixml.cpp" />
 		<Unit filename="../../../src/Basic/pugixml/pugixml.hpp" />
-		<Unit filename="../../../src/Basic/tinyxml2/tinyxml2.cpp" />
-		<Unit filename="../../../src/Basic/tinyxml2/tinyxml2.h" />
 		<Unit filename="../../../src/Basic/tortellini.hh" />
 		<Unit filename="../../../src/WBSFconfig.h" />
 		<Extensions>

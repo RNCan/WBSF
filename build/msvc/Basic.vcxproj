@@ -229,7 +229,6 @@
     <ClInclude Include="..\..\src\Basic\Statistic.h" />
     <ClInclude Include="..\..\src\Basic\Sun.h" />
     <ClInclude Include="..\..\src\Basic\TimeStep.h" />
-    <ClInclude Include="..\..\src\Basic\tinyxml2\tinyxml2.h" />
     <ClInclude Include="..\..\src\Basic\UtilMath.h" />
     <ClInclude Include="..\..\src\Basic\UtilStd.h" />
     <ClInclude Include="..\..\src\Basic\UtilTime.h" />
@@ -316,7 +315,6 @@
     <ClCompile Include="..\..\src\Basic\Statistic.cpp" />
     <ClCompile Include="..\..\src\Basic\Sun.cpp" />
     <ClCompile Include="..\..\src\Basic\TimeStep.cpp" />
-    <ClCompile Include="..\..\src\Basic\tinyxml2\tinyxml2.cpp" />
     <ClCompile Include="..\..\src\Basic\UtilMath.cpp" />
     <ClCompile Include="..\..\src\Basic\UtilStd.cpp" />
     <ClCompile Include="..\..\src\Basic\UtilTime.cpp" />

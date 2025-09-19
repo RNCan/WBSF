@@ -13,41 +13,30 @@
 
 
 #include <SDKDDKVer.h>//add this include to avoid warning in boost/local.hpp
-#include <boost/locale.hpp>
-
-//#include <boost/process.hpp>
-#include <boost/process/v1.hpp> 
-
-
-#include <boost/asio.hpp> // Or boost::process.hpp
-
-
-#include <iostream>
-#include <string>
-
-
-
-#include "WBSFconfig.h"
 
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <iostream>
+#include <string>
 
+#include <boost/locale.hpp>
+#include <boost/filesystem.hpp>
+#include <boost/format.hpp>
+#include <boost/process/v1.hpp> 
+#include <boost/asio.hpp> // Or boost::process.hpp
 #include <boost/tokenizer.hpp>
 #include <boost/algorithm/string.hpp>
-#include <boost/filesystem/path.hpp>
-#include <boost/filesystem.hpp>
-
+//#include <boost/filesystem/path.hpp>
+#include <boost/date_time.hpp>
 #include <boost/dll/runtime_symbol_info.hpp>
-#include <boost/date_time/posix_time/posix_time_io.hpp>
-#include <boost/date_time/posix_time/conversion.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
-#include <boost/date_time/c_local_time_adjustor.hpp>
-//#include <boost/filesystem/operations.hpp>
+//#include <boost/date_time/posix_time/posix_time_io.hpp>
+//#include <boost/date_time/posix_time/conversion.hpp>
+//#include <boost/date_time/posix_time/posix_time.hpp>
+//#include <boost/date_time/c_local_time_adjustor.hpp>
 #include <boost/crc.hpp>
-//#include <boost/locale.hpp>
 
 
+#include "WBSFconfig.h"
 #include "UtilStd.h"
 
 
@@ -55,7 +44,7 @@ using namespace std;
 
 using boost::tokenizer;
 using boost::escaped_list_separator;
-namespace fs = boost::filesystem;
+//namespace fs = boost::filesystem;
 //namespace boost_process = boost::process::v2;
 namespace boost_process = boost::process;
 
@@ -106,10 +95,6 @@ namespace WBSF
 
 	bool GDALStyleProgressBar(double dfComplete)
 	{
-		std::string title = GetFileTitle("test");
-
-
-
 		const int nThisTick =
 			std::min(40, std::max(0, static_cast<int>(dfComplete * 40.0)));
 
@@ -157,24 +142,37 @@ namespace WBSF
 
 
 
-	ERMsg RemoveDirectory(const std::string& pathIn)
+	ERMsg RemoveDir(const std::string& pathIn)
 	{
 		ERMsg msg;
 
-		std::string path(pathIn);
+		//std::string path(pathIn);
 
-		if (IsPathEndOk(path))
-			path = path.substr(0, path.size() - 1);
+		//if (IsPathEndOk(path))
+			//path = path.substr(0, path.size() - 1);
 
-		if (DirectoryExists(path))
+		//	if (DirectoryExists(path))
+	//		{
+		boost::filesystem::path path = pathIn;
+
+		try
 		{
-			assert(false);//todo
-			//			if (!::RemoveDirectoryW(UTF16(path).c_str()))
-			//			{
-			//				msg = GetLastErrorMessage();
-			//				msg.ajoute(pathIn);
-			//			}
+			if (boost::filesystem::exists(path) && boost::filesystem::is_directory(path))
+			{
+				// Remove the directory and all its contents
+				boost::filesystem::remove_all(path);
+				//std::cout << "Directory and its contents removed successfully." << std::endl;
+			}
+			else
+			{
+				msg.ajoute("Directory does not exist or is not a directory");
+			}
 		}
+		catch (const boost::filesystem::filesystem_error& e)
+		{
+			msg.ajoute(string("Error removing directory: ") + e.what());
+		}
+		//}
 
 
 		return msg;
@@ -707,15 +705,13 @@ namespace WBSF
 		CFileInfo info;
 
 
-		fs::path file_path = file_path_in;
+		boost::filesystem::path file_path = file_path_in;
 		//time_t curTime = time(NULL);
-		if (fs::exists(file_path) && fs::is_regular_file(file_path))
+		if (boost::filesystem::exists(file_path) && boost::filesystem::is_regular_file(file_path))
 		{
 			info.m_filePath = file_path_in;
-			fs::last_write_time(file_path, info.m_time);
-			info.m_size = fs::file_size(file_path);
-
-			//= boost::filesystem::last_write_time(p);
+			info.m_time = boost::filesystem::last_write_time(file_path);
+			info.m_size = boost::filesystem::file_size(file_path);
 		}
 
 		return info;
@@ -1180,9 +1176,9 @@ namespace WBSF
 		namespace bp = boost::process::v1;
 
 
-		
+
 		bp::filesystem::path the_path = bp::search_path(exe_path);
-		
+
 
 		try
 		{
@@ -1197,21 +1193,21 @@ namespace WBSF
 
 			bp::ipstream output;
 			std::wstring command = the_path.wstring() + L" " + w_arg;
-			
-			
+
+
 			boost::process::v1::child child;
 
 			if (bShow)
 			{
 				child = boost::process::v1::child(command, bp::start_dir(w_working_dir));
-				
+
 			}
 			else
 			{
 				child = boost::process::v1::child(command, bp::start_dir(w_working_dir), bp::std_out > output);
 			}
 
-			
+
 			child.wait();
 			int exitCode = child.exit_code();
 			if (exitCode != 0)
@@ -2366,43 +2362,35 @@ namespace WBSF
 	//
 	std::string FormatMsg(std::string_view szFormat, std::string_view v1, std::string_view v2, std::string_view v3, std::string_view v4, std::string_view v5)
 	{
-		//
-		//	    //printf("%2$s, %1$d", salary, name);
-		//        //For C++, beside the C solution there is a boost::format library:
-		//
-		//        //std::cout << boost::format("%2%, %1%") % salary % name;
-		//
-		//        using boost::locale::format;
-		//        using boost::locale::translate;
-
-		assert(false);
 		std::ostringstream ss;
-		//        //ss << format(translate("This is the message to {1} about {2}")) % v1 % v2;
-		//        ss << format(translate(szFormat)) % v1 % v2;
 
-		//sprintf(szFormat.c_str(), v1.c_str(), v2.c_str());
-		//
-		//		std::string str;
-		//		if (szFormat && strlen(szFormat) > 0)
-		//		{
-		//			int nbParams = 1 + (v2.empty() ? 0 : 1) + (v3.empty() ? 0 : 1) + (v4.empty() ? 0 : 1) + (v5.empty() ? 0 : 1) + (v6.empty() ? 0 : 1) + (v7.empty() ? 0 : 1) + (v8.empty() ? 0 : 1) + (v9.empty() ? 0 : 1);
-		//			switch (nbParams)
-		//			{
-		//			case 1: str = FormatMsgA(szFormat, v1.c_str()); break;
-		//			case 2: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str()); break;
-		//			case 3: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str()); break;
-		//			case 4: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str()); break;
-		//			case 5: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str(), v5.c_str()); break;
-		//			case 6: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str(), v5.c_str(), v6.c_str()); break;
-		//			case 7: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str(), v5.c_str(), v6.c_str(), v7.c_str()); break;
-		//			case 8: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str(), v5.c_str(), v6.c_str(), v7.c_str(), v8.c_str()); break;
-		//			case 9: str = FormatMsgA(szFormat, v1.c_str(), v2.c_str(), v3.c_str(), v4.c_str(), v5.c_str(), v6.c_str(), v7.c_str(), v8.c_str(), v9.c_str()); break;
-		//			default: assert(false);  break;
-		//			}
-		//		}
-		//
-			//return ss.c_str();
-		return string();
+		if (!szFormat.empty() && szFormat.length() > 0)
+		{
+			try
+			{
+				int nbParams = (v1.empty() ? 0 : 1) + (v2.empty() ? 0 : 1) + (v3.empty() ? 0 : 1) + (v4.empty() ? 0 : 1) + (v5.empty() ? 0 : 1);
+				switch (nbParams)
+				{
+				case 0: ss << szFormat; break;
+				case 1: ss << boost::format(std::string(szFormat)) % v1; break;
+				case 2: ss << boost::format(std::string(szFormat)) % v1 % v2; break;
+				case 3: ss << boost::format(std::string(szFormat)) % v1 % v2 % v3; break;
+				case 4: ss << boost::format(std::string(szFormat)) % v1 % v2 % v3 % v4; break;
+				case 5: ss << boost::format(std::string(szFormat)) % v1 % v2 % v3 % v4 % v5; break;
+				default: assert(false);  break;
+				}
+			}
+			catch (const boost::io::format_error& e) 
+			{
+				std::cerr << "Boost Format Error: " << e.what() << std::endl;
+			}
+			catch (const std::exception& e) 
+			{
+				std::cerr << "Standard Exception: " << e.what() << std::endl;
+			}
+		}
+
+		return ss.str();
 	}
 
 

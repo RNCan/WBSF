@@ -1791,7 +1791,7 @@ ERMsg CSfcGribDatabase::Update(const CGribsMap& gribs, const CLocationVector& lo
     size_t HD_factor = m_bIsHourly ? 24 : 1;
     callback.AddMessage("Nb variables: " + to_string(m_variables.count()));
 
-    callback.AddMessage("Period: " + m_period.GetFormatedString("%1 to %2") + " (" + to_string(m_period.size()) + (m_bIsHourly ? " hours)" : " days)"));
+    callback.AddMessage("Period: " + m_period.GetFormatedString("%1% to %2%") + " (" + to_string(m_period.size()) + (m_bIsHourly ? " hours)" : " days)"));
     callback.AddMessage("Nb inputs: " + to_string(gribs.size()) + " (" + to_string(int(gribs.size() / HD_factor)) + " days)");
     callback.AddMessage("Nb elements to update: " + to_string(invalid.size()) + " (" + to_string(int(invalid.size() / HD_factor)) + " days)");
     callback.AddMessage("Incremental: " + string(bIncremental ? "yes" : "no"));

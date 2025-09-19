@@ -701,11 +701,11 @@ namespace WBSF
 		size_t stat = MEAN;
 		if (IsEqualNoCase(name, "Tmin") || IsEqualNoCase(name, "Tmax"))//exception for Tmin and Tmax
 			stat = MEAN;
-		else if (Find(name, "Minin") || Find(name, "Min") || Find(name, "Lo"))
+		else if (Find(name, "Minin") != string::npos || Find(name, "Min") != string::npos || Find(name, "Lo") != string::npos)
 			stat = LOWEST;
-		else if (Find(name, "Maxim") || Find(name, "Max") || Find(name, "Hi"))
+		else if (Find(name, "Maxim") != string::npos || Find(name, "Max") != string::npos || Find(name, "Hi") != string::npos)
 			stat = HIGHEST;
-		else if (Find(name, "Sum"))
+		else if (Find(name, "Sum") != string::npos)
 			stat = SUM;
 		else if (IsEqualNoCase(name, "Prcp") || IsEqualNoCase(name, "Precip"))
 			stat = SUM;

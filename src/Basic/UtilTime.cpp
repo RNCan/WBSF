@@ -1754,8 +1754,8 @@ CTPeriod CTPeriod::intersect(const CTPeriod& p1, const CTPeriod& p2)
 
 string CTPeriod::GetFormatedString(string periodformat, string TRefFormat)const
 {
-    ReplaceString(periodformat, "%1", "%s");
-    ReplaceString(periodformat, "%2", "%s");
+    ReplaceString(periodformat, "%1%", "%s");
+    ReplaceString(periodformat, "%2%", "%s");
 
     return FormatA(periodformat.c_str(), m_begin.GetFormatedString(TRefFormat).c_str(), m_end.GetFormatedString(TRefFormat).c_str());
 }
@@ -1767,8 +1767,8 @@ CTPeriod FromFormatedString(string str, string periodformat, string TRefFormat, 
 
     if (!str.empty())
     {
-        ReplaceString(periodformat, "%1", "");
-        ReplaceString(periodformat, "%2", "");
+        ReplaceString(periodformat, "%1%", "");
+        ReplaceString(periodformat, "%2%", "");
         vector<string> elems = Tokenize(str, periodformat.c_str());
 
         if (elems.size() == 2)

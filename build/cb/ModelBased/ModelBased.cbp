@@ -9,7 +9,7 @@
 			<Target title="Debug (Linux)">
 				<Option output="../../../lib/Debug/ModelBased" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
-				<Option object_output="obj/Debug/" />
+				<Option object_output="obj/Debugx64/" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -81,6 +81,50 @@
 				<Option output="../../../lib/Release/ModelBased" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
 				<Option object_output="obj/Release/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-Wall" />
+					<Add option="-Wno-unknown-pragmas" />
+					<Add option="-Wno-deprecated-enum-enum-conversion" />
+					<Add directory="../../../src" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+			<Target title="Debug">
+				<Option output="../../../lib/Debugx64/ModelBased" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Debugx64/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Weffc++" />
+					<Add option="-Wall" />
+					<Add option="-std=gnu++17" />
+					<Add option="-m64" />
+					<Add option="-ggdb" />
+					<Add option="-g" />
+					<Add option="-Wno-unknown-pragmas" />
+					<Add option="-Wno-deprecated-enum-enum-conversion" />
+					<Add option="-Wno-overloaded-virtual" />
+					<Add option="-pthread" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DBOOST_PROCESS_USE_STD_FS" />
+					<Add directory="../../../src" />
+				</Compiler>
+				<Linker>
+					<Add option="-m64" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../../lib/Releasex64/ModelBased" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Releasex64/" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />

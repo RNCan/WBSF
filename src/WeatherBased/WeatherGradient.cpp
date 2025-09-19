@@ -1117,7 +1117,7 @@ namespace WBSF
 						bContinue = m_bForceComputeAllScale;
 						size_t nbStations = size_t(NB_STATION_REGRESSION_LOCAL*pow(REGIONAL_FACTOR, z));
 
-						ERMsg msgTmp;
+						
 						for (set<int>::const_iterator it = years.begin(); it != years.end(); it++)
 						{
 							CSearchResultVector results;
@@ -1125,6 +1125,7 @@ namespace WBSF
 							//for a unknown reason, using elevation in selection of gradient stations get better result in all situation
 							if (*it == -999)
 							{
+								ERMsg msgTmp;
 								msgTmp += m_pNormalDB->Search(results, m_target, nbStations, -1, v, -999, true, m_bUseNearestElev, m_bUseNearestShore);
 								if (msgTmp)
 									msg = ComputeGradient(g, results, m_gradient[z][g], m_R²[z][g], m_inputs[z][g], callback);
@@ -1135,7 +1136,10 @@ namespace WBSF
 							}
 							else
 							{
-								msgTmp += m_pObservedDB->Search(results, m_target, nbStations, -1, v, *it, true, m_bUseNearestElev, m_bUseNearestShore);
+								//limit the number of station of the number available in the database. In case of special used.
+								//Normally a daily database have at least 100 stations.
+								nbStations = min(nbStations, size_t(m_pObservedDB->size()/2));
+								msg += m_pObservedDB->Search(results, m_target, nbStations, -1, v, *it, true, m_bUseNearestElev, m_bUseNearestShore);
 							}
 
 							//compute factor
@@ -1186,16 +1190,18 @@ namespace WBSF
 
 					msg += callback.StepIt();
 				}//for all scale
-
-				for (set<int>::const_iterator it = years.begin(); it != years.end(); it++)
+				if (msg)
 				{
-					for (size_t s = 0; s < GetNbSpaces(); s++)
+					for (set<int>::const_iterator it = years.begin(); it != years.end(); it++)
 					{
-						double f = 0;
-						for (size_t z = 0; z < NB_SCALE_GRADIENT&&msg; z++)
-							f += m_factor[*it][z][g][s];
+						for (size_t s = 0; s < GetNbSpaces(); s++)
+						{
+							double f = 0;
+							for (size_t z = 0; z < NB_SCALE_GRADIENT && msg; z++)
+								f += m_factor[*it][z][g][s];
 
-						assert(f == 1);
+							assert(f == 1);
+						}
 					}
 				}
 			}//if selected variable

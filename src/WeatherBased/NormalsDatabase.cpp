@@ -64,25 +64,25 @@ ERMsg CNormalsDataDeque::Load(const std::string& filePath)
     ERMsg msg;
 
     clear();
-    assert(false);//todo
-    //ifStream file;
-    //msg += file.open(filePath, ios::in | ios::binary);
-    //if (msg)
-    //{
-    //    try
-    //    {
-    //        boost::archive::binary_iarchive ar(file, boost::archive::no_header);
-//
-    //        ar >> *this;
-    //        m_filePath = filePath;
-//
-    //        file.close();
-    //    }
-    //    catch (...)
-    //    {
-    //        msg.ajoute("Bad version of optimization file");
-    //    }
-    //}
+    
+    ifStream file;
+    msg += file.open(filePath, ios::in | ios::binary);
+    if (msg)
+    {
+        try
+        {
+            boost::archive::binary_iarchive ar(file, boost::archive::no_header);
+
+            ar >> *this;
+            m_filePath = filePath;
+
+            file.close();
+        }
+        catch (...)
+        {
+            msg.ajoute("Bad version of optimization file");
+        }
+    }
 
 
     return msg;
@@ -96,20 +96,19 @@ ERMsg CNormalsDataDeque::Save(const std::string& filePath)
     msg += file.open(filePath, ios::out | ios::binary);
     if (msg)
     {
-        assert(false);
-        //try
-        //{
-        //    boost::archive::binary_oarchive ar(file, boost::archive::no_header);
-//
-        //    ar << (*this);
-        //    m_filePath = filePath;
-//
-        //    file.close();
-        //}
-        //catch (...)
-        //{
-        //    msg.ajoute("Invalid optimization files. Delete optimization files and re-open database ...");
-        //}
+        try
+        {
+            boost::archive::binary_oarchive ar(file, boost::archive::no_header);
+
+            ar << (*this);
+            m_filePath = filePath;
+
+            file.close();
+        }
+        catch (...)
+        {
+            msg.ajoute("Invalid optimization files. Delete optimization files and re-open database ...");
+        }
     }
 
     return msg;
@@ -152,7 +151,7 @@ ERMsg CNormalsDataDeque::LoadFromCSV(const std::string& filePath, const CWeather
 
     if (msg)
     {
-        callback.PushTask(FormatMsg("Openning file \"%1\"", filePath), size_t(file.length()));
+        callback.PushTask(FormatMsg("Openning file \"%1%\"", filePath), size_t(file.length()));
 
         size_t i = 0;
         for (CSVIterator loop(file); loop != CSVIterator() && msg; ++loop, i++)
@@ -239,7 +238,7 @@ ERMsg CNormalsDataDeque::SaveAsCSV(const std::string& filePath, const CWeatherDa
 
     if (msg)
     {
-        callback.PushTask(FormatMsg("Save file \"%1\" ...", filePath), size());
+        callback.PushTask(FormatMsg("Save file \"%1%\" ...", filePath), size());
         //callback.SetNbStep(size());
 
         //write header
@@ -372,7 +371,7 @@ ERMsg CNormalsDatabase::OpenOptimizationFile(const std::string& referencedFilePa
     std::string optFilePath = GetOptimisationFilePath(referencedFilePath);
     if (FileExists(referencedFilePath) && FileExists(optFilePath))
     {
-        callback.AddMessage(FormatMsg("Load optimization file %1...", GetFileName(optFilePath)));
+        callback.AddMessage(FormatMsg("Load optimization file %1%...", GetFileName(optFilePath)));
         if (m_zop.Load(optFilePath))
         {
             string headerFilePath = GetHeaderFilePath(referencedFilePath);
@@ -399,7 +398,7 @@ ERMsg CNormalsDatabase::OpenOptimizationFile(const std::string& referencedFilePa
         if (msg)
         {
 
-            callback.AddMessage(FormatMsg("Open %1 ...", GetFileName(referencedFilePath)));
+            callback.AddMessage(FormatMsg("Open %1% ...", GetFileName(referencedFilePath)));
             msg = m_zop.LoadFromXML(referencedFilePath, GetXMLFlag(), GetHeaderExtension());
         }
     }
@@ -415,7 +414,7 @@ ERMsg CNormalsDatabase::OpenOptimizationFile(const std::string& referencedFilePa
 
         if (bDataAsChange)
         {
-            callback.AddMessage(FormatMsg("Update of %1 ...", GetFileName(optFilePath)));
+            callback.AddMessage(FormatMsg("Update of %1% ...", GetFileName(optFilePath)));
             string dataOptFilePath = GetOptimisationDataFilePath(referencedFilePath);
 
             msg = m_data.LoadFromCSV(GetNormalsDataFilePath(referencedFilePath), m_zop, callback);
@@ -646,7 +645,7 @@ ERMsg CNormalsDatabase::Search(CSearchResultVector& searchResultArray, const CLo
             if (searchResultArray.empty())
             {
                 string filterName = filter.GetVariablesName('+');
-                string error = FormatMsg("No stations found after removing stations outside maximum radius (%1 km) in the database (%2) for year %3.[Filter = %4].", to_string(searchRadius / 1000, 1), GetFileName(m_filePath), to_string(year), filterName);
+                string error = FormatMsg("No stations found after removing stations outside maximum radius (%1% km) in the database (%2%) for year %3%.[Filter = %4%].", to_string(searchRadius / 1000, 1), GetFileName(m_filePath), to_string(year), filterName);
                 msg.ajoute(error);
             }
         }
@@ -657,7 +656,7 @@ ERMsg CNormalsDatabase::Search(CSearchResultVector& searchResultArray, const CLo
 
         assert(!filterName.empty());
         msg = ERMsg();//reset msg and add new message
-        string error = FormatMsg("The number of normals stations found (%1) in the database (%2) is smaller than the number requested (%3).[Filter = %4].", to_string(searchResultArray.size()), GetFileName(m_filePath), to_string(nbStation), filterName);
+        string error = FormatMsg("The number of normals stations found (%1%) in the database (%2%) is smaller than the number requested (%3%).[Filter = %4%].", to_string(searchResultArray.size()), GetFileName(m_filePath), to_string(nbStation), filterName);
         msg.ajoute(error);
     }
 
@@ -672,7 +671,7 @@ void CNormalsDatabase::CreateCanal(CWVariables filter, int year, bool bExcludeUn
     int64_t canal = m_zop.GetCanal(filter, 0, bExcludeUnused, bUseElevation, bUseShoreDistance);
     if (!m_zop.CanalExists(canal))
     {
-        int64_t canal = m_zop.GetCanal(filter, year, bExcludeUnused, bUseElevation, bUseShoreDistance);
+        int64_t canal = m_zop.GetCanal(filter, 0, bExcludeUnused, bUseElevation, bUseShoreDistance);
 
 
         CLocationVector locations;
@@ -802,12 +801,12 @@ ERMsg CNormalsDatabase::VerifyVersion(const string& filePath)const
     {
         if (GetVersion(filePath) != GetVersion())
         {
-            msg.ajoute(FormatMsg("This database version (%1) is incompatible with this BioSIM version. Verion %2 needed.", to_string(GetVersion(filePath)), to_string(GetVersion())));
+            msg.ajoute(FormatMsg("This database version (%1%) is incompatible with this BioSIM version. Verion %2% needed.", to_string(GetVersion(filePath)), to_string(GetVersion())));
         }
     }
     else
     {
-        msg.ajoute(FormatMsg("Database %1 does not exist.", filePath));
+        msg.ajoute(FormatMsg("Database %1% does not exist.", filePath));
     }
 
     return msg;
@@ -823,7 +822,7 @@ int CNormalsDatabase::GetVersion(const string& filePath)
         string line;
         if (std::getline(file, line))
         {
-            if (Find(line, "<?xml"))
+            if (Find(line, "<?xml")!=string::npos)
             {
                 nVersion = 7;
                 if (std::getline(file, line))
@@ -1192,7 +1191,7 @@ ERMsg CNormalsDatabase::CreateFromMerge(const std::string& filePath1, const std:
         return msg;
 
 
-    string comment = FormatMsg("Create ""%1"" database from merge of:\n\t%2\n\t%3", m_filePath, filePath1, filePath2);
+    string comment = FormatMsg("Create \"%1%\" database from merge of:\n\t%2%\n\t%3%", m_filePath, filePath1, filePath2);
     callback.PushTask(comment, inputDB1.size() + inputDB2.size());
     callback.AddMessage(comment);
     callback.AddMessage(GetFileTitle(filePath1) + ": " + to_string(inputDB1.size()) + " stations");
@@ -1242,7 +1241,7 @@ ERMsg CNormalsDatabase::CreateFromMerge(const std::string& filePath1, const std:
         msg += callback.StepIt();
     }
 
-    comment = FormatMsg("The number of stations added is: %1" , to_string(nbStationAdded));
+    comment = FormatMsg("The number of stations added is: %1%" , to_string(nbStationAdded));
     callback.AddMessage(comment, 1);
     callback.PopTask();
 
@@ -1284,7 +1283,7 @@ ERMsg CNormalsDatabase::AppendDatabase(const std::string& inputFilePath1, const 
 
     if (msg)
     {
-        std::string comment = FormatMsg("Copy file from :\n\t%1\nto:\n\t%2", inputFilePath1 + "\n\t" + inputFilePath2, m_filePath);
+        std::string comment = FormatMsg("Copy file from :\n\t%1%\nto:\n\t%2%", inputFilePath1 + "\n\t" + inputFilePath2, m_filePath);
 
         callback.AddMessage(comment);
         callback.PushTask(comment, DB1.size() + DB2.size());
@@ -1310,7 +1309,7 @@ ERMsg CNormalsDatabase::AppendDatabase(const std::string& inputFilePath1, const 
 
         SetPeriod(min(DB1.GetFirstYear(), DB2.GetFirstYear()), max(DB1.GetLastYear(), DB2.GetLastYear()));
         m_bModified = true;
-        comment = FormatMsg("The number of stations added is: %1" , to_string(DB1.size() + DB2.size()));
+        comment = FormatMsg("The number of stations added is: %1%" , to_string(DB1.size() + DB2.size()));
         callback.AddMessage(comment, 1);
 
         callback.PopTask();
@@ -1388,29 +1387,29 @@ void CNormalsDatabase::CreateAllCanals(bool bExcludeUnused, bool bUseElevation, 
 ERMsg CNormalsDatabase::LoadFromBinary(const string& file_path)
 {
     ERMsg msg;
-  //  ifStream file;
-   // msg = file.open(file_path, ios::in | ios::binary);
+    ifStream file;
+    msg = file.open(file_path, ios::in | ios::binary);
     if (msg)
     {
         try
         {
-            //boost::iostreams::filtering_istreambuf in;
-            //in.push(boost::iostreams::gzip_decompressor());
-           // in.push(file);
-           // std::istream incoming(&in);
+            boost::iostreams::filtering_istreambuf in;
+            in.push(boost::iostreams::gzip_decompressor());
+            in.push(file);
+            std::istream incoming(&in);
 
-            //size_t version = 0;
-            assert(false); //TODO
-            //incoming.read((char *)(&version), sizeof(version));
+            size_t version = 0;
+            //assert(false); //TODO
+            incoming.read((char *)(&version), sizeof(version));
 
-            //if (version == GetVersion())
-            //{
-            //    //incoming >> *this;
-            //}
-            //else
-            //{
-            //    msg.ajoute("Normal binary database (version = " + to_string(version) + ") was not created with the latest version (" + to_string(GetVersion()) + "). Rebuild new binary.");
-            //}
+            if (version == GetVersion())
+            {
+                incoming >> *this;
+            }
+            else
+            {
+                msg.ajoute("Normal binary database (version = " + to_string(version) + ") was not created with the latest version (" + to_string(GetVersion()) + "). Rebuild new binary.");
+            }
 
         }
         catch (const boost::iostreams::gzip_error& exception)

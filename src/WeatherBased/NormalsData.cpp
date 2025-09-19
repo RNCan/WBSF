@@ -110,7 +110,7 @@ namespace WBSF
 		assert(str.length() == LINE_LENGTH1);
 		if (str.length() != LINE_LENGTH1)
 		{
-			msg.ajoute(FormatMsg("Bad line length. Expected:%1; read:%2.", to_string(LINE_LENGTH1), to_string(str.length())));
+			msg.ajoute(FormatMsg("Bad line length. Expected:%1%; read:%2%.", to_string(LINE_LENGTH1), to_string(str.length())));
 		}
 
 		for (size_t i = 0; i < NB_FIELDS; i++)
@@ -517,12 +517,12 @@ namespace WBSF
 			size_t v = F2V(f);
 			if (vars[v] && HaveNoDataField(f))
 			{
-				msg.ajoute(FormatMsg("Bad normals data: At least one value is missing (%1).", GetFieldTitle(f)));
+				msg.ajoute(FormatMsg("Bad normals data: At least one value is missing (%1%).", GetFieldTitle(f)));
 			}
 
 			if (!IsValidField(f))
 			{
-				msg.ajoute(FormatMsg("Bad normals data: Invalid data (%1).", GetFieldTitle(f)));
+				msg.ajoute(FormatMsg("Bad normals data: Invalid data (%1%).", GetFieldTitle(f)));
 			}
 		}
 

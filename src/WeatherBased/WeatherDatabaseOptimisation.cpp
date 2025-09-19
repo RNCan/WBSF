@@ -24,6 +24,7 @@
 
 
 #include "Basic/ANN/ANN.h"
+#include "Basic/pugixml/pugixml.hpp"
 
 
 #include "WeatherBased/WeatherStation.h"
@@ -98,10 +99,10 @@ namespace WBSF
 				boost::archive::binary_iarchive ar(m_fileIndex, boost::archive::no_header);
 
 				int version = 0;
-				ar&version;
+				ar& version;
 				if (version == VERSION)
 				{
-					ar&m_canalPosition;
+					ar& m_canalPosition;
 					m_ANNs.resize(m_canalPosition.size());
 					m_filePathIndex = filePathIndex;
 					m_filePathData = filePathData;
@@ -151,8 +152,8 @@ namespace WBSF
 			assert(std::distance(m_canalPosition.begin(), m_canalPosition.end()) == m_ANNs.size());
 
 			boost::archive::binary_oarchive ar(m_fileIndex, boost::archive::no_header);
-			ar&VERSION;
-			ar&m_canalPosition;
+			ar& VERSION;
+			ar& m_canalPosition;
 
 			m_fileIndex.close();
 			m_fileData.close();
@@ -479,54 +480,54 @@ namespace WBSF
 		ERMsg msg;
 
 		clear();
-assert(false);
 
-//		zen::XmlDoc doc(rooName);
-//		msg = load(filePath, doc);
-//		if (msg)
-//		{
-//
-//			if (IsNormalsDB(filePath))
-//			{
-//				string str;
-//				if (doc.root().getAttribute("start", str) && !str.empty())
-//				{
-//					int year = stoi(str);
-//					if (year > INVLID_YEAR)
-//						m_years.insert(year);
-//				}
-//				if (doc.root().getAttribute("end", str) && !str.empty())
-//				{
-//					int year = stoi(str);
-//					if (year > INVLID_YEAR)
-//						m_years.insert(year);
-//				}
-//			}
-//
-//			string subDir;
-//			doc.root().getAttribute("subdir", subDir);
-//
-//			if (readStruc(doc.root(), *this))
-//			{
-//				don't update it now. Update when open next time
-//				m_filePath = filePath;
-//				m_bSubDir = !subDir.empty() ? stoi(subDir) : false;
-//
-//				load csv format... remove xml later
-//				string CSVFilePath = filePath;
-//				SetFileExtension(CSVFilePath, hdrExt);
-//				msg = CLocationVector::Load(CSVFilePath);
-//
-//				if (msg)
-//					m_time = GetFileStamp(CSVFilePath);
-//			}
-//			else
-//			{
-//				msg.ajoute("Error reading database: " + filePath);
-//			}
-//
-//		}
-//
+
+		pugi::xml_document doc;
+		doc.load_file(filePath.c_str());
+
+		//		msg = load(filePath, doc);
+		//		if (msg)
+		//		{
+		//
+		if (IsNormalsDB(filePath))
+		{
+			string str1 = doc.root().attribute("start").as_string();
+			string str2 = doc.root().attribute("end").as_string();
+			if (!str1.empty() && !str2.empty())
+			{
+				int year1 = stoi(str1);
+				int year2 = stoi(str2);
+				if (year1 > INVLID_YEAR && year2 > INVLID_YEAR)
+				{
+					m_years.insert(year1);
+					m_years.insert(year2);
+				}
+			}
+		}
+
+		string subDir = doc.root().attribute("subdir").as_string();
+
+		//if (readStruc(doc.root(), *this))
+		//{
+			//don't update it now. Update when open next time
+		m_filePath = filePath;
+		m_bSubDir = !subDir.empty() ? stoi(subDir) : false;
+
+		//load csv format... remove xml later
+		string CSVFilePath = filePath;
+		SetFileExtension(CSVFilePath, hdrExt);
+		msg = CLocationVector::Load(CSVFilePath);
+
+		if (msg)
+			m_time = GetFileStamp(CSVFilePath);
+		//}
+		//else
+		//{
+		//	msg.ajoute("Error reading database: " + filePath);
+		//}
+
+
+
 
 		return msg;
 	}
@@ -537,34 +538,34 @@ assert(false);
 		ERMsg msg;
 
 
-assert(false);
+		assert(false);
 
-//		zen::XmlDoc doc(rootName);
-//		doc.setEncoding("Windows-1252");
-//
-//		zen::writeStruc(*this, doc.root());
-//		doc.root().setAttribute("version", version);
-//		if (!m_years.empty())
-//		{
-//			doc.root().setAttribute("begin", to_string(*m_years.begin()));
-//			doc.root().setAttribute("end", to_string(*m_years.rbegin()));
-//		}
-//
-//		doc.root().setAttribute("subdir", subDir.empty() ? "0" : "1");
-//		msg = save(doc, filePath);
-//		if (msg)
-//		{
-//			CWeatherDatabaseOptimization& me = const_cast<CWeatherDatabaseOptimization&>(*this);
-//			me.m_filePath = filePath;
-//			me.m_bSubDir = !subDir.empty();
-//
-//			save also in csv format... remove xml later
-//			string CSVFilePath = filePath;
-//			SetFileExtension(CSVFilePath, hdrExt);
-//			msg = CLocationVector::Save(CSVFilePath, ',');
-//		}
-//
-//
+		//		zen::XmlDoc doc(rootName);
+		//		doc.setEncoding("Windows-1252");
+		//
+		//		zen::writeStruc(*this, doc.root());
+		//		doc.root().setAttribute("version", version);
+		//		if (!m_years.empty())
+		//		{
+		//			doc.root().setAttribute("begin", to_string(*m_years.begin()));
+		//			doc.root().setAttribute("end", to_string(*m_years.rbegin()));
+		//		}
+		//
+		//		doc.root().setAttribute("subdir", subDir.empty() ? "0" : "1");
+		//		msg = save(doc, filePath);
+		//		if (msg)
+		//		{
+		//			CWeatherDatabaseOptimization& me = const_cast<CWeatherDatabaseOptimization&>(*this);
+		//			me.m_filePath = filePath;
+		//			me.m_bSubDir = !subDir.empty();
+		//
+		//			save also in csv format... remove xml later
+		//			string CSVFilePath = filePath;
+		//			SetFileExtension(CSVFilePath, hdrExt);
+		//			msg = CLocationVector::Save(CSVFilePath, ',');
+		//		}
+		//
+		//
 		return msg;
 	}
 
@@ -821,7 +822,7 @@ assert(false);
 		{
 
 			std::lock_guard<std::mutex> guard(m_mutex);
-            CApproximateNearestNeighborPtr pANN = m_ANNs.GetCanal(canal);
+			CApproximateNearestNeighborPtr pANN = m_ANNs.GetCanal(canal);
 
 
 
@@ -891,7 +892,7 @@ assert(false);
 		stream.write((char*)(&s), sizeof(s));
 		for (auto it = m_years.begin(); it != m_years.end(); it++)
 		{
-			int year =*it;
+			int year = *it;
 			stream.write((char*)(&year), sizeof(year));
 		}
 
@@ -913,7 +914,7 @@ assert(false);
 			m_years.insert(year);
 		}
 
-		assert(m_years.size()==s);
+		assert(m_years.size() == s);
 
 		return stream;
 	}

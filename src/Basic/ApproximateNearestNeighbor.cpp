@@ -43,7 +43,7 @@ double GetShoreDistance(const CLocation& pt)
 
 double GetFactor(size_t d)
 {
-    assert(false);//todo
+    //assert(false);//todo
 
     double f = 1;
     if (d == 3)
@@ -303,8 +303,8 @@ ERMsg CApproximateNearestNeighbor::search(const CLocation& pt, int64_t nbPoint, 
 
     if (result.size() != (size_t)nbPoint)
     {
-        boost::format fmt = boost::format(boost::locale::translate("The number of neighbor found ({1}) is lower than the number requested ({2}).")) % result.size() % nbPoint;
-        msg.ajoute(fmt.str());
+        //boost::format fmt = boost::format("The number of neighbor found (%1%) is lower than the number requested (%2%).") % result.size() % nbPoint;
+        msg.ajoute(FormatMsg("The number of neighbor found (%1%) is lower than the number requested (%2%).", to_string(result.size()), to_string(nbPoint)));
     }
 
     return msg;

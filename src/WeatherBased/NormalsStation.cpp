@@ -97,7 +97,7 @@ namespace WBSF
 			}
 			else
 			{
-				msg.ajoute(FormatMsg("Bad line length. Expected:%1; read:%2.", to_string(LINE_LENGTH1), to_string(line[0].length())));
+				msg.ajoute(FormatMsg("Bad line length. Expected:%1%; read:%2%.", to_string(LINE_LENGTH1), to_string(line[0].length())));
 			}
 		}
 

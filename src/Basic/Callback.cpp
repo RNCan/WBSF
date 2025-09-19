@@ -9,11 +9,14 @@
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 //******************************************************************************
 
-#include "Callback.h"
+
+#include <iostream>
 
 #include "Basic/UtilStd.h"
 #include "Basic/OpenMP.h"
 
+
+#include "Callback.h"
 
 //voir
 //https://github.com/p-ranav/indicators
@@ -161,7 +164,13 @@ ERMsg CCallback::SetCurrentStepPos(double stepPos)
     //CS.Enter();//problem with wind10???
 
     if (!GetTasks().empty())
+    {
         GetTasks().top().m_stepPos = stepPos;
+        if (omp_get_thread_num() == 0)
+        {
+            GDALStyleProgressBar(GetTasks().top().m_stepPos / GetTasks().top().m_nbSteps);
+        }
+    }
 
     if (GetUserCancel())
     {
@@ -202,12 +211,19 @@ ERMsg CCallback::StepIt(double stepBy)
                 stepBy = GetTasks().top().m_stepBy;
 
             GetTasks().top().m_stepPos += stepBy;
+
+            if (omp_get_thread_num() == 0)
+            {
+                GDALStyleProgressBar(GetTasks().top().m_stepPos / GetTasks().top().m_nbSteps);
+            }
         }
         //CS.Leave();
     }
 
-    //if (omp_get_thread_num() == 0)
-    //{
+    
+
+
+
     if (GetUserCancel())
     {
 //        CS.Enter();
@@ -324,6 +340,7 @@ void CCallback::PushTask(const std::string& description, double nbStep, double s
 
     if (omp_get_thread_num() == 0)
     {
+        cout << description << endl;
 //        if (m_phWnd && *m_phWnd && ::IsWindow(*m_phWnd))
             //SendMessage(*m_phWnd, WM_MY_THREAD_MESSAGE, 1, 0);
     }

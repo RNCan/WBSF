@@ -24,9 +24,6 @@
     <Filter Include="Source Files\pugixml">
       <UniqueIdentifier>{f8bcc145-82d3-4f24-bb14-eb010eed0857}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\tinyxml2">
-      <UniqueIdentifier>{5f29c171-f64b-4408-a266-851cfe8a1cad}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\KMeanLocal">
       <UniqueIdentifier>{81efd38c-25ca-4eb9-bdf3-91703607055f}</UniqueIdentifier>
     </Filter>
@@ -277,9 +274,6 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Basic\pugixml\pugixml.hpp">
       <Filter>Source Files\pugixml</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Basic\tinyxml2\tinyxml2.h">
-      <Filter>Source Files\tinyxml2</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Basic\json\json11.hpp">
       <Filter>Source Files\json11</Filter>
@@ -534,9 +528,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Basic\pugixml\pugixml.cpp">
       <Filter>Source Files\pugixml</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Basic\tinyxml2\tinyxml2.cpp">
-      <Filter>Source Files\tinyxml2</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Basic\json\json11.cpp">
       <Filter>Source Files\json11</Filter>

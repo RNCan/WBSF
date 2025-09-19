@@ -3284,7 +3284,7 @@ namespace WBSF
 					else
 					{
 						msg.ajoute("Invalid time reference");
-						msg.ajoute(FormatMsg("Line #: %1 (\"%2\").", to_string(lineNo), line));
+						msg.ajoute(FormatMsg("Line #: %1% (\"%2%\").", to_string(lineNo), line));
 					}
 				}
 
@@ -3322,11 +3322,11 @@ namespace WBSF
 				m_format.Set(header.c_str(), " \",;\t", nodata);
 				if (m_format.TM().Type() != CTM::HOURLY && m_format.TM().Type() != CTM::DAILY)
 				{
-					msg.ajoute(FormatMsg("Invalid data file: %1.", filePath));
+					msg.ajoute(FormatMsg("Invalid data file: %1%.", filePath));
 					msg.ajoute("Mandatory fields are \"Year\", \"Month\", \"Day\" (or \"DOY\") and \"Hour\"(When Hourly Data).");
 
 					if (!m_format.GetUnknownFields().empty())
-						msg.ajoute(FormatMsg("Some field headers are unknown \"%1\". These fields are not used.", m_format.GetUnknownFields()));
+						msg.ajoute(FormatMsg("Some field headers are unknown \"%1%\". These fields are not used.", m_format.GetUnknownFields()));
 
 					return msg;
 				}
@@ -3366,14 +3366,14 @@ namespace WBSF
 								else
 								{
 									string line = str.substr(begin, end - begin);
-									msg.ajoute(FormatMsg("Line #: %1 (\"%2\").", to_string(lineNo), line));
+									msg.ajoute(FormatMsg("Line #: %1% (\"%2%\").", to_string(lineNo), line));
 
 								}
 							}
 							else
 							{
 								string line = str.substr(begin, end - begin);
-								msg.ajoute(FormatMsg("Line #: %1 (\"%2\").", to_string(lineNo), line));
+								msg.ajoute(FormatMsg("Line #: %1% (\"%2%\").", to_string(lineNo), line));
 							}
 
 							begin = end;

@@ -103,10 +103,11 @@ public:
         }
         else
         {
+            
             if (m_bDQ)
-                TokenizeQuoted(m_line, m_pD);
+                *((std::vector<std::string>*)this) = TokenizeQuoted(m_line, m_pD);
             else
-                Tokenize(m_line, m_pD, false);
+                *((std::vector<std::string>*)this) = Tokenize(m_line, m_pD, false);
         }
 
         if (m_bDQ)

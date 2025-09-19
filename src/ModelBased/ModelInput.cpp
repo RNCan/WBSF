@@ -131,7 +131,7 @@ ERMsg CModelInput::IsValid(const CModelInputParameterDefVector& def)const
 
                 if ((me[j].GetFloat() < min) || (me[j].GetFloat() > max))
                 {
-                    msg.ajoute(FormatMsg("The value or default value for variable ""%1"" must be between %2 and %3.", def[i].GetCaption(), to_string(min), to_string(max)));
+                    msg.ajoute(FormatMsg("The value or default value for variable \"%1%\" must be between %2% and %3%.", def[i].GetCaption(), to_string(min), to_string(max)));
                 }
                 break;
             }
@@ -147,7 +147,7 @@ ERMsg CModelInput::IsValid(const CModelInputParameterDefVector& def)const
 
                     if ((me[j].GetListIndex() < min) || (me[j].GetListIndex() >= max))
                     {
-                        msg.ajoute(FormatMsg("The value or default value for variable ""%1"" must be between %2 and %3.", def[i].GetCaption(), to_string(min), to_string(max)));
+                        msg.ajoute(FormatMsg("The value or default value for variable \"%1%\" must be between %2% and %3%.", def[i].GetCaption(), to_string(min), to_string(max)));
                     }
                 }
                 break;
@@ -161,7 +161,7 @@ ERMsg CModelInput::IsValid(const CModelInputParameterDefVector& def)const
                     if (find(listName.begin(), listName.end(), def[i].m_default) == listName.end())
                     {
                         assert(false);
-                        msg.ajoute(FormatMsg("The value or default value for variable ""%1"" must be in the list {%2}.", def[i].GetCaption(), "to do"));
+                        msg.ajoute(FormatMsg("The value or default value for variable \"%1%\" must be in the list {%2%}.", def[i].GetCaption(), "to do"));
                         //listName.to_string()
                     }
                 }
@@ -193,7 +193,7 @@ ERMsg CModelInput::IsValid(const CModelInputParameterDefVector& def)const
     if (j != nSize2)
     {
         assert(false);
-        msg.ajoute(FormatMsg("The number of variables found in model input (%1) does not match that expected for this model (%2).", to_string(j), ""));
+        msg.ajoute(FormatMsg("The number of variables found in model input (%1%) does not match that expected for this model (%2%).", to_string(j), ""));
         //to_string(nSize2)
     }
 
