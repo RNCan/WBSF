@@ -9,7 +9,7 @@
 #pragma once
 
 #include "Basic/ERMsg.h"
-#include "geomatic/GDALDatasetEx.h"
+#include "Geomatic/GDALDatasetEx.h"
 
 
 namespace WBSF

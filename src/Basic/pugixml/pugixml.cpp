@@ -187,7 +187,7 @@ typedef size_t uintptr_t;
 #	endif
 
 typedef unsigned __int8 uint8_t;
-typedef unsigned __int16 uint16_t;
+typedef unsigned int16_t uint16_t;
 typedef unsigned int32_t uint32_t;
 }
 #else

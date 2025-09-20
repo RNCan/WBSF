@@ -19,9 +19,9 @@
 #include "Basic/pugixml/pugixml.hpp"
 //#include "external/tinyxml2.h"
 #include "Basic/OpenMP.h"
-#include "geomatic/GDAL.h"
-#include "geomatic/UtilGDAL.h"
-#include "geomatic/GDALDatasetEx.h"
+#include "Geomatic/GDAL.h"
+#include "Geomatic/UtilGDAL.h"
+#include "Geomatic/GDALDatasetEx.h"
 
 
 using namespace std;
@@ -743,7 +743,7 @@ ERMsg CGDALDatasetEx::BuildVRT(const CBaseOptions& options)
             }
         }
 
-       
+
         file.close();
 
 

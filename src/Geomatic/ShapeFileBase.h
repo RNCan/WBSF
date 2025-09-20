@@ -42,12 +42,12 @@ public:
     CSFShape();
     virtual ~CSFShape();
 
-    __int32 GetType()const
+    int32_t GetType()const
     {
         return m_shapeType;
     }
-    virtual __int32 GetTypeNumber()const;
-    virtual __int32 GetLength()const;
+    virtual int32_t GetTypeNumber()const;
+    virtual int32_t GetLength()const;
     virtual CSFShape* GetCopy()const;
 
     template<class Archive>
@@ -120,7 +120,7 @@ protected:
         return (x >= 0) ? 1 : -1;
     }
 
-    __int32 m_shapeType;
+    int32_t m_shapeType;
 };
 
 typedef std::vector<CSFShape&> CSFShapeArray;
@@ -142,7 +142,7 @@ public:
     static const CSFPoint POINT_NULL;
 
     virtual CSFShape* GetCopy()const;
-    virtual __int32 GetLength()const;
+    virtual int32_t GetLength()const;
     template<class Archive>
     Archive& Read(Archive& io)
     {
@@ -216,13 +216,13 @@ public:
     ~CSFMultiPoint();
 
     virtual CSFShape* GetCopy()const;
-    virtual __int32 GetLength()const;
+    virtual int32_t GetLength()const;
 
     template<class Archive>
     Archive& Read(Archive& io)
     {
         m_boundingBox.Read(io);
-        __int32 numPoints = 0;
+        int32_t numPoints = 0;
         io >> numPoints;
 
         m_points.resize(numPoints);
@@ -236,7 +236,7 @@ public:
     Archive& Write(Archive& io)const
     {
         m_boundingBox.Write(io);
-        __int32 numPoints = (__int32)m_points.size();
+        int32_t numPoints = (int32_t)m_points.size();
 
         io << numPoints;
 
@@ -317,15 +317,15 @@ public:
     ~CSFPolyLine();
 
     virtual CSFShape* GetCopy()const;
-    virtual __int32 GetLength()const;
+    virtual int32_t GetLength()const;
 
     template<class Archive>
     Archive& Read(Archive& io)
     {
         m_boundingBox.Read(io);
-        __int32 numParts = 0;
+        int32_t numParts = 0;
         io >> numParts;
-        __int32 numPoints = 0;
+        int32_t numPoints = 0;
         io >> numPoints;
 
         m_beginParts.resize(numParts);
@@ -343,8 +343,8 @@ public:
     Archive& Write(Archive& io)const
     {
         m_boundingBox.Write(io);
-        __int32 numParts = (__int32)m_beginParts.size();
-        __int32 numPoints = (__int32)m_points.size();
+        int32_t numParts = (int32_t)m_beginParts.size();
+        int32_t numPoints = (int32_t)m_points.size();
 
         io << numParts;
         io << numPoints;
@@ -591,16 +591,16 @@ public:
 
     CSFShape* GetShape(int type);
 
-    __int32 GetNumber()const
+    int32_t GetNumber()const
     {
         return m_number;
     }
-    void SetNumber(__int32 number)
+    void SetNumber(int32_t number)
     {
         m_number = number;
     }
-    inline __int32 GetLength()const;
-    //inline void SetLength(__int32 length);
+    inline int32_t GetLength()const;
+    //inline void SetLength(int32_t length);
     inline CSFShape& GetShape()const;
     inline void SetShape(const CSFShape& pShape);
 
@@ -609,8 +609,8 @@ private:
 
 
 
-    __int32 m_number;
-    __int32 m_length;
+    int32_t m_number;
+    int32_t m_length;
     CSFShape* m_pShape;
 };
 
@@ -623,12 +623,12 @@ inline void CSFRecord::SetShape(const CSFShape& shape)
     delete m_pShape;
     m_pShape = shape.GetCopy();
 }
-inline __int32 CSFRecord::GetLength()const
+inline int32_t CSFRecord::GetLength()const
 {
     ASSERT(m_pShape);
     return m_pShape->GetLength();
 }
-/*inline void CSFRecord::SetLength(__int32 length)
+/*inline void CSFRecord::SetLength(int32_t length)
 {
 m_length = length;
 }
@@ -770,13 +770,13 @@ protected:
         {
             //if (io.tellp() < streamEnd)
             {
-                unsigned __int32 number = (unsigned __int32)ReadBigEndian(io);
-                unsigned __int32 length = (unsigned __int32)ReadBigEndian(io);
+                unsigned int32_t number = (unsigned int32_t)ReadBigEndian(io);
+                unsigned int32_t length = (unsigned int32_t)ReadBigEndian(io);
 
 
                 if (number > 0 && length > 0)
                 {
-                    __int32 shapeType = 0;
+                    int32_t shapeType = 0;
                     io >> shapeType;
                     ASSERT(shapeType == m_header.GetShapeType() || shapeType == CShapeFileHeader::SHAPE_NULL);
 

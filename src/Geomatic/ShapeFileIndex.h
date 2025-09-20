@@ -18,8 +18,8 @@ namespace WBSF
 
 struct SRecordInfo
 {
-    __int32 m_offset;
-    __int32 m_recordLength;
+    int32_t m_offset;
+    int32_t m_recordLength;
 };
 
 
@@ -54,7 +54,7 @@ public:
 
 
     void ResetRecordInfo();
-    void AddRecordInfo(__int32 length);
+    void AddRecordInfo(int32_t length);
 
 
 private:

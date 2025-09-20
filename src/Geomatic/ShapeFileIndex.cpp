@@ -115,7 +115,7 @@ void CShapeFileIndex::ResetRecordInfo()
     m_recordsInfo.clear();
 }
 
-void CShapeFileIndex::AddRecordInfo(__int32 length)
+void CShapeFileIndex::AddRecordInfo(int32_t length)
 {
     SRecordInfo info;
 

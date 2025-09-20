@@ -34,12 +34,12 @@ CSFShape::CSFShape()
 CSFShape::~CSFShape()
 {}
 
-__int32 CSFShape::GetLength()const
+int32_t CSFShape::GetLength()const
 {
     return 2;
 }
 
-__int32 CSFShape::GetTypeNumber()const
+int32_t CSFShape::GetTypeNumber()const
 {
     return m_shapeType;
 }
@@ -207,7 +207,7 @@ CSFShape* CSFPoint::GetCopy()const
     return pShape;
 }
 
-__int32 CSFPoint::GetLength()const
+int32_t CSFPoint::GetLength()const
 {
     return 10;
 }
@@ -383,9 +383,9 @@ CSFShape* CSFMultiPoint::GetCopy()const
 
 }
 
-__int32 CSFMultiPoint::GetLength()const
+int32_t CSFMultiPoint::GetLength()const
 {
-    return __int32(2 + 16 + 2 + m_points.size() * 8);
+    return int32_t(2 + 16 + 2 + m_points.size() * 8);
 }
 
 
@@ -606,9 +606,9 @@ CSFShape* CSFPolyLine::GetCopy()const
 
 }
 
-__int32 CSFPolyLine::GetLength()const
+int32_t CSFPolyLine::GetLength()const
 {
-    return __int32 (2 + 16 + 2 + 2 + m_beginParts.size() * 2 + m_points.size() * 8);
+    return int32_t (2 + 16 + 2 + 2 + m_beginParts.size() * 2 + m_points.size() * 8);
 }
 
 

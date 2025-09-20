@@ -61,7 +61,7 @@ void CShapeFileHeader::clear()
     m_Mmin = 0;
     m_Mmax = 0;
 
-    ZeroMemory(m_unused, sizeof(__int32) * 5);
+    ZeroMemory(m_unused, sizeof(int32_t) * 5);
 
 }
 
@@ -92,7 +92,7 @@ CShapeFileHeader& CShapeFileHeader::operator =(const CShapeFileHeader& in)
 }
 
 
-bool CShapeFileHeader::IsLegalShapeType(__int32 t)
+bool CShapeFileHeader::IsLegalShapeType(int32_t t)
 {
     return (t == POINT || t == POLYLINE || t == POLYGON || t == MULTIPOINT);
     //|| t == 11 || t == 13|| t == 15|| t == 18|| t == 21

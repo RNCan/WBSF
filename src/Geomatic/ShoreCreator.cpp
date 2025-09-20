@@ -181,7 +181,7 @@ ERMsg CShoreCreator::ComputeDistance(const string& ShoreFilepath, const string& 
 
             CLocationVector locationsOut(locationsIn.size());
             #pragma omp parallel for
-            for (__int64 i = 0; i < (__int64)locationsIn.size(); i++)
+            for (int64_t i = 0; i < (int64_t)locationsIn.size(); i++)
             {
 
                 CGeoPoint pt(locationsIn[i]);

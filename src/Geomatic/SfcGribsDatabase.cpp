@@ -127,16 +127,16 @@ public:
             value = double(((char*)m_ptr)[x]);
             break;
         case GDT_UInt16:
-            value = double(((unsigned __int16*)m_ptr)[x]);
+            value = double(((unsigned int16_t*)m_ptr)[x]);
             break;
         case GDT_Int16:
-            value = double(((__int16*)m_ptr)[x]);
+            value = double(((int16_t*)m_ptr)[x]);
             break;
         case GDT_UInt32:
-            value = double(((unsigned __int32*)m_ptr)[x]);
+            value = double(((unsigned int32_t*)m_ptr)[x]);
             break;
         case GDT_Int32:
-            value = double(((__int32*)m_ptr)[x]);
+            value = double(((int32_t*)m_ptr)[x]);
             break;
         case GDT_Float32:
             value = double(((float*)m_ptr)[x]);
@@ -157,16 +157,16 @@ public:
             ((char*)m_ptr)[x] = (char)value;
             break;
         case GDT_UInt16:
-            ((unsigned __int16*)m_ptr)[x] = (unsigned __int16)value;
+            ((unsigned int16_t*)m_ptr)[x] = (unsigned int16_t)value;
             break;
         case GDT_Int16:
-            ((__int16*)m_ptr)[x] = (__int16)value;
+            ((int16_t*)m_ptr)[x] = (int16_t)value;
             break;
         case GDT_UInt32:
-            ((unsigned __int32*)m_ptr)[x] = (unsigned __int32)value;
+            ((unsigned int32_t*)m_ptr)[x] = (unsigned int32_t)value;
             break;
         case GDT_Int32:
-            ((__int32*)m_ptr)[x] = (__int32)value;
+            ((int32_t*)m_ptr)[x] = (int32_t)value;
             break;
         case GDT_Float32:
             ((float*)m_ptr)[x] = (float)value;
@@ -1218,7 +1218,7 @@ void CSfcDatasetCached::get_weather(const CGeoPoint& pt, CHourlyData& data)const
                 if (sumP[v].is_init())
                 {
                     data[v] = sumV[v][SUM] / sumP[v][SUM];
-                    assert(!_isnan(data[v]) && _finite(data[v]));
+                    assert(!std::isnan(data[v]) && std::isfinite(data[v]));
                 }
             }
         }
@@ -1306,7 +1306,7 @@ void CSfcDatasetCached::get_weather(const CGeoPoint& pt, CWeatherDay& data)const
                 if (sumP[v].is_init())
                 {
                     double value = sumV[v][SUM] / sumP[v][SUM];
-                    assert(!_isnan(value) && _finite(value));
+                    assert(!std::isnan(value) && std::isfinite(value));
                     data.SetStat(TVarH(v), value);
                 }
             }
@@ -1818,7 +1818,7 @@ ERMsg CSfcGribDatabase::Update(const CGribsMap& gribs, const CLocationVector& lo
         {
             //
             //				//#pragma omp parallel for shared(msg) num_threads(min(2,m_nbMaxThreads))
-            //				for (__int64 i = 0; i < (__int64)tmp.size(); i++)
+            //				for (int64_t i = 0; i < (int64_t)tmp.size(); i++)
             //				{
             //#pragma omp flush(msg)
             //					if (msg)
@@ -1933,7 +1933,7 @@ ERMsg CSfcGribDatabase::Update(const CGribsMap& gribs, const CLocationVector& lo
                         }
 
 
-                        for (__int64 i = 0; i < (__int64)tmp.size(); i++)
+                        for (int64_t i = 0; i < (int64_t)tmp.size(); i++)
                         {
                             if (msg)
                             {

@@ -13,9 +13,9 @@
 
 #include <iostream>
 #include <boost/scoped_array.hpp>
-#include "basic/OpenMP.h"
-#include "geomatic/GDAL.h"
-#include "geomatic/UtilGDAL.h"
+#include "Basic/OpenMP.h"
+#include "Geomatic/GDAL.h"
+#include "Geomatic/UtilGDAL.h"
 
 
 using namespace std;

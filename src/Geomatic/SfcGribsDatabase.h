@@ -10,7 +10,7 @@
 
 #include <string>
 #include <array>
-#include <boost\multi_array.hpp>
+#include <boost/multi_array.hpp>
 #include <deque>
 #include <mutex>
 #include <cassert>

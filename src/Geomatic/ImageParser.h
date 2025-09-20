@@ -11,7 +11,7 @@
 #include <vector>
 #include <deque>
 
-#include "Basic/muparser/muparser.h"
+#include "Basic/muparser/muParser.h"
 #include "Geomatic/GDALDatasetEx.h"
 #include "Geomatic/LandsatDataset2.h"
 

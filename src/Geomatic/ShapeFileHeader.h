@@ -26,14 +26,14 @@ namespace WBSF
 extern ERMsg ReadHeader();
 
 template<class Archive>
-__int32 ReadBigEndian(Archive & io)
+int32_t ReadBigEndian(Archive & io)
 {
 
     unsigned char pjSrc[4] = { 0 };
     io.load_binary(&pjSrc, 4);
-    __int32    lStorage = 0;
+    int32_t    lStorage = 0;
 
-    lStorage = (__int32)       // Source is big endian, shift the
+    lStorage = (int32_t)       // Source is big endian, shift the
                ((pjSrc[0] << 24) |    // high bytes low.
                 (pjSrc[1] << 16) |
                 (pjSrc[2] << 8) |
@@ -67,7 +67,7 @@ None.
 --*/
 
 template<class Archive>
-void WriteBigEndian(Archive & io, __int32 lSource)
+void WriteBigEndian(Archive & io, int32_t lSource)
 {
     unsigned char pjDest[4] = { 0 };
     pjDest[3] = (unsigned char)((lSource)& 0xFF);
@@ -138,7 +138,7 @@ public:
 
 
 
-    static bool IsLegalShapeType(__int32 t);
+    static bool IsLegalShapeType(int32_t t);
 
     const CSFBoundingBox& GetBoundingBox()const
     {
@@ -154,18 +154,18 @@ public:
     }
     void SetShapeType(TShape type)
     {
-        m_shapeType = (__int32)type;
+        m_shapeType = (int32_t)type;
     }
-    __int32 GetFileLength()const
+    int32_t GetFileLength()const
     {
         return m_fileLength;
     }
-    void SetFileLength(__int32 length)
+    void SetFileLength(int32_t length)
     {
         m_fileLength = length;
     }
 
-    __int32 GetFileCode()const
+    int32_t GetFileCode()const
     {
         return m_fileCode;
     }
@@ -208,11 +208,11 @@ public:
 
 private:
 
-    __int32 m_fileCode;
-    __int32 m_unused[5];
-    __int32 m_fileLength;
-    __int32 m_version;
-    __int32 m_shapeType;
+    int32_t m_fileCode;
+    int32_t m_unused[5];
+    int32_t m_fileLength;
+    int32_t m_version;
+    int32_t m_shapeType;
     CSFBoundingBox m_boundingBox;
     double m_Zmin;
     double m_Zmax;

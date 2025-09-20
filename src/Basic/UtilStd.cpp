@@ -11,8 +11,9 @@
 //******************************************************************************
 
 
-
+#ifdef _MSC_VER
 #include <SDKDDKVer.h>//add this include to avoid warning in boost/local.hpp
+#endif
 
 #define _USE_MATH_DEFINES
 #include <cmath>
@@ -22,18 +23,19 @@
 #include <boost/locale.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/format.hpp>
-#include <boost/process/v1.hpp> 
 #include <boost/asio.hpp> // Or boost::process.hpp
 #include <boost/tokenizer.hpp>
 #include <boost/algorithm/string.hpp>
-//#include <boost/filesystem/path.hpp>
 #include <boost/date_time.hpp>
 #include <boost/dll/runtime_symbol_info.hpp>
-//#include <boost/date_time/posix_time/posix_time_io.hpp>
-//#include <boost/date_time/posix_time/conversion.hpp>
-//#include <boost/date_time/posix_time/posix_time.hpp>
-//#include <boost/date_time/c_local_time_adjustor.hpp>
 #include <boost/crc.hpp>
+
+#ifdef _MSC_VER
+#include <boost/process/v1.hpp>
+#else
+#include <boost/process.hpp>
+#endif
+
 
 
 #include "WBSFconfig.h"
@@ -44,8 +46,6 @@ using namespace std;
 
 using boost::tokenizer;
 using boost::escaped_list_separator;
-//namespace fs = boost::filesystem;
-//namespace boost_process = boost::process::v2;
 namespace boost_process = boost::process;
 
 
@@ -2380,11 +2380,11 @@ namespace WBSF
 				default: assert(false);  break;
 				}
 			}
-			catch (const boost::io::format_error& e) 
+			catch (const boost::io::format_error& e)
 			{
 				std::cerr << "Boost Format Error: " << e.what() << std::endl;
 			}
-			catch (const std::exception& e) 
+			catch (const std::exception& e)
 			{
 				std::cerr << "Standard Exception: " << e.what() << std::endl;
 			}
