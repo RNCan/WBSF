@@ -1,6 +1,6 @@
 //******************************************************************************
 //  Project:		Weather-based simulation framework (WBSF)
-//	Programmer:     Rémi Saint-Amant
+//	Programmer:     RÃ©mi Saint-Amant
 //
 //  It under the terms of the GNU General Public License as published by
 //     the Free Software Foundation
@@ -9,8 +9,8 @@
 //  Class:	CLocation: hold geographic location and attributes
 //
 //******************************************************************************
-// 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
-// 12-11-2013   Rémi Saint-Amant    Creation from existing code.
+// 01-01-2016	RÃ©mi Saint-Amant	Include into Weather-based simulation framework
+// 12-11-2013   RÃ©mi Saint-Amant    Creation from existing code.
 //*********************************************************************
 
 
@@ -513,7 +513,8 @@ size_t CLocation::GetMemberFromName(const string& headerIn)
         member = LAT;
     else if (boost::iequals(header, "Longitude") || boost::iequals(header, "Lon") || boost::iequals(header, "Long") || boost::iequals(header, "X"))
         member = LON;
-    else if (boost::iequals(header, "Elevation") || boost::iequals(header, u8"Élévation") || boost::iequals(header, "Elev") || boost::iequals(header, u8"Élév") || boost::iequals(header, "Alt") || boost::iequals(header, "Altitude") || boost::iequals(header, "Z"))
+    else if (boost::iequals(header, "Elevation") || boost::iequals(header, u8"Ã‰lÃ©vation") || boost::iequals(header, "Elev") || boost::iequals(header, u8"Ã‰lÃ©v") || boost::iequals(header, "Alt") || boost::iequals(header, "Altitude") || boost::iequals(header, "Z"))
+    //else if (boost::iequals(header, "Elevation") || boost::iequals(header, "Elev") || boost::iequals(header, "Alt") || boost::iequals(header, "Altitude") || boost::iequals(header, "Z"))
         member = ELEV;
 
     return member;
@@ -646,7 +647,7 @@ ERMsg CLocationVector::Load(const std::string& filePath, const char* separator, 
     ERMsg msg;
 
     m_filePath.clear();
-    //»Est-ce qu'on clear ou on clear pas??????? RSA 2016-06-18
+    //Â»Est-ce qu'on clear ou on clear pas??????? RSA 2016-06-18
     clear();
 
 
@@ -654,14 +655,14 @@ ERMsg CLocationVector::Load(const std::string& filePath, const char* separator, 
     auto myloc = std::locale();//by RSA 18-02-2017, une bonne chose ou non???
     file.imbue(myloc);
     msg = file.open(filePath);
-    
+
 
     if (msg)
     {
         msg = Load(file, separator, callback);
         if (msg)
             m_filePath = filePath;
-     
+
     }
 
     return msg;
@@ -687,7 +688,11 @@ ERMsg CLocationVector::Load(std::istream& file, const char* separator, CCallback
     for (CSVIterator loop(file, separator); loop != CSVIterator() && msg; ++loop)
     {
         if (members.empty())
-            members = CLocation::GetMembers((vector<string>&)loop.Header());
+        {
+            vector<string> head = loop.Header();
+            members = CLocation::GetMembers(head);
+        }
+
 
         if (loop->size() > 1)//can be empty line or some spaces...
         {

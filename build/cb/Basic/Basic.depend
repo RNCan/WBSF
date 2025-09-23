@@ -1,1 +1,914 @@
 # depslib dependency file v1.0
+1751115570 source:e:\projectcp\wbsfmultiplatform\src\basic\ann\ann.cpp
+	"ANNx.h"
+	"ANNperf.h"
+	<string>
+	<cstdlib>
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\ann\annx.h
+	<iomanip>
+	<string>
+	"ANN.h"
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\ann\ann.h
+	<cmath>
+	<iostream>
+	<cvalues>
+	<climits>
+	<cfloat>
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\ann\annperf.h
+	"ANN.h"
+
+1751115570 source:e:\projectcp\wbsfmultiplatform\src\basic\ann\bd_pr_search.cpp
+	"bd_tree.h"
+	"kd_pr_search.h"
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\ann\bd_tree.h
+	"ANNx.h"
+	"kd_tree.h"
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\ann\kd_tree.h
+	"ANNx.h"
+	"pr_queue_k.h"
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\ann\pr_queue_k.h
+	"ANNx.h"
+	"ANNperf.h"
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\ann\kd_pr_search.h
+	"kd_tree.h"
+	"kd_util.h"
+	"pr_queue.h"
+	"pr_queue_k.h"
+	"ANNperf.h"
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\ann\kd_util.h
+	"kd_tree.h"
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\ann\pr_queue.h
+	"ANNx.h"
+	"ANNperf.h"
+
+1751115570 source:e:\projectcp\wbsfmultiplatform\src\basic\ann\bd_search.cpp
+	"bd_tree.h"
+	"kd_search.h"
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\ann\kd_search.h
+	"kd_tree.h"
+	"kd_util.h"
+	"pr_queue_k.h"
+	"ANNperf.h"
+
+1751115570 source:e:\projectcp\wbsfmultiplatform\src\basic\ann\bd_tree.cpp
+	"bd_tree.h"
+	"kd_util.h"
+	"kd_split.h"
+	"ANNperf.h"
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\ann\kd_split.h
+	"kd_tree.h"
+
+1751115570 source:e:\projectcp\wbsfmultiplatform\src\basic\ann\brute.cpp
+	"ANNx.h"
+	"pr_queue_k.h"
+
+1751115570 source:e:\projectcp\wbsfmultiplatform\src\basic\ann\kd_dump.cpp
+	"kd_tree.h"
+	"bd_tree.h"
+	<cstring>
+	<cstdlib>
+
+1751115570 source:e:\projectcp\wbsfmultiplatform\src\basic\ann\kd_pr_search.cpp
+	"kd_pr_search.h"
+
+1751115570 source:e:\projectcp\wbsfmultiplatform\src\basic\ann\kd_search.cpp
+	"kd_search.h"
+
+1751115570 source:e:\projectcp\wbsfmultiplatform\src\basic\ann\kd_split.cpp
+	"kd_tree.h"
+	"kd_util.h"
+	"kd_split.h"
+
+1751115570 source:e:\projectcp\wbsfmultiplatform\src\basic\ann\kd_tree.cpp
+	"kd_tree.h"
+	"kd_split.h"
+	"kd_util.h"
+	"ANNperf.h"
+
+1751115570 source:e:\projectcp\wbsfmultiplatform\src\basic\ann\kd_util.cpp
+	"kd_util.h"
+	"ANNperf.h"
+
+1751115570 source:e:\projectcp\wbsfmultiplatform\src\basic\ann\perf.cpp
+	"ANN.h"
+	"ANNperf.h"
+	<string>
+
+1758279719 source:e:\projectcp\wbsfmultiplatform\src\basic\approximatenearestneighbor.cpp
+	<boost/locale.hpp>
+	<boost/format.hpp>
+	"Basic/UtilStd.h"
+	"Basic/Shore.h"
+	"ApproximateNearestNeighbor.h"
+
+1758133548 e:\projectcp\wbsfmultiplatform\src\basic\utilstd.h
+	<cassert>
+	<map>
+	<set>
+	<unordered_map>
+	<sstream>
+	<functional>
+	<algorithm>
+	<cctype>
+	<fstream>
+	<codecvt>
+	<iomanip>
+	<cstring>
+	<filesystem>
+	<cstdint>
+	<utility>
+	"WBSFconfig.h"
+	"Basic/ERMsg.h"
+
+1751422278 e:\projectcp\wbsfmultiplatform\src\wbsfconfig.h
+	<cstddef>
+	<string>
+	<SDKDDKVer.h>
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\ermsg.h
+	"ERMsg/Syenvmsg.h"
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\ermsg\syenvmsg.h
+	"Erexcept.h"
+	"Sycptref.h"
+	"Symessag.h"
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\ermsg\erexcept.h
+	<string>
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\ermsg\sycptref.h
+	"Erexcept.h"
+	"Sycptref.hpp"
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\ermsg\sycptref.hpp
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\ermsg\symessag.h
+	"Erexcept.h"
+	<vector>
+	<string>
+
+1751118733 e:\projectcp\wbsfmultiplatform\src\basic\shore.h
+	"Basic/ApproximateNearestNeighbor.h"
+	"Basic/ERMsg.h"
+
+1751118733 e:\projectcp\wbsfmultiplatform\src\basic\approximatenearestneighbor.h
+	<mutex>
+	<boost/serialization/split_member.hpp>
+	<boost/serialization/access.hpp>
+	"Basic/UtilStd.h"
+	"Basic/Location.h"
+	"Basic/SearchResult.h"
+	"Basic/ERMsg.h"
+	"Basic/ANN/ANN.h"
+
+1751130550 e:\projectcp\wbsfmultiplatform\src\basic\location.h
+	<array>
+	<boost/serialization/access.hpp>
+	<unordered_map>
+	<utility>
+	<algorithm>
+	"Basic/UtilTime.h"
+	"Basic/GeoBasic.h"
+	"Basic/Callback.h"
+
+1758208709 e:\projectcp\wbsfmultiplatform\src\basic\utiltime.h
+	<cassert>
+	<vector>
+	<string>
+	<boost/dynamic_bitset.hpp>
+	<boost/serialization/serialization.hpp>
+	<boost/serialization/nvp.hpp>
+	"Basic/ERMsg.h"
+	"Basic/UtilStd.h"
+
+1753981733 e:\projectcp\wbsfmultiplatform\src\basic\geobasic.h
+	<map>
+	<vector>
+	<deque>
+	<algorithm>
+	<cfloat>
+	<boost/bimap.hpp>
+	<boost/serialization/serialization.hpp>
+	<boost/archive/text_iarchive.hpp>
+	<boost/serialization/export.hpp>
+	"WBSFconfig.h"
+	"Basic/ERMsg.h"
+	"Basic/UtilMath.h"
+
+1752070242 e:\projectcp\wbsfmultiplatform\src\basic\utilmath.h
+	<cmath>
+	<random>
+	<cassert>
+	<iostream>
+	<string>
+
+1751118733 e:\projectcp\wbsfmultiplatform\src\basic\callback.h
+	<mutex>
+	<string>
+	<algorithm>
+	<stack>
+	"Basic/Event.h"
+	"Basic/UtilStd.h"
+	"Basic/ERMsg.h"
+
+1751119000 e:\projectcp\wbsfmultiplatform\src\basic\event.h
+	<boost/thread.hpp>
+
+1751131573 e:\projectcp\wbsfmultiplatform\src\basic\searchresult.h
+	<vector>
+	"Basic/UtilMath.h"
+	"Basic/Location.h"
+	"Basic/UtilStd.h"
+	"Basic/ERMsg.h"
+
+1751131642 source:e:\projectcp\wbsfmultiplatform\src\basic\armodel\armodel.cpp
+	<random>
+	<chrono>
+	<algorithm>
+	<cassert>
+	<list>
+	<functional>
+	<numeric>
+	"ARModel.h"
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\armodel\armodel.h
+	<vector>
+	<cmath>
+	<string>
+
+1758279244 source:e:\projectcp\wbsfmultiplatform\src\basic\callback.cpp
+	<iostream>
+	"Basic/UtilStd.h"
+	"Basic/OpenMP.h"
+	"Callback.h"
+
+1752070242 e:\projectcp\wbsfmultiplatform\src\basic\openmp.h
+	<omp.h>
+
+1758024131 source:e:\projectcp\wbsfmultiplatform\src\basic\callcurl.cpp
+	"WBSFconfig.h"
+	<boost/asio.hpp>
+	<boost/process.hpp>
+	"Basic/UtilStd.h"
+	"CallcURL.h"
+
+1751423404 e:\projectcp\wbsfmultiplatform\src\basic\callcurl.h
+	<string>
+	<filesystem>
+	"Basic/ERMsg.h"
+
+1756818590 source:e:\projectcp\wbsfmultiplatform\src\basic\dbf3.cpp
+	<cfloat>
+	<boost/archive/binary_oarchive.hpp>
+	<boost/archive/binary_iarchive.hpp>
+	"Dbf3.h"
+
+1752070233 e:\projectcp\wbsfmultiplatform\src\basic\dbf3.h
+	<vector>
+	<cassert>
+	"Basic/ERMsg.h"
+	"Basic/UtilStd.h"
+
+1751115570 source:e:\projectcp\wbsfmultiplatform\src\basic\ermsg\ererreur.cpp
+	"Ererreur.h"
+	<iostream>
+	<fstream>
+	<signal.h>
+	<stdlib.h>
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\ermsg\ererreur.h
+	"Syenvmsg.h"
+	<string>
+
+1751115570 source:e:\projectcp\wbsfmultiplatform\src\basic\ermsg\erexcept.cpp
+	"Syenvmsg.h"
+	<sstream>
+	<iostream>
+	<assert.h>
+
+1751115570 source:e:\projectcp\wbsfmultiplatform\src\basic\ermsg\syenvmsg.cpp
+	"Syenvmsg.h"
+
+1751115570 source:e:\projectcp\wbsfmultiplatform\src\basic\ermsg\symessag.cpp
+	"Symessag.h"
+	<sstream>
+
+1758024131 source:e:\projectcp\wbsfmultiplatform\src\basic\geobasic.cpp
+	<iostream>
+	"Basic/Statistic.h"
+	"Basic/ERMsg.h"
+	"Basic/UtilStd.h"
+	"Basic/GeoBasic.h"
+
+1752075136 e:\projectcp\wbsfmultiplatform\src\basic\statistic.h
+	<cassert>
+	<vector>
+	<array>
+	<string>
+
+1751115570 source:e:\projectcp\wbsfmultiplatform\src\basic\gzip.cpp
+	"gzip.h"
+	<sstream>
+	<boost/iostreams/stream.hpp>
+	<boost/iostreams/filtering_streambuf.hpp>
+	<boost/iostreams/filter/gzip.hpp>
+	<boost/iostreams/copy.hpp>
+
+1751118733 e:\projectcp\wbsfmultiplatform\src\basic\gzip.h
+	<string>
+	"Basic/ERMsg.h"
+
+1752075529 source:e:\projectcp\wbsfmultiplatform\src\basic\json\json11.cpp
+	"json11.hpp"
+	<cassert>
+	<cmath>
+	<cstdlib>
+	<cstdio>
+	<cstdint>
+	<limits>
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\json\json11.hpp
+	<string>
+	<vector>
+	<map>
+	<memory>
+	<initializer_list>
+
+1758587640 source:e:\projectcp\wbsfmultiplatform\src\basic\location.cpp
+	<algorithm>
+	<string>
+	<cstdio>
+	<boost/algorithm/string.hpp>
+	<boost/format.hpp>
+	<boost/locale.hpp>
+	"Basic/Shore.h"
+	"Basic/CallcURL.h"
+	"Basic/json/json11.hpp"
+	"Basic/CSV.h"
+	"Location.h"
+
+1758585997 e:\projectcp\wbsfmultiplatform\src\basic\csv.h
+	<sstream>
+	"Basic/UtilStd.h"
+	"Basic/ERMsg.h"
+
+1756923806 source:e:\projectcp\wbsfmultiplatform\src\basic\modelstat.cpp
+	<algorithm>
+	<cfloat>
+	"Basic/UtilStd.h"
+	"Basic/UtilMath.h"
+	"ModelStat.h"
+
+1751118733 e:\projectcp\wbsfmultiplatform\src\basic\modelstat.h
+	<vector>
+	<cassert>
+	"Basic/UtilMath.h"
+	"Basic/UtilTime.h"
+	"Basic/Statistic.h"
+	"Basic/Mtrx.h"
+	"ModelBased/InitialPopulation.h"
+
+1756925420 e:\projectcp\wbsfmultiplatform\src\basic\mtrx.h
+	<cmath>
+	<climits>
+	<boost/serialization/split_member.hpp>
+	<boost/serialization/access.hpp>
+	<boost/multi_array.hpp>
+
+1751118734 e:\projectcp\wbsfmultiplatform\src\modelbased\initialpopulation.h
+	<vector>
+	<cassert>
+	"Basic/ModelStat.h"
+	"ModelBased/WeatherBasedSimulation.h"
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\modelbased\weatherbasedsimulation.h
+
+1752086291 source:e:\projectcp\wbsfmultiplatform\src\basic\mpfit\mpfit.cpp
+	<cstdio>
+	<cstdlib>
+	<cmath>
+	<cstring>
+	"mpfit.h"
+
+1751131373 e:\projectcp\wbsfmultiplatform\src\basic\mpfit\mpfit.h
+	<float.h>
+
+1756925437 source:e:\projectcp\wbsfmultiplatform\src\basic\mtrx.cpp
+	"Mtrx.h"
+
+1738266654 source:e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparser.cpp
+	"muParser.h"
+	"muParserTemplateMagic.h"
+	<cmath>
+	<algorithm>
+	<numeric>
+	<cstdlib>
+
+1738266654 e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparser.h
+	<vector>
+	"muParserBase.h"
+	"muParserTemplateMagic.h"
+
+1738266654 e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparserbase.h
+	<cmath>
+	<string>
+	<iostream>
+	<map>
+	<memory>
+	<locale>
+	<limits.h>
+	"muParserDef.h"
+	"muParserTokenReader.h"
+	"muParserBytecode.h"
+	"muParserError.h"
+
+1757937649 e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparserdef.h
+	<iostream>
+	<string>
+	<sstream>
+	<map>
+	"muParserFixes.h"
+
+1738266654 e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparserfixes.h
+
+1738266654 e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparsertokenreader.h
+	<cstdio>
+	<cstring>
+	<list>
+	<map>
+	<memory>
+	<stack>
+	<string>
+	"muParserDef.h"
+	"muParserToken.h"
+
+1738266654 e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparsertoken.h
+	<string>
+	<stack>
+	<vector>
+	<memory>
+	<utility>
+	<type_traits>
+	<cstddef>
+	"muParserError.h"
+	"muParserCallback.h"
+
+1738266654 e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparsererror.h
+	<stdexcept>
+	<string>
+	<sstream>
+	<vector>
+	<memory>
+	"muParserDef.h"
+
+1738266654 e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparsercallback.h
+	"muParserDef.h"
+
+1738266654 e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparserbytecode.h
+	<string>
+	<stack>
+	<vector>
+	"muParserDef.h"
+	"muParserError.h"
+	"muParserToken.h"
+
+1738266654 e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparsertemplatemagic.h
+	<algorithm>
+	<random>
+	<cmath>
+	"muParserError.h"
+
+1738266654 source:e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparserbase.cpp
+	"muParserBase.h"
+	"muParserTemplateMagic.h"
+	<algorithm>
+	<cmath>
+	<memory>
+	<vector>
+	<deque>
+	<sstream>
+	<locale>
+	<cassert>
+	<cctype>
+	<omp.h>
+
+1738266654 source:e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparserbytecode.cpp
+	"muParserBytecode.h"
+	<algorithm>
+	<string>
+	<stack>
+	<vector>
+	<iostream>
+	"muParserDef.h"
+	"muParserError.h"
+	"muParserToken.h"
+	"muParserTemplateMagic.h"
+
+1738266654 source:e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparsercallback.cpp
+	"muParserCallback.h"
+
+1738266654 source:e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparserdll.cpp
+	<windows.h>
+	<cassert>
+	"muParserDLL.h"
+	"muParser.h"
+	"muParserInt.h"
+	"muParserError.h"
+	<wchar.h>
+
+1738266654 e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparserdll.h
+	"muParserFixes.h"
+
+1738266654 e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparserint.h
+	"muParserBase.h"
+	<vector>
+
+1738266654 source:e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparsererror.cpp
+	"muParserError.h"
+	<exception>
+
+1738266654 source:e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparserint.cpp
+	"muParserInt.h"
+	<cmath>
+	<algorithm>
+	<numeric>
+
+1757937557 source:e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparsertest.cpp
+	"muParserTest.h"
+	<cstdio>
+	<cmath>
+	<iostream>
+	<limits>
+
+1757937278 e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparsertest.h
+	<string>
+	<cstdlib>
+	<cstdint>
+	<numeric>
+	"muParser.h"
+	"muParserInt.h"
+
+1738266654 source:e:\projectcp\wbsfmultiplatform\src\basic\muparser\muparsertokenreader.cpp
+	<cstdio>
+	<cstring>
+	<map>
+	<stack>
+	<string>
+	"muParserTokenReader.h"
+	"muParserBase.h"
+
+1129933260 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\bandmat.cpp
+	"include.h"
+	"newmat.h"
+	"newmatrc.h"
+
+1288031901 e:\projectcp\wbsfmultiplatform\src\basic\newmat\include.h
+	<cstdlib>
+	<limits>
+	<iostream>
+	<iomanip>
+	<cmath>
+	<cstring>
+	<ctime>
+	<fstream>
+	<stdlib.h>
+	<iostream.h>
+	<iomanip.h>
+	<math.h>
+	<float.h>
+	<string.h>
+	<time.h>
+	<fstream.h>
+	<stdlib.h>
+	<iostream.hpp>
+	<iomanip.hpp>
+	<math.h>
+	<float.h>
+	<string.h>
+	<time.h>
+	<fstream.h>
+	<stdlib.h>
+	<iostream.h>
+	<iomanip.h>
+	<math.h>
+	<float.h>
+	<string.h>
+	<time.h>
+	<fstream.h>
+	<stdlib.h>
+	<iostream.h>
+	<iomanip.h>
+	<math.h>
+	<float.h>
+	<string.h>
+	<time.h>
+	<fstream.h>
+	<stdlib.h>
+	<iostream.h>
+	<iomanip.h>
+	<math.h>
+	<float.h>
+	<string.h>
+	<time.h>
+	<fstream.h>
+	<stdlib.h>
+	<iostream.h>
+	<iomanip.h>
+	<float.h>
+	<math.h>
+	<string.h>
+	<time.h>
+	<fstream.h>
+	<stdlib.h>
+	<iostream.h>
+	<iomanip.h>
+	<float.h>
+	<math.h>
+	<string.h>
+	<time.h>
+	<fstream.h>
+	<stdlib.h>
+	<iostream.h>
+	<iomanip.h>
+	<math.h>
+	<values.h>
+	<string.h>
+	<time.h>
+	<fstream.h>
+
+1157867940 e:\projectcp\wbsfmultiplatform\src\basic\newmat\newmat.h
+	"include.h"
+	"myexcept.h"
+
+1288032258 e:\projectcp\wbsfmultiplatform\src\basic\newmat\myexcept.h
+	"include.h"
+	<setjmp.h>
+
+1128961620 e:\projectcp\wbsfmultiplatform\src\basic\newmat\newmatrc.h
+	"controlw.h"
+
+1128960840 e:\projectcp\wbsfmultiplatform\src\basic\newmat\controlw.h
+
+1124509800 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\cholesky.cpp
+	"include.h"
+	"newmat.h"
+	"newmatrm.h"
+
+1128961860 e:\projectcp\wbsfmultiplatform\src\basic\newmat\newmatrm.h
+
+1124509980 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\evalue.cpp
+	"include.h"
+	"newmatap.h"
+	"newmatrm.h"
+	"precisio.h"
+
+1226187420 e:\projectcp\wbsfmultiplatform\src\basic\newmat\newmatap.h
+	"newmat.h"
+
+1128962280 e:\projectcp\wbsfmultiplatform\src\basic\newmat\precisio.h
+	"include.h"
+	<limits>
+	<cfloat>
+
+1124510100 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\fft.cpp
+	"include.h"
+	"newmatap.h"
+
+1226190420 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\hholder.cpp
+	"include.h"
+	"newmatap.h"
+
+1124510400 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\jacobi.cpp
+	"include.h"
+	"newmatap.h"
+	"precisio.h"
+	"newmatrm.h"
+
+1403093943 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\myexcept.cpp
+	"include.h"
+	"myexcept.h"
+
+1124510580 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\newfft.cpp
+	"newmatap.h"
+
+1124511000 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\newmat1.cpp
+	"newmat.h"
+
+1124511060 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\newmat2.cpp
+	"include.h"
+	"newmat.h"
+	"newmatrc.h"
+
+1124511120 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\newmat3.cpp
+	"include.h"
+	"newmat.h"
+	"newmatrc.h"
+
+1129933380 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\newmat4.cpp
+	"include.h"
+	"newmat.h"
+	"newmatrc.h"
+
+1124511180 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\newmat5.cpp
+	"include.h"
+	"newmat.h"
+	"newmatrc.h"
+
+1753980451 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\newmat6.cpp
+	"include.h"
+	"newmat.h"
+	"newmatrc.h"
+
+1157865900 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\newmat7.cpp
+	"include.h"
+	"newmat.h"
+	"newmatrc.h"
+
+1124511240 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\newmat8.cpp
+	"include.h"
+	"newmat.h"
+	"newmatrc.h"
+	"precisio.h"
+
+1154216460 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\newmat9.cpp
+	"include.h"
+	"newmat.h"
+	"newmatio.h"
+	"newmatrc.h"
+
+1124511600 e:\projectcp\wbsfmultiplatform\src\basic\newmat\newmatio.h
+	"newmat.h"
+
+1124512260 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\newmatex.cpp
+	"include.h"
+	"newmat.h"
+
+1124511600 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\newmatnl.cpp
+	"newmatap.h"
+	"newmatnl.h"
+
+1124511660 e:\projectcp\wbsfmultiplatform\src\basic\newmat\newmatnl.h
+	"newmat.h"
+
+1124511720 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\newmatrm.cpp
+	"newmat.h"
+	"newmatrm.h"
+
+1124511900 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\nm_misc.cpp
+	"include.h"
+	"newmatap.h"
+
+1287530253 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\regression.cpp
+	"Regression.h"
+
+1756818590 e:\projectcp\wbsfmultiplatform\src\basic\newmat\regression.h
+	"Basic/Newmat/newmat.h"
+
+1124512020 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\solution.cpp
+	"include.h"
+	"myexcept.h"
+	"solution.h"
+
+1129922460 e:\projectcp\wbsfmultiplatform\src\basic\newmat\solution.h
+	"myexcept.h"
+
+1124512080 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\sort.cpp
+	"include.h"
+	"newmatap.h"
+
+1157854980 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\submat.cpp
+	"include.h"
+	"newmat.h"
+	"newmatrc.h"
+
+1124512200 source:e:\projectcp\wbsfmultiplatform\src\basic\newmat\svd.cpp
+	"include.h"
+	"newmatap.h"
+	"newmatrm.h"
+	"precisio.h"
+
+1758538780 source:e:\projectcp\wbsfmultiplatform\src\basic\pugixml\pugixml.cpp
+	"pugixml.hpp"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<assert.h>
+	<limits.h>
+	<wchar.h>
+	<math.h>
+	<float.h>
+	<istream>
+	<ostream>
+	<string>
+	<new>
+	<sys/stat.h>
+	<stdint.h>
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\pugixml\pugixml.hpp
+	"pugiconfig.hpp"
+	<stddef.h>
+	<exception>
+	<iterator>
+	<iosfwd>
+	<string>
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\pugixml\pugiconfig.hpp
+
+1751131572 source:e:\projectcp\wbsfmultiplatform\src\basic\searchresult.cpp
+	<set>
+	"SearchResult.h"
+
+1751115570 source:e:\projectcp\wbsfmultiplatform\src\basic\shore.cpp
+	"Shore.h"
+
+1751131463 source:e:\projectcp\wbsfmultiplatform\src\basic\simulatedannealing.cpp
+	<sstream>
+	"SimulatedAnnealing.h"
+
+1751131473 e:\projectcp\wbsfmultiplatform\src\basic\simulatedannealing.h
+	<cmath>
+	<cfloat>
+	"Basic/ERMsg.h"
+	"Basic/Statistic.h"
+	"Basic/UtilStd.h"
+
+1752070242 source:e:\projectcp\wbsfmultiplatform\src\basic\statistic.cpp
+	<cmath>
+	<float.h>
+	<algorithm>
+	<boost/math/distributions/normal.hpp>
+	"Basic/UtilMath.h"
+	"Statistic.h"
+
+1751131373 source:e:\projectcp\wbsfmultiplatform\src\basic\sun.cpp
+	"Sun.h"
+
+1751115570 e:\projectcp\wbsfmultiplatform\src\basic\sun.h
+	<cmath>
+	"UtilTime.h"
+
+1751115570 source:e:\projectcp\wbsfmultiplatform\src\basic\timestep.cpp
+	"TimeStep.h"
+
+1751131260 e:\projectcp\wbsfmultiplatform\src\basic\timestep.h
+	<cassert>
+	<cstddef>
+
+1756927027 source:e:\projectcp\wbsfmultiplatform\src\basic\utilmath.cpp
+	<ctime>
+	<cfloat>
+	<limits>
+	<cstdio>
+	"UtilMath.h"
+	"UtilStd.h"
+
+1758208709 source:e:\projectcp\wbsfmultiplatform\src\basic\utiltime.cpp
+	<cmath>
+	<sstream>
+	<iostream>
+	<ctime>
+	<boost/date_time.hpp>
+	"Basic/Statistic.h"
+	"Basic/UtilMath.h"
+	"UtilTime.h"
+
+1758540678 source:e:\projectcp\wbsfmultiplatform\src\basic\utilstd.cpp
+	<SDKDDKVer.h>
+	<cmath>
+	<iostream>
+	<string>
+	<boost/locale.hpp>
+	<boost/filesystem.hpp>
+	<boost/format.hpp>
+	<boost/asio.hpp>
+	<boost/tokenizer.hpp>
+	<boost/algorithm/string.hpp>
+	<boost/date_time.hpp>
+	<boost/dll/runtime_symbol_info.hpp>
+	<boost/crc.hpp>
+	<boost/process/v1.hpp>
+	<boost/process.hpp>
+	<boost/process.hpp>
+	"WBSFconfig.h"
+	"UtilStd.h"
+
+1751115570 source:e:\projectcp\wbsfmultiplatform\src\basic\csv.cpp
+	<iostream>
+	<sstream>
+	<vector>
+	<string>
+	<iterator>
+	<boost/algorithm/string.hpp>
+	"Basic/CSV.h"
+

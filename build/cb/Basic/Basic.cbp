@@ -91,6 +91,8 @@
 		<Unit filename="../../../src/Basic/ARModel/ARModel.h" />
 		<Unit filename="../../../src/Basic/ApproximateNearestNeighbor.cpp" />
 		<Unit filename="../../../src/Basic/ApproximateNearestNeighbor.h" />
+		<Unit filename="../../../src/Basic/CSV.cpp" />
+		<Unit filename="../../../src/Basic/CSV.h" />
 		<Unit filename="../../../src/Basic/Callback.cpp" />
 		<Unit filename="../../../src/Basic/Callback.h" />
 		<Unit filename="../../../src/Basic/CallcURL.cpp" />
@@ -112,6 +114,7 @@
 		<Unit filename="../../../src/Basic/Event.h" />
 		<Unit filename="../../../src/Basic/GeoBasic.cpp" />
 		<Unit filename="../../../src/Basic/GeoBasic.h" />
+		<Unit filename="../../../src/Basic/LRUCache.h" />
 		<Unit filename="../../../src/Basic/Location.cpp" />
 		<Unit filename="../../../src/Basic/Location.h" />
 		<Unit filename="../../../src/Basic/ModelStat.cpp" />

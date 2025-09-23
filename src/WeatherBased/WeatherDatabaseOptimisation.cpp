@@ -10,7 +10,7 @@
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 // 15-11-2013  Rémi Saint-Amant	Created from old file
 //****************************************************************************
-//#include "stdafx.h"
+
 #pragma warning( disable : 4244 )
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/archive/binary_iarchive.hpp>
@@ -20,6 +20,7 @@
 #include <boost/serialization/vector.hpp>
 #include <boost/serialization/set.hpp>
 #include <boost/serialization/unordered_map.hpp>
+#include <boost/algorithm/string.hpp>
 #include <set>
 
 
@@ -49,9 +50,11 @@ using namespace std;
 namespace WBSF
 {
 
+
+    const int CSearchOptimisation::VERSION = 1;
+
 	CSearchOptimisation::CSearchOptimisation()
 	{
-
 	}
 
 	CSearchOptimisation::~CSearchOptimisation()
@@ -340,6 +343,8 @@ namespace WBSF
 
 
 	//**************************************************************************************************************************
+	const int CWeatherDatabaseOptimization::VERSION = 1;
+
 	CWeatherDatabaseOptimization::CWeatherDatabaseOptimization()
 	{
 		m_time = -1;
@@ -482,49 +487,58 @@ namespace WBSF
 		clear();
 
 
-		pugi::xml_document doc;
-		doc.load_file(filePath.c_str());
-
-		//		msg = load(filePath, doc);
-		//		if (msg)
-		//		{
-		//
-		if (IsNormalsDB(filePath))
+		try
 		{
-			string str1 = doc.root().attribute("start").as_string();
-			string str2 = doc.root().attribute("end").as_string();
-			if (!str1.empty() && !str2.empty())
-			{
-				int year1 = stoi(str1);
-				int year2 = stoi(str2);
-				if (year1 > INVLID_YEAR && year2 > INVLID_YEAR)
-				{
-					m_years.insert(year1);
-					m_years.insert(year2);
-				}
-			}
+            pugi::xml_document doc;
+            doc.load_file(filePath.c_str());
+
+
+            boost::iequals(filePath, u8"Élévation");
+
+            if (IsNormalsDB(filePath))
+            {
+                string str1 = doc.root().attribute("start").as_string();
+                string str2 = doc.root().attribute("end").as_string();
+                if (!str1.empty() && !str2.empty())
+                {
+                    int year1 = stoi(str1);
+                    int year2 = stoi(str2);
+                    if (year1 > INVLID_YEAR && year2 > INVLID_YEAR)
+                    {
+                        m_years.insert(year1);
+                        m_years.insert(year2);
+                    }
+                }
+            }
+
+            string subDir = doc.root().attribute("subdir").as_string();
+
+
+            //don't update it now. Update when open next time
+            m_filePath = filePath;
+            m_bSubDir = !subDir.empty() ? stoi(subDir) : false;
+
+            //load csv format... remove xml later
+            string CSVFilePath = filePath;
+            SetFileExtension(CSVFilePath, hdrExt);
+            msg = CLocationVector::Load(CSVFilePath);
+
+            if (msg)
+                m_time = GetFileStamp(CSVFilePath);
+
+		}
+		catch(pugi::xpath_exception& e)
+		{
+		    msg.ajoute(e.what());
+            msg.ajoute("Error reading database: " + filePath);
+		}
+		catch(std::exception& e)
+		{
+            msg.ajoute(e.what());
+            msg.ajoute("Error reading database: " + filePath);
 		}
 
-		string subDir = doc.root().attribute("subdir").as_string();
 
-		//if (readStruc(doc.root(), *this))
-		//{
-			//don't update it now. Update when open next time
-		m_filePath = filePath;
-		m_bSubDir = !subDir.empty() ? stoi(subDir) : false;
-
-		//load csv format... remove xml later
-		string CSVFilePath = filePath;
-		SetFileExtension(CSVFilePath, hdrExt);
-		msg = CLocationVector::Load(CSVFilePath);
-
-		if (msg)
-			m_time = GetFileStamp(CSVFilePath);
-		//}
-		//else
-		//{
-		//	msg.ajoute("Error reading database: " + filePath);
-		//}
 
 
 

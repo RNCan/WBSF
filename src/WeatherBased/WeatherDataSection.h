@@ -160,6 +160,6 @@ namespace WBSF
 		std::string m_filePath;
 
 
-		static const int VERSION = 1;
+		static const int VERSION;
 	};
 }//namepsace WBSF

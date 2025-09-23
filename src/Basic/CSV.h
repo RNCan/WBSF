@@ -103,7 +103,7 @@ public:
         }
         else
         {
-            
+
             if (m_bDQ)
                 *((std::vector<std::string>*)this) = TokenizeQuoted(m_line, m_pD);
             else
@@ -227,7 +227,7 @@ public:
         return !((*this) == rhs);
     }
 
-    CSVRow const& Header()const
+    const CSVRow& Header()const
     {
         return m_header;
     }

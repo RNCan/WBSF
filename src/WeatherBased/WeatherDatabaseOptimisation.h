@@ -68,7 +68,7 @@ namespace WBSF
 		CApproximateNearestNeighborPtrVector m_ANNs;
 
 
-		static const int VERSION = 1;
+		static const int VERSION;
 	};
 
 	typedef std::map<std::string, std::time_t> CFileStampMap;
@@ -181,7 +181,7 @@ namespace WBSF
 
 
 		mutable std::mutex m_mutex;
-		static const int VERSION = 1;
+		static const int VERSION;
 	};
 
 }

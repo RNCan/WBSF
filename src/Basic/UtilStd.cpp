@@ -30,13 +30,14 @@
 #include <boost/dll/runtime_symbol_info.hpp>
 #include <boost/crc.hpp>
 
-#ifdef _MSC_VER
+//#ifdef _MSC_VER
+#if defined(_WIN32)
 #include <boost/process/v1.hpp>
 #else
 #include <boost/process.hpp>
 #endif
 
-
+#include <boost/process.hpp>
 
 #include "WBSFconfig.h"
 #include "UtilStd.h"
@@ -1127,41 +1128,9 @@ namespace WBSF
 		ERMsg msg;
 
 
-#if defined(__linux__)
-
-		try
-		{
-
-
-			boost_process::ipstream pipe_stream;
-			boost_process::child c;
-
-			c = boost_process::child(exe_path, arg, boost_process::std_out > pipe_stream, boost_process::start_dir(working_dir));
-
-
-			std::string line;
-
-			c.wait();
-
-			if (pExitCode)
-				*pExitCode = c.exit_code();
-		}
-		catch (const boost_process::process_error& e)
-		{
-			//cout << e..what();
-			msg.ajoute(std::string("Unable to execute command: ") + exe_path);
-			msg.ajoute(string("Boost.Process Error: ") + e.what());
-			//std::cerr << "Error Code: " << e.code().value() << std::endl;
-			//std::cerr << "Error Category: " << e.code().category().name() << std::endl;
-		}
-		catch (const std::exception& e)
-		{
-			msg.ajoute(std::string("Unable to execute command: ") + exe_path);
-			msg.ajoute(e.what());
-			//std::cerr << "General C++ Exception: " << e.what() << std::endl;
-		}
-
-#else
+//#if defined(__linux__)
+//#if defined(_MSC_VER)
+#if defined(_WIN32)
 
 
 
@@ -1248,6 +1217,41 @@ namespace WBSF
 		// Or you can get the exit code
 		//int exit_code = proc.exit_code();
 		// std::cout << "Exit code: " << exit_code << std::endl;
+
+#else
+
+		try
+		{
+
+
+			boost_process::ipstream pipe_stream;
+			boost_process::child c;
+
+			c = boost_process::child(exe_path, arg, boost_process::std_out > pipe_stream, boost_process::start_dir(working_dir));
+
+
+			std::string line;
+
+			c.wait();
+
+			if (pExitCode)
+				*pExitCode = c.exit_code();
+		}
+		catch (const boost_process::process_error& e)
+		{
+			//cout << e..what();
+			msg.ajoute(std::string("Unable to execute command: ") + exe_path);
+			msg.ajoute(string("Boost.Process Error: ") + e.what());
+			//std::cerr << "Error Code: " << e.code().value() << std::endl;
+			//std::cerr << "Error Category: " << e.code().category().name() << std::endl;
+		}
+		catch (const std::exception& e)
+		{
+			msg.ajoute(std::string("Unable to execute command: ") + exe_path);
+			msg.ajoute(e.what());
+			//std::cerr << "General C++ Exception: " << e.what() << std::endl;
+		}
+
 
 #endif
 

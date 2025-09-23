@@ -31,6 +31,8 @@ using namespace WBSF::WEATHER;
 namespace WBSF
 {
 
+    const int CWeatherFileSectionIndex::VERSION=1;
+
 	CWeatherFileSectionIndex::CWeatherFileSectionIndex()
 	{
 		Reset();
