@@ -513,7 +513,7 @@ size_t CLocation::GetMemberFromName(const string& headerIn)
         member = LAT;
     else if (boost::iequals(header, "Longitude") || boost::iequals(header, "Lon") || boost::iequals(header, "Long") || boost::iequals(header, "X"))
         member = LON;
-    else if (boost::iequals(header, "Elevation") || boost::iequals(header, u8"Élévation") || boost::iequals(header, "Elev") || boost::iequals(header, u8"Élév") || boost::iequals(header, "Alt") || boost::iequals(header, "Altitude") || boost::iequals(header, "Z"))
+    else if (boost::iequals(header, "Elevation") || boost::iequals(header, "Élévation") || boost::iequals(header, "Elev") || boost::iequals(header, "Élév") || boost::iequals(header, "Alt") || boost::iequals(header, "Altitude") || boost::iequals(header, "Z"))
     //else if (boost::iequals(header, "Elevation") || boost::iequals(header, "Elev") || boost::iequals(header, "Alt") || boost::iequals(header, "Altitude") || boost::iequals(header, "Z"))
         member = ELEV;
 

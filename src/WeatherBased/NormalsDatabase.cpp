@@ -64,7 +64,7 @@ ERMsg CNormalsDataDeque::Load(const std::string& filePath)
     ERMsg msg;
 
     clear();
-    
+
     ifStream file;
     msg += file.open(filePath, ios::in | ios::binary);
     if (msg)
@@ -436,6 +436,12 @@ ERMsg CNormalsDatabase::OpenOptimizationFile(const std::string& referencedFilePa
         callback.AddMessage("Save " + GetFileName(optFilePath) + "...");
         msg += m_zop.Save(optFilePath);
         msg += ClearSearchOpt(referencedFilePath);
+        msg += CreateAllCanals(true, true, true, callback);
+        msg += CreateAllCanals(true, false, false, callback);//for gradient
+        //Close search to save it
+        msg += m_zop.Save(GetOptimisationFilePath());
+        m_zop.CloseSearch();
+
     }
 
 
@@ -1377,10 +1383,20 @@ ERMsg CNormalsDatabase::SaveAsBinary(const string& file_path)const
 }
 
 
-void CNormalsDatabase::CreateAllCanals(bool bExcludeUnused, bool bUseElevation, bool bUseShoreDistance)
+ERMsg CNormalsDatabase::CreateAllCanals(bool bExcludeUnused, bool bUseElevation, bool bUseShoreDistance, CCallback& callback)
 {
+    ERMsg msg;
+
+    callback.PushTask("Create all search canal", H_SRAD);
     for(TVarH v= H_FIRST_VAR; v< H_SRAD; v++)
-        CreateCanal(v, 0, bExcludeUnused, bUseElevation, bUseShoreDistance);
+    {
+         CreateCanal(v, 0, bExcludeUnused, bUseElevation, bUseShoreDistance);
+         msg += callback.StepIt();
+    }
+
+    callback.PopTask();
+
+    return msg;
 }
 
 

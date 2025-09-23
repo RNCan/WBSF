@@ -181,7 +181,7 @@ public:
     //static ERMsg CreateBinary(std::string file_path_in, std::string file_path_out);
 
     //void CreateCanal(CWVariables filter, int year, bool bExcludeUnused, bool bUseElevation, bool bUseShoreDistance);
-    void CreateAllCanals(bool bExcludeUnused=true, bool bUseElevation = true, bool bUseShoreDistance = true);
+    ERMsg CreateAllCanals(bool bExcludeUnused=true, bool bUseElevation = true, bool bUseShoreDistance = true, CCallback& callback=CCallback::DEFAULT_CALLBACK);
     void CreateCanal(CWVariables filter, int year, bool bExcludeUnused, bool bUseElevation, bool bUseShoreDistance);
 
 protected:
