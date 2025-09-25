@@ -26,7 +26,7 @@ inline std::string to_string(const tagRECT& rect)
     return s.str();
 }
 
-inline tagRECT ToRect(const std::string& str)
+inline tagRECT to_rect(const std::string& str)
 {
     tagRECT rect;
 

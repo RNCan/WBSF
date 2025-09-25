@@ -112,9 +112,23 @@ CTRef CParameter::GetTRef()const
     return date;
 }
 
+void CParameter::write_xml(pugi::xml_node node)const
+{
+    node.append_attribute("Name").set_value(m_name.c_str());
+    node.append_attribute("IsVariable").set_value(m_bIsVariable);
+    node.append_child(pugi::node_pcdata).set_value(m_value.c_str());
+}
+
+void CParameter::read_xml(pugi::xml_node node)
+{
+    m_name = node.attribute("Name").as_string();
+    m_bIsVariable = node.attribute("IsVariable").as_string();
+    m_value = node.child_value();
+}
+
 //const char* CParameterVector::XMLFlagIn="ModelInput";
 //const char* CParameterVector::XMLFlagOut="ModelOutput";
-//const char* CParameterVector::XMLFlag="Parameter";
+const char* CParameterVector::XML_FLAG = "Parameter";
 
 
 //

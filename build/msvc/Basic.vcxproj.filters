@@ -278,6 +278,9 @@
     <ClInclude Include="..\..\src\Basic\json\json11.hpp">
       <Filter>Source Files\json11</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Basic\xml.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Basic\ApproximateNearestNeighbor.cpp">

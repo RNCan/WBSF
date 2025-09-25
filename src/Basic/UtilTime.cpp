@@ -458,7 +458,20 @@ const char* CTRefFormat::DEFAULT_HEADER[CTM::NB_REFERENCE][CTM::NB_MODE] =
 //const char* CTRefFormat::DATE_DM = "%d-%m";
 
 //"DateYMD", "DateDMY", "DateMD", "DateDM"
-const char* CTRefFormat::FORMAT_NAME[NB_FORMAT] = { "Year", "Month", "Day", "DOY", "Hour", "No" };
+const char* CTRefFormat::FORMAT_NAME[NB_FORMAT] = { "Year", "Month", "Day", "DOY", "Hour", "No", "Date" };
+
+//std::vector<std::string> CTRefFormat::GetTimeReference(const std::string& header)
+std::vector<std::string> CTRefFormat::GetTimeReference(const std::vector<std::string>& header)
+{
+    std::vector<std::string> time_ref;
+    for (size_t i = 0; i < NB_FORMAT; i++)
+    {
+        if (WBSF::FindStringExact(header, FORMAT_NAME[i], false) != header.end())
+            time_ref.push_back(FORMAT_NAME[i]);
+    }
+
+    return time_ref;
+}
 
 
 

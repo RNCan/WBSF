@@ -9,7 +9,7 @@
 #pragma once
 
 #include <array>
-//#include <map>
+
 
 #include <boost/serialization/access.hpp>
 #include <unordered_map>
@@ -17,7 +17,7 @@
 #include <algorithm>
 
 //#include "Basic/WeatherDefine.h"
-//#include "Basic/UtilZen.h"
+#include "Basic/xml.hpp"
 #include "Basic/UtilTime.h"
 #include "Basic/GeoBasic.h"
 #include "Basic/Callback.h"
@@ -27,7 +27,7 @@
 namespace WBSF
 {
 
-typedef std::unordered_map < std::string, std::pair<std::string, size_t> > SiteSpeceficInformationMapBase;
+typedef std::unordered_map < std::string, std::string > SiteSpeceficInformationMapBase;
 class SiteSpeceficInformationMap : public SiteSpeceficInformationMapBase
 {
 public:
@@ -83,10 +83,10 @@ public:
         return MEMBER_NAME[i];
     }
     static const char* GetMemberTitle(size_t d);
-    static const char* GetXMLFlag()
-    {
-        return XML_FLAG;
-    }
+    //static const char* GetXMLFlag()
+    //{
+      //  return XML_FLAG;
+    //}
     enum TDefaultSSI { OPTIONAL_ID, SLOPE, ASPECT, USED_IT, DATA_FILE_NAME, TIME_ZONE, VARIABLES, YEARS, SHORE_DIST, E_HORIZON, W_HORIZON, NB_DEFAULT_SSI };
 
     static const char* GetDefaultSSIName(size_t i)
@@ -236,10 +236,13 @@ public:
 
     double GetGeocentricCoord(size_t i)const;
 
+    void write_xml(pugi::xml_node node)const;
+    void read_xml(pugi::xml_node node);
+
 protected:
 
 
-    static const char* XML_FLAG;
+    
     static const char* MEMBER_NAME[NB_MEMBER];
     static std::vector<std::string> MEMBER_TITLE;
     static const char* DEFAULT_SSI_NAME[NB_DEFAULT_SSI];
@@ -324,6 +327,8 @@ class CLocationVector : public CLocationVectorBase
 {
 public:
 
+
+    static const char* XML_FLAG;
     static ERMsg ExtractNominatimName(CLocationVector& locations, bool bReplaceAll, bool bName, bool bState, bool bCountry, CCallback& callback);
     static ERMsg ExtractOpenTopoDataElevation(CLocationVector& locations, bool bReplaceAll, size_t eProduct, size_t eINterpol, CCallback& callback);
     static ERMsg ExtractShoreDistance(CLocationVector& locations, bool bReplaceAll, CCallback& callback);
@@ -371,6 +376,17 @@ public:
     {
         return data >> stream;
     }
+
+    void read_xml(pugi::xml_node parent_node)
+    {
+        WBSF::read_xml(parent_node, XML_FLAG, *this);
+    }
+
+    void write_xml(pugi::xml_node parent_node)const
+    {
+        WBSF::write_xml(*this, parent_node, XML_FLAG);
+    }
+
 
     const std::string& GetFilePath()const
     {

@@ -16,6 +16,10 @@
 // 01-09-98  Yves Secretan, Yves Roy  Version éducationnelle
 //************************************************************************
 
+#include <iostream>
+#include <string>
+#include <sstream>
+
 #include "Syenvmsg.h"
 
 using namespace std;
@@ -629,6 +633,54 @@ const std::string& ERMsg::operator [] (int indice) const
     return objet[indice];
 }
 
+std::string ERMsg::to_string(const std::string& sep)const
+{
+    std::string str;
+
+    for (unsigned int i = 0; i < dimension(); i++)
+    {
+        if (!str.empty())
+            str += sep;
+
+        const SYMessage& objet = messageP->reqObjet();
+        str += objet[i].data();
+    }
+
+
+    return str;
+}
+
+static std::vector< std::string > tokenize_string(const std::string& str, const string& sep)
+{
+    std::vector< std::string > output;
+    //for (char del : sep)
+    //{
+    //    std::stringstream sst(str);
+  //      std::string a;
+//        while (getline(sst, a, sep))
+      //      output.push_back(a);
+    //}
+
+    //char myString[] = "The quick brown fox";
+    char* p = strtok(const_cast<char*>(str.c_str()), const_cast<char*>(sep.c_str()));
+    while (p) 
+    {
+        output.push_back(p);
+        p = strtok(NULL, const_cast<char*>(sep.c_str()));
+    }
+
+
+    return output;
+}
+
+void ERMsg::from_string(const std::string& str, const std::string& sep)
+{
+    ERMsg msg;
+
+    std::vector<std::string> errors = tokenize_string(str, sep);
+    for (std::vector<std::string>::const_iterator it = errors.begin(); it != errors.end(); it++)
+        msg.ajoute(*it);
+}
 //******************************************************************************
 // Sommaire:     Permet de faire un test logique sur l'état du message.
 //

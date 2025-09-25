@@ -13,8 +13,11 @@
 #pragma once
 
 #include <mutex>
+
+#include <boost/dll/shared_library.hpp>
+
+
 #include "WeatherBased/WeatherDefine.h"
-//#include "Basic/Registry.h"
 #include "Basic/Statistic.h"
 #include "ModelBased/ModelInputParameter.h"
 #include "ModelBased/ModelOutputVariable.h"
@@ -115,11 +118,11 @@ public:
     bool operator != (const CModel& in)const;
 
     void Reset();
-    ERMsg LoadDLL();
-    void UnloadDLL();
+    ERMsg LoadLibrary();
+    void UnloadLibrary();
     bool IsLoaded()const
     {
-        return m_hDll != NULL;
+        return m_shared_library.is_loaded();
     }
 
     ERMsg Save(const std::string& filePath);
@@ -129,7 +132,7 @@ public:
     void GetDefaultParameter(CModelInput& modelInput)const;
     void SetDefaultParameter(const CModelInput& modelInput);
 
-    ERMsg RunModel(const std::string & nameInputFile);
+    //ERMsg RunModel(const std::string & nameInputFile);
     ERMsg RunModel(std::istream& inStream, std::iostream& outStream);	// call dll
     ERMsg VerifyModelInput(const CModelInput& modelInput)const;
     ERMsg SetStaticData(std::istream& inStream);
@@ -319,22 +322,26 @@ public:
     ERMsg InitSimulatedAnnealing(long ID, const std::string& IDsFilePath);
     double GetFValue(const std::vector<double>& X, CStatisticXYVector& stat);
 
+    void write_xml(pugi::xml_node node);
+    void read_xml(pugi::xml_node node);
+
 
 protected:
 
 
     // run section
-    ERMsg RunModelDLL(const std::string & nameInputFile);
-    ERMsg RunModelEXE(const std::string & nameInputFile);
+    //ERMsg RunModelDLL(const std::string & nameInputFile);
+    //ERMsg RunModelEXE(const std::string & nameInputFile);
     ERMsg FormatModelError(int code);
-    bool GetDiskSpaceOk(const std::string & nameInputFile);
+    //bool GetDiskSpaceOk(const std::string & nameInputFile);
 
-    typedef int(*RunModelFileF)(const char*, char[1024]);
+    //typedef int(*RunModelFileF)(const char*, char[1024]);
     typedef char* (*GetModelVersionF)();
 
-    RunModelFileF m_RunModelFile;
+    //RunModelFileF m_RunModelFile;
+    boost::dll::shared_library m_shared_library;
     //HINSTANCE m_hDll;
-    void* m_hDll;
+    //void* m_hDll;
 
     static const char* MEMBER_NAME[NB_MEMBER];
     static const char* XML_FLAG;

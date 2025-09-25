@@ -123,7 +123,7 @@ string CWGInput::GetMember(size_t i)const
         str = m_variables.to_string();
         break;
     case SOURCE_TYPE:
-        str = to_string(m_sourceType);
+        str = std::to_string(m_sourceType);
         break;
     case GENERATION_TYPE:
         str = to_string(m_generationType);
@@ -445,5 +445,72 @@ CWVariables CWGInput::GetNormalMandatoryVariables()const
 
     return mVariables;
 }
+
+
+void CWGInput::write_xml(pugi::xml_node node)const
+{
+
+    node.append_child(GetMemberName(VARIABLES)).append_child(pugi::node_pcdata).set_value(m_variables.to_string().c_str());
+    node.append_child(GetMemberName(SOURCE_TYPE)).append_child(pugi::node_pcdata).set_value(to_string(m_sourceType).c_str());
+    node.append_child(GetMemberName(GENERATION_TYPE)).append_child(pugi::node_pcdata).set_value(to_string(m_generationType).c_str());
+    node.append_child(GetMemberName(NB_NORMALS_YEARS)).append_child(pugi::node_pcdata).set_value(to_string(m_nbNormalsYears).c_str());
+    node.append_child(GetMemberName(FIRST_YEAR)).append_child(pugi::node_pcdata).set_value(to_string(m_firstYear).c_str());
+    node.append_child(GetMemberName(LAST_YEAR)).append_child(pugi::node_pcdata).set_value(to_string(m_lastYear).c_str());
+    node.append_child(GetMemberName(USE_FORECAST)).append_child(pugi::node_pcdata).set_value(to_string(m_bUseForecast).c_str());
+    node.append_child(GetMemberName(USE_RADAR_PRCP)).append_child(pugi::node_pcdata).set_value(to_string(m_bUseRadarPrcp).c_str());
+    node.append_child(GetMemberName(NB_NORMAL_STATION)).append_child(pugi::node_pcdata).set_value(to_string(m_nbNormalsStations).c_str());
+    node.append_child(GetMemberName(NORMAL_DB_NAME)).append_child(pugi::node_pcdata).set_value(m_normalsDBName.c_str());
+    node.append_child(GetMemberName(NB_DAILY_STATION)).append_child(pugi::node_pcdata).set_value(to_string(m_nbDailyStations).c_str());
+    node.append_child(GetMemberName(DAILY_DB_NAME)).append_child(pugi::node_pcdata).set_value(m_dailyDBName.c_str());
+    node.append_child(GetMemberName(NB_HOURLY_STATION)).append_child(pugi::node_pcdata).set_value(to_string(m_nbHourlyStations).c_str());
+    node.append_child(GetMemberName(HOURLY_DB_NAME)).append_child(pugi::node_pcdata).set_value(m_hourlyDBName.c_str());
+    node.append_child(GetMemberName(NB_GRIB_POINTS)).append_child(pugi::node_pcdata).set_value(to_string(m_nbGribPoints).c_str());
+    node.append_child(GetMemberName(GRIBS_DB_NAME)).append_child(pugi::node_pcdata).set_value(m_gribsDBName.c_str());
+    node.append_child(GetMemberName(USE_GRIBS)).append_child(pugi::node_pcdata).set_value(to_string(m_bUseGribs).c_str());
+    node.append_child(GetMemberName(ALBEDO)).append_child(pugi::node_pcdata).set_value(to_string(m_albedo).c_str());
+    node.append_child(GetMemberName(SEED)).append_child(pugi::node_pcdata).set_value(to_string(m_seed).c_str());
+    node.append_child(GetMemberName(ALLOWED_DERIVED_VARIABLES)).append_child(pugi::node_pcdata).set_value(m_allowedDerivedVariables.to_string().c_str());
+    node.append_child(GetMemberName(XVALIDATION)).append_child(pugi::node_pcdata).set_value(to_string(m_bXValidation).c_str());
+    node.append_child(GetMemberName(SKIP_VERIFY)).append_child(pugi::node_pcdata).set_value(to_string(m_bSkipVerify).c_str());
+    node.append_child(GetMemberName(NO_FILL_MISSING)).append_child(pugi::node_pcdata).set_value(to_string(m_bNoFillMissing).c_str());
+    node.append_child(GetMemberName(USE_SHORE)).append_child(pugi::node_pcdata).set_value(to_string(m_bUseShore).c_str());
+    node.append_child(GetMemberName(SEARCH_RADIUS)).append_child(pugi::node_pcdata).set_value(m_searchRadius.to_string().c_str());
+
+}
+
+
+
+
+
+void CWGInput::read_xml(pugi::xml_node node)
+{
+    m_variables = node.child(GetMemberName(VARIABLES)).text().as_string();
+    m_sourceType = node.child(GetMemberName(SOURCE_TYPE)).text().as_int();
+    m_generationType = node.child(GetMemberName(GENERATION_TYPE)).text().as_int();
+    m_nbNormalsYears = node.child(GetMemberName(NB_NORMALS_YEARS)).text().as_int();
+    m_firstYear = node.child(GetMemberName(FIRST_YEAR)).text().as_int();
+    m_lastYear = node.child(GetMemberName(LAST_YEAR)).text().as_int();
+    m_bUseForecast = node.child(GetMemberName(USE_FORECAST)).text().as_bool();
+    m_bUseRadarPrcp = node.child(GetMemberName(USE_RADAR_PRCP)).text().as_bool();
+    m_normalsDBName = node.child(GetMemberName(NORMAL_DB_NAME)).text().as_string();
+    m_nbNormalsStations = node.child(GetMemberName(NB_NORMAL_STATION)).text().as_int();
+    m_dailyDBName = node.child(GetMemberName(DAILY_DB_NAME)).text().as_string();
+    m_nbDailyStations = node.child(GetMemberName(NB_DAILY_STATION)).text().as_int();
+    m_hourlyDBName = node.child(GetMemberName(HOURLY_DB_NAME)).text().as_string();
+    m_nbHourlyStations = node.child(GetMemberName(NB_HOURLY_STATION)).text().as_int();
+    m_gribsDBName = node.child(GetMemberName(GRIBS_DB_NAME)).text().as_string();
+    m_nbGribPoints = node.child(GetMemberName(NB_GRIB_POINTS)).text().as_int();
+    m_bUseGribs = node.child(GetMemberName(USE_GRIBS)).text().as_string();
+    m_albedo = node.child(GetMemberName(ALBEDO)).text().as_ullong();
+    m_seed = node.child(GetMemberName(SEED)).text().as_ullong();
+    m_allowedDerivedVariables = node.child(GetMemberName(ALLOWED_DERIVED_VARIABLES)).text().as_string();
+    m_bXValidation = node.child(GetMemberName(XVALIDATION)).text().as_bool();
+    m_bSkipVerify = node.child(GetMemberName(SKIP_VERIFY)).text().as_bool();
+    m_bNoFillMissing = node.child(GetMemberName(NO_FILL_MISSING)).text().as_bool();
+    m_bUseShore = node.child(GetMemberName(USE_SHORE)).text().as_bool();
+    m_searchRadius = node.child(GetMemberName(SEARCH_RADIUS)).text().as_string();
+
+}
+
 
 }

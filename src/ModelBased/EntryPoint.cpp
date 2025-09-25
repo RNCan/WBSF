@@ -69,6 +69,13 @@ CreateObjectM CModelFactory::_CreateObject = NULL;
 
 extern "C"
 {
+
+    DllExport int add(int a, int b)
+    {
+        return a + b;
+    }
+
+
     //****************************************************************
     //General function
     bool FormatErrorMessage(ERMsg msg, char errorMessage[1024])

@@ -2132,14 +2132,16 @@ namespace WBSF
 	{
 		auto it1 = StringRange(str1.begin(), str1.end());
 		auto it2 = StringRange(str2.begin(), str2.end());
-		return std::distance(it1.begin(), boost::find_first(it1, it2).begin());
+		size_t pos = std::distance(it1.begin(), boost::ifind_first(it1, it2).begin());
+		return pos < str1.length() ? pos : string::npos;
 	}
 
 	static size_t FindInsensitive(const std::string& str1, const std::string& str2)
 	{
 		auto it1 = StringRange(str1.begin(), str1.end());
 		auto it2 = StringRange(str2.begin(), str2.end());
-		return std::distance(it1.begin(), boost::ifind_first(it1, it2).begin());
+		size_t pos = std::distance(it1.begin(), boost::ifind_first(it1, it2).begin());
+		return pos < str1.length() ? pos: string::npos;
 	}
 
 	size_t Find(const std::string& str1, const std::string& str2, bool bCaseSensitive)

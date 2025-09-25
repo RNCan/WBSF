@@ -493,7 +493,7 @@ namespace WBSF
             doc.load_file(filePath.c_str());
 
 
-            boost::iequals(filePath, u8"Élévation");
+            boost::iequals(filePath, "Élévation");
 
             if (IsNormalsDB(filePath))
             {

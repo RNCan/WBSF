@@ -11,6 +11,7 @@
 
 
 #include "Basic/UtilTime.h"
+#include "Basic/xml.hpp"
 #include "ModelBased/InputParam.h"
 
 namespace WBSF
@@ -30,10 +31,10 @@ public:
         assert(i >= 0 && i < NB_MEMBERS);
         return MEMBERS_NAME[i];
     }
-    static const char* GetXMLFlag()
+    /*static const char* GetXMLFlag()
     {
         return XML_FLAG;
-    }
+    }*/
 
     //members
     std::string m_name;         //name without space
@@ -72,6 +73,9 @@ public:
         ar & m_name & m_title & m_units & m_description & m_TM & m_precision & m_equation & m_climaticVariable;
     }
 
+    void write_xml(pugi::xml_node node)const;
+    void read_xml(const pugi::xml_node node);
+
 
 protected:
 
@@ -90,6 +94,9 @@ typedef std::vector<CModelOutputVariableDef> CModelOutputVariableDefVectorBase;
 class CModelOutputVariableDefVector : public CModelOutputVariableDefVectorBase
 {
 public:
+    
+    static const char* XML_FLAG;
+
     // Definition of the template
     template<class Archive>
     void serialize(Archive& ar, const unsigned int version)
@@ -101,6 +108,17 @@ public:
 
     CParameterVector GetParametersVector()const;
     CWVariables GetWVariables()const;
+
+    void read_xml(pugi::xml_node parent_node)
+    {
+        WBSF::read_xml(parent_node, XML_FLAG, *this);
+    }
+
+    void write_xml(pugi::xml_node parent_node)const
+    {
+        WBSF::write_xml(*this, parent_node, XML_FLAG);
+    }
+
 };
 }
 

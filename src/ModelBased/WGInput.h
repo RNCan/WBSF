@@ -32,6 +32,18 @@ public:
             at(v) = 0; //no search by default for secondary variables
     }
 
+    CSearchRadius& operator=(const std::string& in)
+    {
+        std::array< double, HOURLY_DATA::NB_VAR_H>::operator=(from_string<std::array, double, HOURLY_DATA::NB_VAR_H>(in));
+        return *this;
+    }
+    
+    std::string to_string()const
+    {
+        return WBSF::to_string(*static_cast<const std::array< double, HOURLY_DATA::NB_VAR_H>*>(this));
+    }
+
+
     bool operator==(const CSearchRadius& in)const
     {
         bool bEqual = true;
@@ -267,6 +279,9 @@ public:
 
 
     friend boost::serialization::access;
+
+    void write_xml(pugi::xml_node node)const;
+    void read_xml(pugi::xml_node node);
 
 protected:
 

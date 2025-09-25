@@ -13,6 +13,7 @@
 
 #pragma once
 
+#include "Basic/xml.hpp"
 #include "Basic/UtilStd.h"
 #include "ModelBased/SerializeRect.h"
 #include "ModelBased/InputParam.h"
@@ -183,11 +184,15 @@ public:
             m_type == CModelInputParameterDef::kMVListByCSV;
     }
 
+    void write_xml( pugi::xml_node node);
+    void read_xml(pugi::xml_node node);
+
+
 protected:
 
-    enum { NB_TRANSLATED_MEMBER = 3 };
+    //enum { NB_TRANSLATED_MEMBER = 3 };
 
-    static const short TRANSLATED_MEMBER[NB_TRANSLATED_MEMBER];
+    //static const short TRANSLATED_MEMBER[NB_TRANSLATED_MEMBER];
     static const char* MEMBER_NAME[NB_MEMBER];
     static const char* TYPE_NAME[kMVNbType];
     //static const char* TypeSQLName[kMVNbType];
@@ -206,6 +211,16 @@ public:
     CParameterVector GetParametersVector()const;
     CParametersVariationsDefinition GetParametersVariations()const;
 
+    void read_xml(pugi::xml_node parent_node)
+    {
+        WBSF::read_xml(parent_node, XML_FLAG, *this);
+    }
+
+    void write_xml(pugi::xml_node parent_node)const
+    {
+        WBSF::write_xml(*this, parent_node, XML_FLAG);
+    }
+    
 };
 
 }

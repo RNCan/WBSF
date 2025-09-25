@@ -19,6 +19,7 @@
 #include "Basic/UtilMath.h"
 #include "Basic/UtilTime.h"
 #include "Basic/UtilStd.h"
+#include "Basic/xml.hpp"
 
 #include "WeatherBased/WeatherDefine.h"
 
@@ -104,6 +105,9 @@ public:
     {
         return m_bIsVariable;
     }
+
+    void write_xml(pugi::xml_node node)const;
+    void read_xml(pugi::xml_node node);
 };
 
 
@@ -112,7 +116,20 @@ class CParameterVector : public CParameterVectorBase
 {
 public:
 
+    static const char* XML_FLAG;
     CParameterVector(size_t size = 0) :CParameterVectorBase(size) {}
+
+    void read_xml(pugi::xml_node parent_node)
+    {
+        WBSF::read_xml(parent_node, XML_FLAG, *this);
+    }
+
+    void write_xml(pugi::xml_node parent_node)const
+    {
+        WBSF::write_xml(*this, parent_node, XML_FLAG);
+    }
+
+
 };
 
 
@@ -131,6 +148,8 @@ public:
     {
         Reset();
     }
+
+    CCounter& operator =(const std::string& in) { from_string(in); return *this; }
 
     bool operator ==(const CCounter& in)const;
     bool operator !=(const CCounter& in)const

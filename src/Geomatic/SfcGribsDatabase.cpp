@@ -127,13 +127,13 @@ public:
             value = double(((char*)m_ptr)[x]);
             break;
         case GDT_UInt16:
-            value = double(((unsigned int16_t*)m_ptr)[x]);
+            value = double(((uint16_t*)m_ptr)[x]);
             break;
         case GDT_Int16:
             value = double(((int16_t*)m_ptr)[x]);
             break;
         case GDT_UInt32:
-            value = double(((unsigned int32_t*)m_ptr)[x]);
+            value = double(((uint32_t*)m_ptr)[x]);
             break;
         case GDT_Int32:
             value = double(((int32_t*)m_ptr)[x]);
@@ -157,13 +157,13 @@ public:
             ((char*)m_ptr)[x] = (char)value;
             break;
         case GDT_UInt16:
-            ((unsigned int16_t*)m_ptr)[x] = (unsigned int16_t)value;
+            ((uint16_t*)m_ptr)[x] = (uint16_t)value;
             break;
         case GDT_Int16:
             ((int16_t*)m_ptr)[x] = (int16_t)value;
             break;
         case GDT_UInt32:
-            ((unsigned int32_t*)m_ptr)[x] = (unsigned int32_t)value;
+            ((uint32_t*)m_ptr)[x] = (uint32_t)value;
             break;
         case GDT_Int32:
             ((int32_t*)m_ptr)[x] = (int32_t)value;

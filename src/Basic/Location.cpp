@@ -43,7 +43,7 @@ namespace WBSF
 //************************************************************************
 //CLocation Class
 
-const char* CLocation::XML_FLAG = "Location";
+
 const char* CLocation::MEMBER_NAME[NB_MEMBER] = { "ID", "Name", "Latitude", "Longitude", "Elevation", "SiteSpecificInformation" };
 const char* CLocation::DEFAULT_SSI_NAME[NB_DEFAULT_SSI] =
 {
@@ -195,7 +195,7 @@ string CLocation::GetMember(size_t i)const
     case SITE_SPECIFIC_INFORMATION:
     {
         for (SiteSpeceficInformationMap::const_iterator it = m_siteSpeceficInformation.begin(); it != m_siteSpeceficInformation.end(); it++)
-            str += "{" + it->first + ":" + it->second.first + "}";
+            str += "{" + it->first + ":" + it->second + "}";
         break;
     }
     default:
@@ -250,7 +250,7 @@ double CLocation::GetSlope()const
     double slope = -999;
     SiteSpeceficInformationMap::const_iterator it = m_siteSpeceficInformation.find(GetDefaultSSIName(SLOPE));
     if (it != m_siteSpeceficInformation.end())
-        slope = ToDouble(it->second.first);
+        slope = ToDouble(it->second);
 
     return slope;
 }
@@ -272,7 +272,7 @@ double CLocation::GetAspect()const
     double aspect = -999;
     SiteSpeceficInformationMap::const_iterator it = m_siteSpeceficInformation.find(GetDefaultSSIName(ASPECT));
     if (it != m_siteSpeceficInformation.end())
-        aspect = ToDouble(it->second.first);
+        aspect = ToDouble(it->second);
 
     assert(aspect == -999 || (aspect >= 0 && aspect <= 360));
     return aspect;
@@ -318,7 +318,7 @@ std::string CLocation::GetSSI(const std::string& name)const
 {
     SiteSpeceficInformationMap::const_iterator it = m_siteSpeceficInformation.find(name);
     if (it != m_siteSpeceficInformation.end())
-        return it->second.first;
+        return it->second;
 
     return "";
 }
@@ -327,21 +327,21 @@ void CLocation::SetSSI(const std::string& name, const std::string& SSI)
 {
     if (SSI.empty())
     {
-        size_t pos = UNKNOWN_POS;
-        SiteSpeceficInformationMap::iterator it = m_siteSpeceficInformation.find(name);
-        if (it != m_siteSpeceficInformation.end())
-            pos = it->second.second;
+        //size_t pos = UNKNOWN_POS;
+        //SiteSpeceficInformationMap::iterator it = m_siteSpeceficInformation.find(name);
+       // if (it != m_siteSpeceficInformation.end())
+         //   pos = it->second.second;
 
         m_siteSpeceficInformation.erase(name);
         //update all position after pos
 
-        for (SiteSpeceficInformationMap::iterator it = m_siteSpeceficInformation.begin(); it != m_siteSpeceficInformation.end(); it++)
-            if (it->second.second > pos)
-                it->second.second--;
+        //for (SiteSpeceficInformationMap::iterator it = m_siteSpeceficInformation.begin(); it != m_siteSpeceficInformation.end(); it++)
+          //  if (it->second.second > pos)
+            //    it->second.second--;
     }
     else
     {
-        m_siteSpeceficInformation[name] = make_pair(SSI, m_siteSpeceficInformation.size());
+        m_siteSpeceficInformation[name] = SSI;
     }
 
 }
@@ -388,7 +388,7 @@ ERMsg CLocation::IsValid(bool bExludeUnknownElev)const
     SiteSpeceficInformationMap::const_iterator it = m_siteSpeceficInformation.find(GetDefaultSSIName(SLOPE));
     if (it != m_siteSpeceficInformation.end())
     {
-        double slope = ToDouble(it->second.first);
+        double slope = ToDouble(it->second);
         if (slope < 0)
         {
             msg.ajoute(boost::locale::translate("Invalid slope. Slope must be in percent and must be greater than or equal to 0."));
@@ -399,7 +399,7 @@ ERMsg CLocation::IsValid(bool bExludeUnknownElev)const
     it = m_siteSpeceficInformation.find(GetDefaultSSIName(ASPECT));
     if (it != m_siteSpeceficInformation.end())
     {
-        double aspect = ToDouble(it->second.first);
+        double aspect = ToDouble(it->second);
 
         if (aspect < 0 || aspect > 360)
         {
@@ -514,7 +514,6 @@ size_t CLocation::GetMemberFromName(const string& headerIn)
     else if (boost::iequals(header, "Longitude") || boost::iequals(header, "Lon") || boost::iequals(header, "Long") || boost::iequals(header, "X"))
         member = LON;
     else if (boost::iequals(header, "Elevation") || boost::iequals(header, "Élévation") || boost::iequals(header, "Elev") || boost::iequals(header, "Élév") || boost::iequals(header, "Alt") || boost::iequals(header, "Altitude") || boost::iequals(header, "Z"))
-    //else if (boost::iequals(header, "Elevation") || boost::iequals(header, "Elev") || boost::iequals(header, "Alt") || boost::iequals(header, "Altitude") || boost::iequals(header, "Z"))
         member = ELEV;
 
     return member;
@@ -533,7 +532,14 @@ vector<size_t> CLocation::GetMembers(const vector<string>& header)
 //return the eader in the same position as they was added
 vector<string> CLocation::GetSSIHeader()const
 {
-    vector<pair<size_t, string>> orderPair;
+    vector<string> header;
+    for (auto SSI: m_siteSpeceficInformation)
+        header.push_back(SSI.first);
+
+    return header;
+
+
+   /* vector<pair<size_t, string>> orderPair;
     for (SiteSpeceficInformationMap::const_iterator it = m_siteSpeceficInformation.begin(); it != m_siteSpeceficInformation.end(); it++)
         orderPair.push_back(make_pair(it->second.second, it->first));
 
@@ -543,7 +549,7 @@ vector<string> CLocation::GetSSIHeader()const
     for (vector<pair<size_t, string>>::const_iterator it = orderPair.begin(); it != orderPair.end(); it++)
         header.push_back(it->second);
 
-    return header;
+    return header;*/
 
     //return GetSSIOrder();
 
@@ -622,8 +628,40 @@ double CLocation::GetGeocentricCoord(size_t i)const
 }
 
 
+void CLocation::write_xml(pugi::xml_node node)const
+{
+    
+    node.append_child(GetMemberName(NAME)).append_child(pugi::node_pcdata).set_value(m_name.c_str());
+    node.append_child(GetMemberName(ID)).append_child(pugi::node_pcdata).set_value(m_ID.c_str());
+    node.append_child(GetMemberName(LAT)).append_child(pugi::node_pcdata).set_value(to_string(m_lat).c_str());
+    node.append_child(GetMemberName(LON)).append_child(pugi::node_pcdata).set_value(to_string(m_lon).c_str());
+    node.append_child(GetMemberName(ELEV)).append_child(pugi::node_pcdata).set_value(to_string(m_elev).c_str());
+
+//    vector<string> header = GetSSIHeader();
+  //  assert(header.size() == m_siteSpeceficInformation.size());
+    
+    for (auto SSI : m_siteSpeceficInformation)
+    {
+        node.append_child(SSI.first.c_str()).append_child(pugi::node_pcdata).set_value(SSI.second.c_str());
+    }
+}
+
+
+void CLocation::read_xml(pugi::xml_node node)
+{
+    //node.child_value(GetMemberName(NAME));
+
+    for (auto child: node.children())
+    {
+        size_t i = GetMemberFromName(child.name());
+        SetMember(i, child.text().as_string());
+    }
+}
+
 
 //******************************************************************************************************
+const char* CLocationVector::XML_FLAG = "Location";
+
 vector<string> CLocationVector::GetHeaderFromData()const
 {
     vector<string> header;
@@ -1255,7 +1293,8 @@ std::istream& SiteSpeceficInformationMap::operator >> (std::istream& stream)
 
         WBSF::ReadBuffer(stream, key);
         WBSF::ReadBuffer(stream, value);
-        insert( make_pair(key, make_pair(value, i) ) );
+        //insert( make_pair(key, make_pair(value, i) ) );
+        insert(make_pair(key, value));
     }
 
     return stream;
@@ -1271,7 +1310,7 @@ std::ostream& SiteSpeceficInformationMap::operator << (std::ostream& stream)cons
     for (const_iterator it = begin(); it != end(); it++)
     {
         WBSF::WriteBuffer(stream, it->first);
-        WBSF::WriteBuffer(stream, it->second.first);
+        WBSF::WriteBuffer(stream, it->second);
     }
 
     return stream;

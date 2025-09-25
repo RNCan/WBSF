@@ -788,7 +788,7 @@ namespace WBSF
 
 			if (msg)
 			{
-				m_header = to_string(columnsHeader, "", ",", "");
+				m_header = to_string(columnsHeader, ",");
 			}
 		}
 

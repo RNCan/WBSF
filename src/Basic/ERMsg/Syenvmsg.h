@@ -85,6 +85,9 @@ public:
     const std::string&   operator []         (int) const;
     operator void*      () const;
 
+    std::string to_string(const std::string& sep = "\n")const;
+    void from_string(const std::string& str, const std::string& sep = "\n");
+    
 private:
     void                 clone               ();
     void                 copie               (const ERMsg&);

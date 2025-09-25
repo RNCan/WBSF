@@ -232,6 +232,7 @@
     <ClInclude Include="..\..\src\Basic\UtilMath.h" />
     <ClInclude Include="..\..\src\Basic\UtilStd.h" />
     <ClInclude Include="..\..\src\Basic\UtilTime.h" />
+    <ClInclude Include="..\..\src\Basic\xml.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Basic\ANN\ANN.cpp" />

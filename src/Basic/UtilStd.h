@@ -403,7 +403,7 @@ namespace WBSF
 	//	COLORREF ToCOLORREF(const std::string& str);
 
 	template <class T> inline
-		T ToObject(const std::string& str)
+		T to_object(const std::string& str)
 	{
 		T obj;
 		std::istringstream ss(str);
@@ -411,10 +411,12 @@ namespace WBSF
 		return obj;
 	}
 
+
+
 	template <typename T> inline
-		T ToValue(const std::string& str)
+		T to_value(const std::string& str)
 	{
-		T t = T();// = 0; we can't initialize to zero if it's a string value
+		T t = 0;
 		if (!str.empty())
 		{
 			std::istringstream ss(str);
@@ -422,6 +424,18 @@ namespace WBSF
 		}
 		return t;
 	}
+
+	template <> inline
+		const std::string to_value(const std::string& str)
+	{
+		return str;
+	}
+
+	//template <typename T> inline
+	//	T from_string(const std::string& str)
+	//{
+	//	return to_value<T>(str);
+	//}
 
 	//	template <typename T> inline
 	//		T as(const std::string& str)
@@ -465,7 +479,7 @@ namespace WBSF
 	//	}
 	//
 	//	template <typename T> inline
-	//		const std::vector<T> ToVector(const std::string& str, const std::string& be = "[", const std::string& sep = ",", const std::string& en = "]")
+	//		const std::vector<T> ToVector(const std::string& str, const std::string& be = "[", const std::string& sep = "|", const std::string& en = "]")
 	//	{
 	//		std::vector<std::string> tmp = Tokenize(str, be + sep + en);
 	//		std::vector<T> v;
@@ -630,29 +644,87 @@ namespace WBSF
 
 
 	//	//http://stackoverflow.com/a/13636164/195722
-	template <typename T> inline
-		std::string to_string(T obj)
-	{
-		std::ostringstream ss;
-		ss << obj;
-		return ss.str();
-	}
+	//template <typename T> inline
+	//	std::string to_string(T obj)
+	//{
+	//	std::ostringstream ss;
+	//	ss << obj;
+	//	return ss.str();
+	//}
 
-	template <typename T> inline
-		std::string to_string(const std::vector<T>& v, const std::string& be = "[", const std::string& sep = ",", const std::string& en = "]")
-	{
-		std::string str = be;
 
-		for (typename std::vector<T>::const_iterator it = v.begin(); it != v.end(); it++)
+	using std::to_string;
+	template <template<typename...> class Container, typename... Args>
+	std::string to_string(const Container<Args...>& v, const std::string& sep = "|") //const std::string& be = "[", const std::string& sep = "|", const std::string& en = "]")
+	{
+		std::string str;// = be;
+
+		for (typename Container<Args...>::const_iterator it = v.begin(); it != v.end(); it++)
 		{
 			if (it != v.begin())
 				str += sep;
 			str += to_string(*it);
 		}
 
-		str += en;
+		//str += en;
 
 		return str;
+	}
+	template <template<typename, size_t N> class Container, typename T, size_t N>
+	std::string to_string(const Container<T,N>& v, const std::string& sep = "|") //const std::string& be = "[", const std::string& sep = "|", const std::string& en = "]")
+	{
+		std::string str;// = be;
+
+		for (typename Container<T,N>::const_iterator it = v.begin(); it != v.end(); it++)
+		{
+			if (it != v.begin())
+				str += sep;
+			str += to_string(*it);
+		}
+
+		//str += en;
+
+		return str;
+	}
+
+
+	/*template <typename U, class T=std::vector<U>> inline
+		T to_object(const std::string& str, const std::string& sep, const std::string& be = "", const std::string& en = "")
+	{
+		std::vector<std::string> tmp = Tokenize(str, be + sep + en);
+
+		T v;
+		for (std::vector<std::string>::const_iterator it = tmp.begin(); it != tmp.end(); it++)
+			if (!it->empty())
+				v.insert(v.end(), from_string<U>(*it));
+
+		return v;
+	}*/
+
+	template <template<typename, typename> typename Container, typename T, typename V>
+	Container<T, V> from_string(const std::string& str)
+	{
+		std::vector<std::string> tmp = Tokenize(str, "|");
+		Container<T> v;
+		v.reserve(tmp.size());
+		for (std::vector<std::string>::const_iterator it = tmp.begin(); it != tmp.end(); it++)
+			// if (!it->empty())
+			v.push_back(to_value<T>(*it));
+
+		return v;
+	}
+
+	//template for array
+	template <template <typename, std::size_t> class Container, typename T, std::size_t N>
+	Container<T, N> from_string(const std::string& str)
+	{
+		std::vector<std::string> tmp = Tokenize(str, "|");
+		Container<T, N> v;
+		//v.reserve(tmp.size());
+		for (size_t i = 0; i < tmp.size(); i++)
+			v[i] = to_value<T>(tmp[i]);
+
+		return v;
 	}
 
 	//

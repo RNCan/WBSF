@@ -131,6 +131,9 @@ public:
 
 
 
+    void write_xml(pugi::xml_node node)const;
+    void read_xml(pugi::xml_node node);
+
 
 protected:
 
@@ -183,10 +186,10 @@ public:
 
     std::string GetMember(size_t i)const;
     void SetMember(size_t i, const std::string& str);
-    //std::string GetMember(int i, LPXNode& pNode = NULL_ROOT)const;
-    //void SetMember(int i, const std::string& str, const LPXNode pNode = NULL_ROOT);
-    //void GetXML(LPXNode& pRoot)const{ XGetXML(*this, pRoot); }
-    //void SetXML(const LPXNode pRoot){ XSetXML(*this, pRoot); }
+
+
+    void write_xml(pugi::xml_node node)const;
+    void read_xml(pugi::xml_node node);
 
 protected:
 
@@ -305,7 +308,7 @@ public:
 //    in[WBSF::CTransferInfoOut::GetMemberName(WBSF::CTransferInfoOut::REP_COUNTER)](out.m_repCounter);
 //    in[WBSF::CTransferInfoOut::GetMemberName(WBSF::CTransferInfoOut::OUTPUT_TM)](out.m_TM);
 //    in[WBSF::CTransferInfoOut::GetMemberName(WBSF::CTransferInfoOut::ERROR_MSG)](msg);
-//    out.m_msg = WBSF::GetErrorMsgFromString(msg, "¦");
+//    out.m_msg = WBSF::GetErrorMsgFromStringw(msg, "¦");
 //
 //    return true;
 //}
