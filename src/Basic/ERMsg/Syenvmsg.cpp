@@ -18,6 +18,7 @@
 
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <sstream>
 
 #include "Syenvmsg.h"
@@ -663,7 +664,7 @@ static std::vector< std::string > tokenize_string(const std::string& str, const 
 
     //char myString[] = "The quick brown fox";
     char* p = strtok(const_cast<char*>(str.c_str()), const_cast<char*>(sep.c_str()));
-    while (p) 
+    while (p)
     {
         output.push_back(p);
         p = strtok(NULL, const_cast<char*>(sep.c_str()));

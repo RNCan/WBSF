@@ -705,7 +705,7 @@ namespace WBSF
 	Container<T, V> from_string(const std::string& str)
 	{
 		std::vector<std::string> tmp = Tokenize(str, "|");
-		Container<T> v;
+		Container<T, V> v;
 		v.reserve(tmp.size());
 		for (std::vector<std::string>::const_iterator it = tmp.begin(); it != tmp.end(); it++)
 			// if (!it->empty())

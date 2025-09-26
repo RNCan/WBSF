@@ -7,7 +7,7 @@
 
 namespace WBSF
 {
-    
+
     //typedef pugi::xml_node xml_node;
 
 
@@ -26,13 +26,13 @@ namespace WBSF
     //template<template <typename> class Container, typename T>
     //void write_xml_values(const Container<T>& data, const pugi::xml_node& parent_node, const std::string& element_name)
     //{
-    //    for (T val : data) 
+    //    for (T val : data)
     //    {
     //        parent_node.append_child(element_name.c_str()).append_child(pugi::node_pcdata).set_value(std::to_string(val).c_str());
     //    }
     //}
 
-    
+
     template <template<typename, typename> typename Container, typename T, typename A>
     void read_xml(pugi::xml_node parent_node, const std::string& element_name, Container<T, A>& out)
     {
@@ -44,7 +44,7 @@ namespace WBSF
         }
     }
 
-    
+
 
     template<template <typename> class Container, typename T>
     Container<T> read_xml_values(pugi::xml_node& parent_node, const std::string& element_name)
@@ -52,14 +52,14 @@ namespace WBSF
         Container<T> out;
         for (pugi::xml_node node : parent_node)
         {
-            out.push_back(to_value(node.text().to_string()));
+            out.push_back(to_value<T>(node.text()));
         }
 
         return out;
     }
 
 
-    
+
 
     class xml_document : public pugi::xml_document
     {
@@ -76,7 +76,7 @@ namespace WBSF
                 msg.ajoute(result.description());
                 msg.ajoute("Unable to read file: " + file_path);
             }
-        
+
             return msg;
         }
 
@@ -87,17 +87,17 @@ namespace WBSF
             bool result = pugi::xml_document::save_file(file_path.c_str());
             if (!result)
                 msg.ajoute("Unable to save file: " + file_path);
-        
+
             return msg;
         }
-        
+
     };
 
-    
+
     template<class T>
     std::string to_xml_string(const T& object, const std::string& XML_FLAG)
     {
-        
+
         pugi::xml_document doc;
 
         pugi::xml_node root = doc.append_child(XML_FLAG.c_str());
@@ -114,7 +114,7 @@ namespace WBSF
     ERMsg from_xml_string(const std::string& xml, T& object, const std::string& XML_FLAG)
     {
         ERMsg msg;
-        
+
         pugi::xml_document doc;
         pugi::xml_parse_result result = doc.load_string(xml.c_str());
         if(result)
@@ -136,6 +136,6 @@ namespace WBSF
 
         return msg;
     }
-    
+
 }
 

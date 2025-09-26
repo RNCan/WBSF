@@ -15,10 +15,10 @@
 				<Option createDefFile="1" />
 				<Compiler>
 					<Add option="-Wall" />
-					<Add option="-m64" />
-					<Add option="-g" />
 					<Add option="-std=gnu++20" />
+					<Add option="-m64" />
 					<Add option="-ggdb" />
+					<Add option="-g" />
 					<Add option="-pthread" />
 					<Add option="-fopenmp" />
 					<Add option="-Wno-unknown-pragmas" />
@@ -214,6 +214,7 @@
 		<Unit filename="../../../src/Basic/pugixml/pugixml.cpp" />
 		<Unit filename="../../../src/Basic/pugixml/pugixml.hpp" />
 		<Unit filename="../../../src/Basic/tortellini.hh" />
+		<Unit filename="../../../src/Basic/xml.hpp" />
 		<Unit filename="../../../src/WBSFconfig.h" />
 		<Extensions>
 			<envvars set="default" />

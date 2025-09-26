@@ -331,8 +331,8 @@ namespace WBSF
 		double sigma_gamma = 0;
 		double sigma_zeta = 0;
 		double P = m_normals[month].GetP(sigma_gamma, sigma_zeta);
-		assert(!_isnan(sigma_gamma));
-		assert(!_isnan(sigma_zeta));
+		assert(!isnan(sigma_gamma));
+		assert(!isnan(sigma_zeta));
 		//Régnière (2007) Eq [3] in standard 2nd order autoregressive process formulation
 		//Initialize time series
 		for (size_t i = 0; i < 50; i++)
@@ -375,7 +375,7 @@ namespace WBSF
 		double sigma_gamma = 0;
 		double sigma_zeta = 0;
 		double P = m_normals[month].GetP(sigma_gamma, sigma_zeta);
-		assert(!_isnan(sigma_zeta));
+		assert(!isnan(sigma_zeta));
 		//Régnière (2007) Eq [3] in standard 2nd order autoregressive process formulation
 		//Initialize time series
 
