@@ -1753,7 +1753,7 @@ namespace WBSF
 				ERMsg msg2 = RemoveDir(dataPath);
 				if (!msg2)
 					callback.AddMessage(msg2);
-			} 
+			}
 
 			std::string zop = GetOptimisationFilePath(filePath);
 			if (FileExists(zop))
@@ -1821,18 +1821,8 @@ namespace WBSF
 		if (lastUpdate > 0 && bVerifyAllFiles)
 		{
 			CFileInfoVector info;
-			//if (IsNormalsDB(filePath))
-            //{
-              //  info = WBSF::GetFilesInfo(WBSF::GetPath(filePath) + GetFileTitle(filePath) + ".csv");
-            //}
-			//else
-            //{
-              //  this->
             vector<string> files_list = GetFilesList(GetDataPath(), "*.csv");
-            //info = WBSF::GetFilesInfo(WBSF::GetPath(filePath) + GetFileTitle(filePath) + "\\*.csv");
             info = WBSF::GetFilesInfo(files_list);
-
-            //}
 
 
 			for (size_t i = 0; i < info.size(); i++)

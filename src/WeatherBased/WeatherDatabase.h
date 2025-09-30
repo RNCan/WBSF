@@ -202,7 +202,7 @@ namespace WBSF
 
 		virtual std::string GetSubDir(const std::string& filePath)const{ return GetFileTitle(filePath); }
 		using CWeatherDatabase::GetDataPath;
-		virtual std::string GetDataPath(const std::string& filePath)const{ return WBSF::GetPath(filePath) + GetFileTitle(filePath) + GetDBType() + "\\"; }
+		virtual std::string GetDataPath(const std::string& filePath)const{ return WBSF::GetPath(filePath) + GetFileTitle(filePath) + GetDBType() + "/"; }
 
 		virtual ERMsg VerifyVersion(const std::string& filePath)const;
 		virtual std::time_t GetLastUpdate(const std::string& filePath, bool bVerifyAllFiles = true)const;

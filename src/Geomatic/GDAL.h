@@ -20,7 +20,7 @@
 #include "gdal_priv.h"
 #include "ogr_spatialref.h"
 #else
-#include "/usr/include/gdal/gdal_priv.h"
-#include "/usr/include/gdal/ogr_spatialref.h"
+#include "/usr/local/include/gdal_priv.h"
+#include "/usr/local/include/ogr_spatialref.h"
 #endif
 #endif

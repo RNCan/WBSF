@@ -16,6 +16,7 @@
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-std=gnu++20" />
+					<Add option="-fPIC" />
 					<Add option="-m64" />
 					<Add option="-ggdb" />
 					<Add option="-g" />

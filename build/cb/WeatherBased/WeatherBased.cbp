@@ -16,6 +16,9 @@
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-std=gnu++17" />
+					<Add option="-fPIC" />
+					<Add option="-m64" />
+					<Add option="-ggdb" />
 					<Add option="-g" />
 					<Add option="-Wno-unknown-pragmas" />
 					<Add option="-Wno-deprecated-enum-enum-conversion" />
@@ -25,6 +28,7 @@
 					<Add directory="../../../src" />
 				</Compiler>
 				<Linker>
+					<Add option="-m64" />
 					<Add directory="/usr/lib" />
 				</Linker>
 			</Target>

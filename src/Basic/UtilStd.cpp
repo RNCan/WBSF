@@ -19,6 +19,7 @@
 #include <cmath>
 #include <iostream>
 #include <string>
+#include <cstdarg>
 
 #include <boost/locale.hpp>
 #include <boost/filesystem.hpp>
@@ -31,11 +32,11 @@
 #include <boost/crc.hpp>
 
 //#ifdef _MSC_VER
-#if defined(_WIN32)
+//#if defined(_WIN32)
 #include <boost/process/v1.hpp>
-#else
-#include <boost/process.hpp>
-#endif
+//#else
+//#include <boost/process.hpp>
+//#endif
 
 #include <boost/process.hpp>
 
@@ -283,166 +284,7 @@ namespace WBSF
 	//		return msg;
 	//	}
 	//
-	//
-	//	std::string LoadString(UINT nId)
-	//	{
-	//		std::string str;
-	//
-	//		HMODULE hModule = CDynamicResources::get();
-	//		//HMODULE hModule = GetModuleHandleW(0);
-	//		PCTSTR szName = MAKEINTRESOURCE((nId >> 4) + 1); // lifted
-	//
-	//		// No sense continuing if we can't find the resource
-	//		HRSRC hrsrc = ::FindResource(hModule, szName, RT_STRING);
-	//		DWORD dwSize = ::SizeofResource(hModule, hrsrc) / sizeof(TCHAR);
-	//
-	//		if (NULL == hrsrc)
-	//		{
-	//			//TRACE(_T("Cannot find resource %d: 0x%X"), nId, ::GetLastError());
-	//		}
-	//		else if (0 == dwSize)
-	//		{
-	//			//TRACE(_T("Cant get size of resource %d 0x%X\n"), nId, GetLastError());
-	//		}
-	//		else
-	//		{
-	//			//std::wstring tmp;
-	//			str.insert(str.begin(), dwSize + 1, 0);
-	//			::LoadStringA(hModule, nId, &(str[0]), dwSize);
-	//			str.resize(strlen(str.c_str()));
-	//
-	//			//str = UTF8(tmp);
-	//		}
-	//
-	//		return str;
-	//	}
-	//
-	//
-	//	std::string GetOutputString(ERMsg msg, CCallback& callback, bool bAllMessage, const char* sep)
-	//	{
-	//
-	//
-	//		string strError = GetString(IDS_STR_ERROR);
-	//		string strSucces = GetString(IDS_STR_SUCCESS);
-	//		string strLastMessage = GetString(IDS_STR_LAST_ERROR);
-	//		string strLastComment = GetString(IDS_STR_LAST_COMMENT);
-	//
-	//		std::string tmp;
-	//		if (msg)
-	//			tmp = strLastMessage + strSucces + "\n\n";
-	//		else
-	//			tmp = strLastMessage + strError + ":" + GetErrorString(msg, sep).c_str() + "\n\n";
-	//
-	//		tmp += strLastComment + "\n\n";
-	//		tmp += bAllMessage ? callback.GetDlgMessageText().data() : callback.GetCurrentTaskMessageText().data();
-	//		tmp += "\n";
-	//
-	//		return tmp;
-	//	}
-	//
-	//
-	//
-	//	/**
-	//	 * https://svn.boost.org/trac/boost/ticket/1976#comment:2
-	//	 *
-	//	 * "The idea: uncomplete(/foo/new, /foo/bar) => ../new
-	//	 *  The use case for this is any time you get a full path (from an open dialog, perhaps)
-	//	 *  and want to store a relative path so that the group of files can be moved to a different
-	//	 *  directory without breaking the paths. An IDE would be a simple example, so that the
-	//	 *  project file could be safely checked out of subversion."
-	//	 *
-	//	 * ALGORITHM:
-	//	 *  iterate path and base
-	//	 * compare all elements so far of path and base
-	//	 * whilst they are the same, no write to output
-	//	 * when they change, or one runs out:
-	//	 *   write to output, ../ times the number of remaining elements in base
-	//	 *   write to output, the remaining elements in path
-	//	 */
-	//	 /*boost::filesystem::path naive_uncomplete(boost::filesystem::path const p, boost::filesystem::path const base)
-	//	 {
-	//
-	//		 using boost::filesystem::path;
-	//		 using boost::filesystem::dot;
-	//		 using boost::filesystem::slash;
-	//
-	//		 if (p == base)
-	//			 return "./";
-	//			 //!! this breaks stuff if path is a filename rather than a directory,
-	//				 // which it most likely is... but then base shouldn't be a filename so...
-	//
-	//		 boost::filesystem::path from_path, from_base, output;
-	//
-	//		 boost::filesystem::path::iterator path_it = p.begin(),    path_end = p.end();
-	//		 boost::filesystem::path::iterator base_it = base.begin(), base_end = base.end();
-	//
-	//		 // check for emptiness
-	//		 if ((path_it == path_end) || (base_it == base_end))
-	//			 throw std::runtime_error("path or base was empty; couldn't generate relative path");
-	//
-	//	 #ifdef WIN32
-	//		 // drive letters are different; don't generate a relative path
-	//		 if (*path_it != *base_it)
-	//			 return p;
-	//
-	//		 // now advance past drive letters; relative paths should only go up
-	//		 // to the root of the drive and not past it
-	//		 ++path_it, ++base_it;
-	//	 #endif
-	//
-	//		 // Cache system-dependent dot, double-dot and slash strings
-	//		 const std::string _dot  = std::string(1, dot<path>::value);
-	//		 const std::string _dots = std::string(2, dot<path>::value);
-	//		 const std::string _sep = std::string(1, slash<path>::value);
-	//
-	//		 // iterate over path and base
-	//		 while (true) {
-	//
-	//			 // compare all elements so far of path and base to find greatest common root;
-	//			 // when elements of path and base differ, or run out:
-	//			 if ((path_it == path_end) || (base_it == base_end) || (*path_it != *base_it)) {
-	//
-	//				 // write to output, ../ times the number of remaining elements in base;
-	//				 // this is how far we've had to come down the tree from base to get to the common root
-	//				 for (; base_it != base_end; ++base_it) {
-	//					 if (*base_it == _dot)
-	//						 continue;
-	//					 else if (*base_it == _sep)
-	//						 continue;
-	//
-	//					 output /= "../";
-	//				 }
-	//
-	//				 // write to output, the remaining elements in path;
-	//				 // this is the path relative from the common root
-	//				 boost::filesystem::path::iterator path_it_start = path_it;
-	//				 for (; path_it != path_end; ++path_it) {
-	//
-	//					 if (path_it != path_it_start)
-	//						 output /= "/";
-	//
-	//					 if (*path_it == _dot)
-	//						 continue;
-	//					 if (*path_it == _sep)
-	//						 continue;
-	//
-	//					 output /= *path_it;
-	//				 }
-	//
-	//				 break;
-	//			 }
-	//
-	//			 // add directory level to both paths and continue iteration
-	//			 from_path /= path(*path_it);
-	//			 from_base /= path(*base_it);
-	//
-	//			 ++path_it, ++base_it;
-	//		 }
-	//
-	//		 return output;
-	//	 }
-	//	 */
-	//
+
 	std::string GetRelativePath(const std::string& base_path_in, const std::string& file_path_in)
 	{
 
@@ -454,24 +296,9 @@ namespace WBSF
 		std::filesystem::path rel_path;
 		if (!file_path.empty())
 		{
-			//std::wstring wBasePath(UTF16(sBasePath));
-			//std::wstring wFilePath(UTF16(sFilePath));
-			//std::filesystem::path basePath(sBasePath);
-			//std::filesystem::path filePath(sFilePath);
 			if (base_path.root_name() == file_path.root_name())
 			{
 				rel_path = make_relative(base_path, file_path);
-
-				//std::string wpath = relPath.string();
-				//path = UTF8(wpath);
-				//if (!rel_path.empty() && rel_path.string().back() == '.')
-				//{
-				//    //remove dot at the end
-				//    rel_path.pop_back();
-				//}
-
-				//std::replace(path.begin(), path.end(), '\\', '/');
-
 				rel_path = rel_path.parent_path();
 				if (rel_path.empty())
 					rel_path = "./";
@@ -525,7 +352,7 @@ namespace WBSF
 				//std::filesystem::path abs_path = std::filesystem::absolute(file_path, );
 				abs_path = file_path / base_path;
 				abs_path = SimplifyFilePath(abs_path);
-				//std::replace(path.begin(), path.end(), '/', '\\');
+
 				assert(!abs_path.empty());
 			}
 			else
@@ -538,17 +365,7 @@ namespace WBSF
 		return abs_path.string();
 	}
 
-	//
-	//	/*bool IsPathEndOk(const std::string& filePath)
-	//	{
-	//		bool bRep = false;
-	//		int pos = int(filePath.length())-1;
-	//		if( pos>=0 )
-	//			bRep = filePath.at(pos) == _T('\\') || filePath.at(pos) == _T('/');
-	//
-	//		return bRep;
-	//	}*/
-	//
+
 	std::string upperCase(std::string input)
 	{
 		for (std::string::iterator it = input.begin(); it != input.end(); ++it)
@@ -565,14 +382,14 @@ namespace WBSF
 			string::size_type pos = upperCase(filePath).find(upperCase(projectPath));
 			if (pos != string::npos)
 			{
-				special_path.replace(pos, projectPath.length(), "[Project Path]\\");
+				special_path.replace(pos, projectPath.length(), "[Project Path]/");
 			}
 			else
 			{
 				pos = upperCase(filePath).find(upperCase(appPath));
 				if (pos != NOT_INIT)
 				{
-					special_path.replace(pos, appPath.length(), "[BioSIM Path]\\");
+					special_path.replace(pos, appPath.length(), "[BioSIM Path]/");
 				}
 			}
 
@@ -745,7 +562,7 @@ namespace WBSF
 	std::vector<std::string> iter_dir(DirectoryIterator it, const std::string& filter)
 	{
 		std::vector<std::string> files_list;
-		//    files_list.reserve(it->size());
+
 
 		for (const auto& entry : it)
 		{
@@ -769,191 +586,7 @@ namespace WBSF
 
 		return iter_dir(boost::filesystem::directory_iterator(directory_path), filter);
 	}
-	//		std::string ext = GetFileExtension(filter);
-	//		if (!ext.empty() && ext.find('*') != string::npos)
-	//			ext.clear();
-	//
-	//		// Find the first file in the directory.
-	//		WIN32_FIND_DATA ffd;
-	//
-	//		HANDLE hFind = FindFirstFileExW(UTF16(filter).c_str(), FindExInfoBasic, &ffd, FindExSearchNameMatch, NULL, FIND_FIRST_EX_LARGE_FETCH);
-	//
-	//		if (hFind != INVALID_HANDLE_VALUE)
-	//		{
-	//			do
-	//			{
-	//				bool bDirectory = (ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0;
-	//				bool bAddDirectory = bDirectory && bAddEmptyExtension;
-	//				bool bSameExt = ext.empty() || IsEqual(ext, GetFileExtension(UTF8(ffd.cFileName)));
-	//
-	//				if ((!bDirectory && bSameExt) || (bDirectory&&bAddDirectory))
-	//				{
-	//					CFileInfo info;
-	//					info.m_filePath = path + UTF8(ffd.cFileName);
-	//					info.m_time = FILETIME_to_time64(ffd.ftCreationTime);
-	//					info.m_size = (ffd.nFileSizeHigh * ((int64_t)MAXDWORD + 1)) + ffd.nFileSizeLow;
-	//
-	//					filesInfo.push_back(info);
-	//				}
-	//			} while (FindNextFile(hFind, &ffd) != 0);
-	//
-	//			FindClose(hFind);
-	//		}
-	//
-	//		if (bSubDirSearch)
-	//		{
-	//			std::string filePathTmp(filter);
-	//			SetFileName(filePathTmp, "*.*");
-	//
-	//			WIN32_FIND_DATA ffd;
-	//			HANDLE hFind = FindFirstFileExW(UTF16(path + "*").c_str(), FindExInfoBasic, &ffd, FindExSearchLimitToDirectories, NULL, FIND_FIRST_EX_LARGE_FETCH);
-	//
-	//			if (hFind != INVALID_HANDLE_VALUE)
-	//			{
-	//				do
-	//				{
-	//					bool bDirectory = (ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0;
-	//					bool bAddDirectory = bDirectory && bAddEmptyExtension;
-	//					if (bDirectory)
-	//					{
-	//						std::string fileName = UTF8(ffd.cFileName);
-	//						//assert(findDir.IsDots() == (findDir.GetFileName() == "." || findDir.GetFileName() == ".."));
-	//						if (!(fileName == "." || fileName == ".."))
-	//						{
-	//							//std::string newFilePath = path + "\\" + fileName + "\\" + GetFileName(filter);
-	//							std::string newFilePath = path + fileName + "\\" + GetFileName(filter);
-	//							GetFilesInfo(newFilePath, bSubDirSearch, filesInfo);
-	//						}
-	//
-	//					}
-	//				} while (FindNextFile(hFind, &ffd) != 0);
-	//
-	//
-	//				FindClose(hFind);
-	//			}
-	//		}
-	//}
-	//
-	//	void GetFilesList(const CFileInfoVector& filesInfo, int type, std::vector<std::string>& filesList)
-	//	{
-	//		typedef std::pair<CFileInfoVector::const_iterator, std::vector<std::string>::iterator > SVFIVIterator;
-	//
-	//		filesList.resize(filesInfo.size());
-	//		for (SVFIVIterator it(filesInfo.begin(), filesList.begin()); it.first != filesInfo.end(); it.first++, it.second++)
-	//		{
-	//			switch (type)
-	//			{
-	//			case FILE_TITLE: *it.second = GetFileTitle(it.first->m_filePath); break;
-	//			case FILE_NAME:  *it.second = GetFileName(it.first->m_filePath); break;
-	//			case FILE_PATH:  *it.second = it.first->m_filePath; break;
-	//			default: assert(false);
-	//			}
-	//		}
-	//	}
-	//
-	//	std::vector<std::string> GetFilesList(const std::string& filter, int type, bool bSubDirSearch)
-	//	{
-	//		CFileInfoVector filesInfo;
-	//		GetFilesInfo(filter, bSubDirSearch, filesInfo);
-	//
-	//		std::vector<std::string> filesList;
-	//		GetFilesList(filesInfo, type, filesList);
-	//		return filesList;
-	//
-	//		/*bool bAddEmptyExtension = filter.substr(filter.length()-1) == ".";
-	//
-	//		// Find the first file in the directory.
-	//		WIN32_FIND_DATA ffd;
-	//		HANDLE hFind = FindFirstFileExW(convert(filter).c_str(), FindExInfoBasic, &ffd, FindExSearchNameMatch, NULL, FIND_FIRST_EX_LARGE_FETCH);
-	//
-	//		if (hFind != INVALID_HANDLE_VALUE)
-	//		{
-	//			do
-	//			{
-	//				bool bDirectory = (ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)!=0;
-	//				bool bAddDirectory = bDirectory&&bAddEmptyExtension;
-	//
-	//				if( !bDirectory || bAddDirectory)
-	//				{
-	//					std::string str = UTF8(ffd.cFileName);
-	//
-	//					switch( type )
-	//					{
-	//					case FILE_TITLE: filesList.push_back(GetFileTitle(str)); break;
-	//					case FILE_NAME:  filesList.push_back(GetFileName(str)); break;
-	//					case FILE_PATH:  filesList.push_back(GetPath(filter)+str.c_str()); break;
-	//					default: assert(false);
-	//					}
-	//				}
-	//			}
-	//			while (FindNextFile(hFind, &ffd) != 0);
-	//
-	//			//DWORD dwError = GetLastError();
-	//			//if (dwError == ERROR_NO_MORE_FILES)
-	//			//{
-	//			//}
-	//
-	//			FindClose(hFind);
-	//
-	//
-	//			if (bSubDirSearch)
-	//			{
-	//				string filePathTmp(filePath);
-	//				SetFileName(filePathTmp, "*.*");
-	//
-	//				WIN32_FIND_DATA ffd;
-	//				HANDLE hFind = FindFirstFileExW(convert(filter).c_str(), FindExInfoBasic, &ffd, FindExSearchNameMatch, NULL, FIND_FIRST_EX_LARGE_FETCH);
-	//
-	//				if (hFind != INVALID_HANDLE_VALUE)
-	//				{
-	//					do
-	//					{
-	//						bool bDirectory = (ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0;
-	//						bool bAddDirectory = bDirectory&&bAddEmptyExtension;
-	//
-	//						if (!bDirectory || bAddDirectory)
-	//						{
-	//							std::string str = UTF8(ffd.cFileName);
-	//
-	//							switch (type)
-	//							{
-	//							case FILE_TITLE: filesList.push_back(GetFileTitle(str)); break;
-	//							case FILE_NAME:  filesList.push_back(GetFileName(str)); break;
-	//							case FILE_PATH:  filesList.push_back(GetPath(filter) + str.c_str()); break;
-	//							default: assert(false);
-	//							}
-	//						}
-	//					} while (FindNextFile(hFind, &ffd) != 0);
-	//
-	//					//DWORD dwError = GetLastError();
-	//					//if (dwError == ERROR_NO_MORE_FILES)
-	//					//{
-	//					//}
-	//
-	//					FindClose(hFind);
-	//				//add directory to the list
-	//
-	//				CFileFind findDir;
-	//				BOOL workingTmp = findDir.FindFile(filePathTmp, 0);
-	//				while (workingTmp)
-	//				{
-	//					workingTmp = findDir.FindNextFile();
-	//					if (findDir.IsDirectory())
-	//					{
-	//						assert(findDir.IsDots() == (findDir.GetFileName() == "." || findDir.GetFileName() == ".."));
-	//						if (!findDir.IsDots())
-	//						{
-	//							CString newPath = findDir.GetFilePath() + _T("\\") + GetFileName(filePath);
-	//							GetFilesList(fileNameArray, newPath, fullPath, bSubDirSearch);
-	//						}
-	//					}
-	//				}
-	//			}
-	//		}
-	//		*/
-	//
-	//	}
-	//
+
 	//
 	//	std::vector<std::string> GetDirectoriesList(const std::string& filter)
 	//	{
@@ -1130,7 +763,7 @@ namespace WBSF
 
 //#if defined(__linux__)
 //#if defined(_MSC_VER)
-#if defined(_WIN32)
+//#if defined(_WIN32)
 
 
 
@@ -1218,7 +851,7 @@ namespace WBSF
 		//int exit_code = proc.exit_code();
 		// std::cout << "Exit code: " << exit_code << std::endl;
 
-#else
+/* #else
 
 		try
 		{
@@ -1255,7 +888,7 @@ namespace WBSF
 
 #endif
 
-
+*/
 
 
 

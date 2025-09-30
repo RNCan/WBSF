@@ -46,7 +46,7 @@ public:
     static const short TRANSLATED_MEMBER[NB_TRANSLATED_MEMBER];
 
 
-    enum TMember { TITLE, VERSION, EXTENSION, DLL_NAME, BEHAVIOUR, DESCRIPTION, WINDOW_RECT, SIMULATED_CATEGORY, TRANSFER_FILE_VERSION, IO_FILE_VERSION, NB_YEAR_MIN, NB_YEAR_MAX, THREAD_SAFE, INPUT_VARIABLE, SSI, OUTPUT_TM, OUTPUT_JULIAN_DAY, MISSING_VALUE, OUTPUT_VARIABLE, CREDIT, COPYRIGHT, HELP_TYPE, HELP_FILENAME, HELP_TEXT, NB_MEMBER };
+    enum TMember { TITLE, VERSION, EXTENSION, LIBRARY_NAME, BEHAVIOUR, DESCRIPTION, WINDOW_RECT, SIMULATED_CATEGORY, TRANSFER_FILE_VERSION, IO_FILE_VERSION, NB_YEAR_MIN, NB_YEAR_MAX, THREAD_SAFE, INPUT_VARIABLE, SSI, OUTPUT_TM, OUTPUT_JULIAN_DAY, MISSING_VALUE, OUTPUT_VARIABLE, CREDIT, COPYRIGHT, HELP_TYPE, HELP_FILENAME, HELP_TEXT, NB_MEMBER };
     static const char* GetMemberName(int i)
     {
         assert(i >= 0 && i < NB_MEMBER);
@@ -81,7 +81,7 @@ public:
     //public member
 
     std::string m_title;
-    std::string m_DLLName;
+    std::string m_libraryName;
     std::string m_version;
     int m_behaviour;
     std::string m_description;
@@ -155,13 +155,13 @@ public:
     }
     void SetExtension(const std::string& ext);
 
-    std::string GetDLLName()const
+    std::string GetLibraryName()const
     {
-        return m_DLLName;
+        return m_libraryName;
     }
-    void SetDLLName(const std::string& name)
+    void SetLibraryName(const std::string& name)
     {
-        m_DLLName = name;
+        m_libraryName = name;
     }
 
     std::string GetVersion()const
@@ -220,13 +220,13 @@ public:
         assert(!m_filePath.empty());
         return WBSF::GetPath(m_filePath);
     }
-    std::string GetDLLFilePath()const
+    std::string GetLibraryFilePath()const
     {
-        return GetDLLFilePath(m_DLLName);
+        return GetLibraryFilePath(m_libraryName);
     }
-    std::string GetDLLFilePath(std::string DLLName)const
+    std::string GetLibraryFilePath(std::string name)const
     {
-        return GetPath() + DLLName;
+        return GetPath() + PREFIX + name + EXTENTION;
     }
 
     CWVariables GetVariables()const
@@ -308,7 +308,7 @@ public:
 
     static CTRef GetTRef(CTM TM, const std::vector<double>& in);
     static short GetFileVersion(const std::string& filePath);
-    static std::string GetDLLVersion(const std::string& filePath);
+    static std::string GetLibraryVersion(const std::string& filePath);
 
     std::string GetDocumentation()const;
     ERMsg VerifyWGInput(const CWGInput& WGInput)const;
@@ -322,29 +322,25 @@ public:
     ERMsg InitSimulatedAnnealing(long ID, const std::string& IDsFilePath);
     double GetFValue(const std::vector<double>& X, CStatisticXYVector& stat);
 
-    void write_xml(pugi::xml_node node);
+    void write_xml(pugi::xml_node node)const;
     void read_xml(pugi::xml_node node);
 
+    //std::string m_extention;
 
 protected:
 
 
     // run section
-    //ERMsg RunModelDLL(const std::string & nameInputFile);
-    //ERMsg RunModelEXE(const std::string & nameInputFile);
     ERMsg FormatModelError(int code);
-    //bool GetDiskSpaceOk(const std::string & nameInputFile);
-
-    //typedef int(*RunModelFileF)(const char*, char[1024]);
     typedef char* (*GetModelVersionF)();
 
-    //RunModelFileF m_RunModelFile;
     boost::dll::shared_library m_shared_library;
-    //HINSTANCE m_hDll;
-    //void* m_hDll;
 
     static const char* MEMBER_NAME[NB_MEMBER];
     static const char* XML_FLAG;
+
+    static const std::string PREFIX;
+    static const std::string EXTENTION;
 
     typedef bool(*RunModelStreamF)(std::istream& inStream, std::ostream& outStream);
     typedef void(*SetStaticDataF)(std::istream& inStream);
@@ -373,64 +369,3 @@ protected:
 };
 }
 
-
-//namespace zen
-//{
-//
-//
-//template <> inline
-//void writeStruc(const WBSF::CModel& in, XmlElement& output)
-//{
-//    XmlOut out(output);
-//    out[WBSF::CModel::GetMemberName(WBSF::CModel::TITLE)](in.m_title);
-//    out[WBSF::CModel::GetMemberName(WBSF::CModel::VERSION)](in.m_version);
-//    out[WBSF::CModel::GetMemberName(WBSF::CModel::EXTENSION)](in.m_extension);
-//    out[WBSF::CModel::GetMemberName(WBSF::CModel::DLL_NAME)](in.m_DLLName);
-//    out[WBSF::CModel::GetMemberName(WBSF::CModel::BEHAVIOUR)](in.m_behaviour);
-//    out[WBSF::CModel::GetMemberName(WBSF::CModel::DESCRIPTION)](in.m_description);
-//    out[WBSF::CModel::GetMemberName(WBSF::CModel::WINDOW_RECT)](in.m_windowRect);
-//    out[WBSF::CModel::GetMemberName(WBSF::CModel::SIMULATED_CATEGORY)](in.m_variables);
-//    out[WBSF::CModel::GetMemberName(WBSF::CModel::TRANSFER_FILE_VERSION)](in.m_transferFileVersion);
-//    out[WBSF::CModel::GetMemberName(WBSF::CModel::SSI)](in.m_SSI);
-//    out[WBSF::CModel::GetMemberName(WBSF::CModel::NB_YEAR_MIN)](in.m_nbYearMin);
-//    out[WBSF::CModel::GetMemberName(WBSF::CModel::NB_YEAR_MAX)](in.m_nbYearMax);
-//    out[WBSF::CModel::GetMemberName(WBSF::CModel::THREAD_SAFE)](in.m_bThreadSafe);
-//    out[WBSF::CModel::GetMemberName(WBSF::CModel::INPUT_VARIABLE)](in.m_inputList);
-//    out[WBSF::CModel::GetMemberName(WBSF::CModel::OUTPUT_TM)](in.m_outputTM);
-//    out[WBSF::CModel::GetMemberName(WBSF::CModel::MISSING_VALUE)](in.m_missValue);
-//    out[WBSF::CModel::GetMemberName(WBSF::CModel::OUTPUT_VARIABLE)](in.m_outputList);
-//    out[WBSF::CModel::GetMemberName(WBSF::CModel::COPYRIGHT)](in.m_copyright);
-//    out[WBSF::CModel::GetMemberName(WBSF::CModel::CREDIT)](in.m_credit);
-//    out[WBSF::CModel::GetMemberName(WBSF::CModel::HELP_FILENAME)](in.m_helpFileName);
-//}
-//
-//template <> inline
-//bool readStruc(const XmlElement& input, WBSF::CModel& out)
-//{
-//    XmlIn in(input);
-//
-//    in[WBSF::CModel::GetMemberName(WBSF::CModel::TITLE)](out.m_title);
-//    in[WBSF::CModel::GetMemberName(WBSF::CModel::VERSION)](out.m_version);
-//    in[WBSF::CModel::GetMemberName(WBSF::CModel::EXTENSION)](out.m_extension);
-//    in[WBSF::CModel::GetMemberName(WBSF::CModel::DLL_NAME)](out.m_DLLName);
-//    in[WBSF::CModel::GetMemberName(WBSF::CModel::BEHAVIOUR)](out.m_behaviour);
-//    in[WBSF::CModel::GetMemberName(WBSF::CModel::DESCRIPTION)](out.m_description);
-//    in[WBSF::CModel::GetMemberName(WBSF::CModel::WINDOW_RECT)](out.m_windowRect);
-//    in[WBSF::CModel::GetMemberName(WBSF::CModel::SIMULATED_CATEGORY)](out.m_variables);
-//    in[WBSF::CModel::GetMemberName(WBSF::CModel::TRANSFER_FILE_VERSION)](out.m_transferFileVersion);
-//    in[WBSF::CModel::GetMemberName(WBSF::CModel::SSI)](out.m_SSI);
-//    in[WBSF::CModel::GetMemberName(WBSF::CModel::NB_YEAR_MIN)](out.m_nbYearMin);
-//    in[WBSF::CModel::GetMemberName(WBSF::CModel::NB_YEAR_MAX)](out.m_nbYearMax);
-//    in[WBSF::CModel::GetMemberName(WBSF::CModel::THREAD_SAFE)](out.m_bThreadSafe);
-//    in[WBSF::CModel::GetMemberName(WBSF::CModel::INPUT_VARIABLE)](out.m_inputList);
-//    in[WBSF::CModel::GetMemberName(WBSF::CModel::OUTPUT_TM)](out.m_outputTM);
-//    in[WBSF::CModel::GetMemberName(WBSF::CModel::MISSING_VALUE)](out.m_missValue);
-//    in[WBSF::CModel::GetMemberName(WBSF::CModel::OUTPUT_VARIABLE)](out.m_outputList);
-//    in[WBSF::CModel::GetMemberName(WBSF::CModel::COPYRIGHT)](out.m_copyright);
-//    in[WBSF::CModel::GetMemberName(WBSF::CModel::CREDIT)](out.m_credit);
-//    in[WBSF::CModel::GetMemberName(WBSF::CModel::HELP_FILENAME)](out.m_helpFileName);
-//
-//
-//    return true;
-//}
-//}

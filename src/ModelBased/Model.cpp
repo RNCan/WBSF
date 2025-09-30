@@ -74,7 +74,15 @@ namespace WBSF
 	const char* CModel::XML_FLAG = "BioSIMModel";
 	const char* CModel::MEMBER_NAME[NB_MEMBER] = { "Title", "Version", "ID", "EXE", "Behaviour", "Description", "WindowRect", "SimulatedCategory", "TransferFileVersion", "IOFileVersion", "NbYearMin", "NbYearMax", "ThreadSafe", "InputVariableArray", "SSI", "OutputTypeMode", "JulianDay", "MissingValue", "OutputVariableArray", "Credit", "Copyright", "HelpType", "HelpFileName", "HelpText" };
 	const short CModel::TRANSLATED_MEMBER[NB_TRANSLATED_MEMBER] = { TITLE, DESCRIPTION, CREDIT, COPYRIGHT, HELP_FILENAME, HELP_TEXT };
+#if defined(__linux__)
+    const std::string CModel::PREFIX = "lib";
+    const std::string CModel::EXTENTION = ".so";
 
+#else //Windows
+    const std::string CModel::PREFIX = "";
+    const std::string CModel::EXTENTION = ".dll";
+    #error
+#endif // _linux_
 	//////////////////////////////////////////////////////////////////////
 	// Construction/Destruction
 	//////////////////////////////////////////////////////////////////////
@@ -82,16 +90,12 @@ namespace WBSF
 
 	CModel::CModel()
 	{
-		//m_hDll = nullptr;
-		//m_RunModelFile = nullptr;
 		m_RunModelStream = nullptr;
 		Reset();
-		//assert(!GetString(IDS_BSC_ERRORINMODEL).empty());
 	}
 
 	CModel::CModel(const CModel& in)
 	{
-		//m_hDll = nullptr;
 		operator = (in);
 	}
 
@@ -105,8 +109,6 @@ namespace WBSF
 	void CModel::Reset()
 	{
 		UnloadLibrary();
-		//assert(m_hDll == nullptr);
-		//assert(m_RunModelFile == nullptr);
 		assert(m_RunModelStream == nullptr);
 
 		m_windowRect = { 0, 0, 250, 100 };
@@ -180,12 +182,12 @@ namespace WBSF
 		return msg;//zen::SaveXML(filePath, "Model", "3", *this);
 	}
 
-	void CModel::write_xml(pugi::xml_node node)
+	void CModel::write_xml(pugi::xml_node node)const
 	{
 		node.append_child(GetMemberName(TITLE)).set_value(m_title.c_str());
 		node.append_child(GetMemberName(VERSION)).set_value(m_version.c_str());
 		node.append_child(GetMemberName(EXTENSION)).set_value(m_extension.c_str());
-		node.append_child(GetMemberName(DLL_NAME)).set_value(m_DLLName.c_str());
+		node.append_child(GetMemberName(LIBRARY_NAME)).set_value(m_libraryName.c_str());
 		node.append_child(GetMemberName(BEHAVIOUR)).set_value(to_string(m_behaviour).c_str());
 		node.append_child(GetMemberName(DESCRIPTION)).set_value(m_description.c_str());
 		node.append_child(GetMemberName(WINDOW_RECT)).set_value(to_string(m_windowRect).c_str());
@@ -210,7 +212,7 @@ namespace WBSF
 		m_title = node.child(GetMemberName(TITLE)).text().as_string();
 		m_version = node.child(GetMemberName(VERSION)).text().as_string();
 		m_extension = node.child(GetMemberName(EXTENSION)).text().as_string();
-		m_DLLName = node.child(GetMemberName(DLL_NAME)).text().as_string();
+		m_libraryName = node.child(GetMemberName(LIBRARY_NAME)).text().as_string();
 		m_behaviour = node.child(GetMemberName(BEHAVIOUR)).text().as_int();
 		m_description = node.child(GetMemberName(DESCRIPTION)).text().as_string();
 		m_windowRect = to_rect(node.child_value(GetMemberName(WINDOW_RECT)));
@@ -227,6 +229,11 @@ namespace WBSF
 		m_copyright = node.child(GetMemberName(COPYRIGHT)).text().as_string();
 		m_credit = node.child(GetMemberName(CREDIT)).text().as_string();
 		m_helpFileName = node.child(GetMemberName(HELP_FILENAME)).text().as_string();
+
+		//remove ".dll" form old model
+		size_t pos = Find(m_libraryName, ".dll");
+		if(pos !=string::npos)
+            m_libraryName = m_libraryName.substr(0,pos);
 	}
 
 	//********************************************************
@@ -238,7 +245,7 @@ namespace WBSF
 		if (m_title != in.m_title) bEqual = false;
 		if (m_version != in.m_version) bEqual = false;
 		if (m_extension != in.m_extension) bEqual = false;
-		if (m_DLLName != in.m_DLLName) bEqual = false;
+		if (m_libraryName != in.m_libraryName) bEqual = false;
 		if (m_behaviour != in.m_behaviour) bEqual = false;
 		if (m_description != in.m_description) bEqual = false;
 		if (m_windowRect.left != in.m_windowRect.left) bEqual = false;
@@ -276,7 +283,7 @@ namespace WBSF
 			m_title = in.m_title;
 			m_version = in.m_version;
 			m_extension = in.m_extension;
-			m_DLLName = in.m_DLLName;
+			m_libraryName = in.m_libraryName;
 			m_behaviour = in.m_behaviour;
 			m_description = in.m_description;
 
@@ -355,29 +362,24 @@ namespace WBSF
 
 		ERMsg msg;
 
-		//m_CS.Enter();
 		if (!m_shared_library.is_loaded())
 		{
-			string filePath = GetDLLFilePath();
+			string filePath = GetLibraryFilePath();
 
-			if (Find(filePath, ".dll") != string::npos || Find(filePath, ".so") != string::npos)
-			{
-				try
-				{
-					m_shared_library.load(filePath.c_str());
+			assert (Find(filePath, ".dll") != string::npos || Find(filePath, ".so") != string::npos);
 
-				}
-				//it's not a exe but a dll.
-				//m_hDll = LoadLibrary(convert(filePath).c_str());
-				//if (m_hDll == nullptr)
-				catch (std::exception& e)
-				{
-					msg.ajoute(e.what());
-					msg.ajoute(FormatMsg("Cannot load library \"%1%\".", filePath));
-				}
-			}
+            try
+            {
+                m_shared_library.load(filePath.c_str());
+            }
+            catch (boost::exception& e)
+            {
+                msg.ajoute( diagnostic_information(e));
+                msg.ajoute(FormatMsg("Cannot load library \"%1%\".", filePath));
+            }
+
 		}
-		//m_CS.Leave();
+
 
 		return msg;
 	}
@@ -386,63 +388,16 @@ namespace WBSF
 	{
 		if (m_shared_library.is_loaded())
 		{
-			//assert(GetModuleHandleW(convert(GetDLLFilePath()).c_str()) != nullptr);
-
-			//to prevent a bug in the VCOMP100.dll we must wait 1 sec before closing dll
-			//see http://support.microsoft.com/kb/94248
-			//Sleep(1000);
-			//std::this_thread::sleep_for(std::chrono::seconds(1));
-			//bool bFree = true;//FreeLibrary(m_hDll) != 0;
 			m_shared_library.unload();
-			//if (bFree)
-			//{
-				//m_hDll = nullptr;
-			//m_RunModelFile = nullptr;
 			m_RunModelStream = nullptr;
 			m_SetStaticData = nullptr;
-			//m_simulFonc2=nullptr;
 			m_GetSimulatedAnnealingSize = nullptr;
 			m_SetSimulatedAnnealingSize = nullptr;
 			m_InitSimulatedAnnealing = nullptr;
 			m_GetFValue = nullptr;
-			//}
-
-
-
-			//assert(GetModuleHandleW(convert(GetDLLFilePath()).c_str()) == nullptr);
 		}
 	}
 
-
-	//ERMsg  CModel::RunModel(const string& nameInputFile)
-	//{
-	//	ERMsg msg;
-	//
-	//	string filePath = GetDLLFilePath();
-	//
-	//	//if (Find(filePath, ".dll") != string::npos)
-	//	//{
-	//	//	msg = LoadLibrary();
-	//	//
-	//	//	//if (msg && m_RunModelFile == nullptr)
-	//	//	//{
-	//	//	//	m_RunModelFile = m_shared_library.get<RunModelFileF>("RunModelFile");
-	//	//	//}
-	//	//
-	//	//	if (msg)
-	//	//	{
-	//	//		if (m_RunModelFile != nullptr)
-	//	//			msg = RunModelDLL(nameInputFile);//dll
-	//	//	}
-	//	//}
-	//	//else
-	//	//{
-	//		msg = RunModelEXE(nameInputFile);
-	//	//}
-	//
-	//
-	//	return msg;
-	//}
 
 	ERMsg CModel::RunModel(std::istream& inStream, std::iostream& outStream)
 	{
@@ -458,7 +413,7 @@ namespace WBSF
 
 				if (m_RunModelStream == nullptr)
 				{
-					msg.ajoute(FormatMsg("Cannot obtain method '%1%' in library \"%2%\".", "RunModelStream", GetDLLFilePath()));
+					msg.ajoute(FormatMsg("Cannot obtain method '%1%' in library \"%2%\".", "RunModelStream", GetLibraryFilePath()));
 				}
 			}
 		}
@@ -491,7 +446,7 @@ namespace WBSF
 
 					if (m_SetStaticData == nullptr)
 					{
-						msg.ajoute(FormatMsg("Cannot obtain method '%1%' in library \"%2%\".", "SetStaticData", GetDLLFilePath()));
+						msg.ajoute(FormatMsg("Cannot obtain method '%1%' in library \"%2%\".", "SetStaticData", GetLibraryFilePath()));
 					}
 				}
 			}
@@ -512,7 +467,7 @@ namespace WBSF
 	//
 	//	string IDsFileName(nameInputFile);
 	//
-	//	string exeName = GetDLLFilePath();
+	//	string exeName = GetLibraryFilePath();
 	//
 	//
 	//	IDsFileName = '"' + IDsFileName + '"';
@@ -637,7 +592,7 @@ namespace WBSF
 
 	ERMsg CModel::FormatModelError(int code)
 	{
-		string filePath = GetDLLFilePath(filePath);
+		string filePath = GetLibraryFilePath(filePath);
 
 		ERMsg msg;
 
@@ -646,7 +601,7 @@ namespace WBSF
 		//if (m_RunModelFile == nullptr)
 		//error = FormatMsg(IDS_SIM_ERRORINMODEL, filePath, to_string(code) );
 		//else
-		error = FormatMsg("DLL \"%1%\" returned error code '%2%'.", m_DLLName, to_string(code));
+		error = FormatMsg("DLL \"%1%\" returned error code '%2%'.", m_libraryName, to_string(code));
 
 		msg.ajoute(error);
 
@@ -685,7 +640,7 @@ namespace WBSF
 	}
 
 
-	string CModel::GetDLLVersion(const string& filePath)
+	string CModel::GetLibraryVersion(const string& filePath)
 	{
 		string version;
 
@@ -872,7 +827,7 @@ namespace WBSF
 		if (!msg)
 			return msg;
 
-		//assert(m_hDll);
+
 		m_GetSimulatedAnnealingSize = m_shared_library.get < GetSimulatedAnnealingSizeF>("GetSimulatedAnnealingSize");
 		m_SetSimulatedAnnealingSize = m_shared_library.get < SetSimulatedAnnealingSizeF>("SetSimulatedAnnealingSize");
 		m_InitSimulatedAnnealing = m_shared_library.get < InitSimulatedAnnealingF>("InitSimulatedAnnealing");
