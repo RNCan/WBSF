@@ -86,8 +86,8 @@
 		<Unit filename="../../src/Geomatic/SFBoudingBox.h" />
 		<Unit filename="../../src/Geomatic/SfcGribsDatabase.cpp" />
 		<Unit filename="../../src/Geomatic/SfcGribsDatabase.h" />
-		<Unit filename="../../src/Geomatic/ShapeFileBase.cpp" />
-		<Unit filename="../../src/Geomatic/ShapeFileBase.h" />
+		<Unit filename="../../src/Geomatic/ShapeFile.cpp" />
+		<Unit filename="../../src/Geomatic/ShapeFile.h" />
 		<Unit filename="../../src/Geomatic/ShapeFileHeader.cpp" />
 		<Unit filename="../../src/Geomatic/ShapeFileHeader.h" />
 		<Unit filename="../../src/Geomatic/ShapeFileIndex.cpp" />

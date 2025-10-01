@@ -25,7 +25,6 @@
     <ClCompile Include="..\..\src\ModelBased\DevRateEquation.cpp" />
     <ClCompile Include="..\..\src\ModelBased\EntryPoint.cpp" />
     <ClCompile Include="..\..\src\ModelBased\EquationTableLookup.cpp" />
-    <ClCompile Include="..\..\src\ModelBased\GridHelp.cpp" />
     <ClCompile Include="..\..\src\ModelBased\IndividualBase.cpp" />
     <ClCompile Include="..\..\src\ModelBased\InitialPopulation.cpp" />
     <ClCompile Include="..\..\src\ModelBased\InputParam.cpp" />
@@ -50,7 +49,6 @@
     <ClInclude Include="..\..\src\ModelBased\DevRateEquation.h" />
     <ClInclude Include="..\..\src\ModelBased\EntryPoint.h" />
     <ClInclude Include="..\..\src\ModelBased\EquationTableLookup.h" />
-    <ClInclude Include="..\..\src\ModelBased\GridHelp.h" />
     <ClInclude Include="..\..\src\ModelBased\IndividualBase.h" />
     <ClInclude Include="..\..\src\ModelBased\InitialPopulation.h" />
     <ClInclude Include="..\..\src\ModelBased\InputParam.h" />

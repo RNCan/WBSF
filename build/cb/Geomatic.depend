@@ -458,10 +458,10 @@
 	<boost\archive\binary_iarchive.hpp>
 	"ShapeFileIndex.h"
 
-1759334681 source:e:\projectcp\wbsf\src\geomatic\shorecreator.cpp
+1759334831 source:e:\projectcp\wbsf\src\geomatic\shorecreator.cpp
 	"WeatherBased/NormalsDatabase.h"
 	"Geomatic/ShoreCreator.h"
-	"Geomatic/ShapeFileBase.h"
+	"Geomatic/ShapeFile.h"
 
 1758626659 e:\projectcp\wbsf\src\weatherbased\normalsdatabase.h
 	<memory>

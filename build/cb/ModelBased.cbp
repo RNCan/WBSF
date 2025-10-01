@@ -14,7 +14,6 @@
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
-					<Add option="-Weffc++" />
 					<Add option="-Wall" />
 					<Add option="-fPIC" />
 					<Add option="-m64" />
@@ -67,8 +66,6 @@
 		<Unit filename="../../src/ModelBased/EntryPoint.h" />
 		<Unit filename="../../src/ModelBased/EquationTableLookup.cpp" />
 		<Unit filename="../../src/ModelBased/EquationTableLookup.h" />
-		<Unit filename="../../src/ModelBased/GridHelp.cpp" />
-		<Unit filename="../../src/ModelBased/GridHelp.h" />
 		<Unit filename="../../src/ModelBased/IndividualBase.cpp" />
 		<Unit filename="../../src/ModelBased/IndividualBase.h" />
 		<Unit filename="../../src/ModelBased/InitialPopulation.cpp" />
@@ -92,16 +89,10 @@
 		<Unit filename="../../src/ModelBased/ParametersVariations.cpp" />
 		<Unit filename="../../src/ModelBased/ParametersVariations.h" />
 		<Unit filename="../../src/ModelBased/SerializeRect.h" />
-		<Unit filename="../../src/ModelBased/ShapeFileHelp.cpp" />
-		<Unit filename="../../src/ModelBased/ShapeFileHelp.h" />
 		<Unit filename="../../src/ModelBased/SimulatedAnnealingVector.cpp" />
 		<Unit filename="../../src/ModelBased/SimulatedAnnealingVector.h" />
-		<Unit filename="../../src/ModelBased/SpectrumGridHelp.cpp" />
-		<Unit filename="../../src/ModelBased/SpectrumGridHelp.h" />
 		<Unit filename="../../src/ModelBased/SurvivalEquation.cpp" />
 		<Unit filename="../../src/ModelBased/SurvivalEquation.h" />
-		<Unit filename="../../src/ModelBased/TempGenHelp.cpp" />
-		<Unit filename="../../src/ModelBased/TempGenHelp.h" />
 		<Unit filename="../../src/ModelBased/WGInput-ModelInput.cpp" />
 		<Unit filename="../../src/ModelBased/WGInput-ModelInput.h" />
 		<Unit filename="../../src/ModelBased/WGInput.cpp" />
