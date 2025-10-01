@@ -108,7 +108,7 @@ public:
         io >> m_version;
         io >> m_shapeType;
 
-        ASSERT(IsLegalShapeType(m_shapeType));
+        assert(IsLegalShapeType(m_shapeType));
 
         m_boundingBox.Read(io);
 

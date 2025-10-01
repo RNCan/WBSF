@@ -9,10 +9,11 @@
 //******************************************************************************
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 //******************************************************************************
-#include "Geomatic/ShapeFileHeader.h"
-#include <boost\archive\binary_iarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
 
-#include "WeatherBasedSimulationString.h"
+
+#include "Geomatic/ShapeFileHeader.h"
+//#include "WeatherBasedSimulationString.h"
 
 namespace WBSF
 {
@@ -23,11 +24,11 @@ ERMsg CShapeFileHeader::ReadHeader(CShapeFileHeader& header, boost::archive::bin
     header.ReadHeader(io);
     if (header.GetFileCode() != 9994)
     {
-        msg.ajoute(GetString(IDS_MAP_INVALID_SHAPEFILE));
+        msg.ajoute("Invalid shapefile.");
     }
     if (!header.IsLegalShapeType(header.GetShapeType()))
     {
-        msg.ajoute(GetString(IDS_MAP_INVALID_SHAPETYPE));
+        msg.ajoute("This type of shapefile is not currently supported.");
     }
 
     return msg;
@@ -61,7 +62,9 @@ void CShapeFileHeader::clear()
     m_Mmin = 0;
     m_Mmax = 0;
 
-    ZeroMemory(m_unused, sizeof(int32_t) * 5);
+    // Zero out the buffer for security
+    memset(m_unused, 0, sizeof(int32_t) * 5);
+    //ZeroMemory(m_unused, sizeof(int32_t) * 5);
 
 }
 

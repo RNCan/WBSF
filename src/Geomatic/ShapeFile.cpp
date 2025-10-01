@@ -14,10 +14,10 @@
 #include <boost\archive\binary_oarchive.hpp>
 #include <boost\archive\binary_iarchive.hpp>
 
-#include "Geomatic/ShapeFileBase.h"
+#include "Geomatic/ShapeFile.h"
 #include "Geomatic/ShapeFileIndex.h"
-#include "Geomatic/ProjectionTransformation.h"
-#include "WeatherBasedSimulationString.h"
+//#include "Geomatic/ProjectionTransformation.h"
+//#include "WeatherBasedSimulationString.h"
 
 using namespace std;
 namespace WBSF
@@ -115,7 +115,7 @@ int CSFShape::GetNearestSegmentNo(const CGeoPoint& pt)const
 
 
     //GetNearestPointNo(x, y, bGeographic, &segmentNo);
-    ASSERT( segmentNo != -1);
+    assert( segmentNo != -1);
 
     return segmentNo;
 }
@@ -125,10 +125,10 @@ void CSFShape::SetPrjID(size_t prjID)
 }
 
 
-bool CSFShape::TransformeProjection(CProjectionTransformation const& PT)
-{
-    return true;
-}
+//bool CSFShape::TransformeProjection(CProjectionTransformation const& PT)
+//{
+//    return true;
+//}
 
 void CSFShape::GetCentroid(CGeoPoint& pt)const
 {
@@ -142,7 +142,7 @@ double CSFShape::GetArea(int ringNo)const
 
 void CSFShape::GetAdjustedBoundingBox(CSFBoundingBox& boundingBox)const
 {
-//	ASSERT( !boundingBox.GetPrj().IsUnknow() );///A ENLEVER
+//	assert( !boundingBox.GetPrj().IsUnknow() );///A ENLEVER
 //	CProjection ptr = boundingBox.GetPrj();
     boundingBox.clear();
 
@@ -271,8 +271,8 @@ void CSFPoint::GetCentroid(CGeoPoint& pt)const
 /*bool CSFPoint::Draw(CDC* pDC, const CRect& rcBounds, const CShowViewport& viewPort, const CShapeFile& shapeFile)
 {
     const CGeoRect& rcViewPort = viewPort.GetRect();
-    ASSERT( !rcViewPort.IsRectEmpty() );
-    ASSERT( !rcBounds.IsRectEmpty() );
+    assert( !rcViewPort.IsRectEmpty() );
+    assert( !rcBounds.IsRectEmpty() );
 
     double fLat = m_Y;
     double fLon = m_X;
@@ -288,7 +288,7 @@ void CSFPoint::GetCentroid(CGeoPoint& pt)const
         }
     }
 
-    ASSERT( rcViewPort.SameUnit(fLat, fLon)  );
+    assert( rcViewPort.SameUnit(fLat, fLon)  );
     if( rcViewPort.PtInRect(fLat, fLon)  )
     {
         int x=0;
@@ -331,22 +331,22 @@ void CSFPoint::SetPrjID(size_t prjID)
     CGeoPoint::SetPrjID(prjID);
 }
 
-bool CSFPoint::TransformeProjection(CProjectionTransformation const& PT)
-{
-    return CGeoPoint::Reproject( PT );
-}
+//bool CSFPoint::TransformeProjection(CProjectionTransformation const& PT)
+//{
+  //  return CGeoPoint::Reproject( PT );
+//}
 
 /*void CSFPoint::GetRingPoints(int ring, CSFPointArray& point)
 {
-    ASSERT( ring == 0);
+    assert( ring == 0);
     point.clear();
     point.push_back( CSFPoint( m_X, m_Y ) );
 }
 
 void CSFPoint::SetRingPoints(int ring, const CSFPointArray& point)
 {
-    ASSERT( ring == 0);
-    ASSERT( point.size() <= 1);
+    assert( ring == 0);
+    assert( point.size() <= 1);
     if( point.size() == 1 )
     {
         m_X = point[0].m_x;
@@ -428,7 +428,7 @@ void CSFMultiPoint::GetBoundingBox(CGeoRect& box)const
 
 bool CSFMultiPoint::AjoutePoint(const CGeoPoint& point)
 {
-    ASSERT( point.IsInit() );
+    assert( point.is_init() );
 
     m_points.push_back( point );
     m_boundingBox.ExtendBounds( point);
@@ -490,28 +490,28 @@ void CSFMultiPoint::SetPrjID(size_t prjID)
     m_boundingBox.SetPrjID(prjID);
 }
 
-bool CSFMultiPoint::TransformeProjection(CProjectionTransformation const& PT)
-{
-    ASSERT( m_boundingBox.GetPrjID() == PT.GetSrc()->GetPrjID());
-
-    m_boundingBox.clear();
-
-    bool bRep = true;
-    for(int i=0; i<m_points.size(); i++)
-    {
-        if( m_points[i].Reproject(PT) )
-        {
-            m_boundingBox.ExtendBounds(m_points[i]);
-        }
-        else
-        {
-            bRep = false;
-            break;
-        }
-    }
-
-    return bRep;
-}
+//bool CSFMultiPoint::TransformeProjection(CProjectionTransformation const& PT)
+//{
+//    assert( m_boundingBox.GetPrjID() == PT.GetSrc()->GetPrjID());
+//
+//    m_boundingBox.clear();
+//
+//    bool bRep = true;
+//    for(int i=0; i<m_points.size(); i++)
+//    {
+//        if( m_points[i].Reproject(PT) )
+//        {
+//            m_boundingBox.ExtendBounds(m_points[i]);
+//        }
+//        else
+//        {
+//            bRep = false;
+//            break;
+//        }
+//    }
+//
+//    return bRep;
+//}
 
 void CSFMultiPoint::GetCentroid(CGeoPoint& pt)const
 {
@@ -535,7 +535,7 @@ double CSFMultiPoint::GetArea(int ringNo)const
 
 void CSFMultiPoint::GetRingPoints(int ring, CSFPointArray& point)const
 {
-    ASSERT( ring == 0);
+    assert( ring == 0);
 
     point = m_points;
 
@@ -543,7 +543,7 @@ void CSFMultiPoint::GetRingPoints(int ring, CSFPointArray& point)const
 
 void CSFMultiPoint::SetRingPoints(int ring, const CSFPointArray& point)
 {
-    ASSERT( ring == 0);
+    assert( ring == 0);
     m_points = point;
 
     GetAdjustedBoundingBox(m_boundingBox);
@@ -623,7 +623,7 @@ void CSFPolyLine::clear()
 bool CSFPolyLine::AjoutePoint(const CGeoPoint& point)
 {
     bool bRep = false;
-    ASSERT( m_beginParts.size() > 0); //add ring first
+    assert( m_beginParts.size() > 0); //add ring first
 
 
     if( m_points.size() == 0 || m_points.back() != point )
@@ -677,7 +677,7 @@ void CSFPolyLine::RemoveRing(int ringNo)
     GetPointIndex(ringNo, first, last);
     m_points.erase(m_points.begin() + first, m_points.begin() + last);
     AdjusteBeginParts(ringNo, first-last-1);
-    ASSERT( (ringNo == m_beginParts.size()-1)||m_beginParts[ringNo] == m_beginParts[ringNo+1]);
+    assert( (ringNo == m_beginParts.size()-1)||m_beginParts[ringNo] == m_beginParts[ringNo+1]);
     m_beginParts.erase(m_beginParts.begin() + ringNo);
 
 
@@ -687,14 +687,14 @@ void CSFPolyLine::RemoveRing(int ringNo)
 
 void CSFPolyLine::GetRingPoints(int ringNo, CSFPointArray& points)const
 {
-    ASSERT(ringNo >=0 && ringNo < m_beginParts.size());
+    assert(ringNo >=0 && ringNo < m_beginParts.size());
 
 
     int first = 0;
     int last = 0;
     GetPointIndex(ringNo, first, last);
 
-    ASSERT(  m_shapeType != CShapeFileHeader::POLYGON || m_points[first] == m_points[last] );//the first and last point of a ring are the same
+    assert(  m_shapeType != CShapeFileHeader::POLYGON || m_points[first] == m_points[last] );//the first and last point of a ring are the same
 
     points.resize(last-first+1);
     for(int i=0; i<points.size(); i++)
@@ -703,9 +703,9 @@ void CSFPolyLine::GetRingPoints(int ringNo, CSFPointArray& points)const
 
 void CSFPolyLine::SetRingPoints(int ringNo, const CSFPointArray& point)
 {
-    ASSERT(point.size() > 0); //if == 0 use erase Ring
-    ASSERT(point[0] == point[point.size()-1]); //the first and the last point must be the same
-    ASSERT(ringNo >=0 && ringNo < m_beginParts.size());
+    assert(point.size() > 0); //if == 0 use erase Ring
+    assert(point[0] == point[point.size()-1]); //the first and the last point must be the same
+    assert(ringNo >=0 && ringNo < m_beginParts.size());
 
 
     //elever les anciens point
@@ -732,8 +732,8 @@ void CSFPolyLine::SetRingPoints(int ringNo, const CSFPointArray& point)
 
 void CSFPolyLine::AddRing(const CSFPointArray& point)
 {
-    ASSERT(point.size() > 0); //if == 0 use erase Ring
-    ASSERT(point[0] == point[point.size()-1]); //the first and the last point must be the same
+    assert(point.size() > 0); //if == 0 use erase Ring
+    assert(point[0] == point[point.size()-1]); //the first and the last point must be the same
     int ringNo = NewRing();
 
     SetRingPoints(ringNo, point);
@@ -808,9 +808,9 @@ double CSFPolyLine::GetMinimumDistance(const CGeoPoint& pt, int* pNearestSegment
 //				d = close.GetDistance(pt);
 //
 //                //d = fabs( (U.m_x*V.m_y) - (U.m_y*V.m_x) )/ sqrt( dV2 ) ;
-//                ASSERT( d >= 0);
-//                //ASSERT( d < min( d1, d2));
-//                //ASSERT( SQUARE(d) + dPU2 - SQUARE(test1) < 0.0001);
+//                assert( d >= 0);
+//                //assert( d < min( d1, d2));
+//                //assert( SQUARE(d) + dPU2 - SQUARE(test1) < 0.0001);
 //            }
 //            else
 //            {
@@ -858,7 +858,7 @@ bool CSFPolyLine::SometingInRect(int ringIndex, const CGeoRect& rect)const
 
 bool CSFPolyLine::SometingInRect(const CGeoRect& rect)const
 {
-    ASSERT( rect.GetPrjID() == m_boundingBox.GetPrjID() );
+    assert( rect.GetPrjID() == m_boundingBox.GetPrjID() );
 
     bool bRep = false;
     if( m_boundingBox.IsRectIntersect(rect) )
@@ -880,7 +880,7 @@ bool CSFPolyLine::SometingInRect(const CGeoRect& rect)const
 
 void CSFPolyLine::InversePointOrder(int ringNo)
 {
-    ASSERT( ringNo >= 0 && ringNo < m_beginParts.size());
+    assert( ringNo >= 0 && ringNo < m_beginParts.size());
 
     CSFPointArray point;
     GetRingPoints(ringNo, point);
@@ -930,9 +930,9 @@ void CSFPolyLine::InversePointOrder(int ringNo)
             if( c > 0 && dPU2 < dV2 )
             {
                 d = fabs( (U.m_x*V.m_y) - (U.m_y*V.m_x) )/ sqrt( dV2 ) ;
-                ASSERT( d >= 0);
-                //ASSERT( d < min( d1, d2));
-                //ASSERT( SQUARE(d) + dPU2 - SQUARE(test1) < 0.0001);
+                assert( d >= 0);
+                //assert( d < min( d1, d2));
+                //assert( SQUARE(d) + dPU2 - SQUARE(test1) < 0.0001);
             }
             else
             {
@@ -958,14 +958,14 @@ void CSFPolyLine::InversePointOrder(int ringNo)
 {
     const CGeoRect& rcViewPort = viewPort.GetRect();
 
-    ASSERT( !rcViewPort.IsRectEmpty() );
-    ASSERT( !rcBounds.IsRectEmpty() );
+    assert( !rcViewPort.IsRectEmpty() );
+    assert( !rcBounds.IsRectEmpty() );
     bool bRep = true;
 
 
     bool bSameProjection = (shapeFile.GetProjection() == viewPort.GetProjection() );
 
-    ASSERT(m_beginParts.size()>0);
+    assert(m_beginParts.size()>0);
 
 
     int nbRing = m_beginParts.size();
@@ -993,7 +993,7 @@ void CSFPolyLine::InversePointOrder(int ringNo)
                     break;
                 }
 
-            ASSERT( rcViewPort.SameUnit(fLat, fLon)  );
+            assert( rcViewPort.SameUnit(fLat, fLon)  );
 
             int x=0;
             int y=0;
@@ -1035,35 +1035,35 @@ void CSFPolyLine::SetPrjID(size_t prjID)
     m_boundingBox.SetPrjID(prjID);
 }
 
-bool CSFPolyLine::TransformeProjection(CProjectionTransformation const& PT)
-{
-    ASSERT( m_boundingBox.GetPrjID() == PT.GetSrc()->GetPrjID());
-
-    m_boundingBox.clear();
-
-    bool bRep = true;
-    for(int i=0; i<m_points.size(); i++)
-    {
-        if( m_points[i].Reproject(PT) )
-        {
-            m_boundingBox.ExtendBounds(m_points[i]);
-        }
-        else
-        {
-            bRep = false;
-            break;
-        }
-
-
-    }
-
-    return bRep;
-}
+//bool CSFPolyLine::TransformeProjection(CProjectionTransformation const& PT)
+//{
+//    assert( m_boundingBox.GetPrjID() == PT.GetSrc()->GetPrjID());
+//
+//    m_boundingBox.clear();
+//
+//    bool bRep = true;
+//    for(int i=0; i<m_points.size(); i++)
+//    {
+//        if( m_points[i].Reproject(PT) )
+//        {
+//            m_boundingBox.ExtendBounds(m_points[i]);
+//        }
+//        else
+//        {
+//            bRep = false;
+//            break;
+//        }
+//
+//
+//    }
+//
+//    return bRep;
+//}
 
 int CSFPolyLine::GetRingNo(int nodeNo)const
 {
-    ASSERT( nodeNo >= 0);
-    ASSERT( m_beginParts.size() == 0 || m_beginParts[0] == 0);
+    assert( nodeNo >= 0);
+    assert( m_beginParts.size() == 0 || m_beginParts[0] == 0);
 
     int no=-1;
     int nSize = (int)m_beginParts.size();
@@ -1081,7 +1081,7 @@ int CSFPolyLine::GetRingNo(int nodeNo)const
 
 void CSFPolyLine::AdjusteBeginParts(int ringNo, int shift)
 {
-    ASSERT( ringNo >= 0 && ringNo < m_beginParts.size());
+    assert( ringNo >= 0 && ringNo < m_beginParts.size());
 
     int nSize = (int)m_beginParts.size();
     for( int i=ringNo+1; i<nSize; i++)
@@ -1092,7 +1092,7 @@ void CSFPolyLine::AdjusteBeginParts(int ringNo, int shift)
 
 double CSFPolyLine::GetArea(int ringNo)const
 {
-    ASSERT( ringNo>= -1 && ringNo < m_beginParts.size());
+    assert( ringNo>= -1 && ringNo < m_beginParts.size());
     double airTotal = 0;
 
     int nbRing = (int)m_beginParts.size();
@@ -1288,7 +1288,7 @@ CSFShape* CSFPolygon::GetCopy()const
 
 bool CSFPolygon::IsInside(const CGeoPoint& P)const
 {
-    ASSERT( m_boundingBox.GetPrjID() == P.GetPrjID());
+    assert( m_boundingBox.GetPrjID() == P.GetPrjID());
     int count = 0;
 
     if( m_boundingBox.PtInRect(P) )
@@ -1399,8 +1399,8 @@ bool CSFPolygon::IsValid() const
 void CSFPolygon::Replace(int first, int last, const CSFPoint& pt)
 {
     int no = GetRingNo(first);
-    ASSERT( no == GetRingNo(last) );
-    ASSERT( last - first >= 1);
+    assert( no == GetRingNo(last) );
+    assert( last - first >= 1);
 
     m_points.erase(m_points.begin() + first, m_points.begin() + last );
     m_points.insert(m_points.begin() + first, pt);
@@ -1412,7 +1412,7 @@ void CSFPolygon::Replace(int first, int last, const CSFPoint& pt)
 
 void CSFPolygon::ComputeInternalElimination(int nbCols, int nbRows)
 {
-    ASSERT( nbCols != 0 && nbRows != 0);
+    assert( nbCols != 0 && nbRows != 0);
 
     m_internalElimination = false;
 
@@ -1475,7 +1475,7 @@ CSFRecord::CSFRecord(const CSFRecord& record):
 
 CSFRecord& CSFRecord::operator=(const CSFRecord& record)
 {
-    ASSERT( this != &record);
+    assert( this != &record);
 
     if( this != &record)
     {
@@ -1517,7 +1517,7 @@ CSFShape* CSFRecord::GetShape(int type)
         pShape = new CSFMultiPoint();
         break;
     default:
-        ASSERT(false);
+        assert(false);
     }
 
     return pShape;
@@ -1526,24 +1526,24 @@ CSFShape* CSFRecord::GetShape(int type)
 //**************************************************************
 
 
-CShapeFileBase::CShapeFileBase()
+CShapeFile::CShapeFile()
 {
     clear();
     //m_geoFileInfo.SetGeoFileType( CGeoFileInfo::FT_SHAPE_FILE );
 
 }
 
-CShapeFileBase::CShapeFileBase(const CShapeFileBase& shapeFile)
+CShapeFile::CShapeFile(const CShapeFile& shapeFile)
 {
     //m_geoFileInfo.SetGeoFileType(CGeoFileInfo::FT_SHAPE_FILE);
     operator=(shapeFile);
 }
 
-CShapeFileBase& CShapeFileBase::operator=(const CShapeFileBase& shapeFile)
+CShapeFile& CShapeFile::operator=(const CShapeFile& shapeFile)
 {
     if( &shapeFile != this)
     {
-        CShapeFileBase::clear();
+        CShapeFile::clear();
         //CGeoFileBase::operator=(shapeFile);
 
         m_header = shapeFile.m_header;
@@ -1561,7 +1561,7 @@ CShapeFileBase& CShapeFileBase::operator=(const CShapeFileBase& shapeFile)
     return *this;
 }
 
-void CShapeFileBase::SynchronizeProjection()
+void CShapeFile::SynchronizeProjection()
 {
     //update boundingBox projection here
     CGeoRect rect = m_header.GetBoundingBox();
@@ -1576,13 +1576,13 @@ void CShapeFileBase::SynchronizeProjection()
     }
 }
 
-CShapeFileBase::~CShapeFileBase()
+CShapeFile::~CShapeFile()
 {
-    CShapeFileBase::clear();
+    CShapeFile::clear();
 }
 
 
-void CShapeFileBase::clear()
+void CShapeFile::clear()
 {
 //    CGeoFileBase::clear();
 
@@ -1598,12 +1598,12 @@ void CShapeFileBase::clear()
     m_records.clear();
 }
 
-ERMsg CShapeFileBase::Open(const string& filePath, int openMode)
+ERMsg CShapeFile::Open(const string& filePath, int openMode)
 {
     ERMsg msg;
 
     if( openMode == modeRead )
-        CShapeFileBase::clear();
+        CShapeFile::clear();
 
 
     if( openMode == modeRead )
@@ -1634,17 +1634,17 @@ ERMsg CShapeFileBase::Open(const string& filePath, int openMode)
 }
 
 
-ERMsg CShapeFileBase::Close(bool bSaveInfoFile)
+ERMsg CShapeFile::Close(bool bSaveInfoFile)
 {
     return ERMsg(); //CGeoFileBase::Close(bSaveInfoFile);
 }
 
 
-ERMsg CShapeFileBase::Read(const string& filePath)
+ERMsg CShapeFile::Read(const string& filePath)
 {
     ERMsg msg;
 
-    CShapeFileBase::clear();
+    CShapeFile::clear();
 
     ifStream file;
     msg = file.open(filePath, ios::in | ios::binary);
@@ -1673,7 +1673,7 @@ ERMsg CShapeFileBase::Read(const string& filePath)
                 }
 
 
-                ASSERT(m_records.size() == 0 || m_header.GetBoundingBox().IsRectNormal());
+                assert(m_records.size() == 0 || m_header.GetBoundingBox().IsRectNormal());
             }
         }
         catch (boost::archive::archive_exception e)
@@ -1693,7 +1693,9 @@ ERMsg CShapeFileBase::Read(const string& filePath)
             {
                 //read projection
                 if (FileExists(GetPrjFilePath(filePath)))
-                    msg = CProjectionManager::Load(GetPrjFilePath(filePath), m_pPrj);
+                {
+                    msg = m_prj.Load(GetPrjFilePath(filePath));
+                }
 
                 SynchronizeProjection();
                 //AutoSetXYUnits();
@@ -1710,7 +1712,7 @@ ERMsg CShapeFileBase::Read(const string& filePath)
 
 
 
-ERMsg CShapeFileBase::Write(const string& filePath)
+ERMsg CShapeFile::Write(const string& filePath)
 {
     ERMsg msg;
 
@@ -1744,7 +1746,7 @@ ERMsg CShapeFileBase::Write(const string& filePath)
                 msg = WriteDBF(filePath);
 
 
-            m_pPrj->Save(GetPrjFilePath(filePath).c_str());
+            m_prj.Save(GetPrjFilePath(filePath).c_str());
 
         }
     }
@@ -1755,22 +1757,22 @@ ERMsg CShapeFileBase::Write(const string& filePath)
 }
 
 
-void CShapeFileBase::AddShape(const CSFShape& shape, const CDBFRecord& shapeInfo)
+void CShapeFile::AddShape(const CSFShape& shape, const CDBFRecord& shapeInfo)
 {
     int pos = (int)m_records.size();
     AddShape(shape);
     m_infoDBF.SetRecord(pos, shapeInfo);
 }
 
-void CShapeFileBase::AddShape(const CSFShape& shape)
+void CShapeFile::AddShape(const CSFShape& shape)
 {
-    ASSERT(m_infoDBF.GetNbRecord() == m_records.size());
+    assert(m_infoDBF.GetNbRecord() == m_records.size());
 
     int pos = (int)m_records.size();
     m_records.resize(pos+1);
     m_infoDBF.SetNbRecord(pos+1);
 
-    ASSERT(m_header.GetShapeType() ==  (CShapeFileHeader::TShape) shape.GetTypeNumber());
+    assert(m_header.GetShapeType() ==  (CShapeFileHeader::TShape) shape.GetTypeNumber());
 
     m_records[pos] = new CSFRecord( shape.GetTypeNumber() );
     m_records[pos]->SetNumber(pos+1);
@@ -1782,17 +1784,17 @@ void CShapeFileBase::AddShape(const CSFShape& shape)
     m_header.SetFileLength(m_header.GetFileLength() + shape.GetLength() + 4);
 }
 
-void CShapeFileBase::SetShape(int shapeNo, const CSFShape& shape)
+void CShapeFile::SetShape(int shapeNo, const CSFShape& shape)
 {
-    ASSERT(m_infoDBF.GetNbRecord() == m_records.size());
-    ASSERT(m_header.GetShapeType() ==  (CShapeFileHeader::TShape) shape.GetTypeNumber());
+    assert(m_infoDBF.GetNbRecord() == m_records.size());
+    assert(m_header.GetShapeType() ==  (CShapeFileHeader::TShape) shape.GetTypeNumber());
 
     m_records[shapeNo]->SetShape(shape);
     UpdateHeader();
 
 }
 
-void CShapeFileBase::RemoveShape(int shapeNo)
+void CShapeFile::RemoveShape(int shapeNo)
 {
     //m_header.SetFileLength(m_header.GetFileLength() - m_records[shapeNo]->GetLength() - 4);
 
@@ -1812,7 +1814,7 @@ void CShapeFileBase::RemoveShape(int shapeNo)
 /*void AddPoint(CSFPoint& point, int index, const string& label);
 void AddVector(CSFVector& vector, int index, const string& label);
 
-void CShapeFileBase::AddPolygon(CSFPolygon& poly, int index, const string& label)
+void CShapeFile::AddPolygon(CSFPolygon& poly, int index, const string& label)
 {
 	int pos = m_records.size();
 
@@ -1824,10 +1826,10 @@ void CShapeFileBase::AddPolygon(CSFPolygon& poly, int index, const string& label
 }
 */
 
-void CShapeFileBase::SetShapeType(CShapeFileHeader::TShape type )
+void CShapeFile::SetShapeType(CShapeFileHeader::TShape type )
 {
 
-    ASSERT(m_records.size() == 0);
+    assert(m_records.size() == 0);
     m_header.SetShapeType( type );
     /*	switch(type)
         {
@@ -1836,14 +1838,14 @@ void CShapeFileBase::SetShapeType(CShapeFileHeader::TShape type )
         case CShapeFileHeader::POLYGON:
         case CShapeFileHeader::POLYLINE:
         case CShapeFileHeader::MULTIPOINT: m_infoDBF.ResetField();break;
-        default: ASSERT(false);
+        default: assert(false);
         }
     */
 
 }
 
 
-ERMsg CShapeFileBase::WriteIndex(const string& filePath)const
+ERMsg CShapeFile::WriteIndex(const string& filePath)const
 {
     ERMsg msg;
 
@@ -1855,14 +1857,14 @@ ERMsg CShapeFileBase::WriteIndex(const string& filePath)const
     return msg;
 }
 
-string CShapeFileBase::GetIndexName(const string& filePath)
+string CShapeFile::GetIndexName(const string& filePath)
 {
     string indexFilePath = filePath;
     SetFileExtension(indexFilePath, ".shx");
     return indexFilePath;
 }
 
-string CShapeFileBase::GetDBFName(const string& filePath)
+string CShapeFile::GetDBFName(const string& filePath)
 {
     string DBFFilePath = filePath;
     SetFileExtension(DBFFilePath, ".dbf");
@@ -1870,7 +1872,7 @@ string CShapeFileBase::GetDBFName(const string& filePath)
     return DBFFilePath;
 }
 
-string CShapeFileBase::GetPrjFilePath(const string& filePath)
+string CShapeFile::GetPrjFilePath(const string& filePath)
 {
     string prjFilePath = filePath;
     SetFileExtension(prjFilePath, ".prj");
@@ -1879,29 +1881,29 @@ string CShapeFileBase::GetPrjFilePath(const string& filePath)
 }
 
 
-ERMsg CShapeFileBase::WriteDBF(const string& filePath)const
+ERMsg CShapeFile::WriteDBF(const string& filePath)const
 {
     return m_infoDBF.Write(GetDBFName(filePath));
 }
 
-ERMsg CShapeFileBase::ReadDBF(const string& filePath)
+ERMsg CShapeFile::ReadDBF(const string& filePath)
 {
     ERMsg msg;
 
 
     msg = m_infoDBF.Read(GetDBFName(filePath));
 
-    ASSERT( m_infoDBF.GetNbRecord() == m_records.size());
+    assert( m_infoDBF.GetNbRecord() == m_records.size());
 
     if( msg && m_infoDBF.GetNbRecord() != m_records.size())
     {
-        msg.ajoute(FormatMsg(IDS_MAP_BAD_DBF_FILE, filePath));
+        msg.ajoute(FormatMsg("File \"%1%\" does not have the same number of records as the \".shp\" file.", filePath));
     }
 
     return msg;
 }
 
-void CShapeFileBase::CheckOrCreateDBF()
+void CShapeFile::CheckOrCreateDBF()
 {
     if( m_infoDBF.GetNbRecord() != m_records.size())
     {
@@ -1914,7 +1916,7 @@ void CShapeFileBase::CheckOrCreateDBF()
     }
 
 }
-void CShapeFileBase::GetShapeFileIndex(CShapeFileIndex& shx)const
+void CShapeFile::GetShapeFileIndex(CShapeFileIndex& shx)const
 {
     //CShapeFileIndex index;
 //    index.SetFileLength(50 + nSize* 4);
@@ -1931,9 +1933,9 @@ void CShapeFileBase::GetShapeFileIndex(CShapeFileIndex& shx)const
 
 //permet de savoir s'il y a au moin un vecteur qui passe ce rectangle
 // ne pas confondre avec IsRectIntersect
-bool CShapeFileBase::SometingInRect(const CGeoRect& rect)const
+bool CShapeFile::SometingInRect(const CGeoRect& rect)const
 {
-//    ASSERT( rect.IsGeographic() == m_projection().IsGeographic() );
+//    assert( rect.IsGeographic() == m_projection().IsGeographic() );
 
     if( !rect.IsRectIntersect(GetBoundingBox()) )
         return false;
@@ -1958,9 +1960,9 @@ bool CShapeFileBase::SometingInRect(const CGeoRect& rect)const
 }
 
 
-bool CShapeFileBase::IsRectIntersect(const CGeoRect& rect)const
+bool CShapeFile::IsRectIntersect(const CGeoRect& rect)const
 {
-    //ASSERT( rect.IsGeographic() == m_projection().IsGeographic() );
+    //assert( rect.IsGeographic() == m_projection().IsGeographic() );
 
     if( !rect.IsRectIntersect(GetBoundingBox()) )
         return false;
@@ -1979,20 +1981,20 @@ bool CShapeFileBase::IsRectIntersect(const CGeoRect& rect)const
 }
 
 //dans la meme projection
-bool CShapeFileBase::IsInside(const CGeoPoint& ptIn, int* pPolyNo )const
+bool CShapeFile::IsInside(const CGeoPoint& ptIn, int* pPolyNo )const
 {
-    //ASSERT( pt.GetPrjID() == GetPrjID() );
+    //assert( pt.GetPrjID() == GetPrjID() );
 
     if( pPolyNo )
         *pPolyNo = -1;
 
     CGeoPoint pt(ptIn);
-    if(pt.GetPrjID() != GetPrjID() )
-    {
-
-        if (!pt.Reproject(CProjectionTransformationManager::Get(pt.GetPrjID(), GetPrjID())))
-            return false;
-    }
+    assert(pt.GetPrjID() == GetPrjID() );
+    //{
+//
+    //    if (!pt.Reproject(CProjectionTransformationManager::Get(pt.GetPrjID(), GetPrjID())))
+    //        return false;
+    //}
 
     bool bRep = false;
     if( m_header.GetShapeType( ) == CShapeFileHeader::POLYGON )
@@ -2000,7 +2002,7 @@ bool CShapeFileBase::IsInside(const CGeoPoint& ptIn, int* pPolyNo )const
         int nSize = (int)m_records.size();
         for(int i=0; i<nSize; i++)
         {
-            ASSERT( m_records[i]->GetShape().GetType() == CShapeFileHeader::POLYGON );
+            assert( m_records[i]->GetShape().GetType() == CShapeFileHeader::POLYGON );
             const CSFPolygon& poly = (CSFPolygon&) (m_records[i]->GetShape());
 
             if( poly.IsInside(pt) )
@@ -2024,7 +2026,7 @@ bool CShapeFileBase::IsInside(const CGeoPoint& ptIn, int* pPolyNo )const
 
 //retourne la distance en Km
 //pt must be in the same projection
-double CShapeFileBase::GetMinimumDistance(const CGeoPoint& ptIn, int* pPolyNo)const
+double CShapeFile::GetMinimumDistance(const CGeoPoint& ptIn, int* pPolyNo)const
 {
     double distanceMin = 1e20;
 
@@ -2032,11 +2034,11 @@ double CShapeFileBase::GetMinimumDistance(const CGeoPoint& ptIn, int* pPolyNo)co
         *pPolyNo = -1;
 
     CGeoPoint pt(ptIn);
-    if( pt.GetPrjID() != GetPrjID() )
-    {
-        if (!pt.Reproject(CProjectionTransformationManager::Get(pt.GetPrjID(), GetPrjID())))
-            return DBL_MAX;
-    }
+    assert( pt.GetPrjID() == GetPrjID() );
+    //{
+    //    if (!pt.Reproject(CProjectionTransformationManager::Get(pt.GetPrjID(), GetPrjID())))
+    //        return DBL_MAX;
+    //}
 
     CShapeFileHeader::TShape shapeType = m_header.GetShapeType( );
     if( shapeType != CShapeFileHeader::SHAPE_NULL  )//&& (shapeType != CShapeFileHeader::POLYGON || PtInShapeFile(lat, lon))
@@ -2064,9 +2066,9 @@ double CShapeFileBase::GetMinimumDistance(const CGeoPoint& ptIn, int* pPolyNo)co
     return distanceMin;
 }
 
-void CShapeFileBase::Create(const CShapeFileBase& shapeFile, const set<int>& recordNo)
+void CShapeFile::Create(const CShapeFile& shapeFile, const set<int>& recordNo)
 {
-    CShapeFileBase::clear();
+    CShapeFile::clear();
 
     m_header.SetShapeType( shapeFile.m_header.GetShapeType() );
 
@@ -2088,9 +2090,9 @@ void CShapeFileBase::Create(const CShapeFileBase& shapeFile, const set<int>& rec
 }
 
 
-ERMsg CShapeFileBase::Create( const CShapeFileBase& shapeFile, int vectorZoneNo, int uniqueID)
+ERMsg CShapeFile::Create( const CShapeFile& shapeFile, int vectorZoneNo, int uniqueID)
 {
-    StringVector zoneArray;
+    std::vector<std::string> zoneArray;
     zoneArray.push_back(shapeFile.GetDBF().GetElementStringForUniqueID(vectorZoneNo, uniqueID));
 
     string fieldName = shapeFile.GetDBF().GetTableField()[vectorZoneNo].GetName();
@@ -2099,10 +2101,10 @@ ERMsg CShapeFileBase::Create( const CShapeFileBase& shapeFile, int vectorZoneNo,
     return Create( shapeFile, fieldName, zoneArray);
 }
 
-ERMsg CShapeFileBase::Create( const CShapeFileBase& shapeFile, const string& fieldName, const StringVector& zoneArray)
+ERMsg CShapeFile::Create( const CShapeFile& shapeFile, const string& fieldName, const std::vector<std::string>& zoneArray)
 {
-    ASSERT(! fieldName.empty() );
-    ASSERT( zoneArray.size() > 0);
+    assert(! fieldName.empty() );
+    assert( zoneArray.size() > 0);
 
     ERMsg msg;
 
@@ -2113,23 +2115,23 @@ ERMsg CShapeFileBase::Create( const CShapeFileBase& shapeFile, const string& fie
     }
     else
     {
-        msg.ajoute(FormatMsg(IDS_MAP_FIELD_NOT_FOUND, fieldName));
+        msg.ajoute(FormatMsg("Unable to read field \"%1%\".", fieldName));
     }
 
     return msg;
 }
 
-ERMsg CShapeFileBase::Create( const CShapeFileBase& shapeFile, int fieldNo, const StringVector& zoneArray)
+ERMsg CShapeFile::Create( const CShapeFile& shapeFile, int fieldNo, const std::vector<std::string>& zoneArray)
 {
-    ASSERT( fieldNo>= -1 && fieldNo<shapeFile.m_infoDBF.GetNbField() );
-    ASSERT( zoneArray.size() > 0);
+    assert( fieldNo>= -1 && fieldNo<shapeFile.m_infoDBF.GetNbField() );
+    assert( zoneArray.size() > 0);
 
     ERMsg msg;
 
 
     if( fieldNo >= 0 && fieldNo<shapeFile.m_infoDBF.GetNbField())
     {
-        CShapeFileBase::clear();
+        CShapeFile::clear();
 
         //set shape file type
         m_header.SetShapeType( shapeFile.m_header.GetShapeType() );
@@ -2146,7 +2148,7 @@ ERMsg CShapeFileBase::Create( const CShapeFileBase& shapeFile, int fieldNo, cons
         for(int i=0; i<nSize; i++)
         {
             string nameSearch = shapeFile.m_infoDBF[i][fieldNo].GetElement();
-            //StringVector::const_iterator it = ;
+            //std::vector<std::string>::const_iterator it = ;
             if (std::find(zoneArray.begin(), zoneArray.end(), nameSearch) != zoneArray.end())
             {
                 int pos = (int)m_records.size();
@@ -2163,7 +2165,7 @@ ERMsg CShapeFileBase::Create( const CShapeFileBase& shapeFile, int fieldNo, cons
         for(int i=0; i<zoneArray.size(); i++)
         {
             int index = ToInt(zoneArray[i]);
-            ASSERT( index >= 0 && index < shapeFile.GetNbShape() );
+            assert( index >= 0 && index < shapeFile.GetNbShape() );
             recordNo.insert( index );
         }
 
@@ -2174,33 +2176,33 @@ ERMsg CShapeFileBase::Create( const CShapeFileBase& shapeFile, int fieldNo, cons
     return msg;
 }
 
-bool CShapeFileBase::TransformeProjection(CProjectionTransformation const& PT)
-{
-    ASSERT( PT.GetSrc()->GetPrjID() == GetPrjID());
+//bool CShapeFile::TransformeProjection(CProjectionTransformation const& PT)
+//{
+//    assert( PT.GetSrc()->GetPrjID() == GetPrjID());
+//
+//    if( !PT.IsSame() )
+//        //if( m_projection != projection )
+//    {
+//        for(int i=0; i<m_records.size(); i++)
+//        {
+//            if( !m_records[i]->GetShape().TransformeProjection(PT) )
+//            {
+//                RemoveShape(i);
+//                i--;
+//            }
+//        }
+//
+//        //m_projection = PT.GetDstPrj();
+//
+//        //update the shapefile header
+//        UpdateHeader();
+//    }
+//
+//    return true;
+//}
 
-    if( !PT.IsSame() )
-        //if( m_projection != projection )
-    {
-        for(int i=0; i<m_records.size(); i++)
-        {
-            if( !m_records[i]->GetShape().TransformeProjection(PT) )
-            {
-                RemoveShape(i);
-                i--;
-            }
-        }
 
-        //m_projection = PT.GetDstPrj();
-
-        //update the shapefile header
-        UpdateHeader();
-    }
-
-    return true;
-}
-
-
-CShapeFileHeader::TShape CShapeFileBase::GetShapeType( const string& filePath )
+CShapeFileHeader::TShape CShapeFile::GetShapeType( const string& filePath )
 {
     CShapeFileHeader::TShape type(CShapeFileHeader::SHAPE_NULL);
 
@@ -2227,7 +2229,7 @@ CShapeFileHeader::TShape CShapeFileBase::GetShapeType( const string& filePath )
 }
 
 
-void CShapeFileBase::ComputeInternalElimination(int nbCols, int nbRows)
+void CShapeFile::ComputeInternalElimination(int nbCols, int nbRows)
 {
     /*if( nbCols > 200)
     	nbCols = 200;
@@ -2243,7 +2245,7 @@ void CShapeFileBase::ComputeInternalElimination(int nbCols, int nbRows)
         for(int i=0; i<nSize; i++)
         {
 
-            ASSERT( m_records[i]->GetShape().GetType() == CShapeFileHeader::POLYGON );
+            assert( m_records[i]->GetShape().GetType() == CShapeFileHeader::POLYGON );
             CSFPolygon& poly = (CSFPolygon&) (m_records[i]->GetShape());
 
             CGeoRect boxPoly;
@@ -2258,7 +2260,7 @@ void CShapeFileBase::ComputeInternalElimination(int nbCols, int nbRows)
 }
 
 
-void CShapeFileBase::UpdateHeader()
+void CShapeFile::UpdateHeader()
 {
     CGeoRect bounds(GetPrjID());
     int shapesSize = 0;
@@ -2276,29 +2278,29 @@ void CShapeFileBase::UpdateHeader()
 
 }
 
-void CShapeFileBase::GetInformation( string& information )const
+void CShapeFile::GetInformation( string& information )const
 {
     //CGeoFileBase::GetInformation( information );
 
     string line;
-    information += GetString(IDS_MAP_INFO_SHAPEFILE );
+    information += "Shapefile Description";
     information += '\n';
 
     if( m_records.size() != 0)
     {
         string tmp;
         tmp = FormatA("%d", m_records.size() );
-        line = FormatMsg(IDS_MAP_INFO_NB_RECORD, tmp );
+        line = FormatMsg("The number of records: %1%.", tmp );
         information += line;
         information += '\n';
 
 
         tmp = FormatA("%d", m_infoDBF.GetNbField() );
-        line = FormatMsg(IDS_MAP_INFO_NB_FIELD, tmp );
+        line = FormatMsg("The DBF file contains %1% field(s).", tmp );
         information += line;
         information += '\n';
 
-        information += GetString(IDS_MAP_INFO_FIELD_DESCRIPTION );
+        information += "FieldName   \tType \tLength   \tDecimal count";
         information += '\n';
 
         const CTableField& field= m_infoDBF.GetTableField();
@@ -2318,7 +2320,7 @@ void CShapeFileBase::GetInformation( string& information )const
         if( index.Read( GetIndexName(m_filePath) ) )
         {
             string tmp = FormatA("%d", index.GetNbRecord() );
-            line = FormatMsg(IDS_MAP_INFO_NB_RECORD, tmp );
+            line = FormatMsg("The number of records: %1%.", tmp );
             information += line;
             information += '\n';
         }
@@ -2328,11 +2330,11 @@ void CShapeFileBase::GetInformation( string& information )const
         {
             string tmp;
             tmp = FormatA("%d", dbf.GetNbField() );
-            line = FormatMsg(IDS_MAP_INFO_NB_FIELD, tmp);
+            line = FormatMsg("The DBF file contains %1% field(s).", tmp);
             information += line;
             information += '\n';
 
-            information += GetString(IDS_MAP_INFO_FIELD_DESCRIPTION );
+            information += "FieldName   \tType \tLength   \tDecimal count";
             information += '\n';
 
             const CTableField& field= dbf.GetTableField();
@@ -2345,7 +2347,7 @@ void CShapeFileBase::GetInformation( string& information )const
     }
 }
 
-void CShapeFileBase::GetFieldArray(StringVector& fields, bool bGetAll)const
+void CShapeFile::GetFieldArray(std::vector<std::string>& fields, bool bGetAll)const
 {
     fields.clear();
 
@@ -2367,7 +2369,7 @@ void CShapeFileBase::GetFieldArray(StringVector& fields, bool bGetAll)const
     }
 }
 
-void CShapeFileBase::GetFieldValues(int fieldIndex, StringVector& values)const
+void CShapeFile::GetFieldValues(int fieldIndex, std::vector<std::string>& values)const
 {
     values.clear();
 
@@ -2378,7 +2380,7 @@ void CShapeFileBase::GetFieldValues(int fieldIndex, StringVector& values)const
         if( fieldIndex >= 0)
             itemName= m_infoDBF[i][fieldIndex];
         else
-            itemName = ToString(i+1);
+            itemName = to_string(i+1);
 
         //if( UtilWin::FindInArray( values, itemName) != -1)
         if (std::find(values.begin(), values.end(), itemName) != values.end() )

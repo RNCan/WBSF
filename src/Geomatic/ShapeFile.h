@@ -11,7 +11,7 @@
 #include <memory>
 #include <boost\dynamic_bitset.hpp>
 
-#include "basic/ERMsg.h"
+#include "Basic/ERMsg.h"
 #include "Basic/DBF3.h"
 #include "Basic/GeoBasic.h"
 #include "Basic/UtilStd.h"
@@ -27,11 +27,11 @@ class CProjection;
 
 class CProjectionTransformation;
 class CShapeFileIndex;
-class CShapeFileBase;
+class CShapeFile;
 class CSFPoint;
 
 
-typedef std::shared_ptr<CShapeFileBase> CShapeFileBasePtr;
+typedef std::shared_ptr<CShapeFile> CShapeFilePtr;
 
 
 
@@ -77,7 +77,7 @@ public:
 
 
     virtual void SetPrjID(size_t prjID);
-    virtual bool TransformeProjection(CProjectionTransformation const& PT);
+    //virtual bool TransformeProjection(CProjectionTransformation const& PT);
 
     virtual void GetCentroid(CGeoPoint& pt)const;
     virtual double GetArea(int ringNo = -1)const;
@@ -97,7 +97,7 @@ public:
     }
     virtual void GetPointIndex(int ringNo, int& first, int& last)const
     {
-        ASSERT(false);
+        assert(false);
     }
     virtual int GetNbPoints()const
     {
@@ -170,7 +170,7 @@ public:
     virtual double GetMinimumDistance(const CGeoPoint& pt, int* pNearestSegmentNo = NULL)const;
 
     virtual void SetPrjID(size_t prjID);
-    virtual bool TransformeProjection(CProjectionTransformation const& PT);
+    //virtual bool TransformeProjection(CProjectionTransformation const& PT);
     virtual void GetCentroid(CGeoPoint& pt)const;
 
     virtual bool SometingInRect(const CGeoRect& rect)const;
@@ -251,9 +251,9 @@ public:
     virtual void GetBoundingBox(CGeoRect& box)const;
     virtual double GetMinimumDistance(const CGeoPoint& pt, int* pNearestSegmentNo = NULL)const;
 
-    //virtual bool Draw(CDC* pDC, const CRect& rcBounds, const CShowViewport& viewPort, const CShapeFileBase& shapeFile);
+    //virtual bool Draw(CDC* pDC, const CRect& rcBounds, const CShowViewport& viewPort, const CShapeFile& shapeFile);
     virtual void SetPrjID(size_t prjID);
-    virtual bool TransformeProjection(CProjectionTransformation const& PT);
+    //virtual bool TransformeProjection(CProjectionTransformation const& PT);
     virtual void GetCentroid(CGeoPoint& pt)const;
     virtual double GetArea(int ringNo = -1)const;
 
@@ -363,7 +363,7 @@ public:
     virtual double GetMinimumDistance(const CGeoPoint& pt, int* pNearestSegmentNo = NULL)const;
 
     virtual void SetPrjID(size_t prjID);
-    virtual bool TransformeProjection(CProjectionTransformation const& PT);
+    //virtual bool TransformeProjection(CProjectionTransformation const& PT);
     virtual void GetCentroid(CGeoPoint& pt)const;
     virtual double GetArea(int ringNo = -1)const;
 
@@ -409,7 +409,7 @@ protected:
 
 inline const CSFPoint& CSFPolyLine::GetPoint(int index)const
 {
-    ASSERT(index >= 0 && index < m_points.size());
+    assert(index >= 0 && index < m_points.size());
 
     return m_points[index];
 }
@@ -457,14 +457,14 @@ inline int CSFPolyLine::GetNbRing()const
 
 inline void CSFPolyLine::GetPointIndex(int ringNo, int& first, int& last)const
 {
-    ASSERT(ringNo >= 0 && ringNo < m_beginParts.size());
+    assert(ringNo >= 0 && ringNo < m_beginParts.size());
 
     first = m_beginParts[ringNo];
     if (ringNo == m_beginParts.size() - 1)
         last = (int)m_points.size() - 1;
     else last = m_beginParts[ringNo + 1] - 1;
 
-    //ASSERT(first<=last);
+    //assert(first<=last);
 }
 
 
@@ -503,7 +503,7 @@ protected:
 
 inline bool CSFPolygon::IsInside(int ringNo, const CGeoPoint& P)const
 {
-    ASSERT(ringNo >= 0 && ringNo < GetNbRing());
+    assert(ringNo >= 0 && ringNo < GetNbRing());
     return (GetXRayCount(ringNo, P) % 2) != 0;
 }
 
@@ -625,7 +625,7 @@ inline void CSFRecord::SetShape(const CSFShape& shape)
 }
 inline int32_t CSFRecord::GetLength()const
 {
-    ASSERT(m_pShape);
+    assert(m_pShape);
     return m_pShape->GetLength();
 }
 /*inline void CSFRecord::SetLength(int32_t length)
@@ -640,16 +640,16 @@ m_pShape
 
 typedef std::vector<CSFRecord*> CSFRecordArray;
 //**************************************************************
-class CShapeFileBase
+class CShapeFile
 {
 public:
 
     enum TOpen { modeRead, modeWrite };
 
-    CShapeFileBase();
-    CShapeFileBase(const CShapeFileBase& shapeFile);
-    ~CShapeFileBase();
-    CShapeFileBase& operator=(const CShapeFileBase& shapeFile);
+    CShapeFile();
+    CShapeFile(const CShapeFile& shapeFile);
+    ~CShapeFile();
+    CShapeFile& operator=(const CShapeFile& shapeFile);
     const CSFRecord& operator[](int index)
     {
         return *(m_records[index]);
@@ -657,7 +657,7 @@ public:
 
     size_t GetPrjID()const
     {
-        return m_pPrj ? m_pPrj->GetPrjID() : PRJ_NOT_INIT;
+        return m_prj.GetPrjID();
     }
     const CGeoRect& GetBoundingBox()const
     {
@@ -671,11 +671,11 @@ public:
     ERMsg  Read(const std::string& filePath);
     ERMsg  Write(const std::string& filePath);
 
-    void Create(const CShapeFileBase& shapeFile, const std::set<int>& recordNo);
-    ERMsg Create(const CShapeFileBase& shapeFile, const std::string& fieldName, const StringVector& zoneArray);
-    ERMsg Create(const CShapeFileBase& shapeFile, int fieldNo, const StringVector& zoneArray);
-    ERMsg Create(const CShapeFileBase& shapeFile, int fieldNo, int uniqueID);
-    bool TransformeProjection(CProjectionTransformation const& PT);
+    void Create(const CShapeFile& shapeFile, const std::set<int>& recordNo);
+    ERMsg Create(const CShapeFile& shapeFile, const std::string& fieldName, const std::vector<std::string>& zoneArray);
+    ERMsg Create(const CShapeFile& shapeFile, int fieldNo, const std::vector<std::string>& zoneArray);
+    ERMsg Create(const CShapeFile& shapeFile, int fieldNo, int uniqueID);
+    //bool TransformeProjection(CProjectionTransformation const& PT);
 
     void clear();
 
@@ -753,8 +753,8 @@ public:
     //virtual CProjection const & GetProjection()const;
 
     void UpdateHeader();
-    void GetFieldArray(StringVector& fields, bool bGetAll = false)const;
-    void GetFieldValues(int fieldIndex, StringVector& values)const;
+    void GetFieldArray(std::vector<std::string>& fields, bool bGetAll = false)const;
+    void GetFieldValues(int fieldIndex, std::vector<std::string>& values)const;
 
 protected:
 
@@ -770,15 +770,15 @@ protected:
         {
             //if (io.tellp() < streamEnd)
             {
-                unsigned int32_t number = (unsigned int32_t)ReadBigEndian(io);
-                unsigned int32_t length = (unsigned int32_t)ReadBigEndian(io);
+                uint32_t number = (uint32_t)ReadBigEndian(io);
+                uint32_t length = (uint32_t)ReadBigEndian(io);
 
 
                 if (number > 0 && length > 0)
                 {
                     int32_t shapeType = 0;
                     io >> shapeType;
-                    ASSERT(shapeType == m_header.GetShapeType() || shapeType == CShapeFileHeader::SHAPE_NULL);
+                    assert(shapeType == m_header.GetShapeType() || shapeType == CShapeFileHeader::SHAPE_NULL);
 
                     pRecord = new CSFRecord(shapeType);
 
@@ -800,7 +800,7 @@ protected:
     CShapeFileHeader m_header;
     CSFRecordArray   m_records;
     CDBF3			 m_infoDBF;
-    CProjectionPtr	m_pPrj;
+    CProjection	     m_prj;
 
 
     std::string m_filePath;

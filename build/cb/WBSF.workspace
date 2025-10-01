@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_workspace_file>
 	<Workspace title="Workspace">
-		<Project filename="Basic/Basic.cbp" />
-		<Project filename="Geomatic/Geomatic.cbp" />
-		<Project filename="ModelBased/ModelBased.cbp" />
-		<Project filename="WeatherBased/WeatherBased.cbp" />
-		<Project filename="UnitTests/UnitTests.cbp" />
+		<Project filename="Basic.cbp" />
+		<Project filename="Geomatic.cbp" />
+		<Project filename="ModelBased.cbp" />
+		<Project filename="WeatherBased.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

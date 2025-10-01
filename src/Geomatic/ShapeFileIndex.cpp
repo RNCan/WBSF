@@ -50,7 +50,7 @@ ERMsg CShapeFileIndex::Read(const string& filePath)
 
             if (msg)
             {
-                ASSERT((m_header.GetFileLength() - 50) % 4 == 0);
+                assert((m_header.GetFileLength() - 50) % 4 == 0);
                 int nbRecord = ((m_header.GetFileLength() - 50) / 4);
 
                 m_recordsInfo.resize(nbRecord);
@@ -61,7 +61,7 @@ ERMsg CShapeFileIndex::Read(const string& filePath)
                 }
             }
         }
-        catch (boost::archive::archive_exception e)
+        catch (boost::archive::archive_exception& e)
         {
             msg.ajoute(e.what());
         }
@@ -89,7 +89,7 @@ ERMsg CShapeFileIndex::Write(const string& filePath)const
             boost::archive::binary_oarchive io(file, boost::archive::no_header);
             m_header.WriteHeader(io);
 
-            ASSERT((m_header.GetFileLength() - 50) % 4 == 0);
+            assert((m_header.GetFileLength() - 50) % 4 == 0);
 
             int nbRecord = (int)m_recordsInfo.size();
             for (int i = 0; i < nbRecord; i++)
@@ -98,7 +98,7 @@ ERMsg CShapeFileIndex::Write(const string& filePath)const
                 WriteBigEndian(io, m_recordsInfo[i].m_recordLength);
             }
         }
-        catch (boost::archive::archive_exception e)
+        catch (boost::archive::archive_exception& e)
         {
             msg.ajoute(e.what());
         }

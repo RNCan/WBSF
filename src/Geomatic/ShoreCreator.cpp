@@ -9,11 +9,10 @@
 //******************************************************************************
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 //******************************************************************************
-//#include "stdafx.h"
 #include "WeatherBased/NormalsDatabase.h"
 #include "Geomatic/ShoreCreator.h"
-#include "Geomatic/ShapeFileBase.h"
-#include "Geomatic/ProjectionTransformation.h"
+#include "Geomatic/ShapeFile.h"
+
 
 using namespace std;
 
@@ -26,7 +25,7 @@ ERMsg CShoreCreator::Shape2ANN(const string& fielpathIn, const string& filePathO
 {
     ERMsg msg;
 
-    CShapeFileBase shape;
+    CShapeFile shape;
 
     msg = shape.Read(fielpathIn);
     if (msg)
@@ -167,7 +166,7 @@ ERMsg CShoreCreator::ComputeDistance(const string& ShoreFilepath, const string& 
 {
     ERMsg msg;
 
-    CShapeFileBase shapeIn;
+    CShapeFile shapeIn;
 
     msg = shapeIn.Read(ShoreFilepath);
     if (msg)
@@ -177,7 +176,7 @@ ERMsg CShoreCreator::ComputeDistance(const string& ShoreFilepath, const string& 
         msg = locationsIn.Load(LocFilepathIn);
         if (msg)
         {
-            CProjectionTransformation PT(PRJ_WGS_84, shapeIn.GetPrjID());
+            //CProjectionTransformation PT(PRJ_WGS_84, shapeIn.GetPrjID());
 
             CLocationVector locationsOut(locationsIn.size());
             #pragma omp parallel for
@@ -185,7 +184,8 @@ ERMsg CShoreCreator::ComputeDistance(const string& ShoreFilepath, const string& 
             {
 
                 CGeoPoint pt(locationsIn[i]);
-                pt.Reproject(PT);
+                assert(pt.GetPrjID() == shapeIn.GetPrjID());
+                //pt.Reproject(PT);
 
                 double d = 0;
                 if (shapeIn.IsInside(pt))
@@ -197,7 +197,7 @@ ERMsg CShoreCreator::ComputeDistance(const string& ShoreFilepath, const string& 
                 }
 
                 locationsOut[i] = locationsIn[i];
-                locationsOut[i].SetSSI(CLocation::GetDefaultSSIName(CLocation::SHORE_DIST), ToString(d / 1000, 1));
+                locationsOut[i].SetSSI(CLocation::GetDefaultSSIName(CLocation::SHORE_DIST), to_string(d / 1000, 1));
 
             }
 
