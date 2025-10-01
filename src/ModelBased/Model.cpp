@@ -81,7 +81,7 @@ namespace WBSF
 #else //Windows
     const std::string CModel::PREFIX = "";
     const std::string CModel::EXTENTION = ".dll";
-    #error
+
 #endif // _linux_
 	//////////////////////////////////////////////////////////////////////
 	// Construction/Destruction
