@@ -66,7 +66,7 @@ public:
     }
     bool operator!=(const CSurvivalEqSelected& in)const
     {
-        return std::bitset<CSurvivalEquation::NB_EQUATIONS>::operator!=(in);
+        return !operator==(in);
     }
 
     std::string GetSelection()const

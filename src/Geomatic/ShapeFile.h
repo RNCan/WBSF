@@ -9,10 +9,10 @@
 #pragma once
 
 #include <memory>
-#include <boost\dynamic_bitset.hpp>
+#include <boost/dynamic_bitset.hpp>
 
 #include "Basic/ERMsg.h"
-#include "Basic/DBF3.h"
+#include "Basic/Dbf3.h"
 #include "Basic/GeoBasic.h"
 #include "Basic/UtilStd.h"
 #include "Geomatic/Projection.h"

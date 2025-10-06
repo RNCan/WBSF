@@ -10,8 +10,8 @@
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 //******************************************************************************
 
-#include <boost\archive\binary_oarchive.hpp>
-#include <boost\archive\binary_iarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
 
 #include "ShapeFileIndex.h"
 

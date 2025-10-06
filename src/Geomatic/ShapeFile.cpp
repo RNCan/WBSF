@@ -11,13 +11,11 @@
 //******************************************************************************
 #include <cfloat>
 #include <cmath>
-#include <boost\archive\binary_oarchive.hpp>
-#include <boost\archive\binary_iarchive.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
 
 #include "Geomatic/ShapeFile.h"
 #include "Geomatic/ShapeFileIndex.h"
-//#include "Geomatic/ProjectionTransformation.h"
-//#include "WeatherBasedSimulationString.h"
 
 using namespace std;
 namespace WBSF

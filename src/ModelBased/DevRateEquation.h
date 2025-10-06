@@ -76,7 +76,7 @@ public:
     }
     bool operator!=(const CDevRateEqSelected& in)const
     {
-        return std::bitset<CDevRateEquation::NB_EQUATIONS>::operator!=(in);
+        return !operator==(in);
     }
 
     std::string GetSelection()const

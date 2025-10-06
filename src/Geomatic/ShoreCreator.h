@@ -9,7 +9,7 @@
 //******************************************************************************
 #pragma once
 
-#include "basic/ERMsg.h"
+#include "Basic/ERMsg.h"
 #include "Basic/Shore.h"
 
 namespace WBSF

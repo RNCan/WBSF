@@ -1,11 +1,5 @@
-/build/cb/Basic/bin
-/build/cb/Basic/obj
-/build/cb/UnitTests/bin/
-/build/cb/UnitTests/obj/
-/build/cb/WeatherBased/bin/
-/build/cb/WeatherBased/obj/
+/build/cb/obj/
+/build/msvc/obj/
 /doc/html
 /lib
-*.layout
-*.depend
 

@@ -58,7 +58,7 @@ namespace WBSF
 #define MODEL_ERROR2				0x00000022 //unable read ids file
 #define MODEL_ERROR3				0x00000023 //unable read tgo file
 #define MODEL_ERROR4				0x00000024 //unable write ido file
-#define MODEL_ERROR5				0x00000025 //not enought memory
+#define MODEL_ERROR5				0x00000025 //not enough memory
 #define MODEL_ERROR7				0x00000027 //disk space
 #define LAST_MODEL_ERROR			0x00000027
 
@@ -75,7 +75,7 @@ namespace WBSF
 	const char* CModel::MEMBER_NAME[NB_MEMBER] = { "Title", "Version", "ID", "EXE", "Behaviour", "Description", "WindowRect", "SimulatedCategory", "TransferFileVersion", "IOFileVersion", "NbYearMin", "NbYearMax", "ThreadSafe", "InputVariableArray", "SSI", "OutputTypeMode", "JulianDay", "MissingValue", "OutputVariableArray", "Credit", "Copyright", "HelpType", "HelpFileName", "HelpText" };
 	const short CModel::TRANSLATED_MEMBER[NB_TRANSLATED_MEMBER] = { TITLE, DESCRIPTION, CREDIT, COPYRIGHT, HELP_FILENAME, HELP_TEXT };
 #if defined(__linux__)
-    const std::string CModel::PREFIX = "lib";
+    const std::string CModel::PREFIX = "";
     const std::string CModel::EXTENTION = ".so";
 
 #else //Windows
@@ -702,7 +702,7 @@ namespace WBSF
 		if (RemoveNonVariable)
 		{
 			varList.clear();
-			for (int i = 0; i < m_inputList.size(); i++)
+			for (size_t i = 0; i < m_inputList.size(); i++)
 			{
 				if (m_inputList[i].IsAVariable())
 					varList.push_back(m_inputList[i]);
