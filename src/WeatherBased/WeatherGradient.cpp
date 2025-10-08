@@ -11,7 +11,7 @@
 // 01-01-2016	Rémi Saint-Amant	Include into Weather-based simulation framework
 //******************************************************************************
 
-#include <math.h>
+#include <cmath>
 #include <algorithm>
 
 #include "Basic/Statistic.h"

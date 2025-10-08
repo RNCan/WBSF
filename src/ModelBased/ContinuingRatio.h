@@ -2,7 +2,7 @@
 
 
 #include <vector>
-//#include <math.h>
+//#include <cmath>
 #include <cassert>
 
 #include "Basic/ModelStat.h"
@@ -13,8 +13,8 @@
 namespace WBSF
 {
 
-
-template <int nbParams, int firstInstar, int lastInstar, const char* header>
+//
+template <int nbParams, int firstInstar, int lastInstar>
 class CContinuingRatio : public CDegreeDays
 {
 public:
@@ -57,9 +57,9 @@ protected:
 
 
 
-
-template <int nbParams, int firstInstar, int lastInstar, const char* header>
-CContinuingRatio<nbParams, firstInstar, lastInstar, header>::CContinuingRatio()
+//
+template <int nbParams, int firstInstar, int lastInstar>
+CContinuingRatio<nbParams, firstInstar, lastInstar>::CContinuingRatio()//
 {
     m_startJday = 0;
     m_bPercent = false;
@@ -74,18 +74,18 @@ CContinuingRatio<nbParams, firstInstar, lastInstar, header>::CContinuingRatio()
     }
 }
 
-template <int nbParams, int firstInstar, int lastInstar, const char* header>
-CContinuingRatio<nbParams, firstInstar, lastInstar, header>::~CContinuingRatio()
+template <int nbParams, int firstInstar, int lastInstar>
+CContinuingRatio<nbParams, firstInstar, lastInstar>::~CContinuingRatio()
 {}
 
 
-template <int nbParams, int firstInstar, int lastInstar, const char* header>
-void CContinuingRatio<nbParams, firstInstar, lastInstar, header>::Execute(const CWeatherStation& weather, CModelStatVector& stat)
+template <int nbParams, int firstInstar, int lastInstar>
+void CContinuingRatio<nbParams, firstInstar, lastInstar>::Execute(const CWeatherStation& weather, CModelStatVector& stat)
 {
     CTPeriod p = weather.GetEntireTPeriod(CTM::DAILY);
 
-    std::string head = std::string("DD,") + header + ",Last,AI";
-    stat.Init(p.size(), p.begin(), nbParams + 3, 0, head);//+3 for DD, death and AI
+    //std::string head = std::string("DD,") + header + ",Last,AI";
+    stat.Init(p.size(), p.begin(), nbParams + 3, 0);//+3 for DD, death and AI
 
     for (size_t y = 0; y < weather.size(); y++)
     {
@@ -97,7 +97,7 @@ void CContinuingRatio<nbParams, firstInstar, lastInstar, header>::Execute(const 
         for (CTRef TRef = p.begin(); TRef <= p.end(); TRef++)
         {
 
-            if (TRef.GetJDay() >= m_startJday)
+            if (TRef.GetDOY() >= m_startJday)
                 DD += GetDD(weather.GetDay(TRef));
 
             ExecuteOneTRef(DD, param, AI);
@@ -124,8 +124,8 @@ void CContinuingRatio<nbParams, firstInstar, lastInstar, header>::Execute(const 
     }
 }
 
-template <int nbParams, int firstInstar, int lastInstar, const char* header>
-double CContinuingRatio<nbParams, firstInstar, lastInstar, header>::GetP(int i, double DD, bool up)const
+template <int nbParams, int firstInstar, int lastInstar>
+double CContinuingRatio<nbParams, firstInstar, lastInstar>::GetP(int i, double DD, bool up)const
 {
     double p = 0;
     double U = up ? 1 : -1;
@@ -137,8 +137,8 @@ double CContinuingRatio<nbParams, firstInstar, lastInstar, header>::GetP(int i, 
     return p;
 }
 
-template <int nbParams, int firstInstar, int lastInstar, const char* header>
-void CContinuingRatio<nbParams, firstInstar, lastInstar, header>::ExecuteOneTRef(double ddays, std::vector<double>& param, double& AI)const
+template <int nbParams, int firstInstar, int lastInstar>
+void CContinuingRatio<nbParams, firstInstar, lastInstar>::ExecuteOneTRef(double ddays, std::vector<double>& param, double& AI)const
 {
     assert(nbParams > 0);
 
@@ -196,8 +196,8 @@ void CContinuingRatio<nbParams, firstInstar, lastInstar, header>::ExecuteOneTRef
     }
 }
 
-template <int nbParams, int firstInstar, int lastInstar, const char* header>
-void CContinuingRatio<nbParams, firstInstar, lastInstar, header>::Transform(const CTTransformation& TT, const CModelStatVector& input, CTStatMatrix& output)
+template <int nbParams, int firstInstar, int lastInstar>
+void CContinuingRatio<nbParams, firstInstar, lastInstar>::Transform(const CTTransformation& TT, const CModelStatVector& input, CTStatMatrix& output)
 {
     CTPeriod pIn = input.GetTPeriod();
     CTPeriod pOut = TT.GetPeriodOut();

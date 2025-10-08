@@ -91,7 +91,7 @@ void CWaterTemperature::ComputeRa(const CWeatherYears& data)
                 const CWeatherDay& day = data[y][m][d];
                 CTRef TRef = day.GetTRef().as(CTM::DAILY);
                 //TRef.Transform(CTM(CTM::DAILY));
-                //double dr = (double)TRef.GetJDay() / TRef.GetNbDaysPerYear();//d between [0, 1[
+                //double dr = (double)TRef.GetDOY() / TRef.GetNbDaysPerYear();//d between [0, 1[
                 const CStatistic& Tair = day[HOURLY_DATA::H_TAIR];
                 assert(!Tair.is_init() || (Tair[MEAN] >= -60 && Tair[MEAN] <= 60));
 
@@ -115,7 +115,7 @@ void CWaterTemperature::ComputeRw(const CWeatherYears& data)
                 const CWeatherDay& day = data[y][m][d];
                 CTRef TRef = day.GetTRef().as(CTM::DAILY);
                 //TRef.Transform(CTM(CTM::DAILY));
-                //double dr = (double)TRef.GetJDay() / TRef.GetNbDaysPerYear();//d between [0, 1[
+                //double dr = (double)TRef.GetDOY() / TRef.GetNbDaysPerYear();//d between [0, 1[
 
                 double Rw1 = Rw.is_inside(TRef - 1) ? Rw[TRef - 0][0] : 0;
                 double Rw2 = Rw.is_inside(TRef - 2) ? Rw[TRef - 1][0] : 0;

@@ -41,37 +41,37 @@ using namespace std;
 /** \brief Namespace for mathematical applications. */
 namespace mu
 {
-	value_type ParserInt::Abs(value_type v) { return (value_type)Round(fabs((double)v)); }
-	value_type ParserInt::Sign(value_type v) { return (Round(v) < 0) ? -1 : (Round(v) > 0) ? 1 : 0; }
-	value_type ParserInt::Ite(value_type v1, value_type v2,	value_type v3) { return (Round(v1) == 1) ? Round(v2) : Round(v3); }
-	value_type ParserInt::Add(value_type v1, value_type v2) { return Round(v1) + Round(v2); }
-	value_type ParserInt::Sub(value_type v1, value_type v2) { return Round(v1) - Round(v2); }
-	value_type ParserInt::Mul(value_type v1, value_type v2) { return Round(v1) * Round(v2); }
-	value_type ParserInt::Div(value_type v1, value_type v2) { return Round(v1) / Round(v2); }
-	value_type ParserInt::Mod(value_type v1, value_type v2) { return Round(v1) % Round(v2); }
-	value_type ParserInt::Shr(value_type v1, value_type v2) { return Round(v1) >> Round(v2); }
-	value_type ParserInt::Shl(value_type v1, value_type v2) { return Round(v1) << Round(v2); }
-	value_type ParserInt::BitAnd(value_type v1, value_type v2) { return Round(v1) & Round(v2); }
-	value_type ParserInt::BitOr(value_type v1, value_type v2) { return Round(v1) | Round(v2); }
-	value_type ParserInt::And(value_type v1, value_type v2) { return Round(v1) && Round(v2); }
-	value_type ParserInt::Or(value_type v1, value_type v2) { return Round(v1) || Round(v2); }
-	value_type ParserInt::Less(value_type v1, value_type v2) { return Round(v1) < Round(v2); }
-	value_type ParserInt::Greater(value_type v1, value_type v2) { return Round(v1) > Round(v2); }
-	value_type ParserInt::LessEq(value_type v1, value_type v2) { return Round(v1) <= Round(v2); }
-	value_type ParserInt::GreaterEq(value_type v1, value_type v2) { return Round(v1) >= Round(v2); }
-	value_type ParserInt::Equal(value_type v1, value_type v2) { return Round(v1) == Round(v2); }
-	value_type ParserInt::NotEqual(value_type v1, value_type v2) { return Round(v1) != Round(v2); }
-	value_type ParserInt::Not(value_type v) { return !Round(v); }
+	value_type ParserInt::Abs(value_type v) { return (value_type)round(fabs((double)v)); }
+	value_type ParserInt::Sign(value_type v) { return (round(v) < 0) ? -1 : (round(v) > 0) ? 1 : 0; }
+	value_type ParserInt::Ite(value_type v1, value_type v2,	value_type v3) { return (round(v1) == 1) ? round(v2) : round(v3); }
+	value_type ParserInt::Add(value_type v1, value_type v2) { return round(v1) + round(v2); }
+	value_type ParserInt::Sub(value_type v1, value_type v2) { return round(v1) - round(v2); }
+	value_type ParserInt::Mul(value_type v1, value_type v2) { return round(v1) * round(v2); }
+	value_type ParserInt::Div(value_type v1, value_type v2) { return round(v1) / round(v2); }
+	value_type ParserInt::Mod(value_type v1, value_type v2) { return round(v1) % round(v2); }
+	value_type ParserInt::Shr(value_type v1, value_type v2) { return round(v1) >> round(v2); }
+	value_type ParserInt::Shl(value_type v1, value_type v2) { return round(v1) << round(v2); }
+	value_type ParserInt::BitAnd(value_type v1, value_type v2) { return round(v1) & round(v2); }
+	value_type ParserInt::BitOr(value_type v1, value_type v2) { return round(v1) | round(v2); }
+	value_type ParserInt::And(value_type v1, value_type v2) { return round(v1) && round(v2); }
+	value_type ParserInt::Or(value_type v1, value_type v2) { return round(v1) || round(v2); }
+	value_type ParserInt::Less(value_type v1, value_type v2) { return round(v1) < round(v2); }
+	value_type ParserInt::Greater(value_type v1, value_type v2) { return round(v1) > round(v2); }
+	value_type ParserInt::LessEq(value_type v1, value_type v2) { return round(v1) <= round(v2); }
+	value_type ParserInt::GreaterEq(value_type v1, value_type v2) { return round(v1) >= round(v2); }
+	value_type ParserInt::Equal(value_type v1, value_type v2) { return round(v1) == round(v2); }
+	value_type ParserInt::NotEqual(value_type v1, value_type v2) { return round(v1) != round(v2); }
+	value_type ParserInt::Not(value_type v) { return !round(v); }
 
 	value_type ParserInt::Pow(value_type v1, value_type v2)
 	{
-		return std::pow((double)Round(v1), (double)Round(v2));
+		return std::pow((double)round(v1), (double)round(v2));
 	}
 
 
 	value_type ParserInt::UnaryMinus(value_type v)
 	{
-		return -Round(v);
+		return -round(v);
 	}
 
 

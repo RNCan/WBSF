@@ -670,7 +670,7 @@ CTRef::CTRef(string str)
 CTRef& CTRef::Set(int y_or_r, size_t m, size_t d, size_t h, const CTM& TM)
 {
 
-//		assert(m < 12 || m == LAST_MONTH || TM.Type() == ATEMPORAL || TM.Type() == ANNUAL);
+//		assert(m < 12 || m == DECEMBER || TM.Type() == ATEMPORAL || TM.Type() == ANNUAL);
     //assert(m < 12 || TM.Type() == CTM::ATEMPORAL);
     //assert(d < 31 || d == LAST_DAY || d == DAY_NOT_INIT || TM.Type() == ATEMPORAL || TM.Type() == ANNUAL);
     //assert(d < 31 || TM.Type() == CTM::ATEMPORAL);
@@ -1483,6 +1483,7 @@ void CTPeriod::clear()
 {
     m_begin.clear();
     m_end.clear();
+    m_segments.clear();
 
     assert(!is_init());
 }
@@ -1493,6 +1494,7 @@ CTPeriod& CTPeriod::operator = (const CTPeriod& in)
     {
         m_begin = in.m_begin;
         m_end = in.m_end;
+        m_segments = in.m_segments;
     }
 
     assert(operator==(in));
@@ -1507,6 +1509,7 @@ bool CTPeriod::operator == (const CTPeriod& in)const
 
     if (m_begin != in.m_begin) bEqual = false;
     if (m_end != in.m_end) bEqual = false;
+    if (m_segments != in.m_segments) bEqual = false;
 
     return bEqual;
 
@@ -1514,6 +1517,8 @@ bool CTPeriod::operator == (const CTPeriod& in)const
 
 CTPeriod& CTPeriod::inflate(const CTRef& in)
 {
+    assert(m_segments.empty());//todo
+
     if (is_init() && in.is_init())
     {
         assert(in.TM() == TM() );
@@ -1533,6 +1538,8 @@ CTPeriod& CTPeriod::inflate(const CTRef& in)
 
 CTPeriod& CTPeriod::inflate(const CTPeriod& in)
 {
+    assert(m_segments.empty());//todo
+
     if (is_init() && in.is_init())
     {
         assert(in.TM() == TM() );
@@ -1541,6 +1548,8 @@ CTPeriod& CTPeriod::inflate(const CTPeriod& in)
             m_begin = in.m_begin;
         if (in.m_end > m_end)
             m_end = in.m_end;
+
+        
     }
     else if(in.is_init())
     {
@@ -1561,24 +1570,27 @@ bool CTPeriod::is_inside(const CTRef& in)const
         assert(m_begin.TM() == m_end.TM());
         assert(in.TM() == m_end.TM());
 
+        
+        
         bRep = in >= m_begin && in <= m_end;
+        
+        if (bRep && !m_segments.empty())
+        {
+            bRep = false;
+            for (size_t i = 0; i < m_segments.size() && !bRep; i++)
+                bRep = m_segments[i].is_inside(in);
+        }
     }
-   //    else if( is_init())
-//    {
-//        is_inside = false;
-//    }
-//    else if( in.is_init())
-//    {
-//        is_inside = true;
-//    }
-//
-
+   
     return bRep;
 }
 
 
 bool CTPeriod::is_inside(const CTPeriod& in)const
 {
+    assert(m_segments.empty());
+    assert(in.m_segments.empty());//todo
+
     bool is_inside = false;
     if(is_init() && in.is_init() )
     {
@@ -1601,6 +1613,8 @@ bool CTPeriod::is_inside(const CTPeriod& in)const
 
 bool CTPeriod::is_intersect(const CTPeriod& in)const
 {
+    assert(m_segments.empty());//todo
+    assert(in.m_segments.empty());//todo
 
 
     bool is_intersect=false;
@@ -1609,15 +1623,7 @@ bool CTPeriod::is_intersect(const CTPeriod& in)const
         assert(in.TM() == TM());
         is_intersect=is_inside(in.begin()) || is_inside(in.end()) || in.is_inside(begin()) || in.is_inside(end());
     }
-    //    else if( is_init())
-//    {
-//        is_inside = false;
-//    }
-//    else if( p.is_init())
-//    {
-//        is_inside = true;
-//    }
-//
+   
 
     return is_intersect;
 }
@@ -1625,6 +1631,10 @@ bool CTPeriod::is_intersect(const CTPeriod& in)const
 
 CTPeriod CTPeriod::unions(const CTPeriod& p1, const CTPeriod& p2)
 {
+    assert(p1.m_segments.empty());//todo
+    assert(p2.m_segments.empty());//todo
+
+
     CTPeriod p;
 
     if(p1.is_init() && p2.is_init() )
@@ -1657,6 +1667,8 @@ CTPeriod CTPeriod::unions(const CTPeriod& p1, const CTPeriod& p2)
 
 CTPeriod CTPeriod::intersect(const CTPeriod& p1, const CTPeriod& p2)
 {
+    assert(p1.m_segments.empty());//todo
+    assert(p2.m_segments.empty());//todo
 
 
     CTPeriod p;
@@ -1714,7 +1726,7 @@ CTPeriod CTPeriod::intersect(const CTPeriod& p1, const CTPeriod& p2)
 //
 //    if (IsInversed())
 //    {
-//        if (ref.GetJDay() > m_begin.GetJDay())
+//        if (ref.GetDOY() > m_begin.GetDOY())
 //            index++;
 //    }
 //
@@ -1800,6 +1812,8 @@ CTPeriod FromFormatedString(string str, string periodformat, string TRefFormat, 
 
 string CTPeriod::to_string()const
 {
+    assert(m_segments.empty());//todo
+    
     return m_begin.to_string() + "|" + m_end.to_string();
 }
 
@@ -1953,6 +1967,26 @@ CTPeriod CTPeriod::as(CTPeriod p, const CTM& TMi)
     assert(p.begin() <= p.end());
     return p;
 }
+
+
+void CTPeriod::SetSegemntType(TSegment type)
+{
+    
+    if (type == YEAR_BY_YEAR)
+    {
+        assert(false);//todo
+        assert(m_segments.empty());//todo
+        
+
+    }
+    else if (type == CONTINUOUS)
+    {
+        m_segments.clear();
+    }
+
+}
+
+
 //**************************************************************
 //CJDayPeriod
 
@@ -2142,7 +2176,7 @@ std::time_t get_time64(int year, size_t m, size_t d, size_t h, size_t minute, si
 // return day length (seconds)
 double GetDayLength(double latDeg, size_t DOY)
 {
-    //size_t jd = date.GetJDay();
+    //size_t jd = date.GetDOY();
     assert(latDeg >= -90 && latDeg <= 90);
     assert(DOY < 366);
     static const double SECPERRAD = 13750.9871;     // seconds per radian of hour angle

@@ -17,7 +17,7 @@
 //****************************************************************************
 #pragma once
 
-#include <crtdbg.h>
+#include <cassert>
 #include "Basic/Statistic.h"
 #error
 //

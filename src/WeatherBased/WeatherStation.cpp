@@ -1181,7 +1181,7 @@ namespace WBSF
 	//	const CWeatherDay& me = *this;
 	//
 	//	//Julian day, in one base
-	//	int J = int(GetTRef().GetJDay()+1);
+	//	int J = int(GetTRef().GetDOY()+1);
 	//
 	//	double Rs = max(0.0, me[H_SRAD][SUM]);
 	//	double Ra = CASCE_ETsz::GetExtraterrestrialRadiation(lat, J);
@@ -2377,12 +2377,12 @@ namespace WBSF
 
 					//case H_ES2://from hourly temperature
 					//	for (size_t h = 0; h<24; h++)
-					//		at(h)[v] = WBSF::eᵒ(at(h)[H_ES2]);
+					//		at(h)[v] = WBSF::e0(at(h)[H_ES2]);
 					//	break;
 
 					//case H_EA2:
 					//	for (size_t h = 0; h<24; h++)
-					//		at(h)[v] = WBSF::eᵒ(at(h)[H_TDEW]);//compute from Tdew
+					//		at(h)[v] = WBSF::e0(at(h)[H_TDEW]);//compute from Tdew
 					//	break;
 
 					//case H_VPD2:
@@ -3829,7 +3829,7 @@ namespace WBSF
 			////Fill Tmin, Tair and Tmax
 			//if (bTair)
 			//{
-			//	for (CTRef TRef = p.Begin(); TRef != p.End(); TRef++)
+			//	for (CTRef TRef = p.begin(); TRef != p.end(); TRef++)
 			//	{
 			//		CHourlyData& weaᵒ = GetHour(TRef);
 			//		if (!IsMissing(weaᵒ[H_TAIR]))

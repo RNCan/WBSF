@@ -17,7 +17,7 @@
 #include <boost/serialization/split_member.hpp>
 #include <boost/serialization/access.hpp>
 
-//#include "Basic/WeatherDefine.h"
+//#include "WeatherBased/WeatherDefine.h"
 #include "Basic/UtilStd.h"
 #include "Basic/Location.h"
 #include "Basic/SearchResult.h"

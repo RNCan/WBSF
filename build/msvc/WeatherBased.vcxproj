@@ -36,6 +36,7 @@
     <ClCompile Include="..\..\src\WeatherBased\WeatherDatabaseOptimisation.cpp" />
     <ClCompile Include="..\..\src\WeatherBased\WeatherDataSection.cpp" />
     <ClCompile Include="..\..\src\WeatherBased\WeatherDefine.cpp" />
+    <ClCompile Include="..\..\src\WeatherBased\WeatherGenerator.cpp" />
     <ClCompile Include="..\..\src\WeatherBased\WeatherGeneratorDailyKernel.cpp" />
     <ClCompile Include="..\..\src\WeatherBased\WeatherGradient.cpp" />
     <ClCompile Include="..\..\src\WeatherBased\WeatherStation.cpp" />
@@ -67,6 +68,7 @@
     <ClInclude Include="..\..\src\WeatherBased\WeatherDatabaseOptimisation.h" />
     <ClInclude Include="..\..\src\WeatherBased\WeatherDataSection.h" />
     <ClInclude Include="..\..\src\WeatherBased\WeatherDefine.h" />
+    <ClInclude Include="..\..\src\WeatherBased\WeatherGenerator.h" />
     <ClInclude Include="..\..\src\WeatherBased\WeatherGeneratorDailyKernel.h" />
     <ClInclude Include="..\..\src\WeatherBased\WeatherGradient.h" />
     <ClInclude Include="..\..\src\WeatherBased\WeatherStation.h" />

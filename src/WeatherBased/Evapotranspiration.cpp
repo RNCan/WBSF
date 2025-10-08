@@ -1173,7 +1173,7 @@ void CASCE_ETsz::Execute(const CWeatherStation& weather, CModelStatVector& stats
 		//{
 		//	const CWeatherDay& Wday = weather.GetDay(TRef);
 		//
-		//	int J = int(TRef.GetJDay()) + 1;//Julian day
+		//	int J = int(TRef.GetDOY()) + 1;//Julian day
 
 		//	//soil heat flux density at the soil surface( MJ m-2 d-1)
 		//	const double G = 0;

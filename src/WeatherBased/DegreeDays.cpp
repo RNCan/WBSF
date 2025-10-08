@@ -79,7 +79,7 @@
 
 
 
-#include <math.h>
+#include <cmath>
 #include <fstream>
 #include <ostream>
 

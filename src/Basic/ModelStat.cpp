@@ -42,7 +42,7 @@ namespace WBSF
 	//	{
 	//		assert(nbObjects > 0);
 	//		assert(initialPopulation > 0);
-	//		assert((peakDay.GetJDay() - 3 * sigma) >= 0 && (peakDay.GetJDay() + 3 * sigma) <= 365); //all attack within first year
+	//		assert((peakDay.GetDOY() - 3 * sigma) >= 0 && (peakDay.GetDOY() + 3 * sigma) <= 365); //all attack within first year
 	//
 	//		clear();
 	//		if (peakDay.is_init())

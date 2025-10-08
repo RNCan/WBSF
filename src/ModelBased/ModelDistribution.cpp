@@ -80,7 +80,7 @@ namespace WBSF
 //	case GAMMA:		   PDF = pdf(*p_fisher_f_distribution, x); break;
 //	case FISHER:	   PDF = pdf(*p_extreme_value_distribution, x); break;
 //	case EXTREME_VALUE:PDF = pdf(*p_gamma_distribution, x); break;
-//	case MODIFIED_LOGISTIC: {double S = sqrt(x * m_p2); PDF = exp(-(x - m_p1) / S) / (S * Square(1 + exp(-(x - m_p1) / S))); } break;
+//	case MODIFIED_LOGISTIC: {double S = sqrt(x * m_p2); PDF = exp(-(x - m_p1) / S) / (S * square(1 + exp(-(x - m_p1) / S))); } break;
 //	case GOMPERTZ1:		PDF = m_p1 * m_p2 * exp(m_p1 + m_p2 * x - m_p1 * exp(m_p2 * x)); break;
 //	case GOMPERTZ2:		PDF = 0; break;//Unknown
 
@@ -341,10 +341,10 @@ void CModelDistribution::get_CDD(const std::array<double, NB_CDD_PARAMS>& params
     	CDD.Init(DD_daily.GetTPeriod(), 1, 0);
 
     CTPeriod p = weather.GetEntireTPeriod(CTM::DAILY);
-    p.Begin() = p.Begin() + int(params[CDD_DELTA]);
+    p.begin() = p.begin() + int(params[CDD_DELTA]);
 
-    CDD[p.Begin()][0] = DD_daily[p.Begin()][CDegreeDays::S_DD];
-    for (CTRef TRef = p.Begin() + 1; TRef <= p.End(); TRef++)
+    CDD[p.begin()][0] = DD_daily[p.begin()][CDegreeDays::S_DD];
+    for (CTRef TRef = p.begin() + 1; TRef <= p.end(); TRef++)
     	CDD[TRef][0] = CDD[TRef - 1][0] + DD_daily[TRef][CDegreeDays::S_DD];*/
 
 

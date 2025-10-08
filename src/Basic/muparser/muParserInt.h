@@ -49,7 +49,7 @@ namespace mu
 	class ParserInt : public ParserBase
 	{
 	private:
-		static int  Round(value_type v) { return (int)(v + ((v >= 0) ? 0.5 : -0.5)); };
+		static int  round(value_type v) { return (int)(v + ((v >= 0) ? 0.5 : -0.5)); };
 
 		static value_type  Abs(value_type);
 		static value_type  Sign(value_type);

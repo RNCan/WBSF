@@ -298,7 +298,7 @@ protected:
 };
 
 
-template <int32_t T, const char * U = NULL>
+template <int32_t T, const char * U = nullptr>
 class CModelStatVectorTemplate : public CModelStatVector
 {
 public:

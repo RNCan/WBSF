@@ -33,9 +33,9 @@ namespace WBSF
 	enum TMonth { JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER, NB_MONTHS };
 	enum TDayOfMonth { DAY_01, DAY_02, DAY_03, DAY_04, DAY_05, DAY_06, DAY_07, DAY_08, DAY_09, DAY_10, DAY_11, DAY_12, DAY_13, DAY_14, DAY_15, DAY_16, DAY_17, DAY_18, DAY_19, DAY_20, DAY_21, DAY_22, DAY_23, DAY_24, DAY_25, DAY_26, DAY_27, DAY_28, DAY_29, DAY_30, DAY_31, MAX_DAY_PER_MONTH };
 	enum TShortMonth { JAN, FEB, MAR, APR, /*MAY,:already define*/ JUN = JUNE, JUL, AUG, SEP, OCT, NOV, DEC };
-	//enum { FIRST_DAY = 0, LAST_DAY = -2, DAY_NOT_INIT = -1 };
-	//enum { FIRST_MONTH = 0, LAST_MONTH = 11, MONTH_NOT_INIT = -1 };
-	//enum { FIRST_HOUR = 0, LAST_HOUR = 23, HOUR_NOT_INIT = -1 };
+	//enum { DAY_01 = 0, LAST_DAY = -2, DAY_NOT_INIT = -1 };
+	//enum { JANUARY = 0, DECEMBER = 11, MONTH_NOT_INIT = -1 };
+	//enum { 0 = 0, 23 = 23, HOUR_NOT_INIT = -1 };
 	constexpr int YEAR_NOT_INIT = 9999;
 	constexpr int REF_NOT_INIT = -32767;
 
@@ -58,6 +58,7 @@ namespace WBSF
 	bool IsLeap(int year);
 	size_t GetNbDaysPerYear(int year);
 	size_t GetNbDaysPerMonth(int year, size_t m);
+	inline size_t GetLastDayOfMonth(int year, size_t m) {return GetNbDaysPerMonth(year, m) - 1;}
 	size_t GetDOY(int year, size_t m, size_t d);
 	size_t GetFirstDOY(int year, size_t m);
 	size_t GetLastDOY(int year, size_t m);
@@ -1030,6 +1031,8 @@ namespace WBSF
 	{
 	public:
 
+		enum TSegment{ YEAR_BY_YEAR, CONTINUOUS, NB_SEGMENTS_TYPE };
+
 		static bool is_valid(const CTRef& Tref1, const CTRef& Tref2);
 
 
@@ -1072,6 +1075,7 @@ namespace WBSF
 			return m_end;
 		}
 
+		size_t length(CTM TM)const {return is_init() ? as(TM).size(): 0;}
 		bool operator == (const CTPeriod& in)const;
 		bool operator != (const CTPeriod& in)const
 		{
@@ -1294,7 +1298,9 @@ namespace WBSF
 			p >> io;
 			return io;
 		}
-
+		
+		
+		void SetSegemntType(TSegment type);
 
 		//void WriteStream(std::ostream& stream)const;
 		//void ReadStream(std::istream& stream);
@@ -1308,19 +1314,20 @@ namespace WBSF
 		CTRef m_begin;
 		CTRef m_end;
 
-		//std::unique_ptr<std::vector<CTPeriod>> m_exclusion;
+		std::vector<CTPeriod> m_segments;
 	};
 
-
-
-
-
+	
 	class CDOYPeriod : public CTPeriod
 	{
 	public:
 		CDOYPeriod(int year, size_t DOY1, size_t DOY2);
 		CDOYPeriod(int firtYear, size_t first_DOY, int lastYear, size_t last_DOY);
 	};
+
+	
+
+	
 
 	//
 	//

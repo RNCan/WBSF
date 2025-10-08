@@ -25,7 +25,7 @@
 //  Basic includes
 //----------------------------------------------------------------------
 #include <cstdlib>			// standard C++ includes
-#include <math.h>			// math routines
+#include <cmath>			// math routines
 #include "KMeans.h"			// KMeans includes
 
 //----------------------------------------------------------------------

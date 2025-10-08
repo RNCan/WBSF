@@ -350,8 +350,8 @@ const CGSInfo CGrowingSeason::DEFAULT_END = { CGSInfo::GET_FIRST, CGSInfo::TT_TM
 //		if (!weather.HavePrevious())
 //			return CTPeriod();//no growing season the first year of southern hemisphere
 
-//		p.begin() = CTRef(year - 1, JULY, FIRST_DAY, FIRST_HOUR, weather.TM());
-//		p.end() = CTRef(year, JUNE, LAST_DAY, LAST_HOUR, weather.TM());
+//		p.begin() = CTRef(year - 1, JULY, DAY_01, 0, weather.TM());
+//		p.end() = CTRef(year, JUNE, LAST_DAY, 23, weather.TM());
 
 //		TRef1 = CTRef(year, JANUARY, DAY_01);
 //		TRef2 = CTRef(year, JANUARY, DAY_01);
@@ -611,7 +611,7 @@ const CGSInfo CFrostFreePeriod::DEFAULT_END = { CGSInfo::GET_FIRST, CGSInfo::TT_
 //	short nbDay = 0;
 
 //	CTRef begin(GetYear(), JULY, 14);
-//	CTRef end(GetYear(), JANUARY, FIRST_DAY);
+//	CTRef end(GetYear(), JANUARY, DAY_01);
 
 
 //	for (CTRef d = begin; d >= end&&!firstDay.is_init(); d--)
@@ -639,7 +639,7 @@ const CGSInfo CFrostFreePeriod::DEFAULT_END = { CGSInfo::GET_FIRST, CGSInfo::TT_
 //	short nbDay = 0;
 
 //	CTRef begin(GetYear(), JULY, 14);
-//	CTRef end(GetYear(), DECEMBER, LAST_DAY);
+//	CTRef end(GetYear(), DECEMBER, DAY_31);
 
 
 //	for (CTRef d = begin; d <= end&&!firstDay.is_init(); d++)
@@ -721,13 +721,13 @@ else
 if( begin.GetMonth() == MONTH_NOT_INIT )
 {
 assert( begin.GetDay() == DAY_NOT_INIT);
-begin.SetMonth(FIRST_MONTH);
-begin.SetDay(FIRST_DAY);
+begin.SetMonth(JANUARY);
+begin.SetDay(DAY_01);
 }
 else
 {
 if( begin.GetDay() == DAY_NOT_INIT)
-begin.SetDay(FIRST_DAY);
+begin.SetDay(DAY_01);
 }
 }
 }
@@ -741,7 +741,7 @@ else
 if( end.GetMonth() == MONTH_NOT_INIT )
 {
 assert( end.GetDay() == DAY_NOT_INIT);
-end.SetMonth(LAST_MONTH);
+end.SetMonth(DECEMBER);
 end.SetDay(LAST_DAY);
 }
 else

@@ -8,6 +8,7 @@
 //******************************************************************************
 #pragma once
 
+#include "Basic/ERMsg.h"
 #include "Basic/UtilMath.h"
 
 //Weather-Based Simulation Framework

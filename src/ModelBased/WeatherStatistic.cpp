@@ -10,7 +10,7 @@
 
 //#include "WeatherStatistic.h"
 //#include "Basic/UtilTime.h"
-//#include <math.h>
+//#include <cmath>
 //
 //
 //namespace WBSF
