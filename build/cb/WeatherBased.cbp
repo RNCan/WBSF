@@ -101,6 +101,8 @@
 		<Unit filename="../../src/WeatherBased/WeatherDatabaseOptimisation.h" />
 		<Unit filename="../../src/WeatherBased/WeatherDefine.cpp" />
 		<Unit filename="../../src/WeatherBased/WeatherDefine.h" />
+		<Unit filename="../../src/WeatherBased/WeatherGenerator.cpp" />
+		<Unit filename="../../src/WeatherBased/WeatherGenerator.h" />
 		<Unit filename="../../src/WeatherBased/WeatherGeneratorDailyKernel.cpp" />
 		<Unit filename="../../src/WeatherBased/WeatherGeneratorDailyKernel.h" />
 		<Unit filename="../../src/WeatherBased/WeatherGradient.cpp" />
