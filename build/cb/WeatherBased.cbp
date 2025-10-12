@@ -15,11 +15,11 @@
 				<Option createDefFile="1" />
 				<Compiler>
 					<Add option="-Wall" />
+					<Add option="-std=gnu++20" />
 					<Add option="-fPIC" />
 					<Add option="-m64" />
-					<Add option="-g" />
-					<Add option="-std=gnu++17" />
 					<Add option="-ggdb" />
+					<Add option="-g" />
 					<Add option="-Wno-unknown-pragmas" />
 					<Add option="-Wno-deprecated-enum-enum-conversion" />
 					<Add option="-I/usr/include" />
@@ -42,9 +42,9 @@
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-Wall" />
+					<Add option="-std=gnu++20" />
 					<Add option="-fPIC" />
 					<Add option="-m64" />
-					<Add option="-std=gnu++17" />
 					<Add option="-Wno-unknown-pragmas" />
 					<Add option="-Wno-deprecated-enum-enum-conversion" />
 					<Add option="-DNDEBUG" />

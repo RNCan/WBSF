@@ -47,9 +47,9 @@
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-Wall" />
+					<Add option="-std=gnu++20" />
 					<Add option="-fPIC" />
 					<Add option="-m64" />
-					<Add option="-std=gnu++20" />
 					<Add option="-ggdb" />
 					<Add option="-pthread" />
 					<Add option="-fopenmp" />
