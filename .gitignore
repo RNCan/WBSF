@@ -2,4 +2,8 @@
 /build/msvc/obj/
 /doc/html
 /lib
+/obj
+
+*.depnd
+*.layout
 
