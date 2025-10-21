@@ -23,6 +23,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
+    <EnableASAN>false</EnableASAN>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -64,6 +65,9 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <AdditionalOptions>/w34996 %(AdditionalOptions)</AdditionalOptions>
       <OpenMPSupport>true</OpenMPSupport>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <SupportJustMyCode>false</SupportJustMyCode>
+      <ControlFlowGuard>Guard</ControlFlowGuard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -169,6 +173,32 @@
     <ClInclude Include="..\..\src\Basic\SimulatedAnnealing.h" />
     <ClInclude Include="..\..\src\Basic\Statistic.h" />
     <ClInclude Include="..\..\src\Basic\Sun.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\Arg.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\ArgContainer.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\ArgException.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\ArgGroup.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\ArgTraits.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\CmdLine.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\CmdLineInterface.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\CmdLineOutput.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\Constraint.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\DeferDelete.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\DocBookOutput.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\HelpVisitor.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\IgnoreRestVisitor.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\MultiArg.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\MultiSwitchArg.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\OptionalUnlabeledTracker.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\sstream.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\StandardTraits.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\StdOutput.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\SwitchArg.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\UnlabeledMultiArg.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\UnlabeledValueArg.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\ValueArg.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\ValuesConstraint.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\VersionVisitor.h" />
+    <ClInclude Include="..\..\src\Basic\tclap\Visitor.h" />
     <ClInclude Include="..\..\src\Basic\TimeStep.h" />
     <ClInclude Include="..\..\src\Basic\UtilMath.h" />
     <ClInclude Include="..\..\src\Basic\UtilStd.h" />
@@ -267,6 +297,7 @@
     <Text Include="..\..\src\Basic\KMeanLocal\ReadMe1.7.3.txt" />
     <Text Include="..\..\src\Basic\Newmat\CMakeLists.txt" />
     <Text Include="..\..\src\Basic\Newmat\readme.txt" />
+    <Text Include="..\..\src\Basic\tclap\CMakeLists.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

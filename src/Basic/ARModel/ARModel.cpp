@@ -39,11 +39,10 @@ void CARModel::fit(size_t order, vector<double> x, bool subtract_mean)
     if(subtract_mean)
     {
         m_mean = std::accumulate(x.begin(), x.end(), 0.0)/x.size();
-        //transform(x.begin(), x.end(), x.begin(), bind2nd(minus<double>(), m_mean));
         transform(x.begin(), x.end(), x.begin(), bind(minus<double>(), std::placeholders::_1, this->m_mean));
     }
 
-
+    m_N = x.size();
     m_sigma = burg_method(order, x, m_coeffs, m_gain, m_ac);
 }
 

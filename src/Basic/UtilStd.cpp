@@ -407,19 +407,19 @@ namespace WBSF
 			string::size_type pos = filePath.find("[Project Path]\\");
 			if (pos != string::npos)
 			{
-				ReplaceString(filePath, "[Project Path]\\", projectPath.c_str());
+				filePath = ReplaceString(filePath, "[Project Path]\\", projectPath.c_str());
 			}
 
 			pos = filePath.find("[BioSIM Path]\\");
 			if (pos != NOT_INIT)
 			{
-				ReplaceString(filePath, "[BioSIM Path]\\", appPath.c_str());
+				filePath = ReplaceString(filePath, "[BioSIM Path]\\", appPath.c_str());
 			}
 
 			pos = filePath.find("[Models Path]\\");
 			if (pos != NOT_INIT)
 			{
-				ReplaceString(filePath, "[Models Path]\\", (appPath + "Models\\").c_str());
+				filePath = ReplaceString(filePath, "[Models Path]\\", (appPath + "Models\\").c_str());
 			}
 		}
 
@@ -1385,9 +1385,9 @@ namespace WBSF
 		std::replace(name.begin(), name.end(), ';', '-');
 		std::replace(name.begin(), name.end(), '\"', ' ');
 		std::replace(name.begin(), name.end(), '\'', ' ');
-		ReplaceString(name, "œ", "oe");
+		name = ReplaceString(name, "œ", "oe");
 
-		WBSF::Trim(name);
+		name = WBSF::Trim(name);
 
 		return name;
 	}
@@ -2032,7 +2032,13 @@ namespace WBSF
 		return ss.str();
 	}
 
-
+	void PrintMessage(ERMsg msg)
+	{
+		for (size_t i = 0; i < msg.dimension(); i++)
+		{
+			cout << msg[(int)i] << endl;
+		}
+	}
 
 	//	//*************************************************************************
 	//

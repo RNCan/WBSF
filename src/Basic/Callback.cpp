@@ -287,7 +287,7 @@ void CCallback::AddMessage(const char* message, int level)
                 levelTabs += "    ";
 
             string t = message;
-            ReplaceString(t, "\n", "\n" + levelTabs);
+            t = ReplaceString(t, "\n", "\n" + levelTabs);
 
             GetTasks().top().m_messages += levelTabs + t + "\n";
             m_messageAccumulator += levelTabs + t + "\n";

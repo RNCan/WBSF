@@ -488,12 +488,12 @@ ERMsg GetFilePathList(const char* fileName, int filePathCol, std::vector<std::st
 
             if (!layerFilePath.empty())
             {
-                ReplaceString(layerFilePath, "/", "\\");
+                layerFilePath=ReplaceString(layerFilePath, "/", "\\");
                 if (layerFilePath[0] == '\\')
                     layerFilePath = "." + layerFilePath;
 
                 if (layerFilePath[0] == '.')
-                    ReplaceString(layerFilePath, ".\\", path);
+                    layerFilePath=ReplaceString(layerFilePath, ".\\", path);
 
                 filePathList.push_back(layerFilePath);
             }
@@ -505,13 +505,6 @@ ERMsg GetFilePathList(const char* fileName, int filePathCol, std::vector<std::st
     return msg;
 }
 
-void PrintMessage(ERMsg msg)
-{
-    for (size_t i = 0; i < msg.dimension(); i++)
-    {
-        cout << msg[(int)i] << endl;
-    }
-}
 
 
 const double GDAL_CELL_LIMIT[7][2] =

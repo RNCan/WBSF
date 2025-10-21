@@ -422,12 +422,12 @@ string CTRefFormat::GetMissingString(CTM tm)const
 {
     string str = GetFormat(tm);
     transform(str.begin(), str.end(), str.begin(), ::toupper);
-    ReplaceString(str, "#", "");
-    ReplaceString(str, "%%", "");
+    str = ReplaceString(str, "#", "");
+    str = ReplaceString(str, "%%", "");
 
     static const char* ALL_SYMBOL[15] = { "%A","%B","%C","%D","%H","%I","%J","%M","%P","%S","%U","%W","%X","%Y","%Z" };
     for (int i = 0; i < 15; i++)
-        ReplaceString(str, ALL_SYMBOL[i], "??");
+        str=ReplaceString(str, ALL_SYMBOL[i], "??");
 
     return str;
 }
@@ -1170,9 +1170,9 @@ string CTRef::GetFormatedString(std::string format)const
 
                 string year = WBSF::to_string(GetYear());
 
-                ReplaceString(format, "%y", "%Y");
-                ReplaceString(format, "%#Y", "%Y");
-                ReplaceString(format, "%Y", year);
+                format=ReplaceString(format, "%y", "%Y");
+                format=ReplaceString(format, "%#Y", "%Y");
+                format=ReplaceString(format, "%Y", year);
             }
 
             try
@@ -1483,7 +1483,7 @@ void CTPeriod::clear()
 {
     m_begin.clear();
     m_end.clear();
-    m_segments.clear();
+    //m_segments.clear();
 
     assert(!is_init());
 }
@@ -1494,7 +1494,7 @@ CTPeriod& CTPeriod::operator = (const CTPeriod& in)
     {
         m_begin = in.m_begin;
         m_end = in.m_end;
-        m_segments = in.m_segments;
+        //m_segments = in.m_segments;
     }
 
     assert(operator==(in));
@@ -1509,7 +1509,7 @@ bool CTPeriod::operator == (const CTPeriod& in)const
 
     if (m_begin != in.m_begin) bEqual = false;
     if (m_end != in.m_end) bEqual = false;
-    if (m_segments != in.m_segments) bEqual = false;
+    //if (m_segments != in.m_segments) bEqual = false;
 
     return bEqual;
 
@@ -1517,7 +1517,7 @@ bool CTPeriod::operator == (const CTPeriod& in)const
 
 CTPeriod& CTPeriod::inflate(const CTRef& in)
 {
-    assert(m_segments.empty());//todo
+    //assert(m_segments.empty());//todo
 
     if (is_init() && in.is_init())
     {
@@ -1538,7 +1538,7 @@ CTPeriod& CTPeriod::inflate(const CTRef& in)
 
 CTPeriod& CTPeriod::inflate(const CTPeriod& in)
 {
-    assert(m_segments.empty());//todo
+    //assert(m_segments.empty());//todo
 
     if (is_init() && in.is_init())
     {
@@ -1574,12 +1574,12 @@ bool CTPeriod::is_inside(const CTRef& in)const
         
         bRep = in >= m_begin && in <= m_end;
         
-        if (bRep && !m_segments.empty())
-        {
-            bRep = false;
-            for (size_t i = 0; i < m_segments.size() && !bRep; i++)
-                bRep = m_segments[i].is_inside(in);
-        }
+        //if (bRep && !m_segments.empty())
+        //{
+        //    bRep = false;
+        //    for (size_t i = 0; i < m_segments.size() && !bRep; i++)
+        //        bRep = m_segments[i].is_inside(in);
+        //}
     }
    
     return bRep;
@@ -1588,8 +1588,8 @@ bool CTPeriod::is_inside(const CTRef& in)const
 
 bool CTPeriod::is_inside(const CTPeriod& in)const
 {
-    assert(m_segments.empty());
-    assert(in.m_segments.empty());//todo
+    //assert(m_segments.empty());
+    //assert(in.m_segments.empty());//todo
 
     bool is_inside = false;
     if(is_init() && in.is_init() )
@@ -1613,8 +1613,8 @@ bool CTPeriod::is_inside(const CTPeriod& in)const
 
 bool CTPeriod::is_intersect(const CTPeriod& in)const
 {
-    assert(m_segments.empty());//todo
-    assert(in.m_segments.empty());//todo
+    //assert(m_segments.empty());//todo
+    //assert(in.m_segments.empty());//todo
 
 
     bool is_intersect=false;
@@ -1631,8 +1631,8 @@ bool CTPeriod::is_intersect(const CTPeriod& in)const
 
 CTPeriod CTPeriod::unions(const CTPeriod& p1, const CTPeriod& p2)
 {
-    assert(p1.m_segments.empty());//todo
-    assert(p2.m_segments.empty());//todo
+    //assert(p1.m_segments.empty());//todo
+    //assert(p2.m_segments.empty());//todo
 
 
     CTPeriod p;
@@ -1667,8 +1667,8 @@ CTPeriod CTPeriod::unions(const CTPeriod& p1, const CTPeriod& p2)
 
 CTPeriod CTPeriod::intersect(const CTPeriod& p1, const CTPeriod& p2)
 {
-    assert(p1.m_segments.empty());//todo
-    assert(p2.m_segments.empty());//todo
+    //assert(p1.m_segments.empty());//todo
+   //assert(p2.m_segments.empty());//todo
 
 
     CTPeriod p;
@@ -1779,8 +1779,8 @@ CTPeriod CTPeriod::intersect(const CTPeriod& p1, const CTPeriod& p2)
 
 string CTPeriod::GetFormatedString(string periodformat, string TRefFormat)const
 {
-    ReplaceString(periodformat, "%1%", "%s");
-    ReplaceString(periodformat, "%2%", "%s");
+    periodformat=ReplaceString(periodformat, "%1%", "%s");
+    periodformat=ReplaceString(periodformat, "%2%", "%s");
 
     return FormatA(periodformat.c_str(), m_begin.GetFormatedString(TRefFormat).c_str(), m_end.GetFormatedString(TRefFormat).c_str());
 }
@@ -1792,8 +1792,8 @@ CTPeriod FromFormatedString(string str, string periodformat, string TRefFormat, 
 
     if (!str.empty())
     {
-        ReplaceString(periodformat, "%1%", "");
-        ReplaceString(periodformat, "%2%", "");
+        periodformat=ReplaceString(periodformat, "%1%", "");
+        periodformat=ReplaceString(periodformat, "%2%", "");
         vector<string> elems = Tokenize(str, periodformat.c_str());
 
         if (elems.size() == 2)
@@ -1812,7 +1812,7 @@ CTPeriod FromFormatedString(string str, string periodformat, string TRefFormat, 
 
 string CTPeriod::to_string()const
 {
-    assert(m_segments.empty());//todo
+    //assert(m_segments.empty());//todo
     
     return m_begin.to_string() + "|" + m_end.to_string();
 }
@@ -1975,13 +1975,13 @@ void CTPeriod::SetSegemntType(TSegment type)
     if (type == YEAR_BY_YEAR)
     {
         assert(false);//todo
-        assert(m_segments.empty());//todo
+        //assert(m_segments.empty());//todo
         
 
     }
     else if (type == CONTINUOUS)
     {
-        m_segments.clear();
+        //m_segments.clear();
     }
 
 }

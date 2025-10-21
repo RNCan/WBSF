@@ -36,6 +36,9 @@
     <Filter Include="Source Files\json11">
       <UniqueIdentifier>{203714fa-38ff-42b1-aa53-709a99667ab9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\TCALP">
+      <UniqueIdentifier>{3162558f-f229-4d91-b063-be59005f3728}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Basic\ApproximateNearestNeighbor.h">
@@ -280,6 +283,84 @@
     </ClInclude>
     <ClInclude Include="..\..\src\Basic\xml.hpp">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\Arg.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\ArgContainer.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\ArgException.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\ArgGroup.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\ArgTraits.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\CmdLine.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\CmdLineInterface.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\CmdLineOutput.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\Constraint.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\DeferDelete.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\DocBookOutput.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\HelpVisitor.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\IgnoreRestVisitor.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\MultiArg.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\MultiSwitchArg.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\OptionalUnlabeledTracker.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\sstream.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\StandardTraits.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\StdOutput.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\SwitchArg.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\UnlabeledMultiArg.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\UnlabeledValueArg.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\ValueArg.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\ValuesConstraint.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\VersionVisitor.h">
+      <Filter>Source Files\TCALP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Basic\tclap\Visitor.h">
+      <Filter>Source Files\TCALP</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -551,6 +632,9 @@
     </Text>
     <Text Include="..\..\src\Basic\KMeanLocal\ReadMe1.7.3.txt">
       <Filter>Source Files\KMeanLocal</Filter>
+    </Text>
+    <Text Include="..\..\src\Basic\tclap\CMakeLists.txt">
+      <Filter>Source Files\TCALP</Filter>
     </Text>
   </ItemGroup>
 </Project>

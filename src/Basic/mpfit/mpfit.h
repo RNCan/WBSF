@@ -35,9 +35,9 @@ struct mp_par_struct
     double limits[2]; /* lower/upper limit boundary value */
 
     char* parname;    /* Name of parameter, or 0 for none */
-    double step;      /* Step size for finite difference */
-    double relstep;   /* Relative step size for finite difference */
-    int side;         /* Sidedness of finite difference derivative
+    double step;      /* Step size for isfinite difference */
+    double relstep;   /* Relative step size for isfinite difference */
+    int side;         /* Sidedness of isfinite difference derivative
 					  0 - one-sided derivative computed automatically
 					  1 - one-sided derivative (f(x+h) - f(x)  )/h
 					 -1 - one-sided derivative (f(x)   - f(x-h))/h
@@ -135,7 +135,7 @@ typedef int (*mp_func)(int m, /* Number of functions (elts of fvec) */
 
 /* Error codes */
 #define MP_ERR_INPUT (0)         /* General input parameter error */
-#define MP_ERR_NAN (-16)         /* User function produced non-finite values */
+#define MP_ERR_NAN (-16)         /* User function produced non-isfinite values */
 #define MP_ERR_FUNC (-17)        /* No user function was supplied */
 #define MP_ERR_NPOINTS (-18)     /* No user data points were supplied */
 #define MP_ERR_NFREE (-19)       /* No free parameters */
@@ -179,18 +179,18 @@ extern int mpfit(mp_func funct, int m, int npar,
 
 
 
-/* C99 uses isfinite() instead of finite() */
+/* C99 uses isfinite() instead of isfinite() */
 #if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 #define mpfinite(x) isfinite(x)
 
-/* Microsoft C uses std::isfinite(x) instead of finite(x) */
+/* Microsoft C uses std::isfinite(x) instead of isfinite(x) */
 #elif defined(_MSC_VER) && _MSC_VER
 #include <float.h>
 #define mpfinite(x) std::isfinite(x)
 
-/* Default is to assume that compiler/library has finite() function */
+/* Default is to assume that compiler/library has isfinite() function */
 #else
-#define mpfinite(x) finite(x)
+#define mpfinite(x) isfinite(x)
 
 #endif
 

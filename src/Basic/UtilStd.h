@@ -223,6 +223,8 @@ namespace WBSF
 	//
 	std::string FormatMsg(std::string_view szFormat, std::string_view v1, std::string_view v2 = "", std::string_view v3 = "", std::string_view  v4 = "", std::string_view v5 = "");
 
+
+	void PrintMessage(ERMsg msg);
 	//	inline std::string FormatMsg(UINT nFormatId, const std::string& v1, const std::string& v2 = "", const std::string& v3 = "", const std::string& v4 = "", const std::string& v5 = "", const std::string& v6 = "", const std::string& v7 = "", const std::string& v8 = "", const std::string& v9 = "")
 	//	{
 	//		std::string sFormat = GetString(nFormatId);
@@ -1651,6 +1653,8 @@ namespace WBSF
 		}
 	};
 
+	
+	
 
 
 

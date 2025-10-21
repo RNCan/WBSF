@@ -75,7 +75,7 @@ static int mp_covar(int n, double* r, int ldr, int* ipvt, double tol, double* wa
 *     m nonlinear functions in n variables by a modification of
 *     the levenberg-marquardt algorithm. the user must provide a
 *     subroutine which calculates the functions. the jacobian is
-*     then calculated by a finite-difference approximation.
+*     then calculated by a isfinite-difference approximation.
 *
 *     mp_funct funct - function to be minimized
 *     int m          - number of data points

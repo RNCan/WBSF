@@ -6,7 +6,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\test\Basic\TestUtilTime.cpp">
+    <ClCompile Include="..\..\test\main.cpp">
+      <Filter>Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\TestUtilTime.cpp">
+      <Filter>Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\testARModel.cpp">
       <Filter>Basic</Filter>
     </ClCompile>
   </ItemGroup>

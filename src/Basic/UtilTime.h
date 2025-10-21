@@ -1025,7 +1025,7 @@ namespace WBSF
 	//*************************************************************
 	//CTPeriod
 	class CTPeriod;
-	CTPeriod FromFormatedString(std::string str, std::string periodformat = "[%1%|%2%]", std::string TRefFormat = "", const char* sep = "- :", int base = 1);
+	CTPeriod FromFormatedString(std::string str, std::string periodformat = "%1%|%2%", std::string TRefFormat = "", const char* sep = "- :", int base = 1);
 
 	class CTPeriod
 	{
@@ -1218,21 +1218,15 @@ namespace WBSF
 		//        return p;
 		//    }
 
-		CTPeriod& FromFormatedString(std::string str, std::string periodformat = "[%1%|%2%]", std::string TRefFormat = "", const char* sep = "- :", int base = 1)
+		CTPeriod& FromFormatedString(std::string str, std::string periodformat = "%1%|%2%", std::string TRefFormat = "", const char* sep = "- :", int base = 1)
 		{
 			operator=(WBSF::FromFormatedString(str, periodformat, TRefFormat, sep, base));
 			return *this;
 		}
 
-		std::string GetFormatedString(std::string periodformat = "[%1%|%2%]", std::string TRefFormat = "")const;
+		std::string GetFormatedString(std::string periodformat = "%1%|%2%", std::string TRefFormat = "")const;
 		std::string to_string()const;
 		void from_string(const std::string& str);
-
-		//    static bool is_valid(const std::string& str, std::string periodformat = "[%1%|%2%]", std::string TRefFormat = "", const char* sep = "- :", int base = 1)
-		//    {
-		//        return str.empty() || FromFormatedString(str, periodformat, TRefFormat, sep, base).is_init();
-		//    }
-
 
 
 		bool is_inside(const CTRef& Tref)const;
@@ -1314,7 +1308,7 @@ namespace WBSF
 		CTRef m_begin;
 		CTRef m_end;
 
-		std::vector<CTPeriod> m_segments;
+		//std::vector<CTPeriod> m_segments;
 	};
 
 	
