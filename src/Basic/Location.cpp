@@ -27,6 +27,7 @@
 #include "Basic/Shore.h"
 #include "Basic/CallcURL.h"
 #include "Basic/json/json11.hpp"
+#include "Basic/nlohmann/json.hpp"
 #include "Basic/CSV.h"
 
 #include "Location.h"
@@ -679,51 +680,103 @@ vector<string> CLocationVector::GetHeaderFromData()const
     return header;
 }
 
+std::string CLocationVector::GetFileFormat(const std::string& file_path)
+{
+    std::string format = "UNKNOWN";
+    
+    if (WBSF::Find(file_path, ".csv") != string::npos)
+    {
+        format = "CSV";
+    }
+    else if (WBSF::Find(file_path, ".json") != string::npos)
+    {
+        format = "JSON";
+    }
+    else
+    {
+        ifStream file;
+        auto myloc = std::locale();//by RSA 18-02-2017, une bonne chose ou non???
+        file.imbue(myloc);
+        if (file.open(file_path))
+        {
+            string line;
+            ///str.resize(1024+1);
+            //file.read(&(str[0]), 1024);
+            //file.realine
+            std::getline(file, line);
+            assert(false);//todo
+        }
+    }
 
-ERMsg CLocationVector::Load(const std::string& filePath, const char* separator, CCallback& callback)
+
+    return format;
+}
+
+ERMsg CLocationVector::Load(const std::string& file_path, const char* separator, CCallback& callback)
 {
     ERMsg msg;
 
     m_filePath.clear();
-    //»Est-ce qu'on clear ou on clear pas??????? RSA 2016-06-18
     clear();
-
-
-    ifStream file;
-    auto myloc = std::locale();//by RSA 18-02-2017, une bonne chose ou non???
-    file.imbue(myloc);
-    msg = file.open(filePath);
 
 
     if (msg)
     {
-        msg = Load(file, separator, callback);
+
+        if (WBSF::FileExists(file_path))
+        {
+            string format = GetFileFormat(file_path);
+        	//if (WBSF::Find(file_path, ".csv") != string::npos)
+            if (format == "CSV" || format == "JSON")
+        	{
+
+                ifStream file;
+                auto myloc = std::locale();//by RSA 18-02-2017, une bonne chose ou non???
+                file.imbue(myloc);
+                msg = file.open(file_path);
+
+                if (format == "CSV" )
+                    msg = LoadCSV(file, separator, callback);
+                else //format == "JSON"
+                    msg = LoadJSON(file, callback);
+        	}
+        	else
+        	{
+        		msg.ajoute("Unrecognized location list file format. Only .csv or .json file are accepted");
+        	}
+        }
+        else
+        {
+        	msg.ajoute("Unable to open file: " + file_path);
+        	msg.ajoute("file doesn't exist");
+        }
+        
         if (msg)
-            m_filePath = filePath;
+            m_filePath = file_path;
 
     }
 
     return msg;
 }
 
-ERMsg CLocationVector::Load(std::istream& file, const char* separator, CCallback& callback)
+ERMsg CLocationVector::LoadCSV(std::istream& stream, const char* separator, CCallback& callback)
 {
     ERMsg msg;
 
     //estimate file size to reserve memory
-    std::streampos ffirst = file.tellg();
-    file.seekg(0, std::ios::end);
-    std::streampos size = file.tellg() - ffirst;
+    std::streampos ffirst = stream.tellg();
+    stream.seekg(0, std::ios::end);
+    std::streampos size = stream.tellg() - ffirst;
     reserve(size_t(size / 40));
 
     callback.PushTask("Load locations", size);
 
     //begin to read
-    file.seekg(0);
+    stream.seekg(0);
     vector<size_t> members;
 
 
-    for (CSVIterator loop(file, separator); loop != CSVIterator() && msg; ++loop)
+    for (CSVIterator loop(stream, separator); loop != CSVIterator() && msg; ++loop)
     {
         if (members.empty())
         {
@@ -764,10 +817,81 @@ ERMsg CLocationVector::Load(std::istream& file, const char* separator, CCallback
                 }
             }
         }
-        msg += callback.SetCurrentStepPos((double)file.tellg());
+        msg += callback.SetCurrentStepPos((double)stream.tellg());
     }
 
     callback.PopTask();
+    return msg;
+}
+
+ERMsg CLocationVector::LoadJSON(std::istream& stream, CCallback& callback)
+{
+    ERMsg msg;
+
+    assert(false);//todo
+    //const char8_t* test = u8"";
+    nlohmann::json data = nlohmann::json::parse(stream);
+    ////nlohmann::json data = nlohmann::json::parse(loc_str);
+    ////auto l = data.at("Location");
+    ////location.m_ID = l.at("ID");
+    //
+    //nlohmann::json locations = data.at("Locations");
+    //std::cout << locations << endl;
+    //
+    //
+    //size_t test = locations.size();
+    //for (nlohmann::json::iterator it = locations.begin(); it != locations.end(); ++it)
+    //{
+    //	std::cout << it->is_object() << endl;
+    //	std::cout << it->is_array() << endl;
+    //	std::cout << it->is_string() << endl;
+    //
+    //	std::cout << it->at("KeyID");
+    //	//std::cout << locations;
+    //	//std::cout << "Key: " << it->key() << ", Value: " << it.value() << std::endl;
+    //}
+    //try
+                //{
+
+                    //const char8_t* utf8_str_char8 = u8"Hello, world! \u03A9";
+
+                    //const char8_t* test = u8"{\"Locations\":["
+                    //	u8"{\"Location\":{\"KeyID\":\"1\", \"Name\":\"Québec\",\"Lat\":45.4,\"Lon\":-71.2}},"
+                    //	u8"{\"KeyID\":\"2\", \"Name\":\"Montréal\",\"Lat\":42.4,\"Lon\":-73.2,\"Alt\":38}"
+                    //	u8"]}";
+
+                    //const char8_t* test = u8"";
+                    //nlohmann::json data = nlohmann::json::parse(test);
+                    ////nlohmann::json data = nlohmann::json::parse(loc_str);
+                    ////auto l = data.at("Location");
+                    ////location.m_ID = l.at("ID");
+                    //
+                    //nlohmann::json locations = data.at("Locations");
+                    //std::cout << locations << endl;
+                    //
+                    //
+                    //size_t test = locations.size();
+                    //for (nlohmann::json::iterator it = locations.begin(); it != locations.end(); ++it)
+                    //{
+                    //	std::cout << it->is_object() << endl;
+                    //	std::cout << it->is_array() << endl;
+                    //	std::cout << it->is_string() << endl;
+                    //
+                    //	std::cout << it->at("KeyID");
+                    //	//std::cout << locations;
+                    //	//std::cout << "Key: " << it->key() << ", Value: " << it.value() << std::endl;
+                    //}
+                //loc.m_ID = data["Location"]["ID"];
+                    //loc.m_name = data["Location"]["Name"];
+                    //loc.m_lat = data["Location"]["Latitude"];
+                    //loc.m_lon = data["Location"]["Longitude"];
+                    //loc.m_elev = data["Location"]["Elevation"];
+
+    //}
+                //catch (nlohmann::json::exception& e)
+                //{
+                //	msg.ajoute(e.what());
+                //}
     return msg;
 }
 

@@ -503,6 +503,33 @@ namespace WBSF
 		return executable_path;
 	}
 
+	bool is_file_path(const std::string& path_str) 
+	{
+		std::filesystem::path p(path_str);
+
+		// Check if the path exists
+		if (!std::filesystem::exists(p)) 
+		{
+			return false; // Path does not exist
+		}
+
+		// Check if it's a regular file
+		if (std::filesystem::is_regular_file(p)) 
+		{
+			return true;
+		}
+
+		// Check if it's a directory (optional, depending on your definition of "file path")
+		if (std::filesystem::is_directory(p)) 
+		{
+			// A directory is a valid path, but not a "file path" in the strict sense.
+			// You might return false here if you only want to identify regular files.
+			return false;
+		}
+
+		// Handle other types like symbolic links, etc., if needed
+		return false; // Not a regular file or directory
+	}
 
 	ERMsg GetFileInfo(const std::string& file_path, CFileInfo& info)
 	{

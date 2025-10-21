@@ -332,16 +332,17 @@ public:
     static ERMsg ExtractNominatimName(CLocationVector& locations, bool bReplaceAll, bool bName, bool bState, bool bCountry, CCallback& callback);
     static ERMsg ExtractOpenTopoDataElevation(CLocationVector& locations, bool bReplaceAll, size_t eProduct, size_t eINterpol, CCallback& callback);
     static ERMsg ExtractShoreDistance(CLocationVector& locations, bool bReplaceAll, CCallback& callback);
-
+    static std::string GetFileFormat(const std::string& file_path);
 
 
     CLocationVector(size_t size = 0) :CLocationVectorBase(size)
     {}
 
     ERMsg Load(const std::string& filePath, const char* separator = ",;", CCallback& callback = CCallback::DEFAULT_CALLBACK);
-    ERMsg Load(std::istream& filePath, const char* separator = ",;", CCallback& callback = CCallback::DEFAULT_CALLBACK);
+    ERMsg LoadCSV(std::istream& stream, const char* separator = ",;", CCallback& callback = CCallback::DEFAULT_CALLBACK);
+    ERMsg LoadJSON(std::istream& stream, CCallback& callback = CCallback::DEFAULT_CALLBACK);
     ERMsg Save(const std::string& filePath, char separator = ',', CCallback& callback = CCallback::DEFAULT_CALLBACK)const;
-    ERMsg Save(std::ostream& filePath, char separator = ',', CCallback& callback = CCallback::DEFAULT_CALLBACK)const;
+    ERMsg Save(std::ostream& stream, char separator = ',', CCallback& callback = CCallback::DEFAULT_CALLBACK)const;
     ERMsg IsValid(bool bExludeUnknownElev=true)const;
     ERMsg ExtractNominatimName(bool bReplaceAll, bool bName, bool bState, bool bCountry, CCallback& callback)
     {

@@ -1019,6 +1019,10 @@ namespace WBSF
 	//	std::string GetVersionString(const std::string& filerPath);
 	//	std::string GetCompilationDateString(char *compilation_date);
 	//
+
+	bool is_file_path(const std::string& path_str);
+
+
 	inline bool IsPathEndOk(const std::string& filePath)
 	{
 		bool bRep = false;
