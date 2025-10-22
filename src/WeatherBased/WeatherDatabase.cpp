@@ -410,7 +410,7 @@ namespace WBSF
 	{
 		std::set<int> years;
 
-		if (year > YEAR_NOT_INIT)
+		if (year != YEAR_NOT_INIT)
 		{
 			assert(year > 1700 && year <= 2100);
 			years.insert(year);
@@ -796,7 +796,7 @@ namespace WBSF
 	CWVariables CWeatherDatabase::GetWVariables(size_t i, int year)const
 	{
 		std::set<int> years;
-		if (year > YEAR_NOT_INIT)
+		if (year != YEAR_NOT_INIT)
 			years.insert(year);
 
 		return GetWVariables(i, years);
@@ -810,7 +810,7 @@ namespace WBSF
 	CWVariablesCounter CWeatherDatabase::GetWVariablesCounter(size_t i, int year)const
 	{
 		std::set<int> years;
-		if (year > YEAR_NOT_INIT)
+		if (year != YEAR_NOT_INIT)
 			years.insert(year);
 
 		return GetWVariablesCounter(i, years);
