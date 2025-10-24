@@ -5,7 +5,7 @@ get_target_property(WBSF_BASIC_INCLUDES WBSFBasic INTERFACE_INCLUDE_DIRECTORIES)
 project(WBSFTest)
 
 find_package(Boost CONFIG REQUIRED COMPONENTS thread chrono filesystem serialization)
-find_package(gtest CONFIG REQUIRED)
+find_package(GTest CONFIG REQUIRED)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
