@@ -4,7 +4,7 @@ get_target_property(WBSF_BASIC_INCLUDES WBSFBasic INTERFACE_INCLUDE_DIRECTORIES)
 
 project(WBSFTest)
 
-find_package(Boost CONFIG REQUIRED COMPONENTS thread chrono filesystem serialization)
+find_package(Boost CONFIG REQUIRED COMPONENTS thread chrono filesystem serialization process)
 find_package(GTest CONFIG REQUIRED)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -33,6 +33,7 @@ target_link_libraries(WBSFTest PUBLIC
 	Boost::chrono
 	Boost::filesystem
 	Boost::serialization
+	Boost::process
 	WBSFBasic
 	WBSFModelBased
 	WBSFWeatherBased
