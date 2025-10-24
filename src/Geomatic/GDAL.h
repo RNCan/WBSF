@@ -1,6 +1,6 @@
 //******************************************************************************
 //  Project:		Weather-based simulation framework (WBSF)
-//	Programmer:     Rémi Saint-Amant
+//	Programmer:     Rï¿½mi Saint-Amant
 //
 //  It under the terms of the GNU General Public License as published by
 //     the Free Software Foundation
@@ -12,7 +12,7 @@
 
 #define ACCEPT_USE_OF_DEPRECATED_PROJ_API_H
 
-#if _WIN32
+#if defined(_WIN32) || defined(BUILDING_FROM_VCPKG)
 #include "gdal_priv.h"
 #include "ogr_spatialref.h"
 #else
