@@ -65,7 +65,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\src;C:\local\gdal-3-11-3;C:\local\boost_1_89_0;C:\local\gtest-1-8-1</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src;C:\local\boost_1_89_0;C:\local\gdal-3-11-3\gdal;C:\local\gtest-1-8-1</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -99,7 +99,7 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>..\..\src;C:\local\gdal-3-11-3;C:\local\boost_1_89_0;C:\local\gtest-1-8-1</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src;C:\local\boost_1_89_0;C:\local\gdal-3-11-3\gdal;C:\local\gtest-1-8-1</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
