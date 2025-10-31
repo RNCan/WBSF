@@ -7,3 +7,4 @@
 *.depnd
 *.layout
 
+/build/msvc/.vs
