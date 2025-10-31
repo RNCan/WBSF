@@ -1,10 +1,7 @@
 cmake_minimum_required(VERSION 3.25)
 
-get_target_property(WBSF_BASIC_INCLUDES WBSFBasic INTERFACE_INCLUDE_DIRECTORIES)
-
 project(WBSFTest)
 
-find_package(Boost CONFIG REQUIRED COMPONENTS thread chrono filesystem serialization process)
 find_package(GTest CONFIG REQUIRED)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -14,9 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(SOURCE_FILES main.cpp testARModel.cpp TestUtilTime.cpp)
 
 include_directories( 
-  ${CMAKE_CURRENT_SOURCE_DIR}   
-  #${WBSF_BASIC_INCLUDES}/..
-  ${WBSF_BASIC_INCLUDES}
+  ${CMAKE_CURRENT_SOURCE_DIR}     
 )
 
 # Build as dynamic library
@@ -28,12 +23,7 @@ target_link_libraries(WBSFTest PUBLIC
 	GTest::gtest 
 	GTest::gtest_main 
 	GTest::gmock 
-	GTest::gmock_main
-	Boost::thread		
-	Boost::chrono
-	Boost::filesystem
-	Boost::serialization
-	Boost::process
+	GTest::gmock_main	
 	WBSFBasic
 	WBSFModelBased
 	WBSFWeatherBased
