@@ -2377,13 +2377,13 @@ namespace WBSF
 				outcoming << *this;
 
 				//now save data
-				for (size_t i = 0; i < size(); i++)
+				for (size_t i = 0; i < size() && msg; i++)
 				{
 					CWeatherStation station;
 					Get(station, i);
 
 					set<int> years = station.GetYears();
-					for (auto it = years.begin(); it != years.end(); it++)
+					for (auto it = years.begin(); it != years.end()&&msg; it++)
 					{
 						string data_filepath = WBSF::GetPath(file_path) + GetFileTitle(file_path) + "/" + get_azure_data_file_name(station, *it);
 						WBSF::CreateMultipleDir(WBSF::GetPath(data_filepath));
@@ -2395,8 +2395,8 @@ namespace WBSF
 						msg = data_file.open(data_filepath, ios::out | ios::binary);
 						if (msg)
 						{
-							try
-							{
+							//try
+							//{
 								boost::iostreams::filtering_ostreambuf data_out;
 								data_out.push(boost::iostreams::gzip_compressor());
 								data_out.push(data_file);
@@ -2427,16 +2427,12 @@ namespace WBSF
 										}
 									}*/
 								}
-							}
-							catch (const boost::iostreams::gzip_error& /*exception*/)
-							{
-								//int error = exception.error();
-								//if (error == boost::iostreams::gzip::zlib_error)
-								//{
-									//check for all error code
-									//msg.ajoute(exception.what());
-								//}
-							}
+						//	}
+							//catch (const boost::iostreams::gzip_error& e)
+							//{
+								//check for all error code
+								//3msg.ajoute(e.what());
+							//}
 						}
 
 						data_file.close();
@@ -2444,14 +2440,14 @@ namespace WBSF
 
 				}
 			}
-			catch (const boost::iostreams::gzip_error& exception)
+			catch (const boost::iostreams::gzip_error& e)
 			{
-				int error = exception.error();
-				if (error == boost::iostreams::gzip::zlib_error)
-				{
+				//int error = exception.error();
+				//if (error == boost::iostreams::gzip::zlib_error)
+				//{
 					//check for all error code
-					msg.ajoute(exception.what());
-				}
+					msg.ajoute(e.what());
+				//}
 			}
 
 

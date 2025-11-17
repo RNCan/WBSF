@@ -533,16 +533,16 @@ namespace WBSF
 			else
 			{
 				//update period
-				//if (!m_dailyStat.m_bInit)
-				//{
-					//CWeatherDay& me = const_cast<CWeatherDay&>(*this);
-					//me.m_dailyStat.m_period.clear();
-					//
-					//if (HaveData())
-					//	me.m_dailyStat.m_period = CTPeriod(m_TRef, m_TRef);
+				if (!m_dailyStat.m_bInit)
+				{
+					CWeatherDay& me = const_cast<CWeatherDay&>(*this);
+					me.m_dailyStat.m_period.clear();
+					
+					if (HaveData())
+						me.m_dailyStat.m_period = CTPeriod(m_TRef, m_TRef);
 
-					//me.m_dailyStat.m_bInit = true;
-				//}
+					me.m_dailyStat.m_bInit = true;
+				}
 
 				variables = m_dailyStat.GetVariablesCount(true);
 			}

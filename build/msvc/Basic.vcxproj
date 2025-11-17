@@ -61,7 +61,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>..\..\src;C:\local\boost_1_89_0;C:\local\gdal-3-11-3\gdal</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src;C:\local\boost_1_89_0;</AdditionalIncludeDirectories>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <AdditionalOptions>/w34996 %(AdditionalOptions)</AdditionalOptions>
       <OpenMPSupport>true</OpenMPSupport>
@@ -85,7 +85,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\src;C:\local\boost_1_89_0;C:\local\gdal-3-11-3\gdal</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src;C:\local\boost_1_89_0;</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/w34996 %(AdditionalOptions)</AdditionalOptions>
       <OpenMPSupport>true</OpenMPSupport>

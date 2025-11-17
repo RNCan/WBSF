@@ -503,24 +503,24 @@ namespace WBSF
 		return executable_path;
 	}
 
-	bool is_file_path(const std::string& path_str) 
+	bool is_file_path(const std::string& path_str)
 	{
 		std::filesystem::path p(path_str);
 
 		// Check if the path exists
-		if (!std::filesystem::exists(p)) 
+		if (!std::filesystem::exists(p))
 		{
 			return false; // Path does not exist
 		}
 
 		// Check if it's a regular file
-		if (std::filesystem::is_regular_file(p)) 
+		if (std::filesystem::is_regular_file(p))
 		{
 			return true;
 		}
 
 		// Check if it's a directory (optional, depending on your definition of "file path")
-		if (std::filesystem::is_directory(p)) 
+		if (std::filesystem::is_directory(p))
 		{
 			// A directory is a valid path, but not a "file path" in the strict sense.
 			// You might return false here if you only want to identify regular files.
@@ -788,19 +788,19 @@ namespace WBSF
 		ERMsg msg;
 
 
-//#if defined(__linux__)
-//#if defined(_MSC_VER)
-//#if defined(_WIN32)
+		//#if defined(__linux__)
+		//#if defined(_MSC_VER)
+		//#if defined(_WIN32)
 
 
 
-		//auto l = boost_process::windows::default_launcher();
-		//boost::asio::io_context ctx;
+				//auto l = boost_process::windows::default_launcher();
+				//boost::asio::io_context ctx;
 
 
-		// forward both stderr & stdout to stdout of the parent process
-		//boost::process::v1::proce proc(ctx, exe_path.c_str(), arg.c_str());//, boost_process::process_stdio{{ /* in to default */}, stdout, stdout});
-		//proc.wait();
+				// forward both stderr & stdout to stdout of the parent process
+				//boost::process::v1::proce proc(ctx, exe_path.c_str(), arg.c_str());//, boost_process::process_stdio{{ /* in to default */}, stdout, stdout});
+				//proc.wait();
 
 		namespace bp = boost::process::v1;
 
@@ -1106,40 +1106,50 @@ namespace WBSF
 	{
 		ERMsg msg;
 
-		//		if (path.empty())
-		//			return msg;
-		//
-		//
-		//		std::string tmp(path);
-		//		while (IsPathEndOk(tmp))//remove \ and //
-		//			tmp = tmp.substr(0, tmp.length() - 1);
-		//
-		//		if (tmp != "c:" && tmp != "C:" && tmp.size() > 2)
-		//		{
-		//			if (!DirectoryExists(path))
-		//			{
-		//				std::string::size_type pos = tmp.find_last_of("\\/");
-		//				if (pos != std::string::npos)
-		//				{
-		//					std::string subDir = tmp.substr(0, pos);
-		//					msg = CreateMultipleDir(subDir);
-		//					if (msg)
-		//					{
-		//						//can't create directory when a file without extension with the same name exist!
-		//						if (!CreateDirectoryW(UTF16(tmp).c_str(), NULL))
-		//						{
-		//							DWORD dw = GetLastError();
-		//							if (dw != ERROR_ALREADY_EXISTS)
-		//							{
-		//								msg = GetLastErrorMessage();
-		//								return msg;
-		//							}
-		//
-		//						}
-		//					}
-		//				}
-		//			}
-		//		}
+		if (path.empty())
+			return msg;
+
+
+		try
+		{
+
+			std::string tmp(path);
+			while (IsPathEndOk(tmp))//remove \ and //
+				tmp = tmp.substr(0, tmp.length() - 1);
+
+			//if (tmp != "c:" && tmp != "C:" && tmp.size() > 2)
+			//{
+			if (!DirectoryExists(path))
+			{
+				//std::string::size_type pos = tmp.find_last_of("\\/");
+				//if (pos != std::string::npos)
+				//{
+					//std::string subDir = tmp.substr(0, pos);
+					//msg = CreateMultipleDir(subDir);
+					//if (msg)
+					//{
+						//can't create directory when a file without extension with the same name exist!
+
+				if (!boost::filesystem::create_directories(path))
+				{
+					//DWORD dw = GetLastError();
+					//if (dw != ERROR_ALREADY_EXISTS)
+					//{
+					//	msg = GetLastErrorMessage();
+					//	return msg;
+					//}
+					msg.ajoute( "Directories '" + path + "' could not be created." );
+				
+				}
+				//}
+			//}
+			}
+			//}
+		}
+		catch (const boost::filesystem::filesystem_error& ex) 
+		{
+			msg.ajoute(string("File system error: ") + ex.what() );
+		}
 
 		return msg;
 	}
@@ -1801,7 +1811,7 @@ namespace WBSF
 		auto it1 = StringRange(str1.begin(), str1.end());
 		auto it2 = StringRange(str2.begin(), str2.end());
 		size_t pos = std::distance(it1.begin(), boost::ifind_first(it1, it2).begin());
-		return pos < str1.length() ? pos: string::npos;
+		return pos < str1.length() ? pos : string::npos;
 	}
 
 	size_t Find(const std::string& str1, const std::string& str2, bool bCaseSensitive)
