@@ -75,7 +75,7 @@ namespace WBSF
 	const char* CModel::MEMBER_NAME[NB_MEMBER] = { "Title", "Version", "ID", "EXE", "Behaviour", "Description", "WindowRect", "SimulatedCategory", "TransferFileVersion", "IOFileVersion", "NbYearMin", "NbYearMax", "ThreadSafe", "InputVariableArray", "SSI", "OutputTypeMode", "JulianDay", "MissingValue", "OutputVariableArray", "Credit", "Copyright", "HelpType", "HelpFileName", "HelpText" };
 	const short CModel::TRANSLATED_MEMBER[NB_TRANSLATED_MEMBER] = { TITLE, DESCRIPTION, CREDIT, COPYRIGHT, HELP_FILENAME, HELP_TEXT };
 #if defined(__linux__)
-    const std::string CModel::PREFIX = "";
+    const std::string CModel::PREFIX = "lib";
     const std::string CModel::EXTENTION = ".so";
 
 #else //Windows
