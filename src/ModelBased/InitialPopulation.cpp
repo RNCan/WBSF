@@ -40,11 +40,12 @@ void CInitialPopulation::Initialize(CTRef peakDay, double sigma, size_t nbObject
 {
     assert(nbObjects > 0);
     assert(initialPopulation > 0);
-    assert((peakDay.GetDOY() - 3 * sigma) >= 0 && (peakDay.GetDOY() + 3 * sigma) <= 365); //all attack within first year
 
     clear();
     if (peakDay.is_init())
     {
+        assert((peakDay.GetDOY() - 3 * sigma) >= 0 && (peakDay.GetDOY() + 3 * sigma) <= 365); //all attack within first year
+
         size_t nbCreated = 0;
         double cumulCreated = 0;
         double scaleFactor = initialPopulation / nbObjects;
