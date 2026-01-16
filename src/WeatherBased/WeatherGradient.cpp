@@ -1125,36 +1125,43 @@ namespace WBSF
 							//for a unknown reason, using elevation in selection of gradient stations get better result in all situation
 							if (*it == -999)
 							{
-								ERMsg msgTmp;
-								msgTmp += m_pNormalDB->Search(results, m_target, nbStations, -1, v, -999, true, m_bUseNearestElev, m_bUseNearestShore);
-								if (msgTmp)
-									msg = ComputeGradient(g, results, m_gradient[z][g], m_R²[z][g], m_inputs[z][g], callback);
-								else  if (!m_allowDerivedVariables[v])
-									msg += msgTmp;
-
-								GetSᵒ(g, results, m_Sᵒ[z][g]);
+								//If there is not enough station, we use the default gradients
+								if (m_pNormalDB->Search(results, m_target, nbStations, -1, v, -999, true, m_bUseNearestElev, m_bUseNearestShore))
+								{
+									msg += ComputeGradient(g, results, m_gradient[z][g], m_R²[z][g], m_inputs[z][g], callback);
+									GetSᵒ(g, results, m_Sᵒ[z][g]);
+								}
 							}
 							else
 							{
-								//limit the number of station of the number available in the database. In case of special used.
-								//Normally a daily database have at least 100 stations.
-								nbStations = min(nbStations, size_t(m_pObservedDB->size()/2));
-								msg += m_pObservedDB->Search(results, m_target, nbStations, -1, v, *it, true, m_bUseNearestElev, m_bUseNearestShore);
+								//If there is not enough station, we use the default gradients
+								m_pObservedDB->Search(results, m_target, nbStations, -1, v, *it, true, m_bUseNearestElev, m_bUseNearestShore);
+								
 							}
 
-							//compute factor
-							for (size_t s = 0; s < GetNbSpaces(); s++)
+							if (results.size() == nbStations)
 							{
-								double f = GetFactor(z, g, s, results);
-								double ff = 1;
-								//The factor of this scale is apply only on the residual of the finer scale
-								for (size_t zz = 0; zz < z; zz++)
-									ff -= m_factor[*it][zz][g][s];
+								//compute factor
+								for (size_t s = 0; s < GetNbSpaces(); s++)
+								{
+									double f = GetFactor(z, g, s, results);
+									double ff = 1;
+									//The factor of this scale is apply only on the residual of the finer scale
+									for (size_t zz = 0; zz < z; zz++)
+										ff -= m_factor[*it][zz][g][s];
 
-								m_factor[*it][z][g][s] = max(0.0, min(1.0, f*ff));
+									m_factor[*it][z][g][s] = max(0.0, min(1.0, f * ff));
 
-								if (m_factor[*it][z][g][s] < 1.0)
-									bContinue = true;
+									if (m_factor[*it][z][g][s] < 1.0)
+										bContinue = true;
+								}
+							}
+							else
+							{
+								m_factor[*it][z][g].fill(0);
+								
+								//If there is not enough station, we use the default gradients
+								bContinue = true;
 							}
 						}
 
@@ -1190,8 +1197,11 @@ namespace WBSF
 
 					msg += callback.StepIt();
 				}//for all scale
+				
+				//verification of the code
 				if (msg)
 				{
+#ifdef _DEBUG
 					for (set<int>::const_iterator it = years.begin(); it != years.end(); it++)
 					{
 						for (size_t s = 0; s < GetNbSpaces(); s++)
@@ -1203,6 +1213,7 @@ namespace WBSF
 							assert(f == 1);
 						}
 					}
+#endif
 				}
 			}//if selected variable
 		}//all variable
