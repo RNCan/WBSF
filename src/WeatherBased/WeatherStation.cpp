@@ -2439,7 +2439,7 @@ namespace WBSF
 			{
 				for (size_t d = 0; d < size(); d++)
 				{
-					if (p.is_inside(CTRef(TRef.GetYear(), TRef.GetMonth(), d, 0, p.TM())))
+					if (!p.is_init() || p.is_inside(CTRef(TRef.GetYear(), TRef.GetMonth(), d, 0, p.TM())))
 					{
 						me.m_stat[v] += at(d).GetStat(v);
 					}
@@ -2449,7 +2449,7 @@ namespace WBSF
 			{
 				for (size_t d = 0; d < size(); d++)
 				{
-					if (p.is_inside(CTRef(TRef.GetYear(), TRef.GetMonth(), d, 0, p.TM())))
+					if (!p.is_init() || p.is_inside(CTRef(TRef.GetYear(), TRef.GetMonth(), d, 0, p.TM())))
 					{
 						me.m_stat[v] += at(d).GetVarEx(v);
 					}
